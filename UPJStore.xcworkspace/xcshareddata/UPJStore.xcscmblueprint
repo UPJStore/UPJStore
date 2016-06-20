@@ -1,0 +1,31 @@
+{
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+    "35d0448e-8176-8346-98a2-e26bc10a2964++3012" : {
+
+    }
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "35d0448e-8176-8346-98a2-e26bc10a2964++3012" : 0,
+    "53549385E1EABA3278C88AA192CEE2EC8AAD9961" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "FAA7BDE8-3CBC-4F81-8106-381345D6FB9C",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "35d0448e-8176-8346-98a2-e26bc10a2964++3012" : "UPJStore\/",
+    "53549385E1EABA3278C88AA192CEE2EC8AAD9961" : ""
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "UPJStore",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "UPJStore.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/svn.weisida.cc\/svn\/ios_app",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "35d0448e-8176-8346-98a2-e26bc10a2964++3012"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/UPJStore\/UPJStore.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "53549385E1EABA3278C88AA192CEE2EC8AAD9961"
+    }
+  ]
+}
