@@ -42,7 +42,7 @@
     //  UIColor *bordercolor = [UIColor colorWithRed:51.0/255 green:51.0/255 blue:51.0/255 alpha:1];//333
     
     self.navigationItem.title = @"我的优惠券";
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"fanhui_@2x.png"] style:UIBarButtonItemStyleDone target:self action:@selector(pop)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"backArrow"] style:UIBarButtonItemStyleDone target:self action:@selector(pop)];
     self.navigationItem.leftBarButtonItem.tintColor = [UIColor blackColor];
        self.view.backgroundColor = [UIColor whiteColor];
     
@@ -91,7 +91,7 @@
     couponView = [[UIView alloc]initWithFrame:CGRectMake1(0, 123, 414, 549)];
     [self.view addSubview:couponView];
     
-    UIImage *image = [UIImage imageNamed:@"MyCouponicon@2x.png"];
+    UIImage *image = [UIImage imageNamed:@"MyCouponicon"];
     imageView = [[UIImageView alloc]initWithImage:image];
     imageView.frame = CGRectMake1(152, 40, 110, 110);
     [couponView addSubview:imageView];

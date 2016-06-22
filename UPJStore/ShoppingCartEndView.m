@@ -59,8 +59,8 @@ static CGFloat VIEW_HEIGHT = 44 ;
     UIImageView *line = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kWidth, 0.5)];
     line.backgroundColor=[UIColor colorFromHexRGB:@"e2e2e2"];
     [self addSubview:line];
-    UIImage *btimg = [UIImage imageNamed:@"UnSelected.png"];
-    UIImage *selectImg = [UIImage imageNamed:@"Selected.png"];
+    UIImage *btimg = [UIImage imageNamed:@"UnSelected"];
+    UIImage *selectImg = [UIImage imageNamed:@"Selected"];
     
     UIButton *bt = [[UIButton alloc]initWithFrame:CGRectMake(5, self.frame.size.height/2-btimg.size.height/2, btimg.size.width+60, btimg.size.height)];
     bt.selected=YES;

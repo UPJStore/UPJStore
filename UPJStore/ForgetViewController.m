@@ -38,11 +38,11 @@
     self.view.backgroundColor = backcolor;
     
     self.navigationItem.title = @"重置密码";
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"fanhui_@2x.png"] style:UIBarButtonItemStyleDone target:self action:@selector(pop)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"backArrow"] style:UIBarButtonItemStyleDone target:self action:@selector(pop)];
     self.navigationItem.leftBarButtonItem.tintColor = [UIColor blackColor];
     
     
-    passwordTextFieldView = [[TextFieldView alloc]initWithFrame:CGRectMake1(0, 26, 414, 736) String:@"6-18位的英文或数字的密码" picture:@"icon_002@2x.png" number:414];
+    passwordTextFieldView = [[TextFieldView alloc]initWithFrame:CGRectMake1(0, 26, 414, 736) String:@"6-18位的英文或数字的密码" picture:@"code" number:414];
     [passwordTextFieldView passwordHide];
     [self.view addSubview:passwordTextFieldView];
     
@@ -52,7 +52,7 @@
     [self.view addSubview:passwordSwitch];
     [passwordTextFieldView addRightView:passwordSwitch];
     
-    passwordTextFieldView2 = [[TextFieldView alloc]initWithFrame:CGRectMake1(0, 91, 414, 736) String:@"重复密码" picture:@"icon_002@2x.png" number:414];
+    passwordTextFieldView2 = [[TextFieldView alloc]initWithFrame:CGRectMake1(0, 91, 414, 736) String:@"重复密码" picture:@"code" number:414];
     [passwordTextFieldView2 passwordHide];
     [self.view addSubview:passwordTextFieldView2];
     

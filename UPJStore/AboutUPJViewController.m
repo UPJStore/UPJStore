@@ -26,7 +26,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
     
     self.navigationItem.title = @"关于友品集";
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"fanhui_@2x.png"] style:UIBarButtonItemStyleDone target:self action:@selector(pop)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"backArrow"] style:UIBarButtonItemStyleDone target:self action:@selector(pop)];
     self.navigationItem.leftBarButtonItem.tintColor = [UIColor blackColor];
     
     UIImageView * logoView= [[UIImageView alloc]initWithFrame:CGRectMake1(135, 80, 144,150)];
@@ -60,7 +60,7 @@
     
     UIButton *shareBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     shareBtn.frame =  CGRectMake1(136, 400, 140, 50);
-    [shareBtn setBackgroundImage:[UIImage imageNamed:@"AboutButton@3x.png"] forState:UIControlStateNormal];
+    [shareBtn setBackgroundImage:[UIImage imageNamed:@"AboutButton"] forState:UIControlStateNormal];    
     shareBtn.titleLabel.font = [UIFont systemFontOfSize:CGFloatMakeY(12)];
     [shareBtn addTarget:self action:@selector(shareAction:) forControlEvents:UIControlEventTouchUpInside];
     

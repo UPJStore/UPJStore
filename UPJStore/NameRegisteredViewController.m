@@ -47,19 +47,12 @@
     self.view.backgroundColor = backcolor;
     
     self.navigationItem.title = @"注册";
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"fanhui_@2x.png"] style:UIBarButtonItemStyleDone target:self action:@selector(pop)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"backArrow"] style:UIBarButtonItemStyleDone target:self action:@selector(pop)];
     self.navigationItem.leftBarButtonItem.tintColor = [UIColor blackColor];
-    nameTextFieldView = [[TextFieldView alloc]initWithFrame:CGRectMake1(0, 0, 414, 736) String:@"昵称" picture:@"icon_003@2x.png" number:414];
+    nameTextFieldView = [[TextFieldView alloc]initWithFrame:CGRectMake1(0, 0, 414, 736) String:@"昵称" picture:@"membericon" number:414];
     [self.view addSubview:nameTextFieldView];
     
-    //  userTextFieldView = [[TextFieldView alloc]initWithFrame:CGRectMake1(0, 50*hightSize, 414, 736) String:@"用户名(用于以后登陆)" picture:@"icon_001@2x.png" number:414];
-    //[self.view addSubview:userTextFieldView];
-    
-    // idcardTextFieldView = [[TextFieldView alloc]initWithFrame:CGRectMake1(0, 100*hightSize, 414, 736) String:@"身份证" picture:@"idcardicon.png" number:414];
-    // idcardTextFieldView.textfield.keyboardType = UIKeyboardTypeDefault;
-    // [self.view addSubview:idcardTextFieldView];
-    
-    passwordTextFieldView = [[TextFieldView alloc]initWithFrame:CGRectMake1(0, 65, 414, 736) String:@"6-18位的英文或数字的密码" picture:@"icon_002@2x.png" number:414];
+    passwordTextFieldView = [[TextFieldView alloc]initWithFrame:CGRectMake1(0, 65, 414, 736) String:@"6-18位的英文或数字的密码" picture:@"code" number:414];
     [passwordTextFieldView passwordHide];
     [self.view addSubview:passwordTextFieldView];
     
@@ -69,7 +62,7 @@
     [self.view addSubview:passwordSwitch];
     [passwordTextFieldView addRightView:passwordSwitch];
     
-    passwordTextFieldView2 = [[TextFieldView alloc]initWithFrame:CGRectMake1(0, 130, 414, 736) String:@"重复密码" picture:@"icon_002@2x.png" number:414];
+    passwordTextFieldView2 = [[TextFieldView alloc]initWithFrame:CGRectMake1(0, 130, 414, 736) String:@"重复密码" picture:@"code" number:414];
     [passwordTextFieldView2 passwordHide];
     [self.view addSubview:passwordTextFieldView2];
     

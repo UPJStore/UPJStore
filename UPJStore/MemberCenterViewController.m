@@ -381,7 +381,7 @@
         _imageStr = responseObject[@"data"][@"avatar"];
         [self setNamewithNickName:responseObject[@"data"][@"nickname"]];
         if (_imageStr==nil || [_imageStr isKindOfClass:[NSNull class]]) {
-            _headerView.imageView.image = [UIImage imageNamed:@"geren@3x.png"];
+            _headerView.imageView.image = [UIImage imageNamed:@"geren"];
         }else
         {
             if (![_imageStr isEqualToString:[self returnImage]]) {

@@ -56,7 +56,7 @@ static CGFloat CELL_HEIGHT =100;
 {
     
     
-    UIImage *btimg = [UIImage imageNamed:@"ic_cb_normal.png"];
+    UIImage *btimg = [UIImage imageNamed:@"ic_cb_normal"];
     UIImage *selectImg = [UIImage imageNamed:@"ic_cb_checked"];
     
     _selectBt = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, btimg.size.width+20, CELL_HEIGHT)];

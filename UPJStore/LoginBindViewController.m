@@ -45,7 +45,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationItem.title = @"绑定登录";
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"fanhui_@2x.png"] style:UIBarButtonItemStyleDone target:self action:@selector(pop)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"backArrow"] style:UIBarButtonItemStyleDone target:self action:@selector(pop)];
     self.navigationItem.leftBarButtonItem.tintColor = [UIColor blackColor];
     UIColor *btncolor = [UIColor colorWithRed:204.0/255 green:34.0/255 blue:69.0/255 alpha:1];
     
@@ -63,10 +63,10 @@
     label2.numberOfLines = 0;
     [self.view addSubview:label2];
     
-    name = [[TextFieldView alloc]initWithFrame:CGRectMake1(0, 50, 414, 50) String:@"用户名/手机号" picture:@"icon_001@2x.png" number:414];
+    name = [[TextFieldView alloc]initWithFrame:CGRectMake1(0, 50, 414, 50) String:@"用户名/手机号" picture:@"phoneIcon" number:414];
     [self.view addSubview:name];
     
-    password = [[TextFieldView alloc]initWithFrame:CGRectMake1(0, 110, 414, 50) String:@"密码" picture:@"icon_002@2x.png" number:414];
+    password = [[TextFieldView alloc]initWithFrame:CGRectMake1(0, 110, 414, 50) String:@"密码" picture:@"code" number:414];
     [password.textfield setSecureTextEntry:YES];
     [self.view addSubview:password];
     

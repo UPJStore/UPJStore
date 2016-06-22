@@ -124,7 +124,6 @@
 		D1ADB2F51C940EA6000B134E /* goodsCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D1ADB2F41C940EA6000B134E /* goodsCollectionViewCell.m */; };
 		D1ADB30A1C941094000B134E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1ADB3051C941094000B134E /* ViewController.m */; };
 		D1ADB30C1C941094000B134E /* CodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1ADB3091C941094000B134E /* CodeViewController.m */; };
-		D1ADB3511C9413A0000B134E /* backIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = D1ADB3501C9413A0000B134E /* backIcon.png */; };
 		D1D4A0F71CB5045500BC6913 /* TAAbstractDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D4A0EA1CB5045500BC6913 /* TAAbstractDotView.m */; };
 		D1D4A0F81CB5045500BC6913 /* TAAnimatedDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D4A0EC1CB5045500BC6913 /* TAAnimatedDotView.m */; };
 		D1D4A0F91CB5045500BC6913 /* TADotView.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D4A0EE1CB5045500BC6913 /* TADotView.m */; };
@@ -489,7 +488,6 @@
 		D1ADB3051C941094000B134E /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		D1ADB3081C941094000B134E /* CodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CodeViewController.h; sourceTree = "<group>"; };
 		D1ADB3091C941094000B134E /* CodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CodeViewController.m; sourceTree = "<group>"; };
-		D1ADB3501C9413A0000B134E /* backIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backIcon.png; sourceTree = "<group>"; };
 		D1D4A0E91CB5045500BC6913 /* TAAbstractDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAAbstractDotView.h; sourceTree = "<group>"; };
 		D1D4A0EA1CB5045500BC6913 /* TAAbstractDotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAAbstractDotView.m; sourceTree = "<group>"; };
 		D1D4A0EB1CB5045500BC6913 /* TAAnimatedDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAAnimatedDotView.h; sourceTree = "<group>"; };
@@ -657,6 +655,14 @@
 		D13C1EB71CFBD21600EDE19E /* Setting */ = {
 			isa = PBXGroup;
 			children = (
+				D1034D3F1D17A290000D893F /* ModifyNicknameViewController.h */,
+				D1034D401D17A290000D893F /* ModifyNicknameViewController.m */,
+				D1034D411D17A290000D893F /* ModifyRealnameViewController.h */,
+				D1034D421D17A290000D893F /* ModifyRealnameViewController.m */,
+				D1034D431D17A290000D893F /* ModifyViewController.h */,
+				D1034D441D17A290000D893F /* ModifyViewController.m */,
+				D1034D5B1D17A290000D893F /* SettingViewController.h */,
+				D1034D5C1D17A290000D893F /* SettingViewController.m */,
 			);
 			name = Setting;
 			sourceTree = "<group>";
@@ -664,6 +670,18 @@
 		D13C1EB81CFBD5C100EDE19E /* MyViewController */ = {
 			isa = PBXGroup;
 			children = (
+				D1034D451D17A290000D893F /* MyAddressViewController.h */,
+				D1034D461D17A290000D893F /* MyAddressViewController.m */,
+				D1034D511D17A290000D893F /* NewAddressViewController.h */,
+				D1034D521D17A290000D893F /* NewAddressViewController.m */,
+				D1034D471D17A290000D893F /* MyAttentionViewController.h */,
+				D1034D481D17A290000D893F /* MyAttentionViewController.m */,
+				D1034D491D17A290000D893F /* MyCollectViewController.h */,
+				D1034D4A1D17A290000D893F /* MyCollectViewController.m */,
+				D1034D4B1D17A290000D893F /* MyCookieViewController.h */,
+				D1034D4C1D17A290000D893F /* MyCookieViewController.m */,
+				D1034D4D1D17A290000D893F /* MyCouponViewController.h */,
+				D1034D4E1D17A290000D893F /* MyCouponViewController.m */,
 			);
 			name = MyViewController;
 			sourceTree = "<group>";
@@ -671,6 +689,10 @@
 		D13C1EB91CFBD65200EDE19E /* Protocol  */ = {
 			isa = PBXGroup;
 			children = (
+				D1034D291D17A290000D893F /* AboutUPJViewController.h */,
+				D1034D2A1D17A290000D893F /* AboutUPJViewController.m */,
+				D1034D2B1D17A290000D893F /* AgreementViewController.h */,
+				D1034D2C1D17A290000D893F /* AgreementViewController.m */,
 			);
 			name = "Protocol ";
 			sourceTree = "<group>";
@@ -678,6 +700,12 @@
 		D13C1EBA1CFBD67C00EDE19E /* Registered */ = {
 			isa = PBXGroup;
 			children = (
+				D1034D351D17A290000D893F /* ForgetViewController.h */,
+				D1034D361D17A290000D893F /* ForgetViewController.m */,
+				D1034D4F1D17A290000D893F /* NameRegisteredViewController.h */,
+				D1034D501D17A290000D893F /* NameRegisteredViewController.m */,
+				D1034D591D17A290000D893F /* PhoneRegisteredViewController.h */,
+				D1034D5A1D17A290000D893F /* PhoneRegisteredViewController.m */,
 			);
 			name = Registered;
 			sourceTree = "<group>";
@@ -685,6 +713,14 @@
 		D13C1EBB1CFBD6EF00EDE19E /* Order */ = {
 			isa = PBXGroup;
 			children = (
+				D1034D531D17A290000D893F /* OrderDetailsViewController.h */,
+				D1034D541D17A290000D893F /* OrderDetailsViewController.m */,
+				D1034D551D17A290000D893F /* OrderViewController.h */,
+				D1034D561D17A290000D893F /* OrderViewController.m */,
+				D1034D571D17A290000D893F /* PaySuccessViewController.h */,
+				D1034D581D17A290000D893F /* PaySuccessViewController.m */,
+				D1034D311D17A290000D893F /* EvaluateViewController.h */,
+				D1034D321D17A290000D893F /* EvaluateViewController.m */,
 			);
 			name = Order;
 			sourceTree = "<group>";
@@ -692,6 +728,12 @@
 		D13C1EBC1CFBD72500EDE19E /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				D1034D2D1D17A290000D893F /* BindViewController.h */,
+				D1034D2E1D17A290000D893F /* BindViewController.m */,
+				D1034D391D17A290000D893F /* LoginBindViewController.h */,
+				D1034D3A1D17A290000D893F /* LoginBindViewController.m */,
+				D1034D3B1D17A290000D893F /* LoginViewController.h */,
+				D1034D3C1D17A290000D893F /* LoginViewController.m */,
 			);
 			name = Login;
 			sourceTree = "<group>";
@@ -1130,7 +1172,6 @@
 			children = (
 				D1F4FA491CBE3AE000C56508 /* OpenImage */,
 				D103B7901CDB315C00DC850A /* idcardicon.png */,
-				D1ADB3501C9413A0000B134E /* backIcon.png */,
 				25C090411C8ECC9B0057A5CB /* @2x */,
 			);
 			name = Resource;
@@ -1330,58 +1371,14 @@
 		E3E43CCA1C72C2F900E875F5 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				D1034D291D17A290000D893F /* AboutUPJViewController.h */,
-				D1034D2A1D17A290000D893F /* AboutUPJViewController.m */,
-				D1034D2B1D17A290000D893F /* AgreementViewController.h */,
-				D1034D2C1D17A290000D893F /* AgreementViewController.m */,
-				D1034D2D1D17A290000D893F /* BindViewController.h */,
-				D1034D2E1D17A290000D893F /* BindViewController.m */,
 				D1034D2F1D17A290000D893F /* CKListViewController.h */,
 				D1034D301D17A290000D893F /* CKListViewController.m */,
-				D1034D311D17A290000D893F /* EvaluateViewController.h */,
-				D1034D321D17A290000D893F /* EvaluateViewController.m */,
 				D1034D331D17A290000D893F /* FeedbackViewController.h */,
 				D1034D341D17A290000D893F /* FeedBackViewController.m */,
-				D1034D351D17A290000D893F /* ForgetViewController.h */,
-				D1034D361D17A290000D893F /* ForgetViewController.m */,
 				D1034D371D17A290000D893F /* HowToDoViewController.h */,
 				D1034D381D17A290000D893F /* HowToDoViewController.m */,
-				D1034D391D17A290000D893F /* LoginBindViewController.h */,
-				D1034D3A1D17A290000D893F /* LoginBindViewController.m */,
-				D1034D3B1D17A290000D893F /* LoginViewController.h */,
-				D1034D3C1D17A290000D893F /* LoginViewController.m */,
 				D1034D3D1D17A290000D893F /* MemberCenterViewController.h */,
 				D1034D3E1D17A290000D893F /* MemberCenterViewController.m */,
-				D1034D3F1D17A290000D893F /* ModifyNicknameViewController.h */,
-				D1034D401D17A290000D893F /* ModifyNicknameViewController.m */,
-				D1034D411D17A290000D893F /* ModifyRealnameViewController.h */,
-				D1034D421D17A290000D893F /* ModifyRealnameViewController.m */,
-				D1034D431D17A290000D893F /* ModifyViewController.h */,
-				D1034D441D17A290000D893F /* ModifyViewController.m */,
-				D1034D451D17A290000D893F /* MyAddressViewController.h */,
-				D1034D461D17A290000D893F /* MyAddressViewController.m */,
-				D1034D471D17A290000D893F /* MyAttentionViewController.h */,
-				D1034D481D17A290000D893F /* MyAttentionViewController.m */,
-				D1034D491D17A290000D893F /* MyCollectViewController.h */,
-				D1034D4A1D17A290000D893F /* MyCollectViewController.m */,
-				D1034D4B1D17A290000D893F /* MyCookieViewController.h */,
-				D1034D4C1D17A290000D893F /* MyCookieViewController.m */,
-				D1034D4D1D17A290000D893F /* MyCouponViewController.h */,
-				D1034D4E1D17A290000D893F /* MyCouponViewController.m */,
-				D1034D4F1D17A290000D893F /* NameRegisteredViewController.h */,
-				D1034D501D17A290000D893F /* NameRegisteredViewController.m */,
-				D1034D511D17A290000D893F /* NewAddressViewController.h */,
-				D1034D521D17A290000D893F /* NewAddressViewController.m */,
-				D1034D531D17A290000D893F /* OrderDetailsViewController.h */,
-				D1034D541D17A290000D893F /* OrderDetailsViewController.m */,
-				D1034D551D17A290000D893F /* OrderViewController.h */,
-				D1034D561D17A290000D893F /* OrderViewController.m */,
-				D1034D571D17A290000D893F /* PaySuccessViewController.h */,
-				D1034D581D17A290000D893F /* PaySuccessViewController.m */,
-				D1034D591D17A290000D893F /* PhoneRegisteredViewController.h */,
-				D1034D5A1D17A290000D893F /* PhoneRegisteredViewController.m */,
-				D1034D5B1D17A290000D893F /* SettingViewController.h */,
-				D1034D5C1D17A290000D893F /* SettingViewController.m */,
 				D13C1EBC1CFBD72500EDE19E /* Login */,
 				D13C1EBA1CFBD67C00EDE19E /* Registered */,
 				D13C1EB81CFBD5C100EDE19E /* MyViewController */,
@@ -1451,12 +1448,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E30AD7941C719F7000B5188C /* Build configuration list for PBXNativeTarget "UPJStore" */;
 			buildPhases = (
-				A925B37E76631B1E09D5EEAA /* 📦 Check Pods Manifest.lock */,
 				E30AD7631C719F6F00B5188C /* Sources */,
 				E30AD7641C719F6F00B5188C /* Frameworks */,
 				E30AD7651C719F6F00B5188C /* Resources */,
 				2811CF811DE831ED97FB84DD /* 📦 Embed Pods Frameworks */,
 				B2634531A7062D9B6EB8444C /* 📦 Copy Pods Resources */,
+				E4A09C832F8C9C85E4320C61 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1569,7 +1566,6 @@
 				25C0904B1C8ECC9B0057A5CB /* ershi@2x.png in Resources */,
 				25C0904A1C8ECC9B0057A5CB /* cookiebutton@2x.png in Resources */,
 				E30AD7771C719F6F00B5188C /* Assets.xcassets in Resources */,
-				D1ADB3511C9413A0000B134E /* backIcon.png in Resources */,
 				25C0904F1C8ECC9B0057A5CB /* cookieicon_04@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1606,21 +1602,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-UPJStore/Pods-UPJStore-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A925B37E76631B1E09D5EEAA /* 📦 Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "📦 Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
 		B2634531A7062D9B6EB8444C /* 📦 Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1634,6 +1615,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-UPJStore/Pods-UPJStore-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E4A09C832F8C9C85E4320C61 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-UPJStore/Pods-UPJStore-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1914,7 +1910,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/UPJStore",
 				);
-				GCC_PREFIX_HEADER = /Users/upj/Desktop/UPJStore/UPJStore/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/upj/Desktop/iii/UPJStore/PrefixHeader.pch;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_ROOT}/Headers/Public\"",
@@ -1973,7 +1969,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/UPJStore",
 				);
-				GCC_PREFIX_HEADER = /Users/upj/Desktop/UPJStore/UPJStore/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/upj/Desktop/iii/UPJStore/PrefixHeader.pch;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_ROOT}/Headers/Public\"",

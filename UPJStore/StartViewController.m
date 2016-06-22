@@ -106,7 +106,7 @@
         self.imageView=[[UIImageView alloc]initWithFrame:CGRectMake(self.view.bounds.size.width*i, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
         
         //(2)给每个相框添加图片
-        self.imageView.image=[UIImage imageNamed:[NSString stringWithFormat:@"引%d.png",i+1]];
+        self.imageView.image=[UIImage imageNamed:[NSString stringWithFormat:@"引%d",i+1]];
         if (i==3)
         {
             //(1)打开用户交互
