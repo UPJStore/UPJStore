@@ -651,6 +651,14 @@
 		D13C1EB71CFBD21600EDE19E /* Setting */ = {
 			isa = PBXGroup;
 			children = (
+				D1034D3F1D17A290000D893F /* ModifyNicknameViewController.h */,
+				D1034D401D17A290000D893F /* ModifyNicknameViewController.m */,
+				D1034D411D17A290000D893F /* ModifyRealnameViewController.h */,
+				D1034D421D17A290000D893F /* ModifyRealnameViewController.m */,
+				D1034D431D17A290000D893F /* ModifyViewController.h */,
+				D1034D441D17A290000D893F /* ModifyViewController.m */,
+				D1034D5B1D17A290000D893F /* SettingViewController.h */,
+				D1034D5C1D17A290000D893F /* SettingViewController.m */,
 			);
 			name = Setting;
 			sourceTree = "<group>";
@@ -658,6 +666,18 @@
 		D13C1EB81CFBD5C100EDE19E /* MyViewController */ = {
 			isa = PBXGroup;
 			children = (
+				D1034D451D17A290000D893F /* MyAddressViewController.h */,
+				D1034D461D17A290000D893F /* MyAddressViewController.m */,
+				D1034D511D17A290000D893F /* NewAddressViewController.h */,
+				D1034D521D17A290000D893F /* NewAddressViewController.m */,
+				D1034D471D17A290000D893F /* MyAttentionViewController.h */,
+				D1034D481D17A290000D893F /* MyAttentionViewController.m */,
+				D1034D491D17A290000D893F /* MyCollectViewController.h */,
+				D1034D4A1D17A290000D893F /* MyCollectViewController.m */,
+				D1034D4B1D17A290000D893F /* MyCookieViewController.h */,
+				D1034D4C1D17A290000D893F /* MyCookieViewController.m */,
+				D1034D4D1D17A290000D893F /* MyCouponViewController.h */,
+				D1034D4E1D17A290000D893F /* MyCouponViewController.m */,
 			);
 			name = MyViewController;
 			sourceTree = "<group>";
@@ -665,6 +685,10 @@
 		D13C1EB91CFBD65200EDE19E /* Protocol  */ = {
 			isa = PBXGroup;
 			children = (
+				D1034D291D17A290000D893F /* AboutUPJViewController.h */,
+				D1034D2A1D17A290000D893F /* AboutUPJViewController.m */,
+				D1034D2B1D17A290000D893F /* AgreementViewController.h */,
+				D1034D2C1D17A290000D893F /* AgreementViewController.m */,
 			);
 			name = "Protocol ";
 			sourceTree = "<group>";
@@ -672,6 +696,12 @@
 		D13C1EBA1CFBD67C00EDE19E /* Registered */ = {
 			isa = PBXGroup;
 			children = (
+				D1034D351D17A290000D893F /* ForgetViewController.h */,
+				D1034D361D17A290000D893F /* ForgetViewController.m */,
+				D1034D4F1D17A290000D893F /* NameRegisteredViewController.h */,
+				D1034D501D17A290000D893F /* NameRegisteredViewController.m */,
+				D1034D591D17A290000D893F /* PhoneRegisteredViewController.h */,
+				D1034D5A1D17A290000D893F /* PhoneRegisteredViewController.m */,
 			);
 			name = Registered;
 			sourceTree = "<group>";
@@ -679,6 +709,14 @@
 		D13C1EBB1CFBD6EF00EDE19E /* Order */ = {
 			isa = PBXGroup;
 			children = (
+				D1034D531D17A290000D893F /* OrderDetailsViewController.h */,
+				D1034D541D17A290000D893F /* OrderDetailsViewController.m */,
+				D1034D551D17A290000D893F /* OrderViewController.h */,
+				D1034D561D17A290000D893F /* OrderViewController.m */,
+				D1034D571D17A290000D893F /* PaySuccessViewController.h */,
+				D1034D581D17A290000D893F /* PaySuccessViewController.m */,
+				D1034D311D17A290000D893F /* EvaluateViewController.h */,
+				D1034D321D17A290000D893F /* EvaluateViewController.m */,
 			);
 			name = Order;
 			sourceTree = "<group>";
@@ -686,6 +724,12 @@
 		D13C1EBC1CFBD72500EDE19E /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				D1034D2D1D17A290000D893F /* BindViewController.h */,
+				D1034D2E1D17A290000D893F /* BindViewController.m */,
+				D1034D391D17A290000D893F /* LoginBindViewController.h */,
+				D1034D3A1D17A290000D893F /* LoginBindViewController.m */,
+				D1034D3B1D17A290000D893F /* LoginViewController.h */,
+				D1034D3C1D17A290000D893F /* LoginViewController.m */,
 			);
 			name = Login;
 			sourceTree = "<group>";
@@ -1320,58 +1364,14 @@
 		E3E43CCA1C72C2F900E875F5 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				D1034D291D17A290000D893F /* AboutUPJViewController.h */,
-				D1034D2A1D17A290000D893F /* AboutUPJViewController.m */,
-				D1034D2B1D17A290000D893F /* AgreementViewController.h */,
-				D1034D2C1D17A290000D893F /* AgreementViewController.m */,
-				D1034D2D1D17A290000D893F /* BindViewController.h */,
-				D1034D2E1D17A290000D893F /* BindViewController.m */,
 				D1034D2F1D17A290000D893F /* CKListViewController.h */,
 				D1034D301D17A290000D893F /* CKListViewController.m */,
-				D1034D311D17A290000D893F /* EvaluateViewController.h */,
-				D1034D321D17A290000D893F /* EvaluateViewController.m */,
 				D1034D331D17A290000D893F /* FeedbackViewController.h */,
 				D1034D341D17A290000D893F /* FeedBackViewController.m */,
-				D1034D351D17A290000D893F /* ForgetViewController.h */,
-				D1034D361D17A290000D893F /* ForgetViewController.m */,
 				D1034D371D17A290000D893F /* HowToDoViewController.h */,
 				D1034D381D17A290000D893F /* HowToDoViewController.m */,
-				D1034D391D17A290000D893F /* LoginBindViewController.h */,
-				D1034D3A1D17A290000D893F /* LoginBindViewController.m */,
-				D1034D3B1D17A290000D893F /* LoginViewController.h */,
-				D1034D3C1D17A290000D893F /* LoginViewController.m */,
 				D1034D3D1D17A290000D893F /* MemberCenterViewController.h */,
 				D1034D3E1D17A290000D893F /* MemberCenterViewController.m */,
-				D1034D3F1D17A290000D893F /* ModifyNicknameViewController.h */,
-				D1034D401D17A290000D893F /* ModifyNicknameViewController.m */,
-				D1034D411D17A290000D893F /* ModifyRealnameViewController.h */,
-				D1034D421D17A290000D893F /* ModifyRealnameViewController.m */,
-				D1034D431D17A290000D893F /* ModifyViewController.h */,
-				D1034D441D17A290000D893F /* ModifyViewController.m */,
-				D1034D451D17A290000D893F /* MyAddressViewController.h */,
-				D1034D461D17A290000D893F /* MyAddressViewController.m */,
-				D1034D471D17A290000D893F /* MyAttentionViewController.h */,
-				D1034D481D17A290000D893F /* MyAttentionViewController.m */,
-				D1034D491D17A290000D893F /* MyCollectViewController.h */,
-				D1034D4A1D17A290000D893F /* MyCollectViewController.m */,
-				D1034D4B1D17A290000D893F /* MyCookieViewController.h */,
-				D1034D4C1D17A290000D893F /* MyCookieViewController.m */,
-				D1034D4D1D17A290000D893F /* MyCouponViewController.h */,
-				D1034D4E1D17A290000D893F /* MyCouponViewController.m */,
-				D1034D4F1D17A290000D893F /* NameRegisteredViewController.h */,
-				D1034D501D17A290000D893F /* NameRegisteredViewController.m */,
-				D1034D511D17A290000D893F /* NewAddressViewController.h */,
-				D1034D521D17A290000D893F /* NewAddressViewController.m */,
-				D1034D531D17A290000D893F /* OrderDetailsViewController.h */,
-				D1034D541D17A290000D893F /* OrderDetailsViewController.m */,
-				D1034D551D17A290000D893F /* OrderViewController.h */,
-				D1034D561D17A290000D893F /* OrderViewController.m */,
-				D1034D571D17A290000D893F /* PaySuccessViewController.h */,
-				D1034D581D17A290000D893F /* PaySuccessViewController.m */,
-				D1034D591D17A290000D893F /* PhoneRegisteredViewController.h */,
-				D1034D5A1D17A290000D893F /* PhoneRegisteredViewController.m */,
-				D1034D5B1D17A290000D893F /* SettingViewController.h */,
-				D1034D5C1D17A290000D893F /* SettingViewController.m */,
 				D13C1EBC1CFBD72500EDE19E /* Login */,
 				D13C1EBA1CFBD67C00EDE19E /* Registered */,
 				D13C1EB81CFBD5C100EDE19E /* MyViewController */,
