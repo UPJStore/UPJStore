@@ -23,7 +23,7 @@
     self.view.backgroundColor = backcolor;
     
     self.navigationItem.title = @"用户协议";
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"fanhui_@2x.png"] style:UIBarButtonItemStyleDone target:self action:@selector(pop)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"backArrow"] style:UIBarButtonItemStyleDone target:self action:@selector(pop)];
     self.navigationItem.leftBarButtonItem.tintColor = [UIColor blackColor];
     
     // Do any additional setup after loading the view.
@@ -32,7 +32,7 @@
     scrollView.showsVerticalScrollIndicator = NO;
     [self.view addSubview:scrollView];
     
-    UIImage *image = [UIImage imageNamed:@"AgrementPicture.png"];
+    UIImage *image = [UIImage imageNamed:@"AgrementPicture"];
     UIImageView *imageView = [[UIImageView alloc]initWithImage:image];
     imageView.frame = CGRectMake1(0, 0, 414, 5200);
     [scrollView addSubview:imageView];

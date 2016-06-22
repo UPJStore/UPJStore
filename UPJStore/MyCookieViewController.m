@@ -35,7 +35,7 @@
     UIColor *bordercolor = [UIColor colorWithRed:51.0/255 green:51.0/255 blue:51.0/255 alpha:1];
     
     self.navigationItem.title = @"我的饼干";
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"fanhui_@2x.png"] style:UIBarButtonItemStyleDone target:self action:@selector(pop)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"backArrow"] style:UIBarButtonItemStyleDone target:self action:@selector(pop)];
     self.navigationItem.leftBarButtonItem.tintColor = [UIColor blackColor];
     self.view.backgroundColor = backcolor;
     
@@ -45,7 +45,7 @@
     
     UIButton *questionbutton = [UIButton buttonWithType:UIButtonTypeCustom];
     questionbutton.frame = CGRectMake1(8*widthSize, 7*hightSize,80*widthSize, 30*hightSize);
-    [questionbutton setImage:[UIImage imageNamed:@"cookieicon_01@2x.png"] forState:UIControlStateNormal];
+    [questionbutton setImage:[UIImage imageNamed:@"cookieicon_01"] forState:UIControlStateNormal];
     questionbutton.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 40*widthSize);
     questionbutton.titleLabel.font = [UIFont systemFontOfSize:10*hightSize*app.autoSizeScaleY];
     [questionbutton setTitle:@"怎样赚取" forState:UIControlStateNormal];
@@ -54,9 +54,9 @@
     
     UIButton *remindbutton = [UIButton buttonWithType:UIButtonTypeCustom];
     remindbutton.frame = CGRectMake1(414-91*widthSize, 7*hightSize, 83*widthSize, 30*hightSize);
-    [remindbutton setImage:[UIImage imageNamed:@"cookieicon_02@2x.png"] forState:UIControlStateNormal];
+    [remindbutton setImage:[UIImage imageNamed:@"cookieicon_02"] forState:UIControlStateNormal];
     
-    UIImageView *cookieImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"cookieicon_03@2x.png"]];
+    UIImageView *cookieImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"cookieicon_03"]];
     cookieImageView.frame = CGRectMake1(414/2-52*widthSize,80*hightSize, 52*widthSize, 67*hightSize);
     [self.view addSubview:cookieImageView];
     

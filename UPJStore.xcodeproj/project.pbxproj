@@ -122,7 +122,6 @@
 		D1ADB2F51C940EA6000B134E /* goodsCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D1ADB2F41C940EA6000B134E /* goodsCollectionViewCell.m */; };
 		D1ADB30A1C941094000B134E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1ADB3051C941094000B134E /* ViewController.m */; };
 		D1ADB30C1C941094000B134E /* CodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1ADB3091C941094000B134E /* CodeViewController.m */; };
-		D1ADB3511C9413A0000B134E /* backIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = D1ADB3501C9413A0000B134E /* backIcon.png */; };
 		D1D4A0F71CB5045500BC6913 /* TAAbstractDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D4A0EA1CB5045500BC6913 /* TAAbstractDotView.m */; };
 		D1D4A0F81CB5045500BC6913 /* TAAnimatedDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D4A0EC1CB5045500BC6913 /* TAAnimatedDotView.m */; };
 		D1D4A0F91CB5045500BC6913 /* TADotView.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D4A0EE1CB5045500BC6913 /* TADotView.m */; };
@@ -483,7 +482,6 @@
 		D1ADB3051C941094000B134E /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		D1ADB3081C941094000B134E /* CodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CodeViewController.h; sourceTree = "<group>"; };
 		D1ADB3091C941094000B134E /* CodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CodeViewController.m; sourceTree = "<group>"; };
-		D1ADB3501C9413A0000B134E /* backIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backIcon.png; sourceTree = "<group>"; };
 		D1D4A0E91CB5045500BC6913 /* TAAbstractDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAAbstractDotView.h; sourceTree = "<group>"; };
 		D1D4A0EA1CB5045500BC6913 /* TAAbstractDotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAAbstractDotView.m; sourceTree = "<group>"; };
 		D1D4A0EB1CB5045500BC6913 /* TAAnimatedDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAAnimatedDotView.h; sourceTree = "<group>"; };
@@ -1164,7 +1162,6 @@
 			children = (
 				D1F4FA491CBE3AE000C56508 /* OpenImage */,
 				D103B7901CDB315C00DC850A /* idcardicon.png */,
-				D1ADB3501C9413A0000B134E /* backIcon.png */,
 				25C090411C8ECC9B0057A5CB /* @2x */,
 			);
 			name = Resource;
@@ -1441,12 +1438,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E30AD7941C719F7000B5188C /* Build configuration list for PBXNativeTarget "UPJStore" */;
 			buildPhases = (
-				A925B37E76631B1E09D5EEAA /* 📦 Check Pods Manifest.lock */,
 				E30AD7631C719F6F00B5188C /* Sources */,
 				E30AD7641C719F6F00B5188C /* Frameworks */,
 				E30AD7651C719F6F00B5188C /* Resources */,
 				2811CF811DE831ED97FB84DD /* 📦 Embed Pods Frameworks */,
 				B2634531A7062D9B6EB8444C /* 📦 Copy Pods Resources */,
+				E4A09C832F8C9C85E4320C61 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1559,7 +1556,6 @@
 				25C0904B1C8ECC9B0057A5CB /* ershi@2x.png in Resources */,
 				25C0904A1C8ECC9B0057A5CB /* cookiebutton@2x.png in Resources */,
 				E30AD7771C719F6F00B5188C /* Assets.xcassets in Resources */,
-				D1ADB3511C9413A0000B134E /* backIcon.png in Resources */,
 				25C0904F1C8ECC9B0057A5CB /* cookieicon_04@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1596,21 +1592,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-UPJStore/Pods-UPJStore-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A925B37E76631B1E09D5EEAA /* 📦 Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "📦 Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
 		B2634531A7062D9B6EB8444C /* 📦 Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1624,6 +1605,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-UPJStore/Pods-UPJStore-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E4A09C832F8C9C85E4320C61 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-UPJStore/Pods-UPJStore-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1902,7 +1898,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/UPJStore",
 				);
-				GCC_PREFIX_HEADER = /Users/upj/Desktop/UPJStore/UPJStore/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/upj/Desktop/iii/UPJStore/PrefixHeader.pch;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_ROOT}/Headers/Public\"",
@@ -1961,7 +1957,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/UPJStore",
 				);
-				GCC_PREFIX_HEADER = /Users/upj/Desktop/UPJStore/UPJStore/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/upj/Desktop/iii/UPJStore/PrefixHeader.pch;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_ROOT}/Headers/Public\"",

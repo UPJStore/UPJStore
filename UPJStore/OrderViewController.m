@@ -52,7 +52,7 @@
     UIColor *textcolor = [UIColor colorWithRed:102.0/255 green:102.0/255 blue:102.0/255 alpha:1];
     
     self.navigationItem.title = @"我的订单";
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"fanhui_@2x.png"] style:UIBarButtonItemStyleDone target:self action:@selector(pop)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"backArrow"] style:UIBarButtonItemStyleDone target:self action:@selector(pop)];
     self.navigationItem.leftBarButtonItem.tintColor = [UIColor blackColor];
     self.view.backgroundColor = backcolor;
     
@@ -78,7 +78,7 @@
         [self.view addSubview:button];
     }
     
-    imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"orderViewlogo@3x.png"]];
+    imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"orderViewlogo"]];
     imageView.frame = CGRectMake1(152, 135, 105, 105);
     [self.view addSubview:imageView];
     

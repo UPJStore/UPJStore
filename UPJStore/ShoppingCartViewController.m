@@ -763,7 +763,7 @@
 {
     recommendCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"recommendCell" forIndexPath:indexPath];
     
-    cell.goodsView.image = [UIImage imageNamed:@"shopping@3x.png"];
+    cell.goodsView.image = [UIImage imageNamed:@"shopping"];
     
     recommendGoodsModel *Model =self.modelArr[indexPath.row];
     

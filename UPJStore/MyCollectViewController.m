@@ -38,11 +38,11 @@
   //  UIColor *bordercolor = [UIColor colorWithRed:51.0/255 green:51.0/255 blue:51.0/255 alpha:1];
     
     self.navigationItem.title = @"收藏的商品";
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"fanhui_@2x.png"] style:UIBarButtonItemStyleDone target:self action:@selector(pop)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"backArrow"] style:UIBarButtonItemStyleDone target:self action:@selector(pop)];
     self.navigationItem.leftBarButtonItem.tintColor = [UIColor blackColor];
     self.view.backgroundColor = backcolor;
     
-    imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"MyCollecticon@2x.png"]];
+    imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"MyCollecticon"]];
     imageView.frame = CGRectMake1(152, 105, 105, 105);
     [self.view addSubview:imageView];
     

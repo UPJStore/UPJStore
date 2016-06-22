@@ -39,7 +39,7 @@
     //   UIColor *textcolor = [UIColor colorWithRed:102.0/255 green:102.0/255 blue:102.0/255 alpha:1];
     UIColor *bordercolor = [UIColor colorWithRed:51.0/255 green:51.0/255 blue:51.0/255 alpha:1];
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"fanhui_@2x.png"] style:UIBarButtonItemStyleDone target:self action:@selector(pop)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"backArrow"] style:UIBarButtonItemStyleDone target:self action:@selector(pop)];
     self.navigationItem.leftBarButtonItem.tintColor = [UIColor blackColor];
     self.view.backgroundColor = backcolor;
     
@@ -60,7 +60,7 @@
     label2.font = [UIFont systemFontOfSize:CGFloatMakeY(12)];
     [redView addSubview:label2];
     
-    UIImageView *logoView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"paysuccesslogo@3x.png"]];
+    UIImageView *logoView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"paysuccesslogo"]];
     logoView.frame = CGRectMake1(250, 10, 90, 90) ;
     [redView addSubview:logoView];
     

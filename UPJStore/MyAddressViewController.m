@@ -40,7 +40,7 @@
     textcolor = [UIColor colorWithRed:102.0/255 green:102.0/255 blue:102.0/255 alpha:1];
     
     self.navigationItem.title = @"收货地址管理";
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"fanhui_@2x.png"] style:UIBarButtonItemStyleDone target:self action:@selector(pop)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"backArrow"] style:UIBarButtonItemStyleDone target:self action:@selector(pop)];
     self.navigationItem.leftBarButtonItem.tintColor = [UIColor blackColor];
     
     self.view.backgroundColor = backcolor;
@@ -49,7 +49,7 @@
     messageView.backgroundColor = backcolor;
     [self.view addSubview:messageView];
     
-    UIImage *image = [UIImage imageNamed:@"MyAddressicon@2x.png"];
+    UIImage *image = [UIImage imageNamed:@"MyAddressicon"];
     imageView = [[UIImageView alloc]initWithImage:image];
     imageView.frame=CGRectMake1(152, 62, 110, 110);
     [messageView addSubview:imageView];
@@ -153,11 +153,11 @@
     [str addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, cell.addressLabel.text.length)];
     cell.addressLabel.attributedText = str;
     if ([model1.isdefault isEqualToString:@"1"]) {
-        [cell.button setBackgroundImage:[UIImage imageNamed:@"addressicon01@2x.png"] forState:UIControlStateNormal];
+        [cell.button setBackgroundImage:[UIImage imageNamed:@"addressicon01"] forState:UIControlStateNormal];
     }
     else
     {
-        [cell.button setBackgroundImage:[UIImage imageNamed:@"addressicon02@2x.png"] forState:UIControlStateNormal];
+        [cell.button setBackgroundImage:[UIImage imageNamed:@"addressicon02"] forState:UIControlStateNormal];
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;

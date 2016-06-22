@@ -47,7 +47,7 @@
     UIColor *holdcolor = [UIColor colorWithWhite:0.75 alpha:1];
     
     self.navigationItem.title = @"评价";
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"fanhui_@2x.png"] style:UIBarButtonItemStyleDone target:self action:@selector(pop)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"backArrow"] style:UIBarButtonItemStyleDone target:self action:@selector(pop)];
     self.navigationItem.leftBarButtonItem.tintColor = [UIColor blackColor];
     
     self.view.backgroundColor = backcolor;
@@ -115,14 +115,14 @@
     
     btn1 = [UIButton buttonWithType:UIButtonTypeCustom];
     btn1.tag = 1;
-    [btn1 setBackgroundImage:[UIImage imageNamed:@"star@2x.png"] forState:UIControlStateNormal];
+    [btn1 setBackgroundImage:[UIImage imageNamed:@"blackStarIcon"] forState:UIControlStateNormal];
     btn1.frame = CGRectMake1(290, 55, 20, 20);
     [btn1 addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
     [evaluteView addSubview:btn1];
     
     btn2 = [UIButton buttonWithType:UIButtonTypeCustom];
     btn2.tag = 2;
-    [btn2 setBackgroundImage:[UIImage imageNamed:@"star@2x.png"] forState:UIControlStateNormal];
+    [btn2 setBackgroundImage:[UIImage imageNamed:@"blackStarIcon"] forState:UIControlStateNormal];
     btn2.frame = CGRectMake1(312, 55, 20, 20);
     [btn2 addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
     [evaluteView addSubview:btn2];
@@ -130,56 +130,56 @@
     
     btn3 = [UIButton buttonWithType:UIButtonTypeCustom];
     btn3.tag = 3;
-    [btn3 setBackgroundImage:[UIImage imageNamed:@"star@2x.png"] forState:UIControlStateNormal];
+    [btn3 setBackgroundImage:[UIImage imageNamed:@"blackStarIcon"] forState:UIControlStateNormal];
     btn3.frame = CGRectMake1(334, 55, 20, 20);
     [btn3 addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
     [evaluteView addSubview:btn3];
     
     btn4 = [UIButton buttonWithType:UIButtonTypeCustom];
     btn4.tag = 4;
-    [btn4 setBackgroundImage:[UIImage imageNamed:@"star@2x.png"] forState:UIControlStateNormal];
+    [btn4 setBackgroundImage:[UIImage imageNamed:@"blackStarIcon"] forState:UIControlStateNormal];
     btn4.frame = CGRectMake1(356, 55, 20, 20);
     [btn4 addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
     [evaluteView addSubview:btn4];
     
     btn5 = [UIButton buttonWithType:UIButtonTypeCustom];
     btn5.tag = 5;
-    [btn5 setBackgroundImage:[UIImage imageNamed:@"star@2x.png"] forState:UIControlStateNormal];
+    [btn5 setBackgroundImage:[UIImage imageNamed:@"blackStarIcon"] forState:UIControlStateNormal];
     btn5.frame = CGRectMake1(378, 55, 20, 20);
     [btn5 addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
     [evaluteView addSubview:btn5];
     
     btn6 = [UIButton buttonWithType:UIButtonTypeCustom];
     btn6.tag = 6;
-    [btn6 setBackgroundImage:[UIImage imageNamed:@"star@2x.png"] forState:UIControlStateNormal];
+    [btn6 setBackgroundImage:[UIImage imageNamed:@"blackStarIcon"] forState:UIControlStateNormal];
     btn6.frame = CGRectMake1(290, 95, 20, 20);
     [btn6 addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
     [evaluteView addSubview:btn6];
     
     btn7 = [UIButton buttonWithType:UIButtonTypeCustom];
     btn7.tag = 7;
-    [btn7 setBackgroundImage:[UIImage imageNamed:@"star@2x.png"] forState:UIControlStateNormal];
+    [btn7 setBackgroundImage:[UIImage imageNamed:@"blackStarIcon"] forState:UIControlStateNormal];
     btn7.frame = CGRectMake1(312, 95, 20, 20);
     [btn7 addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
     [evaluteView addSubview:btn7];
     
     btn8 = [UIButton buttonWithType:UIButtonTypeCustom];
     btn8.tag = 8;
-    [btn8 setBackgroundImage:[UIImage imageNamed:@"star@2x.png"] forState:UIControlStateNormal];
+    [btn8 setBackgroundImage:[UIImage imageNamed:@"blackStarIcon"] forState:UIControlStateNormal];
     btn8.frame = CGRectMake1(334, 95, 20, 20);
     [btn8 addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
     [evaluteView addSubview:btn8];
     
     btn9 = [UIButton buttonWithType:UIButtonTypeCustom];
     btn9.tag = 9;
-    [btn9 setBackgroundImage:[UIImage imageNamed:@"star@2x.png"] forState:UIControlStateNormal];
+    [btn9 setBackgroundImage:[UIImage imageNamed:@"blackStarIcon"] forState:UIControlStateNormal];
     btn9.frame = CGRectMake1(356, 95, 20, 20);
     [btn9 addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
     [evaluteView addSubview:btn9];
     
     btn10 = [UIButton buttonWithType:UIButtonTypeCustom];
     btn10.tag = 10;
-    [btn10 setBackgroundImage:[UIImage imageNamed:@"star@2x.png"] forState:UIControlStateNormal];
+    [btn10 setBackgroundImage:[UIImage imageNamed:@"blackStarIcon"] forState:UIControlStateNormal];
     btn10.frame = CGRectMake1(378, 95, 20, 20);
     [btn10 addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
     [evaluteView addSubview:btn10];
@@ -191,101 +191,101 @@
     switch (btn.tag) {
         case 1:
         {
-            [btn1 setBackgroundImage:[UIImage imageNamed:@"star02@2x.png"] forState:UIControlStateNormal];
-            [btn2 setBackgroundImage:[UIImage imageNamed:@"star@2x.png"] forState:UIControlStateNormal];
-            [btn3 setBackgroundImage:[UIImage imageNamed:@"star@2x.png"] forState:UIControlStateNormal];
-            [btn4 setBackgroundImage:[UIImage imageNamed:@"star@2x.png"] forState:UIControlStateNormal];
-            [btn5 setBackgroundImage:[UIImage imageNamed:@"star@2x.png"] forState:UIControlStateNormal];
+            [btn1 setBackgroundImage:[UIImage imageNamed:@"starIcon"] forState:UIControlStateNormal];
+            [btn2 setBackgroundImage:[UIImage imageNamed:@"blackStarIcon"] forState:UIControlStateNormal];
+            [btn3 setBackgroundImage:[UIImage imageNamed:@"blackStarIcon"] forState:UIControlStateNormal];
+            [btn4 setBackgroundImage:[UIImage imageNamed:@"blackStarIcon"] forState:UIControlStateNormal];
+            [btn5 setBackgroundImage:[UIImage imageNamed:@"blackStarIcon"] forState:UIControlStateNormal];
             star1 = @"1";
         }
             break;
         case 2:
         {
-            [btn1 setBackgroundImage:[UIImage imageNamed:@"star02@2x.png"] forState:UIControlStateNormal];
-            [btn2 setBackgroundImage:[UIImage imageNamed:@"star02@2x.png"] forState:UIControlStateNormal];
-            [btn3 setBackgroundImage:[UIImage imageNamed:@"star@2x.png"] forState:UIControlStateNormal];
-            [btn4 setBackgroundImage:[UIImage imageNamed:@"star@2x.png"] forState:UIControlStateNormal];
-            [btn5 setBackgroundImage:[UIImage imageNamed:@"star@2x.png"] forState:UIControlStateNormal];
+            [btn1 setBackgroundImage:[UIImage imageNamed:@"starIcon"] forState:UIControlStateNormal];
+            [btn2 setBackgroundImage:[UIImage imageNamed:@"starIcon"] forState:UIControlStateNormal];
+            [btn3 setBackgroundImage:[UIImage imageNamed:@"blackStarIcon"] forState:UIControlStateNormal];
+            [btn4 setBackgroundImage:[UIImage imageNamed:@"blackStarIcon"] forState:UIControlStateNormal];
+            [btn5 setBackgroundImage:[UIImage imageNamed:@"blackStarIcon"] forState:UIControlStateNormal];
             star1 = @"2";
         }
             break;
         case 3:
         {
-            [btn1 setBackgroundImage:[UIImage imageNamed:@"star02@2x.png"] forState:UIControlStateNormal];
-            [btn2 setBackgroundImage:[UIImage imageNamed:@"star02@2x.png"] forState:UIControlStateNormal];
-            [btn3 setBackgroundImage:[UIImage imageNamed:@"star02@2x.png"] forState:UIControlStateNormal];
-            [btn4 setBackgroundImage:[UIImage imageNamed:@"star@2x.png"] forState:UIControlStateNormal];
-            [btn5 setBackgroundImage:[UIImage imageNamed:@"star@2x.png"] forState:UIControlStateNormal];
+            [btn1 setBackgroundImage:[UIImage imageNamed:@"starIcon"] forState:UIControlStateNormal];
+            [btn2 setBackgroundImage:[UIImage imageNamed:@"starIcon"] forState:UIControlStateNormal];
+            [btn3 setBackgroundImage:[UIImage imageNamed:@"starIcon"] forState:UIControlStateNormal];
+            [btn4 setBackgroundImage:[UIImage imageNamed:@"blackStarIcon"] forState:UIControlStateNormal];
+            [btn5 setBackgroundImage:[UIImage imageNamed:@"blackStarIcon"] forState:UIControlStateNormal];
             star1 = @"3";
         }
             break;
         case 4:
         {
-            [btn1 setBackgroundImage:[UIImage imageNamed:@"star02@2x.png"] forState:UIControlStateNormal];
-            [btn2 setBackgroundImage:[UIImage imageNamed:@"star02@2x.png"] forState:UIControlStateNormal];
-            [btn3 setBackgroundImage:[UIImage imageNamed:@"star02@2x.png"] forState:UIControlStateNormal];
-            [btn4 setBackgroundImage:[UIImage imageNamed:@"star02@2x.png"] forState:UIControlStateNormal];
-            [btn5 setBackgroundImage:[UIImage imageNamed:@"star@2x.png"] forState:UIControlStateNormal];
+            [btn1 setBackgroundImage:[UIImage imageNamed:@"starIcon"] forState:UIControlStateNormal];
+            [btn2 setBackgroundImage:[UIImage imageNamed:@"starIcon"] forState:UIControlStateNormal];
+            [btn3 setBackgroundImage:[UIImage imageNamed:@"starIcon"] forState:UIControlStateNormal];
+            [btn4 setBackgroundImage:[UIImage imageNamed:@"starIcon"] forState:UIControlStateNormal];
+            [btn5 setBackgroundImage:[UIImage imageNamed:@"blackStarIcon"] forState:UIControlStateNormal];
             star1 = @"4";
         }
             break;
         case 5:
         {
-            [btn1 setBackgroundImage:[UIImage imageNamed:@"star02@2x.png"] forState:UIControlStateNormal];
-            [btn2 setBackgroundImage:[UIImage imageNamed:@"star02@2x.png"] forState:UIControlStateNormal];
-            [btn3 setBackgroundImage:[UIImage imageNamed:@"star02@2x.png"] forState:UIControlStateNormal];
-            [btn4 setBackgroundImage:[UIImage imageNamed:@"star02@2x.png"] forState:UIControlStateNormal];
-            [btn5 setBackgroundImage:[UIImage imageNamed:@"star02@2x.png"] forState:UIControlStateNormal];
+            [btn1 setBackgroundImage:[UIImage imageNamed:@"starIcon"] forState:UIControlStateNormal];
+            [btn2 setBackgroundImage:[UIImage imageNamed:@"starIcon"] forState:UIControlStateNormal];
+            [btn3 setBackgroundImage:[UIImage imageNamed:@"starIcon"] forState:UIControlStateNormal];
+            [btn4 setBackgroundImage:[UIImage imageNamed:@"starIcon"] forState:UIControlStateNormal];
+            [btn5 setBackgroundImage:[UIImage imageNamed:@"starIcon"] forState:UIControlStateNormal];
             star1 = @"5";
         }
             break;
         case 6:
         {
-            [btn6 setBackgroundImage:[UIImage imageNamed:@"star02@2x.png"] forState:UIControlStateNormal];
-            [btn7 setBackgroundImage:[UIImage imageNamed:@"star@2x.png"] forState:UIControlStateNormal];
-            [btn8 setBackgroundImage:[UIImage imageNamed:@"star@2x.png"] forState:UIControlStateNormal];
-            [btn9 setBackgroundImage:[UIImage imageNamed:@"star@2x.png"] forState:UIControlStateNormal];
-            [btn10 setBackgroundImage:[UIImage imageNamed:@"star@2x.png"] forState:UIControlStateNormal];
+            [btn6 setBackgroundImage:[UIImage imageNamed:@"starIcon"] forState:UIControlStateNormal];
+            [btn7 setBackgroundImage:[UIImage imageNamed:@"blackStarIcon"] forState:UIControlStateNormal];
+            [btn8 setBackgroundImage:[UIImage imageNamed:@"blackStarIcon"] forState:UIControlStateNormal];
+            [btn9 setBackgroundImage:[UIImage imageNamed:@"blackStarIcon"] forState:UIControlStateNormal];
+            [btn10 setBackgroundImage:[UIImage imageNamed:@"blackStarIcon"] forState:UIControlStateNormal];
             star2 = @"1";
         }
             break;
         case 7:
         {
-            [btn6 setBackgroundImage:[UIImage imageNamed:@"star02@2x.png"] forState:UIControlStateNormal];
-            [btn7 setBackgroundImage:[UIImage imageNamed:@"star02@2x.png"] forState:UIControlStateNormal];
-            [btn8 setBackgroundImage:[UIImage imageNamed:@"star@2x.png"] forState:UIControlStateNormal];
-            [btn9 setBackgroundImage:[UIImage imageNamed:@"star@2x.png"] forState:UIControlStateNormal];
-            [btn10 setBackgroundImage:[UIImage imageNamed:@"star@2x.png"] forState:UIControlStateNormal];
+            [btn6 setBackgroundImage:[UIImage imageNamed:@"starIcon"] forState:UIControlStateNormal];
+            [btn7 setBackgroundImage:[UIImage imageNamed:@"starIcon"] forState:UIControlStateNormal];
+            [btn8 setBackgroundImage:[UIImage imageNamed:@"blackStarIcon"] forState:UIControlStateNormal];
+            [btn9 setBackgroundImage:[UIImage imageNamed:@"blackStarIcon"] forState:UIControlStateNormal];
+            [btn10 setBackgroundImage:[UIImage imageNamed:@"blackStarIcon"] forState:UIControlStateNormal];
             star2 = @"2";
         }
             break;
         case 8:
         {
-            [btn6 setBackgroundImage:[UIImage imageNamed:@"star02@2x.png"] forState:UIControlStateNormal];
-            [btn7 setBackgroundImage:[UIImage imageNamed:@"star02@2x.png"] forState:UIControlStateNormal];
-            [btn8 setBackgroundImage:[UIImage imageNamed:@"star02@2x.png"] forState:UIControlStateNormal];
-            [btn9 setBackgroundImage:[UIImage imageNamed:@"star@2x.png"] forState:UIControlStateNormal];
-            [btn10 setBackgroundImage:[UIImage imageNamed:@"star@2x.png"] forState:UIControlStateNormal];
+            [btn6 setBackgroundImage:[UIImage imageNamed:@"starIcon"] forState:UIControlStateNormal];
+            [btn7 setBackgroundImage:[UIImage imageNamed:@"starIcon"] forState:UIControlStateNormal];
+            [btn8 setBackgroundImage:[UIImage imageNamed:@"starIcon"] forState:UIControlStateNormal];
+            [btn9 setBackgroundImage:[UIImage imageNamed:@"blackStarIcon"] forState:UIControlStateNormal];
+            [btn10 setBackgroundImage:[UIImage imageNamed:@"blackStarIcon"] forState:UIControlStateNormal];
             star2 = @"3";
         }
             break;
         case 9:
         {
-            [btn6 setBackgroundImage:[UIImage imageNamed:@"star02@2x.png"] forState:UIControlStateNormal];
-            [btn7 setBackgroundImage:[UIImage imageNamed:@"star02@2x.png"] forState:UIControlStateNormal];
-            [btn8 setBackgroundImage:[UIImage imageNamed:@"star02@2x.png"] forState:UIControlStateNormal];
-            [btn9 setBackgroundImage:[UIImage imageNamed:@"star02@2x.png"] forState:UIControlStateNormal];
-            [btn10 setBackgroundImage:[UIImage imageNamed:@"star@2x.png"] forState:UIControlStateNormal];
+            [btn6 setBackgroundImage:[UIImage imageNamed:@"starIcon"] forState:UIControlStateNormal];
+            [btn7 setBackgroundImage:[UIImage imageNamed:@"starIcon"] forState:UIControlStateNormal];
+            [btn8 setBackgroundImage:[UIImage imageNamed:@"starIcon"] forState:UIControlStateNormal];
+            [btn9 setBackgroundImage:[UIImage imageNamed:@"starIcon"] forState:UIControlStateNormal];
+            [btn10 setBackgroundImage:[UIImage imageNamed:@"blackStarIcon"] forState:UIControlStateNormal];
             star2 = @"4";
         }
             break;
         case 10:
         {
-            [btn6 setBackgroundImage:[UIImage imageNamed:@"star02@2x.png"] forState:UIControlStateNormal];
-            [btn7 setBackgroundImage:[UIImage imageNamed:@"star02@2x.png"] forState:UIControlStateNormal];
-            [btn8 setBackgroundImage:[UIImage imageNamed:@"star02@2x.png"] forState:UIControlStateNormal];
-            [btn9 setBackgroundImage:[UIImage imageNamed:@"star02@2x.png"] forState:UIControlStateNormal];
-            [btn10 setBackgroundImage:[UIImage imageNamed:@"star02@2x.png"] forState:UIControlStateNormal];
+            [btn6 setBackgroundImage:[UIImage imageNamed:@"starIcon"] forState:UIControlStateNormal];
+            [btn7 setBackgroundImage:[UIImage imageNamed:@"starIcon"] forState:UIControlStateNormal];
+            [btn8 setBackgroundImage:[UIImage imageNamed:@"starIcon"] forState:UIControlStateNormal];
+            [btn9 setBackgroundImage:[UIImage imageNamed:@"starIcon"] forState:UIControlStateNormal];
+            [btn10 setBackgroundImage:[UIImage imageNamed:@"starIcon"] forState:UIControlStateNormal];
             star2 = @"5";
         }
             break;
