@@ -19,14 +19,16 @@
 #import "LoginViewController.h"
 #import "CollectModel.h"
 #import "BookIngViewController.h"
+#import "recommandCell.h"
+#import "RecommandModelNSObject.h"
 
 
-@interface GoodSDetailViewController ()<UIScrollViewDelegate,UIWebViewDelegate>
+@interface GoodSDetailViewController ()<UIScrollViewDelegate,UIWebViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource>
 
 @property (nonatomic,strong) UIScrollView *scrollView;
 @property (nonatomic,strong) UIScrollView * goodsScrollView;
 @property (nonatomic,strong) NSMutableArray *appraiseArr;
-@property (nonatomic,strong) NSMutableArray *thumbArr;
+@property (nonatomic,strong) NSMutableArray *thumbArr,*recommandArr;
 @property (nonatomic,strong)  detailModel * model;
 @property (nonatomic,strong) descriptionView *descView;
 @property (nonatomic,strong) UIView * endView,*ContentView;
@@ -36,8 +38,8 @@
 @property (nonatomic,strong) UILabel * goodsscrollViewLabel,*detailScrollViewLabel;
 @property (nonatomic,strong) UIButton * topButton;
 @property (nonatomic,retain) UIPageControl *pageControl;
-@property (nonatomic,strong) UIView *evaluationView;
-
+@property (nonatomic,strong) UIView *evaluationView,* recommandView;
+@property (nonatomic,strong) UICollectionView *recommandCollectionView;
 @end
 
 @interface GoodSDetailViewController ()
@@ -524,8 +526,9 @@
                 appraiseModel *model = _appraiseArr[i];
                 UIView * BackView = [[UIView alloc]init];
                 
-                UILabel *nameLabel = [[UILabel alloc]initWithFrame:CGRectMake1(5, 9, 200, 20)];
+                UILabel *nameLabel = [[UILabel alloc]initWithFrame:CGRectMake1(25, 9, 200, 20)];
                 nameLabel.text = model.nickname;
+                nameLabel.font = [UIFont systemFontOfSize:CGFloatMakeY(14)];
                 [BackView addSubview:nameLabel];
                 
                 for (int j = 0; j<[model.star integerValue]; j++) {
@@ -533,11 +536,12 @@
                     imageView.image = [UIImage imageNamed:@"starIcon"];
                     [BackView addSubview:imageView];
                 }
-                CGFloat DesLength = [model.content boundingRectWithSize:CGSizeMake(414, 2000) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:CGFloatMakeY(15)]} context:nil].size.height;
+                CGFloat DesLength = [model.content boundingRectWithSize:CGSizeMake(414, 2000) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:CGFloatMakeY(14)]} context:nil].size.height;
                 UILabel * ContentLabel = [[UILabel alloc]initWithFrame:CGRectMake1(5, 45, 404, DesLength)];
-                ContentLabel.font = [UIFont systemFontOfSize:CGFloatMakeY(15)];
+                ContentLabel.font = [UIFont systemFontOfSize:CGFloatMakeY(14)];
                 ContentLabel.numberOfLines = 0;
                 ContentLabel.text = model.content;
+                ContentLabel.textColor = [UIColor colorFromHexRGB:@"666666"];
                 [BackView addSubview: ContentLabel];
                 
                BackView.layer.borderWidth = 0.3;
@@ -563,17 +567,140 @@
         [_evaluationView addSubview:evaluationBtn];
     
     
-    _evaluationView.frame =CGRectMake(0, CGFloatMakeY(50)+_goodsScrollView.frame.size.height+_descView.frame.size.height, kWidth, evaluationVieweHeight+CGFloatMakeY(30));
+    _evaluationView.frame =CGRectMake(0, CGFloatMakeY(40)+_goodsScrollView.frame.size.height+_descView.frame.size.height, kWidth, evaluationVieweHeight+CGFloatMakeY(30));
     [self.scrollView addSubview:_evaluationView];
-    if ((_evaluationView.frame.origin.y+evaluationVieweHeight +CGFloatMakeY(20)<kHeight+20)) {
-        self.scrollView.contentSize = CGSizeMake(kWidth, kHeight+CGFloatMakeY(60));
-    }else
-    self.scrollView.contentSize  = CGSizeMake(kWidth, _evaluationView.frame.origin.y+evaluationVieweHeight+CGFloatMakeY(90));
-    
     
     _evaluationView.layer.borderColor = [[UIColor colorFromHexRGB:@"333333"]CGColor];
+    
+    [self getRecommandData];
+    [self initRecommandGoodsView];
+    
 
 }
+#pragma 推荐商品
+
+-(void)initRecommandGoodsView
+{
+    _recommandView = [[UIView alloc]initWithFrame:CGRectMake(0, _evaluationView.frame.origin.y+_evaluationView.frame.size.height+CGFloatMakeY(10), kWidth, CGFloatMakeY(250))];
+    _recommandView.backgroundColor = [UIColor whiteColor];
+    [_scrollView addSubview: _recommandView];
+    
+    UILabel * headerLabel = [[UILabel alloc]initWithFrame:CGRectMake1(10, 0, 40, 40)];
+    headerLabel.font = [UIFont systemFontOfSize:CGFloatMakeY(14)];
+    headerLabel.textColor = [UIColor colorFromHexRGB:@"000000"];
+    headerLabel.text = @"推荐";
+    [_recommandView addSubview: headerLabel];
+    
+    
+    [self.recommandView addSubview:self.recommandCollectionView];
+
+    
+    self.scrollView.contentSize  = CGSizeMake(kWidth, _recommandView.frame.origin.y+_recommandView.frame.size.height+CGFloatMakeY(90));
+    
+}
+
+-(void)getRecommandData
+{
+    NSDictionary * dic = @{@"appkey":APPkey,@"id":_model.DetailID} ;
+    
+#pragma dic MD5
+    NSDictionary * Ndic = [self md5DicWith:dic];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    
+    [manager POST:kDetailRecommand parameters:Ndic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        DLog(@"respon %@",responseObject);
+        
+        for (NSDictionary *dic in responseObject) {
+            RecommandModelNSObject * model = [[RecommandModelNSObject alloc]initWithDictionary:dic];
+            [self.recommandArr addObject:model];
+        }
+        
+        [_recommandCollectionView reloadData];
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        DLog(@"error %@",error);
+    }];
+    
+    }
+
+-(NSMutableArray *)recommandArr
+{
+    if (_recommandArr == nil)
+    {
+        _recommandArr = [NSMutableArray arrayWithCapacity:6];
+    }
+    return _recommandArr;
+}
+
+//确定每个item的大小.
+-(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    return CGSizeMake1(140, 210);
+    
+}
+
+//一共有几个分区
+-(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
+    
+    return 1;
+    
+}
+
+
+//每个分区有几个ITEM
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return  self.recommandArr.count;
+}
+
+//每个ITEM显示什么样的cell
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    recommandCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
+    
+     RecommandModelNSObject * goodsModel =self.recommandArr[indexPath.row];
+    
+    [cell.goodsImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:kSImageUrl,goodsModel.thumb]]];
+    
+    cell.productLabel.text = [NSString stringWithFormat:@"¥%@",goodsModel.productprice];
+    cell.marketLabel.text = [NSString stringWithFormat:@"¥%@|",goodsModel.marketprice];
+    cell.titleLabel.text = goodsModel.title;
+    
+    
+    return cell;
+}
+
+
+-(UICollectionView *)recommandCollectionView
+{
+    if (_recommandCollectionView == nil)
+    {
+        UICollectionViewFlowLayout * layout = [[UICollectionViewFlowLayout alloc]init];
+        layout.minimumInteritemSpacing = 20;
+        //    layout.itemSize = CGSizeMake();
+        layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+        layout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10);
+        
+        _recommandCollectionView  = [[UICollectionView alloc]initWithFrame:CGRectMake1(0, 40,k6PWidth, 210) collectionViewLayout:layout];
+        _recommandCollectionView.backgroundColor  = [UIColor whiteColor];
+        _recommandCollectionView.delegate  = self;
+        _recommandCollectionView.dataSource = self;
+        _recommandCollectionView.layer.borderWidth = 0.3;
+        _recommandCollectionView.layer.borderColor = [[UIColor colorFromHexRGB:@"d9d9d9"]CGColor];
+        [_recommandCollectionView registerClass:[recommandCell class] forCellWithReuseIdentifier:@"cell"];
+        
+    }
+    return _recommandCollectionView;
+}
+
+
 
 -(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
@@ -618,7 +745,7 @@
     _goodsscrollViewLabel.text = @"下拉返回商品详情";
     [_webView.scrollView addSubview:_goodsscrollViewLabel];
     
-    _detailScrollViewLabel= [[UILabel alloc]initWithFrame:CGRectMake(0, self.evaluationView.frame.origin.y+self.evaluationView.frame.size.height, kWidth, CGFloatMakeY(30))];
+    _detailScrollViewLabel= [[UILabel alloc]initWithFrame:CGRectMake(0, self.recommandView.frame.origin.y+self.recommandView.frame.size.height, kWidth, CGFloatMakeY(30))];
 //    DLog(@"_scrollview.contentSize.height %f",_scrollView.contentSize.height);
     _detailScrollViewLabel.textAlignment = NSTextAlignmentCenter ;
     _detailScrollViewLabel.textColor = [UIColor colorFromHexRGB:@"666666"];
