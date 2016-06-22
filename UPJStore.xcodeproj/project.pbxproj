@@ -57,6 +57,8 @@
 		D1074D251CA2BA8B00725BAC /* SearchGoodsCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D1074D241CA2BA8B00725BAC /* SearchGoodsCollectionViewCell.m */; };
 		D109393C1C97FC7E009D3938 /* SortView.m in Sources */ = {isa = PBXBuildFile; fileRef = D109393B1C97FC7E009D3938 /* SortView.m */; };
 		D109393F1C97FCF3009D3938 /* SortModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D109393E1C97FCF3009D3938 /* SortModel.m */; };
+		D12568361D1A6A4400B6ED77 /* recommandCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D12568351D1A6A4400B6ED77 /* recommandCell.m */; };
+		D12568391D1A6B1900B6ED77 /* RecommandModelNSObject.m in Sources */ = {isa = PBXBuildFile; fileRef = D12568381D1A6B1900B6ED77 /* RecommandModelNSObject.m */; };
 		D131B82A1CAB7F7100E58396 /* detailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D131B8291CAB7F7100E58396 /* detailModel.m */; };
 		D131B82D1CABA09900E58396 /* appraiseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D131B82C1CABA09900E58396 /* appraiseModel.m */; };
 		D131B8301CABAAFD00E58396 /* GoodsDetailScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = D131B82F1CABAAFD00E58396 /* GoodsDetailScrollView.m */; };
@@ -289,6 +291,10 @@
 		D109393B1C97FC7E009D3938 /* SortView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SortView.m; sourceTree = "<group>"; };
 		D109393D1C97FCF3009D3938 /* SortModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SortModel.h; sourceTree = "<group>"; };
 		D109393E1C97FCF3009D3938 /* SortModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SortModel.m; sourceTree = "<group>"; };
+		D12568341D1A6A4400B6ED77 /* recommandCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = recommandCell.h; sourceTree = "<group>"; };
+		D12568351D1A6A4400B6ED77 /* recommandCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = recommandCell.m; sourceTree = "<group>"; };
+		D12568371D1A6B1900B6ED77 /* RecommandModelNSObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecommandModelNSObject.h; sourceTree = "<group>"; };
+		D12568381D1A6B1900B6ED77 /* RecommandModelNSObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommandModelNSObject.m; sourceTree = "<group>"; };
 		D131B8281CAB7F7100E58396 /* detailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = detailModel.h; sourceTree = "<group>"; };
 		D131B8291CAB7F7100E58396 /* detailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = detailModel.m; sourceTree = "<group>"; };
 		D131B82B1CABA09900E58396 /* appraiseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = appraiseModel.h; sourceTree = "<group>"; };
@@ -864,6 +870,8 @@
 				D1FB11A51CB642D100F57A44 /* AppraiseTableViewCell.m */,
 				D1FC7A871D13CD4500076FA4 /* LineLabel.h */,
 				D1FC7A881D13CD4500076FA4 /* LineLabel.m */,
+				D12568341D1A6A4400B6ED77 /* recommandCell.h */,
+				D12568351D1A6A4400B6ED77 /* recommandCell.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -886,6 +894,8 @@
 		D1943E911CAA5ED00088D621 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D12568371D1A6B1900B6ED77 /* RecommandModelNSObject.h */,
+				D12568381D1A6B1900B6ED77 /* RecommandModelNSObject.m */,
 				D131B8281CAB7F7100E58396 /* detailModel.h */,
 				D131B8291CAB7F7100E58396 /* detailModel.m */,
 				D131B82B1CABA09900E58396 /* appraiseModel.h */,
@@ -1646,6 +1656,7 @@
 				D1D4A0F71CB5045500BC6913 /* TAAbstractDotView.m in Sources */,
 				D1F7C9C51CBF7E8700F2EC14 /* CouponModel.m in Sources */,
 				D10391461D11593E00CDD34D /* myUILabel.m in Sources */,
+				D12568361D1A6A4400B6ED77 /* recommandCell.m in Sources */,
 				D19E232E1CA95DBB008047B5 /* ProductsCollectionViewCell.m in Sources */,
 				D1FC7A891D13CD4500076FA4 /* LineLabel.m in Sources */,
 				D1034D701D17A290000D893F /* NameRegisteredViewController.m in Sources */,
@@ -1736,6 +1747,7 @@
 				D1034D661D17A290000D893F /* LoginViewController.m in Sources */,
 				D13C1ECF1CFC01D200EDE19E /* HeaderView.m in Sources */,
 				D1D4A0FA1CB5045500BC6913 /* TAPageControl.m in Sources */,
+				D12568391D1A6B1900B6ED77 /* RecommandModelNSObject.m in Sources */,
 				D1034D671D17A290000D893F /* MemberCenterViewController.m in Sources */,
 				D109393F1C97FCF3009D3938 /* SortModel.m in Sources */,
 				D14F8FA11CDB164600342832 /* RSADataSigner.m in Sources */,
