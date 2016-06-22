@@ -1,0 +1,154 @@
+//
+//  PrefixHeader.pch
+//  weixinPay_test
+//
+//  Created by siqiyang on 16/2/24.
+//  Copyright © 2016年 mengxianjin. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+#import "WXApi.h"
+#import "WXApiObject.h"
+
+#define APP_ID  @"wx50a2b6dce88256c3"
+#define APP_SECRET      @"b8e8be66e271b4083f4ee29c7a59f20b" //微信appsecret
+#define NOTIFY_URL      @"这里填写后台给你的微信支付的后台接口网址"
+
+//通知的名字及参数
+#define WX_PAY_RESULT   @"weixin_pay_result"
+#define IS_SUCCESSED    @"wechat_pay_isSuccessed"
+#define IS_FAILED       @"wechat_pay_isFailed"
+
+//支付宝参数
+#define ALIPAY_PARTNER @"2088511955098212" //支付宝商户id-账号id
+#define ALIPAY_SELLER @"weisida01@163.com"
+#define ALIPAY_PRIVATEKEY @"MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBAOG8K0ARSkqLZ+PMEFpwqnSbo96GFTqsORKwYL9mzDblmXzveZUt8s2Aa+9LeUWFOHXzqUD3VueOYyHP5EoXkVCMSS3cvSrDIoA4azsD7c238p3/er2cnTTxz03gfsfE+yijaDHfjVvnlWC96qnRt5quTtRsmU+cMo49n2OTzOifAgMBAAECgYA/UlmPj0oXvyNVc1jjBdfK/h3pvhMWcllQNMnu5xdCDwYPVd31Sv5hRzT/21wZdFVyQPepkbh/HCISyg5v+kx4lQA2ax7psy7iwQrpJoo9c8ICBZ1Fx0a9uZUYk1nL2j0MK0XwOwteWflSdbTeYecHNT/EBxS6qh6eOwvEyd/5AQJBAPOzQ2SaLTMHST1qTNwQUp4dBv7Zvk0FVXRIUe8SueDyRPi4noMTEfP8WzkPhZ3hAHyf30aVUcUWDDmkbO21YpcCQQDtIMkdKLdZ2IOgIfxlFq98xCF6vAVDYzjUYYX2g3WpF0hB8HlHmHWL40OxwpOCaYZqn62ImFqKyJ4tSEc5hVM5AkEA3iAcIlthLWzLtf3pFoCOPW3pzWr8yMk+zaGJhObFpCJO+YGVgZVlPMVdBJKAUJogTneOFJDPmltxQyz62GQG+wJASdKiKfzKECOS3uCVxhbo7UvWLHKqpM8YGy59WUCV+d1wtm6aI0r4lWNcaNPtvnUBzuIFUXg0/+3zKJ/O5L54KQJBAJ7vZv4kVRpSDykysasKUgNUvYe/wBe/+5EIE35vzcp8GPcMbH5IL8Dcv9RESW/YX0NY2s5I3fUUnnkxVqha7pk="
+
+#define APPkey @"BwLiQcZIzgUdLx8Bxb"
+#define appsecret @"nGWGOmPXZ9FJNwV1Doo8NsbGFk7Yvk3L"
+
+#pragma 接口链接；
+
+
+#define kSImageUrl @"http://www.upinkji.com/resource/attachment/%@"
+
+#define kShareUrl @"http://m.upinkji.com/api/member/spread.html"
+
+#define kGoodDetailURL @"http://m.upinkji.com/api/goods/detail.html"
+
+#define kAddGoods @"http://m.upinkji.com/api/cart/add"
+
+#define kCollectionGoods @"http://m.upinkji.com/api/collect/collect_goods.html"
+
+#define KPay @"http://m.upinkji.com/api/pay/prepay"
+
+#define kOrder @"http://m.upinkji.com/api/order/confirm"
+
+#define kSubmit @"http://m.upinkji.com/api/order/submit"
+
+#define kSNet @"http://m.upinkji.com/api/Recommend/index.html"
+
+#define kSURL   @"http://m.upinkji.com/api/cart/product"
+
+#define kSDeleGoods @"http://m.upinkji.com/api/cart/delete"
+
+#define kCheck @"http://m.upinkji.com/api/cart/checked"
+
+#define kSgoodsCount @"http://m.upinkji.com/api/cart/amount"
+
+#define kADV @"http://m.upinkji.com/api/adv/getadv.html"
+
+#define ProductURL @"http://m.upinkji.com/api/goods/goodslist2.html"
+
+#define kTitleURL @"http://m.upinkji.com/api/Goods/search1"
+
+#define kSSearchUrl @"http://m.upinkji.com/api/goods/search.html"
+
+#define kSBrandGoodUrl @"http://m.upinkji.com/api/goods/goodslist.html"
+
+#define kSAttenTionBrandUrl @"http://m.upinkji.com/api/BrandColl/collection.html"
+
+#define kRemove @"http://m.upinkji.com/api/address/remove.html"
+
+#define kSetDefault @"http://m.upinkji.com/api/address/setdefault.html"
+
+#define kUpdata @"http://m.upinkji.com/api/order/update_status.html"
+
+#define kCancel @"http://m.upinkji.com/api/order/cancel"
+
+#define kGetKeyWord @"http://m.upinkji.com/api/keyword/get"
+
+#define kVcode @"http://m.upinkji.com/api/common/vcode"
+
+#define kMine @"http://m.upinkji.com/api/order/mine.html"
+
+#define kForget @"http://m.upinkji.com/api/member/forget.html"
+
+#define kShow @"http://m.upinkji.com/api/address/show.html"
+
+#define kRegister @"http://m.upinkji.com/api/member/register"
+
+#define kEvaluate @"http://m.upinkji.com/api/evaluate/index.html"
+
+#define kFeedback @"http://m.upinkji.com/api/feedback/index.html"
+
+#define kLogin @"http://m.upinkji.com/api/member/login"
+
+#define kCollectList @"http://m.upinkji.com/api/collect/collect_list1.html"
+
+#define kAllBrand @"http://m.upinkji.com/api/Brandcoll/allband.html"
+
+#define kUnbind @"http://m.upinkji.com/api/member/unbind"
+
+#define kDetail @"http://m.upinkji.com/api/order/detail"
+
+#define kOther @"http://m.upinkji.com/api/member/other"
+
+#define AddressURL @"http://m.upinkji.com/api/outlet/get"
+
+#define kaddAddress  @"http://m.upinkji.com/api/address/add.html"
+
+#define kCoupon @"http://m.upinkji.com/api/coupon/getcoupon?"
+
+#define kAlipay @"http://m.upinkji.com/api/pay/alipay"
+
+#define kCouponList @"http://m.upinkji.com/api/Coupon/getcouponlist"
+
+#define kDoCoupon @"http://m.upinkji.com/api/Coupon/docoupon"
+
+#define kCouponNumber @"http://m.upinkji.com/api/Coupon/getfromnumber"
+
+#define kCheckPhone @"http://m.upinkji.com/api/member/checkMemberByPhone"
+
+#define kHomePage @"http://m.upinkji.com/api/product/get"
+
+#define kCKList @"http://m.upinkji.com/api/member/Myfans"
+
+#define kUpdate @"http://m.upinkji.com/api/member/update"
+
+#define kUpdateHeader @"http://m.upinkji.com/api/member/avatar"
+
+#define kInfo @"http://m.upinkji.com/api/member/info"
+
+#define kDetailRecommand @"http://m.upinkji.com/api/product/detail_recommand"
+
+#define kRemind @"http://m.upinkji.com/api/order/remind"
+
+#define kWidth [UIScreen mainScreen].bounds.size.width
+
+#define kHeight [UIScreen mainScreen].bounds.size.height
+
+#define k6PWidth 414
+
+#define k6PHeight 736
+
+
+#pragma 宏定义输出；
+#ifdef DEBUG
+# define DLog(fmt, ...) NSLog((@"[文件名:%s]\n" "[函数名:%s]\n" "[行号:%d] \n" fmt), __FILE__, __FUNCTION__, __LINE__, ##__VA_ARGS__);
+#else
+#define DLog(...);
+#endif
+
+#endif /* PrefixHeader_pch */
