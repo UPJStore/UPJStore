@@ -293,6 +293,9 @@
         if(model.avatar.length != 0)
         {
             [self setImagewithImage:model.avatar];
+            NSURL *url = [NSURL URLWithString:model.avatar];
+            NSData *data = [[NSData alloc]initWithContentsOfURL:url];
+            [self setImagedatawithImagedata:data];
         }else
         {
             [self setImagewithImage:@"0"];
