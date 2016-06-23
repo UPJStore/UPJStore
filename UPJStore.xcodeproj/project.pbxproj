@@ -71,7 +71,6 @@
 		D13C1ED11CFC01D200EDE19E /* PerInfView.m in Sources */ = {isa = PBXBuildFile; fileRef = D13C1EC81CFC01D200EDE19E /* PerInfView.m */; };
 		D13C1ED21CFC01D200EDE19E /* TextFieldView.m in Sources */ = {isa = PBXBuildFile; fileRef = D13C1ECA1CFC01D200EDE19E /* TextFieldView.m */; };
 		D13C1ED31CFC01D200EDE19E /* TextView.m in Sources */ = {isa = PBXBuildFile; fileRef = D13C1ECC1CFC01D200EDE19E /* TextView.m */; };
-		D14F8F201CDAF95700342832 /* SelectPayMethohViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D14F8F1F1CDAF95700342832 /* SelectPayMethohViewController.m */; };
 		D14F8F731CDAFBB400342832 /* APAuthV2Info.m in Sources */ = {isa = PBXBuildFile; fileRef = D14F8F221CDAFBB400342832 /* APAuthV2Info.m */; };
 		D14F8F741CDAFBB400342832 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D14F8F231CDAFBB400342832 /* libcrypto.a */; };
 		D14F8F751CDAFBB400342832 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D14F8F241CDAFBB400342832 /* libssl.a */; };
@@ -124,6 +123,7 @@
 		D1ADB2F51C940EA6000B134E /* goodsCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D1ADB2F41C940EA6000B134E /* goodsCollectionViewCell.m */; };
 		D1ADB30A1C941094000B134E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1ADB3051C941094000B134E /* ViewController.m */; };
 		D1ADB30C1C941094000B134E /* CodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1ADB3091C941094000B134E /* CodeViewController.m */; };
+		D1D14E311D1A909F00069176 /* SelectPayMethohViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D14E301D1A909F00069176 /* SelectPayMethohViewController.m */; };
 		D1D4A0F71CB5045500BC6913 /* TAAbstractDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D4A0EA1CB5045500BC6913 /* TAAbstractDotView.m */; };
 		D1D4A0F81CB5045500BC6913 /* TAAnimatedDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D4A0EC1CB5045500BC6913 /* TAAnimatedDotView.m */; };
 		D1D4A0F91CB5045500BC6913 /* TADotView.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D4A0EE1CB5045500BC6913 /* TADotView.m */; };
@@ -320,7 +320,6 @@
 		D13C1ECB1CFC01D200EDE19E /* TextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextView.h; sourceTree = "<group>"; };
 		D13C1ECC1CFC01D200EDE19E /* TextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextView.m; sourceTree = "<group>"; };
 		D14F8F1E1CDAF95700342832 /* SelectPayMethohViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectPayMethohViewController.h; sourceTree = "<group>"; };
-		D14F8F1F1CDAF95700342832 /* SelectPayMethohViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectPayMethohViewController.m; sourceTree = "<group>"; };
 		D14F8F211CDAFBB400342832 /* APAuthV2Info.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APAuthV2Info.h; sourceTree = "<group>"; };
 		D14F8F221CDAFBB400342832 /* APAuthV2Info.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APAuthV2Info.m; sourceTree = "<group>"; };
 		D14F8F231CDAFBB400342832 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcrypto.a; sourceTree = "<group>"; };
@@ -489,6 +488,7 @@
 		D1ADB3051C941094000B134E /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		D1ADB3081C941094000B134E /* CodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CodeViewController.h; sourceTree = "<group>"; };
 		D1ADB3091C941094000B134E /* CodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CodeViewController.m; sourceTree = "<group>"; };
+		D1D14E301D1A909F00069176 /* SelectPayMethohViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectPayMethohViewController.m; sourceTree = "<group>"; };
 		D1D4A0E91CB5045500BC6913 /* TAAbstractDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAAbstractDotView.h; sourceTree = "<group>"; };
 		D1D4A0EA1CB5045500BC6913 /* TAAbstractDotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAAbstractDotView.m; sourceTree = "<group>"; };
 		D1D4A0EB1CB5045500BC6913 /* TAAnimatedDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAAnimatedDotView.h; sourceTree = "<group>"; };
@@ -1017,7 +1017,7 @@
 			isa = PBXGroup;
 			children = (
 				D14F8F1E1CDAF95700342832 /* SelectPayMethohViewController.h */,
-				D14F8F1F1CDAF95700342832 /* SelectPayMethohViewController.m */,
+				D1D14E301D1A909F00069176 /* SelectPayMethohViewController.m */,
 				D1F7C9B31CBF3B7700F2EC14 /* ConfirmOrderViewController.h */,
 				D1F7C9B41CBF3B7700F2EC14 /* ConfirmOrderViewController.m */,
 				D1ADB2EA1C940E6D000B134E /* ShoppingCartViewController.h */,
@@ -1749,6 +1749,7 @@
 				D1D4A0FA1CB5045500BC6913 /* TAPageControl.m in Sources */,
 				D12568391D1A6B1900B6ED77 /* RecommandModelNSObject.m in Sources */,
 				D1034D671D17A290000D893F /* MemberCenterViewController.m in Sources */,
+				D1D14E311D1A909F00069176 /* SelectPayMethohViewController.m in Sources */,
 				D109393F1C97FCF3009D3938 /* SortModel.m in Sources */,
 				D14F8FA11CDB164600342832 /* RSADataSigner.m in Sources */,
 				D1AAD98B1CA65F390013FFBB /* ShopViewModel.m in Sources */,
@@ -1770,7 +1771,6 @@
 				D1AAD9881CA65F180013FFBB /* HeardView.m in Sources */,
 				D1FB11A61CB642D100F57A44 /* AppraiseTableViewCell.m in Sources */,
 				D13C1ECE1CFC01D200EDE19E /* ExchangeView.m in Sources */,
-				D14F8F201CDAF95700342832 /* SelectPayMethohViewController.m in Sources */,
 				D1D4A1091CB5057800BC6913 /* ActivityViewController.m in Sources */,
 				D14F8F9F1CDB164600342832 /* NSDataEx.m in Sources */,
 			);
