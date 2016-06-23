@@ -31,7 +31,11 @@
         _numberlabel.textColor = [UIColor colorWithRed:102.0/255 green:102.0/255 blue:102.0/255 alpha:1];
         _numberlabel.font = [UIFont systemFontOfSize:CGFloatMakeY(12)];
         [self addSubview:_numberlabel];
- 
+        
+        _goodDetailBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _goodDetailBtn.frame = CGRectMake(0, 0,self.frame.size.width,self.frame.size.height);
+        [self addSubview:_goodDetailBtn];
+
         _button = [UIButton buttonWithType:UIButtonTypeCustom];
         _button.frame = CGRectMake1(340, 65, 50, 25);
         [_button setTitle:@"评价" forState:UIControlStateNormal];
@@ -40,7 +44,8 @@
         _button.backgroundColor = [UIColor colorWithRed:204.0/255 green:34.0/255 blue:69.0/255 alpha:1];
         _button.titleLabel.font = [UIFont systemFontOfSize:CGFloatMakeY(12)];
         [self addSubview:_button];
-  
+        
+        
     }
     return self;
 }

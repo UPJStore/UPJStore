@@ -248,7 +248,7 @@
     {
         UICollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header" forIndexPath:indexPath];
             if (headerView.subviews.count < 1) {
-                _arr = @[@"最新",@"人气",@"销量",@"价格",@"价格▲",@"价格▼"];
+                _arr = @[@"最新",@"人气",@"销量",@"价格",@"价格▼",@"价格▲"];
                 
                 for(int i = 0; i<4;i++)
                 {

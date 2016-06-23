@@ -15,6 +15,7 @@
 #import "MBProgressHUD.h"
 #import "UIColor+HexRGB.h"
 #import "SelectPayMethohViewController.h"
+#import "GoodSDetailViewController.h"
 
 @interface OrderDetailsViewController ()
 {
@@ -104,8 +105,9 @@
         commodView.moneylabel.text = [@"¥" stringByAppendingString:commodmodel.marketprice];
         commodView.numberlabel.text = [NSString stringWithFormat:@"共%@件",commodmodel.total];
         commodView.button.tag = i;
+        [commodView.goodDetailBtn addTarget:self action:@selector(goToDetail:) forControlEvents:UIControlEventTouchUpInside];
+        commodView.goodDetailBtn.tag = [commodmodel.aid integerValue];
         [commodView.button addTarget:self action:@selector(evaluateAction:) forControlEvents:UIControlEventTouchUpInside];
-        [commodityView addSubview:commodView];
         
         UIImage *image=[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:commodmodel.thumb]]];
         UIImageView *imageView = [[UIImageView alloc]initWithImage:image];
@@ -115,6 +117,8 @@
         [imageView.layer setBorderColor:[UIColor colorFromHexRGB:@"e9e9e9"].CGColor];
         [commodView addSubview:imageView];
         
+        [commodityView addSubview:commodView];
+
         if (!self.isEvaluate) {
             commodView.button.hidden = YES;
         }
@@ -245,6 +249,20 @@
         button2.hidden = YES;
     }
     [self buttonActionwith:_model.status.integerValue];
+}
+
+-(void)goToDetail:(UIButton *)btn
+{
+    GoodSDetailViewController *goodVC = [[GoodSDetailViewController alloc]init];
+    
+    
+    NSDictionary * dic = @{@"appkey":APPkey,@"id":[NSString stringWithFormat:@"%ld",btn.tag]};
+    
+    goodVC.goodsDic = dic;
+    goodVC.isFromDetail = YES;
+    //    goodVC.isFromHomePage = YES;
+    
+    [self.navigationController pushViewController:goodVC animated:NO];
 }
 
 -(void)buttonActionwith:(NSInteger)number
