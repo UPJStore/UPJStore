@@ -8,6 +8,7 @@
 
 #import "SelectTableViewCell.h"
 #import "UIViewController+CG.h"
+#import "UIColor+HexRGB.h"
 
 @implementation SelectTableViewCell
 
@@ -18,16 +19,18 @@
         self.layer.borderWidth = 1;
         self.layer.borderColor = [[UIColor lightGrayColor]CGColor];
         
-        self.selectLogo = [[UIImageView alloc]initWithFrame:CGRectMake1(0, 0,50,50)];
-        self.selectLogo.center = CGPointMake1(40,50);
+        self.selectLogo = [[UIImageView alloc]initWithFrame:CGRectMake1(0, 0,30,30)];
+        self.selectLogo.center = CGPointMake1(20,30);
         [self addSubview:self.selectLogo];
         
-        self.payLabel = [[UILabel alloc]initWithFrame:CGRectMake1(100,40,150,30)];
+        self.payLabel = [[UILabel alloc]initWithFrame:CGRectMake1(40,15,150,30)];
         self.payLabel.textAlignment = NSTextAlignmentLeft;
+        self.payLabel.font = [UIFont systemFontOfSize:CGFloatMakeY(12)];
+        self.payLabel.textColor = [UIColor colorFromHexRGB:@"999999"];
         [self addSubview:self.payLabel];
         
         self.sureBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        self.sureBtn.frame = CGRectMake1(414-50,40, 30, 30);
+        self.sureBtn.frame = CGRectMake1(414-50,20, 20, 20);
         [self.sureBtn setBackgroundImage:[UIImage imageNamed:@"UnSelected"] forState:UIControlStateNormal];
         [self.sureBtn setBackgroundImage:[UIImage imageNamed:@"Selected"] forState:UIControlStateSelected];
         [self addSubview:self.sureBtn];

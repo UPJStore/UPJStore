@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface appraiseViewController : UIViewController
+@interface AppraiseViewController : UIViewController
 @property (nonatomic,strong) NSArray * appraiseArr;
 @end

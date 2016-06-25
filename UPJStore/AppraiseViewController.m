@@ -6,16 +6,16 @@
 //  Copyright © 2016年 UPJApp. All rights reserved.
 //
 
-#import "appraiseViewController.h"
+#import "AppraiseViewController.h"
 #import "appraiseModel.h"
 #import "AppraiseTableViewCell.h"
 
-@interface appraiseViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface AppraiseViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong) UITableView *tableView;
 @property (nonatomic,strong) NSMutableArray * heightArr;
 @end
 
-@implementation appraiseViewController
+@implementation AppraiseViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -47,8 +47,6 @@
         return 100;
     }
     return  [_heightArr[indexPath.row] floatValue]+10;
-
-//    return 150;
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{

@@ -412,6 +412,7 @@
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         DLog(@"failure%@",error);
+        [self postmid];
     }];
 }
 
@@ -433,6 +434,7 @@
         [self setAddresswithAddress:jsonArr];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         DLog(@"failure%@",error);
+        [self postaddress];
     }];
 }
 
@@ -462,6 +464,7 @@
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         DLog(@"failure%@",error);
+        [self postcollect];
     }];
 }
 
@@ -493,6 +496,7 @@
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         DLog(@"failure%@",error);
+        [self postattention];
     }];
 }
 
@@ -528,6 +532,7 @@
         [self setConponwithConpon:settingArr];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         DLog(@"failure%@",error);
+        [self postCoupon];
     }];
 }
 

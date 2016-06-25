@@ -15,7 +15,7 @@
 #import "UIViewController+CG.h"
 #import "UIImageView+WebCache.h"
 #import "descriptionView.h"
-#import "appraiseViewController.h"
+#import "AppraiseViewController.h"
 #import "LoginViewController.h"
 #import "CollectModel.h"
 #import "BookIngViewController.h"
@@ -816,7 +816,7 @@
 
 -(void)goToAppraiseVC:(UIButton *)btn
 {
-    appraiseViewController *appraiseVC = [[appraiseViewController alloc]init];
+    AppraiseViewController *appraiseVC = [[AppraiseViewController alloc]init];
     appraiseVC.appraiseArr = _appraiseArr;
    
     [self.navigationController pushViewController:appraiseVC animated:YES];

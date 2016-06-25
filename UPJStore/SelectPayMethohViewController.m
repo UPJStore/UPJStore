@@ -42,7 +42,7 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(handlePayResult:) name:WX_PAY_RESULT object:nil];
     
     self.view.backgroundColor = [UIColor colorWithRed:240.0/255 green:240.0/255 blue:240.0/255 alpha:1];;
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"fanhui_@2x.png"] style:UIBarButtonItemStyleDone target:self action:@selector(pop)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"backArrow"] style:UIBarButtonItemStyleDone target:self action:@selector(pop)];
     self.navigationItem.leftBarButtonItem.tintColor =  [UIColor lightGrayColor];
     
     [self initOrderInfoView];
@@ -108,7 +108,7 @@
         [cell.sureBtn setTag:11];
     }else if (indexPath.row == 1) {
         cell.payLabel.text = @"支付宝支付";
-        cell.selectLogo.image = [UIImage imageNamed:@"120x120"];
+        cell.selectLogo.image = [UIImage imageNamed:@"biao"];
         [cell.sureBtn setTag:22];
     }
     return cell;
@@ -321,6 +321,7 @@
         }
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        DLog("%@",error);
         
     }];
     

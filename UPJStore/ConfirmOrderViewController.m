@@ -27,14 +27,15 @@
 #import "SelectPayMethohViewController.h"
 
 
-@interface ConfirmOrderViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
+@interface ConfirmOrderViewController ()<UITableViewDelegate,UITableViewDataSource,UITextViewDelegate>
 {
     NSString * addressStr,*areaStr,*aidStr,*mobileStr,*provinceStr,*nameStr,*cityStr;
     NSString * orderID;
-    UITextField *noteField;
+    UITextView *noteFieldView;
     NSDictionary * couponDic;
     UIView * noteView;
     UIImageView * imageView;
+    UILabel *label;
 }
 @property (nonatomic,strong) UITableView * goodsTableView;
 @property (nonatomic,strong) NSMutableArray * modelArr;
@@ -70,7 +71,7 @@
     // Do any additional setup after loading the view.
 }
 -(void)pop{
-        self.tabBarController.tabBar.hidden = NO;
+    self.tabBarController.tabBar.hidden = NO;
     [self.navigationController popViewControllerAnimated:YES];
 }
 -(UITableView *)goodsTableView
@@ -86,7 +87,7 @@
 }
 
 -(void)postOrderWtihDic:(NSDictionary *)dic{
-
+    
 #pragma dic MD5
     NSDictionary * Ndic = [self md5DicWith:dic];
     
@@ -105,7 +106,7 @@
             [self.modelArr addObject:model];
         }
         
-
+        
         [self endView];
         [self.goodsTableView reloadData];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -247,7 +248,7 @@
     }else if (section == 3){
         return 1;
     }else{
-    return _modelArr.count;
+        return _modelArr.count;
     }
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -261,25 +262,26 @@
         cell.titleLabel.text = model.title;
         cell.totalPrice.text = [NSString stringWithFormat:@"￥%@",model.marketprice];
         cell.total.text = [NSString stringWithFormat:@"×%@",model.total];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
         
     }
     if(indexPath.section == 1){
-       
+        
         OrderAddressTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"systemCell"];
         if (cell == nil) {
             cell = [[OrderAddressTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"systemCell"];
         }
-       
+        
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                cell.layer.borderWidth = 1;
-                cell.layer.borderColor = [[UIColor lightGrayColor]CGColor];
-                cell.nameLab.text = nameStr;
-                cell.mobileLab.text =mobileStr;
-                cell.addressLab.text = addressStr;
+        cell.layer.borderWidth = 1;
+        cell.layer.borderColor = [[UIColor lightGrayColor]CGColor];
+        cell.nameLab.text = nameStr;
+        cell.mobileLab.text =mobileStr;
+        cell.addressLab.text = addressStr;
         
         if (imageView==nil) {
-           imageView = [[UIImageView alloc]initWithFrame:CGRectMake1(5, 40, 20, 20)];
+            imageView = [[UIImageView alloc]initWithFrame:CGRectMake1(5, 40, 20, 20)];
             imageView.image = [UIImage imageNamed:@"addImg"];
             [cell.contentView addSubview:imageView];
             UIImageView * arrowImageView = [[UIImageView alloc]initWithFrame:CGRectMake1(414-20, 40, 20, 20)];
@@ -288,14 +290,14 @@
             
         }
         
-            _noView =[[UIView alloc]initWithFrame:CGRectMake1(30, 20, 414-60, 30)];
-            [cell.contentView addSubview:_noView];
-            _noView.backgroundColor = [UIColor whiteColor];
-            _noLabel = [[UILabel alloc]initWithFrame:CGRectMake1(0, 0, 414-60,60)];
-            _noLabel.backgroundColor = [UIColor whiteColor];
-            [_noView addSubview:_noLabel];
-            _noLabel.text = @"亲，你还没有收货地址喔，点击这里添加。";
-            _noLabel.numberOfLines = 0;
+        _noView =[[UIView alloc]initWithFrame:CGRectMake1(30, 20, 414-60, 30)];
+        [cell.contentView addSubview:_noView];
+        _noView.backgroundColor = [UIColor whiteColor];
+        _noLabel = [[UILabel alloc]initWithFrame:CGRectMake1(0, 0, 414-60,60)];
+        _noLabel.backgroundColor = [UIColor whiteColor];
+        [_noView addSubview:_noLabel];
+        _noLabel.text = @"亲，你还没有收货地址喔，点击这里添加。";
+        _noLabel.numberOfLines = 0;
         
         if (nameStr == nil) {
             _noView.hidden = NO;
@@ -303,19 +305,19 @@
         {
             _noView.hidden = YES;
         }
-        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }
     if (indexPath.section == 2) {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
         if (cell == nil) {
             cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
-
+            
         }
         
         cell.contentView.layer.borderWidth = 1;
         cell.contentView.layer.borderColor = [[UIColor lightGrayColor]CGColor];
-    
+        
         
         cell.imageView.image = [UIImage imageNamed:@"addCoupon"];
         
@@ -324,10 +326,10 @@
             [cell.contentView addSubview:_couponLabel];
             _couponLabel.text = @"兑换优惠券";
         }
-
         
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
-
+        
     }
     if (indexPath.section == 3) {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"remarkCell"];
@@ -341,30 +343,44 @@
         
         if (noteView == nil) {
             
-            noteView = [[UIView alloc]initWithFrame:CGRectMake1(0, 0, 414, 150)];
+            noteView = [[UIView alloc]initWithFrame:CGRectMake1(0, 0, 414, 100)];
             noteView.backgroundColor =[UIColor whiteColor];
             [cell.contentView addSubview:noteView];
             
-            UILabel *headLabel = [[UILabel alloc]initWithFrame:CGRectMake1(10, 0, 394, 30)];
+            UILabel *headLabel = [[UILabel alloc]initWithFrame:CGRectMake1(10, 5, 394, 20)];
             headLabel.text = @"备注信息：";
             headLabel.font = [UIFont systemFontOfSize:CGFloatMakeY(15)];
             [noteView addSubview:headLabel];
             
-            noteField = [[UITextField alloc]initWithFrame:CGRectMake1(10, 10, 394, 120)];
-            noteField.delegate =self;
-            noteField.returnKeyType = UIReturnKeyDone;
-            noteField.placeholder = @"亲，还有什么要交代的话，告诉我们吧！";
+            noteFieldView = [[UITextView alloc]initWithFrame:CGRectMake1(10, 25, 394, 175)];
+            noteFieldView.delegate = self;
+            noteFieldView.returnKeyType = UIReturnKeyDone;
             
-            [noteView addSubview:noteField];
-
+            noteFieldView.font = [UIFont systemFontOfSize:CGFloatMakeY(15)];
+            [noteView addSubview:noteFieldView];
+            
+            label = [[UILabel alloc]initWithFrame:CGRectMake1(16, 30, 394, 20)];
+            label.text = @"亲，还有什么要交代的话，告诉我们吧！";
+            label.font = [UIFont systemFontOfSize:CGFloatMakeY(15)];
+            UIColor *holdcolor = [UIColor colorWithWhite:0.75 alpha:1];
+            label.textColor = holdcolor;
+            [noteView addSubview:label];
         }
-        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
         
     }
-
+    
     return nil;
 }
+
+-(void)textViewDidChange:(UITextView *)textView
+{    label.hidden =YES;
+    if (noteFieldView.text.length ==0) {
+        label.hidden = NO;
+    }
+}
+
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 4;
 }
@@ -401,11 +417,14 @@
     return nil;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 100;
+    if (indexPath.section == 3) {
+        return CGFloatMakeY(200);
+    }else
+    {
+        return CGFloatMakeY(100);
+    }
 }
--(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return 10;
-}
+
 // 去掉tabelView headerView的粘性
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     CGFloat sectionHeaderHeight = 30;
@@ -418,6 +437,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+   // [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.section == 1) {
         MyAddressViewController * addVC = [[MyAddressViewController alloc]init];
         
@@ -430,7 +450,7 @@
         ChooseCouponViewController * chooseVC = [[ChooseCouponViewController alloc]init];
         chooseVC.dic = @{@"appkey":APPkey,@"mid":[self returnMid],@"amount":_modelDic[@"total_price"]};
         [self.navigationController pushViewController:chooseVC animated:YES];
-}
+    }
     
 }
 
@@ -449,7 +469,7 @@
     
     [self addsInfoWithDic:_addsDic];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reduce:) name:@"reduce" object:nil];
-
+    
     
 }
 
@@ -472,20 +492,21 @@
     else
     {
         _noView.hidden =YES;
-    addressStr  = dic[@"address"];
-    areaStr = dic[@"area"];
-    cityStr = dic[@"city"];
-    aidStr = dic[@"id"];
-    mobileStr = dic[@"mobile"];
-    provinceStr = dic[@"province"];
+        addressStr  = dic[@"address"];
+        areaStr = dic[@"area"];
+        cityStr = dic[@"city"];
+        aidStr = dic[@"id"];
+        mobileStr = dic[@"mobile"];
+        provinceStr = dic[@"province"];
         nameStr = dic[@"realname"];
         [_goodsTableView reloadData];
     }
     _addsDic = nil;
     
 }
+
 #pragma mark - 屏幕上弹
--( void )textFieldDidBeginEditing:(UITextField *)textField
+-(BOOL)textViewShouldBeginEditing:(UITextView *)textView
 {
     //键盘高度216
     
@@ -498,26 +519,31 @@
     self.view.frame = CGRectMake(0.0f, -170.0f, self.view.frame.size.width, self.view.frame.size.height); //64-216
     
     [UIView commitAnimations];
+    return YES;
 }
 
-#pragma mark -屏幕恢复
--( void )textFieldDidEndEditing:(UITextField *)textField
+-(BOOL)textViewShouldEndEditing:(UITextView *)textView
 {
-    //滑动效果
+     [noteFieldView resignFirstResponder];
+    //滑动效果（动画）
     NSTimeInterval animationDuration = 0.30f;
     [UIView beginAnimations:@ "ResizeForKeyboard"  context:nil];
     [UIView setAnimationDuration:animationDuration];
     
-    //恢复屏幕
-    self.view.frame = CGRectMake(0.0f, 64.f, self.view.frame.size.width, self.view.frame.size.height); //64-216
+    //将视图的Y坐标向上移动，以使下面腾出地方用于软键盘的显示
+    self.view.frame = CGRectMake(0.0f, 64.0f, self.view.frame.size.width, self.view.frame.size.height); //64-216
     
     [UIView commitAnimations];
+    return YES;
 }
 
--(BOOL)textFieldShouldReturn:(UITextField *)textField
+#pragma mark - UITextView Delegate Methods
+-(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
-    [noteField resignFirstResponder];
-    
+    if ([text isEqualToString:@"\n"]) {
+        [textView resignFirstResponder];
+        return NO;
+    }
     return YES;
 }
 
