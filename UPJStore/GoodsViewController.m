@@ -15,7 +15,6 @@
 #import "XLPlainFlowLayout.h"
 #import "GoodSDetailViewController.h"
 
-
 @interface GoodsViewController ()<UICollectionViewDelegate,UICollectionViewDataSource>
 
 @property (nonatomic,strong)UICollectionView *goodsCollectionView;
@@ -183,7 +182,7 @@
             UICollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"Header2" forIndexPath:indexPath];
             AppDelegate *app = [[UIApplication sharedApplication]delegate];
             if (headerView.subviews.count < 1) {
-                self.btnArr = @[@"最新",@"人气",@"销量",@"价格",@"价格▲",@"价格▼"];
+                self.btnArr = @[@"最新",@"人气",@"销量",@"价格",@"价格▼",@"价格▲"];
                 UIView *sortView = [[UIView alloc]initWithFrame:CGRectMake1(0, 0, 414, 50)];
                 sortView.backgroundColor = [UIColor whiteColor];
                 for (int i = 0; i < 4; i++) {

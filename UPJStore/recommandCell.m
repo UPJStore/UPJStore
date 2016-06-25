@@ -41,6 +41,7 @@
         [self addSubview:_titleLabel];
         
         _goodsImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kSwidth, CGFloatMakeY(110))];
+        _goodsImageView.contentMode = UIViewContentModeScaleAspectFit;
         [self addSubview:_goodsImageView];
     }
     return self;

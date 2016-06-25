@@ -15,5 +15,6 @@
 @property (nonatomic,assign) BOOL isFromHomePage;
 @property (nonatomic,assign) BOOL isFromCollection;
 @property (nonatomic,assign) BOOL isFromBrand;
+@property (nonatomic,assign) BOOL isFromDetail;
 
 @end

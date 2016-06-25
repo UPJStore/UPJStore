@@ -26,7 +26,7 @@
 @interface GoodSDetailViewController ()<UIScrollViewDelegate,UIWebViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource>
 
 @property (nonatomic,strong) UIScrollView *scrollView;
-@property (nonatomic,strong) UIScrollView * goodsScrollView;
+@property (nonatomic,strong) UIScrollView * goodsScrollView,* contentScrollView;
 @property (nonatomic,strong) NSMutableArray *appraiseArr;
 @property (nonatomic,strong) NSMutableArray *thumbArr,*recommandArr;
 @property (nonatomic,strong)  detailModel * model;
@@ -40,6 +40,7 @@
 @property (nonatomic,retain) UIPageControl *pageControl;
 @property (nonatomic,strong) UIView *evaluationView,* recommandView;
 @property (nonatomic,strong) UICollectionView *recommandCollectionView;
+@property (nonatomic,strong) UIImageView *DetailImageView;
 @end
 
 @interface GoodSDetailViewController ()
@@ -154,20 +155,76 @@
     _ContentView = [[UIView alloc]initWithFrame:CGRectMake(0, kHeight*3, kWidth, kHeight)];
     _ContentView.backgroundColor = [UIColor whiteColor];
     
+    _contentScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, CGFloatMakeY(40), kWidth, kHeight)];
+    _contentScrollView.contentSize = CGSizeMake(kWidth*2, kHeight);
+    [_ContentView addSubview:_contentScrollView];
+    _contentScrollView.delegate = self;
     
-    UILabel * detailLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, kWidth, CGFloatMakeY(20))];
-    detailLabel.text = @"商品详情";
-    detailLabel.font = [UIFont systemFontOfSize:CGFloatMakeY(14)];
-    detailLabel.textAlignment = NSTextAlignmentCenter;
-    [_ContentView addSubview:detailLabel];
+    UIButton * detailBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    detailBtn.layer.borderWidth = 0.3;
+    detailBtn.layer.borderColor = [[UIColor colorFromHexRGB:@"d9d9d9"]CGColor];
+    detailBtn.frame = CGRectMake1(10, 5, k6PWidth/2-10, 30);
+    [detailBtn setTitle:@"商品详情" forState:UIControlStateNormal];
+    detailBtn.selected = YES;
+    detailBtn.tag = 100;
+    [detailBtn addTarget:self action:@selector(changeView:) forControlEvents:UIControlEventTouchUpInside];
+    [detailBtn setTitleColor:[UIColor colorFromHexRGB:@"000000"] forState:UIControlStateNormal];
+    [detailBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
+    [detailBtn setBackgroundColor:[UIColor blackColor]];
+    detailBtn.titleLabel.font = [UIFont systemFontOfSize:CGFloatMakeY(14)];
+    [_ContentView addSubview:detailBtn];
     
-    _webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, CGFloatMakeY(20), kWidth, kHeight-124-CGFloatMakeY(10))];
+    UIButton * FAQBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    FAQBtn.layer.borderWidth = 0.3;
+    FAQBtn.layer.borderColor = [[UIColor colorFromHexRGB:@"d9d9d9"]CGColor];
+    FAQBtn.frame = CGRectMake1(k6PWidth/2, 5, k6PWidth/2-10, 30);
+    FAQBtn.tag = 101;
+    [FAQBtn addTarget:self action:@selector(changeView:) forControlEvents:UIControlEventTouchUpInside];
+    [FAQBtn setTitle:@"温馨提示" forState:UIControlStateNormal];
+    [FAQBtn setTitleColor:[UIColor colorFromHexRGB:@"000000"] forState:UIControlStateNormal];
+    [FAQBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
+    [FAQBtn setBackgroundColor:[UIColor whiteColor]];
+    FAQBtn.titleLabel.font = [UIFont systemFontOfSize:CGFloatMakeY(14)];
+    [_ContentView addSubview:FAQBtn];
+    
+    _DetailImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"faq.jpg"]];
+    _DetailImageView.frame = CGRectMake(kWidth, 0, kWidth, 550);
+    _DetailImageView.contentMode = UIViewContentModeScaleAspectFit;
+    [_contentScrollView addSubview:_DetailImageView];
+    
+    _webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, kWidth, kHeight-124-CGFloatMakeY(30))];
     [_webView loadHTMLString:_model.content baseURL:nil];
     _webView.delegate = self;
     _webView.scrollView.delegate = self;
     [_webView reload];
-    [_ContentView addSubview:_webView];
+    [_contentScrollView addSubview:_webView];
     [self.view addSubview:_ContentView];
+}
+
+-(void)changeView:(UIButton*)btn
+{
+    UIButton * otherBtn;
+    
+    if (btn.tag == 100) {
+        
+        otherBtn = [_ContentView viewWithTag:101];
+        
+        _contentScrollView.contentOffset = CGPointMake(0, 0);
+        
+    }
+    else if (btn.tag == 101)
+    {
+        otherBtn = [_ContentView viewWithTag:100];
+        
+        _contentScrollView.contentOffset = CGPointMake(kWidth, 0);
+
+    }
+    
+    otherBtn.backgroundColor = [UIColor whiteColor];
+    otherBtn.selected = NO;
+    btn.selected = YES;
+    btn.backgroundColor = [UIColor blackColor];
+    
 }
 
 #pragma 更改收藏状态
@@ -372,12 +429,14 @@
     
     self.pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, CGFloatMakeY(280),kWidth,CGFloatMakeY(20))];
     
-    // 设置点的个数(页面的个数)
-    self.pageControl.numberOfPages = pageArr.count;
     
     [self.pageControl setValue:[UIImage imageNamed:@"pageIndicon"] forKeyPath:@"pageImage"];
     
     [self.pageControl setValue:[UIImage imageNamed:@"currenticon"] forKeyPath:@"currentPageImage"];
+    
+    // 设置点的个数(页面的个数)
+    self.pageControl.numberOfPages = pageArr.count;
+
     
     
 //    // 设置点的颜色
@@ -595,7 +654,7 @@
     [self.recommandView addSubview:self.recommandCollectionView];
 
     
-    self.scrollView.contentSize  = CGSizeMake(kWidth, _recommandView.frame.origin.y+_recommandView.frame.size.height+CGFloatMakeY(90));
+    self.scrollView.contentSize  = CGSizeMake(kWidth, _recommandView.frame.origin.y+_recommandView.frame.size.height+CGFloatMakeY(160));
     
 }
 
@@ -677,6 +736,20 @@
     return cell;
 }
 
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    GoodSDetailViewController *goodVC = [[GoodSDetailViewController alloc]init];
+    
+    RecommandModelNSObject * model  = _recommandArr[indexPath.row];
+    
+    NSDictionary * dic = @{@"appkey":APPkey,@"id":model.internalBaseClassIdentifier};
+    
+    goodVC.goodsDic = dic;
+    goodVC.isFromDetail = YES;
+    //    goodVC.isFromHomePage = YES;
+    
+    [self.navigationController pushViewController:goodVC animated:NO];
+}
 
 -(UICollectionView *)recommandCollectionView
 {
@@ -832,7 +905,7 @@
         
     }
     
-    if (_isFromCollection)
+    if (_isFromCollection||_isFromDetail)
     {
         self.tabBarController.tabBar.hidden = YES;
     }

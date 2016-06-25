@@ -36,12 +36,12 @@
         [aStr addAttribute:NSForegroundColorAttributeName value:[UIColor colorFromHexRGB:@"cc2245"]  range:NSMakeRange(0, model.marketprice.length+4)];
         [aStr addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"Helvetica-Bold" size:CGFloatMakeY(24)] range:NSMakeRange(0, model.marketprice.length+3)];
         marPrice.attributedText= aStr;
-        marPrice.frame = CGRectMake1(0, 0, [[NSString stringWithFormat:@"¥ %@ |",model.marketprice] sizeWithAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:CGFloatMakeY(24)]}].width, 30);
+        marPrice.frame = CGRectMake(0, 0, [[NSString stringWithFormat:@"¥ %@ |",model.marketprice] sizeWithAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:CGFloatMakeY(24)]}].width, CGFloatMakeY(30));
         
         
         [marketPrice addSubview:marPrice];
         
-        LineLabel *productLabel = [[LineLabel alloc]initWithFrame:CGRectMake(marPrice.frame.origin.x+marPrice.frame.size.width, 0, [[NSString stringWithFormat:@"¥ %@",model.productprice] sizeWithAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:CGFloatMakeY(14)]}].width, 30)];
+        LineLabel *productLabel = [[LineLabel alloc]initWithFrame:CGRectMake(marPrice.frame.origin.x+marPrice.frame.size.width, 0, [[NSString stringWithFormat:@"¥ %@",model.productprice] sizeWithAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:CGFloatMakeY(14)]}].width, CGFloatMakeY(30))];
         productLabel.text =[NSString stringWithFormat:@"¥ %@",model.productprice];
         productLabel.font = [UIFont systemFontOfSize:CGFloatMakeY(14)];
         productLabel.textColor = [UIColor colorFromHexRGB:@"999999"];
@@ -53,7 +53,7 @@
         
         
         
-        UIImageView *CountryimageView = [[UIImageView alloc]initWithFrame:CGRectMake(9, marketPrice.frame.origin.y+CGFloatMakeY(40), 18, 18)];
+        UIImageView *CountryimageView = [[UIImageView alloc]initWithFrame:CGRectMake(CGFloatMakeY(9), marketPrice.frame.origin.y+CGFloatMakeY(40), CGFloatMakeY(18), CGFloatMakeY(18))];
         NSString *imageURL = [NSString stringWithFormat:kSImageUrl,model.img];
         CountryimageView.contentMode = UIViewContentModeScaleAspectFit;
         [CountryimageView sd_setImageWithURL:[NSURL URLWithString:imageURL]];
