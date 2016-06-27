@@ -123,6 +123,7 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
     arr = @[@"用户名",@"昵称",@"真实姓名",@"手机号码"];
     arr2 = @[[self returnPhoneNumber],[self returnNickName],[self returnRealName],[self returnPhoneNumber]];
     [modifyTableView reloadData];

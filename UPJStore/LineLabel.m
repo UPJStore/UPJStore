@@ -87,7 +87,7 @@
             B = components[2];
             A = components[3];
             
-            CGContextSetRGBFillColor(context, R, G, B, 1.0);
+            CGContextSetRGBFillColor(context, R, G, B, A);
             
         }
         

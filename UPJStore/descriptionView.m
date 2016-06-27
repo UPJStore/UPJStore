@@ -36,7 +36,7 @@
         [aStr addAttribute:NSForegroundColorAttributeName value:[UIColor colorFromHexRGB:@"cc2245"]  range:NSMakeRange(0, model.marketprice.length+4)];
         [aStr addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"Helvetica-Bold" size:CGFloatMakeY(24)] range:NSMakeRange(0, model.marketprice.length+3)];
         marPrice.attributedText= aStr;
-        marPrice.frame = CGRectMake(0, 0, [[NSString stringWithFormat:@"¥ %@ |",model.marketprice] sizeWithAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:CGFloatMakeY(24)]}].width, CGFloatMakeY(30));
+        marPrice.frame = CGRectMake(0, 0, [[NSString stringWithFormat:@"¥ %@ |",model.marketprice] sizeWithAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:CGFloatMakeY(24)]}].width+1, CGFloatMakeY(30));
         
         
         [marketPrice addSubview:marPrice];
@@ -102,20 +102,20 @@
    
         
         self.frame = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, desLabel.frame.origin.y+CGFloatMakeY(39)+DesLength);
-//        self.layer.borderWidth = 0.3;
+//        self.layer.borderWidth = 0.6;
         
         CALayer* layer = [self layer];
         CALayer *bottomBorder = [CALayer layer];
         bottomBorder.borderColor = [UIColor colorFromHexRGB:@"d9d9d9"].CGColor;
-        bottomBorder.borderWidth = 0.3;
-        bottomBorder.frame = CGRectMake(-0.3, layer.frame.size.height-0.3, layer.frame.size.width, 0.3);
+        bottomBorder.borderWidth = 0.6;
+        bottomBorder.frame = CGRectMake(-0.6, layer.frame.size.height-0.6, layer.frame.size.width, 0.6);
         [layer addSublayer:bottomBorder];
         
         CALayer *markLayer = [marketPrice layer];
         CALayer *SSBorder = [CALayer layer];
         SSBorder.borderColor = [UIColor colorFromHexRGB:@"d9d9d9"].CGColor;
-        SSBorder.borderWidth = 0.3;
-        SSBorder.frame = CGRectMake(-0.3, markLayer.frame.size.height-0.3, markLayer.frame.size.width, 0.3);
+        SSBorder.borderWidth = 0.6;
+        SSBorder.frame = CGRectMake(-0.6, markLayer.frame.size.height-0.6, markLayer.frame.size.width, 0.6);
         [markLayer addSublayer:SSBorder];
         
         
