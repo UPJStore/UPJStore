@@ -467,37 +467,47 @@
 
 -(void)VersionBUtton
 {
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
 
-    NSData * data = [NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:@"https://itunes.apple.com/lookup?id=1104253189"]] options:NSJSONReadingAllowFragments error:nil];
-    DLog(@"data %@",data);
-    
-    NSDictionary * dic = (NSDictionary *)data;
-    NSArray * verarr = dic[@"results"];
-    NSDictionary * dic2 =verarr[0];
-    NSString *verStr = dic2[@"version"];
-    
-      NSData * data2 = [NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://m.upinkji.com/api/version/all?appkey=%@",APPkey]]] options:NSJSONReadingAllowFragments error:nil];
-    DLog(@"data2 %@",data2);
-    
-    NSString * nowVersion = [[[NSBundle mainBundle] infoDictionary]objectForKey:@"CFBundleVersion"];
-
-    NSArray * data2Arr = (NSArray*)data2;
-    NSInteger i = 0;
-    for (NSDictionary * dic  in data2Arr) {
-        if ([dic[@"version"] isEqualToString:nowVersion]) {
-            
-        force_upgrade = dic[@"force_upgrade"];
-            DLog(@"%@",force_upgrade);
+    [manager GET:@"https://itunes.apple.com/lookup?id=1104253189" parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
+    {
+     #pragma 获取数据json化。
+        NSDictionary * dic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
+        NSArray * verarr = dic[@"results"];
+        NSDictionary * dic2 =verarr[0];
+        NSString *verStr = dic2[@"version"];
+        
+        NSData * data2 = [NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://m.upinkji.com/api/version/all?appkey=%@",APPkey]]] options:NSJSONReadingAllowFragments error:nil];
+        DLog(@"data2 %@",data2);
+        
+        NSString * nowVersion = [[[NSBundle mainBundle] infoDictionary]objectForKey:@"CFBundleVersion"];
+        
+        NSArray * data2Arr = (NSArray*)data2;
+        NSInteger i = 0;
+        for (NSDictionary * dic  in data2Arr) {
+            if ([dic[@"version"] isEqualToString:nowVersion]) {
+                
+                force_upgrade = dic[@"force_upgrade"];
+                DLog(@"%@",force_upgrade);
+            }
+            else
+                i++;
         }
-        else
-        i++;
-    }
-    
-    [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(checkAppUpdate:) userInfo:verStr repeats:NO];
-    
+        
+        [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(checkAppUpdate:) userInfo:verStr repeats:NO];
+        
+        
 
-       [self showView];
-}
+    } failure:^(NSURLSessionTask *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];    
+    
+    [self showView];
+
+    }
 
 -(void)checkAppUpdate:(NSTimer * )timer
 {
@@ -530,10 +540,7 @@
             
         }];
     }
-//        else
-//    {
-//        [self showView];
-//    }
+
 }
 
 -(void)showView

@@ -16,7 +16,6 @@ typedef enum
 @interface myUILabel : UILabel
 {
 @private
-    VerticalAlignment _verticalAlignment;
 }
 
 @property (nonatomic) VerticalAlignment verticalAlignment;

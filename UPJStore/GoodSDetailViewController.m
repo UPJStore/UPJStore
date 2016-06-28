@@ -157,11 +157,14 @@
     
     _contentScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, CGFloatMakeY(40), kWidth, kHeight)];
     _contentScrollView.contentSize = CGSizeMake(kWidth*2, kHeight);
+    
+    _contentScrollView.scrollEnabled = NO;
+    
     [_ContentView addSubview:_contentScrollView];
     _contentScrollView.delegate = self;
     
     UIButton * detailBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    detailBtn.layer.borderWidth = 0.3;
+    detailBtn.layer.borderWidth = 0.4;
     detailBtn.layer.borderColor = [[UIColor colorFromHexRGB:@"d9d9d9"]CGColor];
     detailBtn.frame = CGRectMake1(10, 5, k6PWidth/2-10, 30);
     [detailBtn setTitle:@"商品详情" forState:UIControlStateNormal];
@@ -175,7 +178,7 @@
     [_ContentView addSubview:detailBtn];
     
     UIButton * FAQBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    FAQBtn.layer.borderWidth = 0.3;
+    FAQBtn.layer.borderWidth = 0.4;
     FAQBtn.layer.borderColor = [[UIColor colorFromHexRGB:@"d9d9d9"]CGColor];
     FAQBtn.frame = CGRectMake1(k6PWidth/2, 5, k6PWidth/2-10, 30);
     FAQBtn.tag = 101;
@@ -188,7 +191,7 @@
     [_ContentView addSubview:FAQBtn];
     
     _DetailImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"faq.jpg"]];
-    _DetailImageView.frame = CGRectMake(kWidth, 0, kWidth, 550);
+    _DetailImageView.frame = CGRectMake(kWidth, 0, kWidth, CGFloatMakeY(550));
     _DetailImageView.contentMode = UIViewContentModeScaleAspectFit;
     [_contentScrollView addSubview:_DetailImageView];
     
@@ -396,8 +399,8 @@
     PayLabel.attributedText = aStr;
     [instructionsView addSubview:PayLabel];
     
-    instructionsView.layer.borderWidth = 0.3;
-    instructionsView.layer.borderColor = [[UIColor colorFromHexRGB:@"d9d9d9"]CGColor];
+//    instructionsView.layer.borderWidth = 0.3;
+//    instructionsView.layer.borderColor = [[UIColor colorFromHexRGB:@"d9d9d9"]CGColor];
 
     
     [self.scrollView addSubview:instructionsView];
@@ -550,17 +553,23 @@
 
 //    
     UILabel * evaluationLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, kWidth, CGFloatMakeY(30))];
-    evaluationLabel.text = [NSString stringWithFormat:@"\t商品评价（%ld）",_model.appraise.count];
+    evaluationLabel.text = [NSString stringWithFormat:@"  商品评价（%ld）",_model.appraise.count];
     evaluationLabel.textAlignment = NSTextAlignmentLeft;
     evaluationLabel.font = [UIFont systemFontOfSize:CGFloatMakeY(14)];
     evaluationLabel.textColor = [UIColor colorFromHexRGB:@"999999"];
+    CALayer *evaluationLayer = [evaluationLabel layer];
+    CALayer *SSBorder = [CALayer layer];
+    SSBorder.borderColor = [UIColor colorFromHexRGB:@"d9d9d9"].CGColor;
+    SSBorder.borderWidth = 0.6;
+    SSBorder.frame = CGRectMake(-0.6, evaluationLayer.frame.size.height-0.6, evaluationLayer.frame.size.width, 0.6);
+    [evaluationLayer addSublayer:SSBorder];
     [_evaluationView addSubview:evaluationLabel];
     
     CGFloat evaluationVieweHeight = evaluationLabel.frame.size.height;
     
     if (_model.appraise.count == 0)
     {
-        UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(0, CGFloatMakeY(30), kWidth,CGFloatMakeY(40))];
+        UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(0, CGFloatMakeY(30), kWidth ,CGFloatMakeY(40))];
         label.text = @"本商品正在等你来评论喔。";
         label.textAlignment = NSTextAlignmentCenter ;
         [_evaluationView addSubview:label];
