@@ -155,7 +155,13 @@
 
 -(void)update:(NSString *)str
 {
-    label.text = [NSString stringWithFormat:@"%@,欢迎你回来",str];
+    if([str isEqualToString:@"0"])
+    {
+        label.text = @"未设置昵称";
+    }else
+    {
+        label.text = [NSString stringWithFormat:@"%@,欢迎你回来",str];
+    }
 }
 
 /*

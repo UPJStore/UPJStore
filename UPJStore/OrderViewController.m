@@ -131,29 +131,32 @@
 
 -(void)tapAction:(UIButton*)btn
 {
-    if (btn.tag == 0) {
-        [UIView animateWithDuration:0.5 animations:^{
-            redLineView.frame=CGRectMake1((414/5-32.5)/2, 41, 31, 3);
-        }];
-        isEvaluate = NO;
-    }else if(btn.tag == 4){
-        [UIView animateWithDuration:0.3 animations:^{
-            redLineView.frame=CGRectMake1((414/5-48)/2+414/5*4, 41, 47, 3);
-        }];
-        isEvaluate = YES;
+    if (self.number!= btn.tag) {
+        if (btn.tag == 0) {
+            [UIView animateWithDuration:0.5 animations:^{
+                redLineView.frame=CGRectMake1((414/5-32.5)/2, 41, 31, 3);
+            }];
+            isEvaluate = NO;
+        }else if(btn.tag == 4){
+            [UIView animateWithDuration:0.3 animations:^{
+                redLineView.frame=CGRectMake1((414/5-48)/2+414/5*4, 41, 47, 3);
+            }];
+            isEvaluate = YES;
+        }
+        else
+        {
+            [UIView animateWithDuration:0.3 animations:^{
+                redLineView.frame=CGRectMake1((414/5-48)/2+414/5*btn.tag, 41, 47, 3);
+            }];
+            isEvaluate = NO;
+        }
+        [orderTableView setContentOffset:CGPointMake(0, 0) animated:YES];
+        self.number = btn.tag;
+        [self switchActionWithnumber:btn.tag];
+        [self setMBHUD];
+        orderTableView.userInteractionEnabled = NO;
+        [self modelGet];
     }
-    else
-    {
-        [UIView animateWithDuration:0.3 animations:^{
-            redLineView.frame=CGRectMake1((414/5-48)/2+414/5*btn.tag, 41, 47, 3);
-        }];
-        isEvaluate = NO;
-    }
-    [orderTableView setContentOffset:CGPointMake(0, 0) animated:YES];
-    [self switchActionWithnumber:btn.tag];
-    [self setMBHUD];
-    orderTableView.userInteractionEnabled = NO;
-    [self modelGet];
 }
 
 -(void)switchActionWithnumber:(NSInteger)number
@@ -250,8 +253,9 @@
             break;
         case 2:
             statuStr = @"待收货";
-            button1Str = @"0";
+            button1Str = @"快递追踪";
             button2Str = @"确认收货";
+            [cell.button1 addTarget:self action:@selector(expressCheckAction:) forControlEvents:UIControlEventTouchUpInside];
             [cell.button2 addTarget:self action:@selector(confirmAction:) forControlEvents:UIControlEventTouchUpInside];
             break;
         case 3:
@@ -338,6 +342,11 @@
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         DLog(@"failure%@",error);
     }];
+}
+
+-(void)expressCheckAction:(UIButton*)button
+{
+    OrderModel *model = dataArr[button.tag];
 }
 
 -(void)confirmAction:(UIButton*)button
