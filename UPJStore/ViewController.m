@@ -11,32 +11,23 @@
 #import "MJRefresh.h"
 #import "AFNetworking.h"
 #import "UIImageView+WebCache.h"
-<<<<<<< HEAD
 #import "UIButton+WebCache.h"
 #import "UIViewController+CG.h"
 #import "HomePageTableViewCell.h"
 #import "LBTModel.h"
-=======
 #import "UIImage+GIF.h"
-#import "UIButton+WebCache.h"
-#import "LBTModel.h"
-#import "CustomCollectionViewCell.h"
 #import "ProductModel.h"
->>>>>>> fbd50352f0ad3a6e73972c09ad46ab3a9edffeb6
 #import "HeaderModel.h"
-#import "ProductModel.h"
 #import "CustomCollectionViewCell.h"
 #import "DetailTableViewCell.h"
 #import "GoodsViewController.h"
-<<<<<<< HEAD
 #import "MapViewController.h"
 #import "CodeViewController.h"
-=======
 #import "ActivityViewController.h"
 #import "OthersModel.h"
 #import "UIColor+HexRGB.h"
 #import "MBProgressHUD.h"
->>>>>>> fbd50352f0ad3a6e73972c09ad46ab3a9edffeb6
+
 #import "GoodSDetailViewController.h"
 #import "AfterSearchViewController.h"
 

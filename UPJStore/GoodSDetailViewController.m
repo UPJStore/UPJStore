@@ -82,13 +82,8 @@
             }
         }
     }
-   
-<<<<<<< HEAD
-    self.view.backgroundColor = [UIColor colorFromHexRGB:@"999999"];
-=======
     self.view.backgroundColor = [UIColor colorFromHexRGB:@"cccccc"];
     
->>>>>>> fbd50352f0ad3a6e73972c09ad46ab3a9edffeb6
     self.navigationController.navigationBar.translucent = NO;
     [self.view addSubview:self.scrollView];
     [self getDataWith:_goodsDic];
