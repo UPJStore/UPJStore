@@ -31,11 +31,11 @@
         self.desLabel.text = model.descriptionStr;
     }
     if (model.marketprice.length == 5) {
-        lineView.frame = CGRectMake1(69, 400, 1, 20);
-        self.productLabel.frame = CGRectMake1(73, 390, 55, 40);
-        btn.frame = CGRectMake1(9, 395, 115, 30);
+        lineView.frame = CGRectMake1(69, 360, 1, 20);
+        self.productLabel.frame = CGRectMake1(73, 350, 55, 40);
+        btn.frame = CGRectMake1(9, 355, 115, 30);
         if (model.productprice.length == 5) {
-            btn.frame = CGRectMake1(9, 395, 110, 30);
+            btn.frame = CGRectMake1(9, 355, 110, 30);
         }
     }
 }
@@ -56,31 +56,31 @@
         [self addSubview:self.titleLabel];
         [self addSubview:self.footView];
         
-        self.detailImg = [[UIImageView alloc]initWithFrame:CGRectMake1(82, 40, 250, 250)];
+        self.detailImg = [[UIImageView alloc]initWithFrame:CGRectMake1(82, 0, 250, 250)];
         [self addSubview:self.detailImg];
         
-        self.detailtitleLabel = [[UILabel alloc]initWithFrame:CGRectMake1(10, 290, 394, 40)];
+        self.detailtitleLabel = [[UILabel alloc]initWithFrame:CGRectMake1(10, 250, 394, 40)];
         self.detailtitleLabel.font = [UIFont systemFontOfSize:CGFloatMakeY(14)];
         self.detailtitleLabel.numberOfLines = 0;
         [self addSubview:self.detailtitleLabel];
         
-        self.desLabel = [[myUILabel alloc]initWithFrame:CGRectMake1(10, 330, 394, 60)];
+        self.desLabel = [[myUILabel alloc]initWithFrame:CGRectMake1(10, 290, 394, 60)];
         self.desLabel.font = [UIFont systemFontOfSize:CGFloatMakeY(12)];
         self.desLabel.numberOfLines = 0;
         self.desLabel.verticalAlignment = VerticalAlignmentTop;
         [self addSubview:self.desLabel];
         
-        self.marketLabel = [[UILabel alloc]initWithFrame:CGRectMake1(10, 390, 70, 40)];
+        self.marketLabel = [[UILabel alloc]initWithFrame:CGRectMake1(10, 350, 70, 40)];
         self.marketLabel.font = [UIFont systemFontOfSize:CGFloatMakeY(16)];
         self.marketLabel.textColor = [UIColor redColor];
         self.marketLabel.textAlignment = 0;
         [self addSubview:self.marketLabel];
         
-        lineView =[[UIView alloc]initWithFrame:CGRectMake1(79, 400, 1, 20)];
+        lineView =[[UIView alloc]initWithFrame:CGRectMake1(79, 360, 1, 20)];
         lineView.backgroundColor = [UIColor redColor];
         [self addSubview:lineView];
         
-        self.productLabel = [[LineLabel alloc]initWithFrame:CGRectMake1(83, 390, 55, 40)];
+        self.productLabel = [[LineLabel alloc]initWithFrame:CGRectMake1(83, 350, 55, 40)];
         self.productLabel.font = [UIFont systemFontOfSize:CGFloatMakeY(12)];
         self.productLabel.textColor = [UIColor grayColor];
         self.productLabel.textAlignment = 0;
@@ -91,20 +91,33 @@
         btn.layer.borderWidth = 0.5;
         btn.layer.cornerRadius = 5;
         btn.layer.borderColor = [UIColor redColor].CGColor;
-        btn.frame = CGRectMake1(9, 395, 125, 30);
+        btn.frame = CGRectMake1(9, 355, 125, 30);
         [self addSubview:btn];
         
         self.salesBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         self.salesBtn.layer.borderWidth = 0.5;
         self.salesBtn.layer.cornerRadius = 5;
         self.salesBtn.layer.borderColor = [UIColor grayColor].CGColor;
-        self.salesBtn.frame = CGRectMake1(320, 395, 80, 30);
+        self.salesBtn.frame = CGRectMake1(320, 355, 80, 30);
         [self.salesBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
         self.salesBtn.titleLabel.font = [UIFont systemFontOfSize:CGFloatMakeY(12)];
         [self addSubview:self.salesBtn];
         
     }
     return self;
+}
+
+-(void)change
+{
+    self.detailImg.frame = CGRectMake1(82, 40, 250, 250);
+    self.detailtitleLabel.frame = CGRectMake1(10, 290, 394, 40);
+     self.desLabel.frame = CGRectMake1(10, 330, 394, 60);
+    self.marketLabel.frame = CGRectMake1(10, 390, 70, 40);
+    lineView.frame = CGRectMake1(79, 400, 1, 20);
+    self.productLabel.frame = CGRectMake1(83, 390, 55, 40);
+    btn.frame = CGRectMake1(9, 395, 125, 30);
+     self.salesBtn.frame = CGRectMake1(320, 395, 80, 30);
+
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

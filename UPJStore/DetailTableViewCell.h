@@ -23,4 +23,6 @@
 @property(nonatomic,strong)UIButton *salesBtn;
 @property(nonatomic,strong)ProductModel *model;
 
+-(void)change;
+
 @end

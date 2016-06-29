@@ -37,12 +37,12 @@
     _newShopArr = [NSMutableArray array];
     // 设置navigationBar
     self.navigationItem.title = @"门店地址";
-    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor]};
+  //  self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor]};
     [self getAddressData];
     self.view.backgroundColor = [UIColor whiteColor];
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"backArrow"] style:UIBarButtonItemStyleDone target:self action:@selector(pop)];
-    self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
+    self.navigationItem.leftBarButtonItem.tintColor = [UIColor blackColor];
     
     [self initBackScrollViewAndTabelView];
     [self initLocationService];

@@ -8,6 +8,7 @@
 
 #import "HomePageTableViewCell.h"
 #import "UIViewController+CG.h"
+#import "UIColor+HexRGB.h"
 
 @implementation HomePageTableViewCell
 
@@ -28,7 +29,7 @@
         self.titleLabel.textColor = [UIColor blackColor];
         
         self.footView = [[UIView alloc]init];
-        self.footView.backgroundColor = [UIColor lightGrayColor];
+        self.footView.backgroundColor = [UIColor colorFromHexRGB:@"f0f0f0"];
         [self addSubview:self.titleLabel];
         [self addSubview:self.footView];
     }

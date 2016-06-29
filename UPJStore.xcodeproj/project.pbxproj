@@ -23,6 +23,7 @@
 		D101CB131D23AD6F00A1A37A /* ProductModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D101CB121D23AD6F00A1A37A /* ProductModel.m */; };
 		D101CB181D23ADAD00A1A37A /* HeaderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D101CB151D23ADAD00A1A37A /* HeaderModel.m */; };
 		D101CB191D23ADAD00A1A37A /* LBTModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D101CB171D23ADAD00A1A37A /* LBTModel.m */; };
+		D101CB1C1D23E35E00A1A37A /* SecKillModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D101CB1B1D23E35E00A1A37A /* SecKillModel.m */; };
 		D1034D5D1D17A290000D893F /* AboutUPJViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1034D2A1D17A290000D893F /* AboutUPJViewController.m */; };
 		D1034D5E1D17A290000D893F /* AgreementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1034D2C1D17A290000D893F /* AgreementViewController.m */; };
 		D1034D5F1D17A290000D893F /* BindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1034D2E1D17A290000D893F /* BindViewController.m */; };
@@ -228,6 +229,8 @@
 		D101CB151D23ADAD00A1A37A /* HeaderModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeaderModel.m; sourceTree = "<group>"; };
 		D101CB161D23ADAD00A1A37A /* LBTModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBTModel.h; sourceTree = "<group>"; };
 		D101CB171D23ADAD00A1A37A /* LBTModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBTModel.m; sourceTree = "<group>"; };
+		D101CB1A1D23E35E00A1A37A /* SecKillModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecKillModel.h; sourceTree = "<group>"; };
+		D101CB1B1D23E35E00A1A37A /* SecKillModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecKillModel.m; sourceTree = "<group>"; };
 		D1034D291D17A290000D893F /* AboutUPJViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutUPJViewController.h; sourceTree = "<group>"; };
 		D1034D2A1D17A290000D893F /* AboutUPJViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutUPJViewController.m; sourceTree = "<group>"; };
 		D1034D2B1D17A290000D893F /* AgreementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgreementViewController.h; sourceTree = "<group>"; };
@@ -1321,6 +1324,8 @@
 				D101CB121D23AD6F00A1A37A /* ProductModel.m */,
 				D19E23381CA95E2B008047B5 /* ProductsModel.h */,
 				D19E23391CA95E2B008047B5 /* ProductsModel.m */,
+				D101CB1A1D23E35E00A1A37A /* SecKillModel.h */,
+				D101CB1B1D23E35E00A1A37A /* SecKillModel.m */,
 				D19E23441CA95EFA008047B5 /* MapAddressModel.h */,
 				D19E23451CA95EFA008047B5 /* MapAddressModel.m */,
 			);
@@ -1737,6 +1742,7 @@
 				D19112A91CA2742E00FE73EA /* waitSearchCell.m in Sources */,
 				D101CB181D23ADAD00A1A37A /* HeaderModel.m in Sources */,
 				D14F8FA01CDB164600342832 /* openssl_wrapper.m in Sources */,
+				D101CB1C1D23E35E00A1A37A /* SecKillModel.m in Sources */,
 				E30AD76C1C719F6F00B5188C /* main.m in Sources */,
 				D101CB191D23ADAD00A1A37A /* LBTModel.m in Sources */,
 				D1034D761D17A290000D893F /* SettingViewController.m in Sources */,

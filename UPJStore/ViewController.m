@@ -27,7 +27,6 @@
 #import "OthersModel.h"
 #import "UIColor+HexRGB.h"
 #import "MBProgressHUD.h"
-
 #import "GoodSDetailViewController.h"
 #import "AfterSearchViewController.h"
 
@@ -39,6 +38,8 @@
 #define KpreferDetail @"http://m.upinkji.com/api/product/detail_discount"
 
 #define kADV @"http://m.upinkji.com/api/adv/getadv.html"
+
+#define kSecKill @"http://m.upinkji.com/api/product/seckill"
 
 #define APPkey @"BwLiQcZIzgUdLx8Bxb"
 
@@ -73,13 +74,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     self.navigationItem.title = @"友品集";
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [UIColor blackColor];
 #pragma mark -- 左按钮
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"dingwei"] style:UIBarButtonItemStyleDone target:self action:@selector(leftAction:)];
-    self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
+    self.navigationItem.leftBarButtonItem.tintColor = [UIColor blackColor];
 #pragma mark -- 右按钮
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"saomakuang"] style:UIBarButtonItemStyleDone target:self action:@selector(rightAction:)];
-    self.navigationItem.rightBarButtonItem.tintColor = [UIColor whiteColor];
+    self.navigationItem.rightBarButtonItem.tintColor = [UIColor blackColor];
     
     _z = 0;
     _num = 0;
@@ -94,6 +95,15 @@
     
     self.HomePageTableView.mj_header = [MJRefreshNormalHeader  headerWithRefreshingTarget:self refreshingAction:@selector(getData)];
     [self.HomePageTableView.mj_header beginRefreshing];
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
+    self.navigationItem.title = @"友品集";
+    self.tabBarController.tabBar.hidden = NO;
+    
+    
 }
 
 
@@ -125,7 +135,7 @@
                  [model setValuesForKeysWithDictionary:dic];
                  [_LBTArr addObject:model];
              }
-             [self getHeaderDataAndModelData];
+             [self getSeckillData];
          }
               failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
          {
@@ -142,12 +152,41 @@
     }
     else
     {
-        [self getHeaderDataAndModelData];
+        [self getSeckillData];
         [self.HomePageTableView.mj_header endRefreshing];
     }
 }
 
 //获取秒杀专区数据
+-(void)getSeckillData
+{
+    NSDictionary * dic =@{@"appkey":APPkey};
+#pragma dic MD5
+    NSDictionary * Ndic = [self md5DicWith:dic];
+    
+    AFHTTPSessionManager * manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    
+    [manager POST:kSecKill parameters:Ndic progress:^(NSProgress * _Nonnull downloadProgress)
+     {
+         
+     }
+          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
+     {
+         NSLog(@"%@",responseObject);
+        [self getHeaderDataAndModelData];
+         
+     }
+          failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
+     {
+         NSLog(@"%@",error);
+         [self.HomePageTableView.mj_header endRefreshing];
+     }];
+
+}
+
 
 //先获取三个专区数据
 -(void)getHeaderDataAndModelData
@@ -344,7 +383,7 @@
     
     //collectionView设置
     UICollectionViewFlowLayout *layout= [[UICollectionViewFlowLayout alloc]init];
-    _CollectionView1 = [[UICollectionView alloc]initWithFrame:CGRectMake1(0, 40, 414, 330) collectionViewLayout:layout];
+    _CollectionView1 = [[UICollectionView alloc]initWithFrame:CGRectMake1(0, 40, 414, 300) collectionViewLayout:layout];
     
     _CollectionView1.backgroundColor = [UIColor whiteColor];
     _CollectionView1.delegate = self;
@@ -378,13 +417,16 @@
         return CGFloatMakeY(300);
     }else if(indexPath.row == 5)
     {
-        return CGFloatMakeY(380);
+        return CGFloatMakeY(350);
     }else if(indexPath.row == 6)
     {
         return CGFloatMakeY(500);
-    }else
+    }else if(indexPath.row == 7)
     {
         return CGFloatMakeY(430);
+    }else
+    {
+        return CGFloatMakeY(390);
     }
 }
 
@@ -475,19 +517,23 @@
     {
         DetailTableViewCell *cell = [[DetailTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"detailcell"];
         UIView *lineView1 = [[UIView alloc]initWithFrame:CGRectMake1(0, 0, 414, 0.5)];
-        lineView1.backgroundColor = [UIColor grayColor];
-        UIView *lineView2 = [[UIView alloc]initWithFrame:CGRectMake1(0, 39.5, 414, 0.5)];
-        lineView2.backgroundColor = [UIColor grayColor];
+        lineView1.backgroundColor = [UIColor colorFromHexRGB:@"d9d9d9"];
         [cell addSubview:lineView1];
-        [cell addSubview:lineView2];
-        cell.titleLabel.text = @"单品推荐";
+        
         cell.backgroundColor = [UIColor whiteColor];
         
         ProductModel *model = _detailArr[indexPath.row-7];
         cell.model = model;
         [cell.detailImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.upinkji.com/resource/attachment/%@",model.thumb]]];
         
-        
+        if(indexPath.row == 7){
+            UIView *lineView2 = [[UIView alloc]initWithFrame:CGRectMake1(0, 39.5, 414, 0.5)];
+            lineView2.backgroundColor = [UIColor colorFromHexRGB:@"d9d9d9"];
+            cell.titleLabel.text = @"单品推荐";
+            [cell addSubview:lineView2];
+            [cell change];
+            
+        }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }
@@ -514,7 +560,7 @@
 {
     if (collectionView == _CollectionView1) {
         UICollectionViewCell *cell = [_CollectionView1 dequeueReusableCellWithReuseIdentifier:@"collcell" forIndexPath:indexPath];
-        UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake1(0, 0, 200, 100)];
+        UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake1(0, 0, 200, 90)];
         [imageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.upinkji.com/%@",_preurlArr[indexPath.row]]]];
         cell.backgroundView = imageView;
         return cell;
@@ -538,7 +584,7 @@
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     if (collectionView == _CollectionView1) {
-        return CGSizeMake1(200, 100);
+        return CGSizeMake1(200, 90);
     }else if(collectionView == _CollectionView2)
     {
         return CGSizeMake1(128, 150);
