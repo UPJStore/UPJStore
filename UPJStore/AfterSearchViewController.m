@@ -347,6 +347,7 @@
 
 
     [_goodsCollectionView reloadData];
+    [_goodsCollectionView setContentOffset:CGPointMake1(0, 0)animated:YES];
     
 }
 

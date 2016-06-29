@@ -13,5 +13,6 @@
 @property (nonatomic,strong)NSString *pid;
 @property (nonatomic,strong)UIImage *headerImg;
 @property (nonatomic,strong)NSString *introduce;
+@property (nonatomic,assign) BOOL isFromSort;
 
 @end

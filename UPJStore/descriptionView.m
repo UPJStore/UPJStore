@@ -104,6 +104,8 @@
         self.frame = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, desLabel.frame.origin.y+CGFloatMakeY(39)+DesLength);
 //        self.layer.borderWidth = 0.6;
         
+        
+        #pragma 下边线
         CALayer* layer = [self layer];
         CALayer *bottomBorder = [CALayer layer];
         bottomBorder.borderColor = [UIColor colorFromHexRGB:@"d9d9d9"].CGColor;

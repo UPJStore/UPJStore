@@ -21,6 +21,8 @@
 #import "BookIngViewController.h"
 #import "recommandCell.h"
 #import "RecommandModelNSObject.h"
+#import "SMPageControl.h"
+#import "ShoppingCartViewController.h"
 
 
 @interface GoodSDetailViewController ()<UIScrollViewDelegate,UIWebViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource>
@@ -37,7 +39,7 @@
 @property (nonatomic,strong) UIWebView *webView;
 @property (nonatomic,strong) UILabel * goodsscrollViewLabel,*detailScrollViewLabel;
 @property (nonatomic,strong) UIButton * topButton;
-@property (nonatomic,retain) UIPageControl *pageControl;
+@property (nonatomic,retain) SMPageControl *pageControl;
 @property (nonatomic,strong) UIView *evaluationView,* recommandView;
 @property (nonatomic,strong) UICollectionView *recommandCollectionView;
 @property (nonatomic,strong) UIImageView *DetailImageView;
@@ -79,10 +81,9 @@
         }
     }
    
-    self.view.backgroundColor = [UIColor colorFromHexRGB:@"999999"];
+    self.view.backgroundColor = [UIColor colorFromHexRGB:@"cccccc"];
     
     self.navigationController.navigationBar.translucent = NO;
-    self.tabBarController.tabBar.hidden = YES;
     [self.view addSubview:self.scrollView];
     [self getDataWith:_goodsDic];
     
@@ -94,29 +95,32 @@
 {
     _endView = [[UIView alloc]initWithFrame:CGRectMake(0, kHeight-CGFloatMakeY(50)-64, kWidth, CGFloatMakeY(50))];
     _endView.backgroundColor = [UIColor whiteColor];
-    UIImageView *ShoppingCartImageView =[[UIImageView alloc]initWithFrame:CGRectMake(0, CGFloatMakeY(10), kWidth/3, CGFloatMakeY(20))];
+    
+    UIImageView *ShoppingCartImageView =[[UIImageView alloc]initWithFrame:CGRectMake(kWidth/6, CGFloatMakeY(10), kWidth/6, CGFloatMakeY(20))];
     ShoppingCartImageView.image = [UIImage imageNamed:@"shoppingCart"];
     ShoppingCartImageView.contentMode =UIViewContentModeScaleAspectFit;
     [_endView addSubview:ShoppingCartImageView];
-    UILabel * shoppingCartLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, CGFloatMakeY(30), kWidth/3, CGFloatMakeY(20))];
-    shoppingCartLabel.text = @"加入购物车";
-    shoppingCartLabel.font = [UIFont systemFontOfSize:CGFloatMakeY(12)];
+    UILabel * shoppingCartLabel = [[UILabel alloc]initWithFrame:CGRectMake(kWidth/6, CGFloatMakeY(30), kWidth/6, CGFloatMakeY(20))];
+    shoppingCartLabel.text = @"购物车";
+    shoppingCartLabel.font = [UIFont systemFontOfSize:CGFloatMakeY(14)];
+    shoppingCartLabel.textColor = [UIColor colorFromHexRGB:@"666666"];
     shoppingCartLabel.textAlignment = NSTextAlignmentCenter;
     [_endView addSubview:shoppingCartLabel];
     
-    self.isCollectionView =[[UIImageView alloc]initWithFrame:CGRectMake(kWidth/3,CGFloatMakeY(10), kWidth/3, CGFloatMakeY(20))];
+    self.isCollectionView =[[UIImageView alloc]initWithFrame:CGRectMake(0,CGFloatMakeY(10), kWidth/6, CGFloatMakeY(20))];
     _isCollectionView.contentMode =UIViewContentModeScaleAspectFit;
     [_endView addSubview:_isCollectionView];
-    self.isCollectionLabel = [[UILabel alloc]initWithFrame:CGRectMake(kWidth/3, CGFloatMakeY(30), kWidth/3, CGFloatMakeY(20))];
+    self.isCollectionLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, CGFloatMakeY(30), kWidth/6, CGFloatMakeY(20))];
     _isCollectionLabel.textAlignment = NSTextAlignmentCenter;
     [_endView addSubview:_isCollectionLabel];
     
     UIButton *collectionBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    collectionBtn.frame = CGRectMake(kWidth/3, 0, kWidth/3, CGFloatMakeY(50));
+    collectionBtn.frame = CGRectMake(0, 0, kWidth/6, CGFloatMakeY(50));
     
     [collectionBtn setSelected:_isCollection];
     collectionBtn.tag = 666;
     _isCollectionLabel.font = [UIFont systemFontOfSize:CGFloatMakeY(12)];
+     _isCollectionLabel.textColor = [UIColor colorFromHexRGB:@"666666"];
     if (collectionBtn.isSelected == YES) {
         _isCollectionView.image  = [UIImage imageNamed:@"isCollection-YES"];
         _isCollectionLabel.text = @"已收藏";
@@ -127,8 +131,8 @@
     [collectionBtn addTarget:self action:@selector(collectionBtn:) forControlEvents:UIControlEventTouchUpInside];
     [_endView addSubview:collectionBtn];
     UIButton * shoppingCartBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    shoppingCartBtn.frame = CGRectMake(0, 0, kWidth/3, CGFloatMakeY(50));
-    [shoppingCartBtn addTarget:self action:@selector(AddToShoppingCart:) forControlEvents:UIControlEventTouchUpInside];
+    shoppingCartBtn.frame = CGRectMake(kWidth/6, 0, kWidth/6, CGFloatMakeY(50));
+    [shoppingCartBtn addTarget:self action:@selector(goToShoppingCart:) forControlEvents:UIControlEventTouchUpInside];
     [_endView addSubview:shoppingCartBtn];
     
     UIButton *buyNowBtn =[UIButton buttonWithType:UIButtonTypeCustom];
@@ -138,6 +142,15 @@
     [buyNowBtn addTarget:self action:@selector(buyNowAction:) forControlEvents:UIControlEventTouchUpInside];
     buyNowBtn.backgroundColor = [UIColor colorFromHexRGB:@"cc2245"];
     [_endView addSubview:buyNowBtn];
+    
+    UIButton *AddToCartBtn =[UIButton buttonWithType:UIButtonTypeCustom];
+    AddToCartBtn.frame = CGRectMake(kWidth/3, 0, kWidth/3, CGFloatMakeY(50));
+    [AddToCartBtn setTitle:@"加入购物车" forState:UIControlStateNormal];
+    AddToCartBtn.titleLabel.font = [UIFont systemFontOfSize:CGFloatMakeY(15)];
+    [AddToCartBtn addTarget:self action:@selector(AddToShoppingCart:) forControlEvents:UIControlEventTouchUpInside];
+    AddToCartBtn.backgroundColor = [UIColor colorFromHexRGB:@"f24e70"];
+    [_endView addSubview:AddToCartBtn];
+
     
     
     [self.view addSubview:_endView];
@@ -337,12 +350,29 @@
         [self.navigationController pushViewController:LoginVC animated:YES];
         DLog(@"请先登录");
     }
-    else {
+    else  {
         
         [self addGoodsToShoppingCart];
-    
-    
+        
+        }
+}
+-(void)goToShoppingCart:(UIButton *)btn
+{
+    if ([[self returnMid]isEqualToString:@"0"]||[self returnMid]==nil) {
+        LoginViewController * LoginVC = [[LoginViewController alloc]init];
+        LoginVC.isFromDetail = YES;
+        [self.navigationController pushViewController:LoginVC animated:YES];
+        DLog(@"请先登录");
     }
+    else  {
+        
+        ShoppingCartViewController * shopCarVC = [[ShoppingCartViewController alloc]init];
+        shopCarVC.isFromDetail = YES;
+        [self.navigationController pushViewController:shopCarVC animated:YES];
+
+        
+        }
+    
 }
 
 -(void)buyNowAction:(UIButton *)btn
@@ -430,30 +460,28 @@
     
     //    UIPageControl  页面控制视图
     
-    self.pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, CGFloatMakeY(280),kWidth,CGFloatMakeY(20))];
+    self.pageControl = [[SMPageControl alloc] initWithFrame:CGRectMake(0, CGFloatMakeY(280),kWidth,CGFloatMakeY(20))];
     
-    
-    [self.pageControl setValue:[UIImage imageNamed:@"pageIndicon"] forKeyPath:@"pageImage"];
-    
-    [self.pageControl setValue:[UIImage imageNamed:@"currenticon"] forKeyPath:@"currentPageImage"];
-    
-    // 设置点的个数(页面的个数)
+    [self.pageControl setPageIndicatorImage:[UIImage imageNamed:@"pageIndicon"]];
+    [self.pageControl setCurrentPageIndicatorImage:[UIImage imageNamed:@"currenticon"]];
+
     self.pageControl.numberOfPages = pageArr.count;
 
-    
-    
-//    // 设置点的颜色
-//    self.pageControl.currentPageIndicatorTintColor = [UIColor redColor];
-//    self.pageControl.pageIndicatorTintColor = [UIColor blueColor];
-    
-    
-    
+
     [self.pageControl addTarget:self action:@selector(pageControl:) forControlEvents:UIControlEventValueChanged];
-    [self.scrollView addSubview:self.pageControl];
+    
+    [self performSelector:@selector(addPageControl) withObject:nil afterDelay:0.1f];
+    
     [self.scrollView addSubview: _goodsScrollView];
     
 }
 
+#pragma mark-添加PageControl
+-(void)addPageControl
+{
+    
+    [self.scrollView addSubview:_pageControl];
+}
 
 
 - (void)pageControl:(UIPageControl *)pageControl
@@ -612,11 +640,18 @@
                 ContentLabel.textColor = [UIColor colorFromHexRGB:@"666666"];
                 [BackView addSubview: ContentLabel];
                 
-               BackView.layer.borderWidth = 0.3;
+ 
+
                 evaluationVieweHeight += backViewHeight;
                 BackView.frame =CGRectMake(0, CGFloatMakeY(evaluationVieweHeight), kWidth,CGFloatMakeY(65+DesLength));
                 backViewHeight = 65+DesLength;
-                DLog(@"%@",NSStringFromCGRect(BackView.frame));
+                
+                CALayer *backLayer = [BackView layer];
+                CALayer *backBorder = [CALayer layer];
+                backBorder.borderColor = [UIColor colorFromHexRGB:@"d9d9d9"].CGColor;
+                backBorder.borderWidth = 0.6;
+                backBorder.frame = CGRectMake(-0.6, backLayer.frame.size.height-0.6,backLayer.frame.size.width, 0.6);
+                [backLayer addSublayer:backBorder];
                 
                 [_evaluationView addSubview:BackView];
                 
@@ -627,11 +662,13 @@
         UIButton *evaluationBtn=[UIButton buttonWithType:UIButtonTypeCustom];
         evaluationBtn.frame = CGRectMake(0, evaluationVieweHeight, kWidth, CGFloatMakeY(30));
         [evaluationBtn setTitle:[NSString stringWithFormat:@"查看更多评论（%ld）",_model.appraise.count] forState:UIControlStateNormal];
+        evaluationBtn.titleLabel.font = [UIFont systemFontOfSize:CGFloatMakeY(18)];
         evaluationBtn.layer.borderWidth = 0.3;
+        evaluationBtn.layer.borderColor = [[UIColor colorFromHexRGB:@"d9d9d9"]CGColor];
         evaluationBtn.titleLabel.font = [UIFont systemFontOfSize:CGFloatMakeY(15)];
         [evaluationBtn addTarget:self action:@selector(goToAppraiseVC:) forControlEvents:UIControlEventTouchUpInside];
     
-        [evaluationBtn setTitleColor: [UIColor colorFromHexRGB:@"999999"] forState:UIControlStateNormal];
+        [evaluationBtn setTitleColor: [UIColor colorFromHexRGB:@"333333"] forState:UIControlStateNormal];
         [_evaluationView addSubview:evaluationBtn];
     
     
@@ -951,12 +988,12 @@
 }
 
 
--(void)viewDidAppear:(BOOL)animated
+-(void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidAppear:animated];
-    [self.view bringSubviewToFront:self.pageControl];
-    [self.scrollView bringSubviewToFront:self.pageControl];
+    [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden = YES;
 }
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
