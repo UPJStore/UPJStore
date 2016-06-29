@@ -13,6 +13,9 @@
 @property (nonatomic, strong)NSString *productId;
 @property (nonatomic, strong)NSString *title;
 @property (nonatomic, strong)NSString *marketprice;
+@property (nonatomic, strong)NSString *productprice;
+@property (nonatomic, strong)NSString *sales;
 @property (nonatomic, strong)NSString *thumb;
+@property (nonatomic, strong)NSString *descriptionStr;
 
 @end

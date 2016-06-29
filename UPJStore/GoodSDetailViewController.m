@@ -73,6 +73,8 @@
     }else
     {
         for (CollectModel * model in [self returnCollect]) {
+            NSLog(@"%@",[_goodsDic valueForKey:@"id"]);
+            NSLog(@"%@",[model valueForKey:@"id"]);
             if ([[_goodsDic valueForKey:@"id"]isEqualToString:[model valueForKey:@"id"]]) {
                 _isCollection =YES;
             }
@@ -80,7 +82,6 @@
     }
    
     self.view.backgroundColor = [UIColor colorFromHexRGB:@"999999"];
-    
     self.navigationController.navigationBar.translucent = NO;
     self.tabBarController.tabBar.hidden = YES;
     [self.view addSubview:self.scrollView];

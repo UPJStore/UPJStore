@@ -12,10 +12,14 @@
 
 -(void)setValue:(id)value forUndefinedKey:(NSString *)key
 {
+    if ([key isEqualToString:@"id"]) {
+        self.lbid = value;
+    }
+    if ([key isEqualToString:@"description"]) {
+        self.descriptionStr = value;
+    }
     
 }
-
-
 
 @end
 
