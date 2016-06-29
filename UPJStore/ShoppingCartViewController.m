@@ -51,7 +51,7 @@
     self.navigationController.navigationBar.translucent = NO;
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationItem.title = @"购物车";
-    
+
     //    DLog(@"viewdidload");
     
     if ([self returnMid]==nil||[[self returnMid]isEqualToString:@"0"])
@@ -265,7 +265,11 @@
 -(ShoppingCartEndView *)endView
 {
     if (!_endView) {
+   
         _endView = [[ShoppingCartEndView alloc]initWithFrame:CGRectMake(0, kHeight-49-60- [ShoppingCartEndView getViewHeight], kWidth, [ShoppingCartEndView getViewHeight])];
+        if (_isFromDetail == YES) {
+            _endView.frame = CGRectMake(0, self.view.frame.size.height-_endView.frame.size.height, kWidth, _endView.frame.size.height);
+        }
         _endView.delegate = self;
         _endView.isEdit =_isEdit;
     }
@@ -724,6 +728,9 @@
         }
     }
     _toolbar.frame=CGRectMake(0, kHeight-49, kWidth, _toolbar.frame.size.height);
+    if (_isFromDetail == YES) {
+           _endView.frame = CGRectMake(0, self.view.frame.size.height-_endView.frame.size.height, kWidth, _endView.frame.size.height);
+    }else
     _endView.frame = CGRectMake(0, self.view.frame.size.height-_endView.frame.size.height-49, kWidth, _endView.frame.size.height);
     
     self.tableView.frame=CGRectMake(0, 0, self.tableView.frame.size.width, kHeight-[ShoppingCartEndView getViewHeight]);
@@ -945,11 +952,24 @@
     
 }
 
+-(void)pop
+{
+    
+    [self.navigationController popViewControllerAnimated:YES];
+    
+}
+
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    if (_isFromDetail == YES) {
+        self.tabBarController.tabBar.hidden = YES;
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"backArrow"] style:UIBarButtonItemStyleDone target:self action:@selector(pop)];
+    }else
+        self.tabBarController.tabBar.hidden = NO;
+    
     self.navigationController.navigationBar.hidden = NO;
-    self.tabBarController.tabBar.hidden = NO;
+    
     //    DLog(@"viewwillappear");
 
     

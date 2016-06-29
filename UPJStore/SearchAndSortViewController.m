@@ -20,6 +20,9 @@
 #import "AfterSearchViewController.h"
 #import "brandViewController.h"
 #import "UIColor+HexRGB.h"
+#import "UIButton+WebCache.h"
+#import "GoodsViewController.h"
+
 
 
 @interface SearchAndSortViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate,SortViewAction,UISearchBarDelegate, UISearchResultsUpdating,UITableViewDataSource,UITableViewDelegate,waitSearchDelegate>
@@ -47,6 +50,7 @@
 @property (nonatomic,strong) UIView * reloadView;
 @property (nonatomic,strong)UIView *noNetworkView;
 @property (nonatomic,assign) NSInteger count;
+@property (nonatomic,strong) NSMutableArray * PcateArr;
 @end
 
 
@@ -413,9 +417,11 @@
             //                    DLog(@" height : %f",height);
             totalHeight  = height +totalHeight;
         }
-        UIImageView * headImageView= [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kWidth, CGFloatMakeY(150*414.0/320))];
-        [headImageView sd_setImageWithURL:[NSURL URLWithString:_headSortArr[i]]];
-        
+        UIButton * HeadBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        HeadBtn.frame = CGRectMake(0, 0, kWidth, CGFloatMakeY(150*414.0/320));
+        [HeadBtn sd_setBackgroundImageWithURL:_headSortArr[i] forState:UIControlStateNormal];
+        [HeadBtn addTarget:self action:@selector(goToGoodsCollectionView:) forControlEvents:UIControlEventTouchUpInside];
+        HeadBtn.tag = [_PcateArr[i] integerValue];
         SortView * sortView = [[SortView alloc]initWithFrame:CGRectMake(0, totalHeight, kWidth,height) withArray:_allSortArr[i]];
         sortView.tag = 100+i;
         
@@ -423,10 +429,20 @@
         
         [_sortScrollView addSubview:sortView];
         height = sortView.frame.size.height;
-        [sortView addSubview:headImageView];
+        [sortView addSubview:HeadBtn];
     }
     totalHeight = totalHeight + height;
     _sortScrollView.contentSize = CGSizeMake(kWidth, totalHeight+53);
+}
+
+-(void)goToGoodsCollectionView:(UIButton*)btn
+{
+    GoodsViewController *goodsView = [[GoodsViewController alloc]init];
+//    goodsView.headerImg = sender.currentBackgroundImage;
+    goodsView.pid =[NSString stringWithFormat:@"%ld",btn.tag];
+//    goodsView.introduce = [_headerArr[sender.tag-1] descriptionStr];
+    goodsView.isFromSort = YES;
+    [self.navigationController pushViewController:goodsView animated:YES];
 }
 -(void)initSearchScrollView
 {
@@ -474,6 +490,9 @@
         [_allSortArr addObject:sonArray];
         
         [_headSortArr addObject:dic[@"thumb"]];
+        
+        [self.PcateArr addObject:dic[@"pcate"]];
+        
         _count ++;
         [self getSortModelData];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -820,8 +839,14 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    
     self.tabBarController.tabBar.hidden = NO;
+
+    
+    
+
 }
+
 
 -(void)viewDidDisappear:(BOOL)animated
 {
@@ -892,6 +917,14 @@
         default:
             break;
     }
+}
+
+-(NSMutableArray *)PcateArr
+{
+    if (_PcateArr == nil) {
+        _PcateArr = [NSMutableArray array];
+    }
+    return _PcateArr;
 }
 
 

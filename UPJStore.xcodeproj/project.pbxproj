@@ -63,6 +63,7 @@
 		D1074D251CA2BA8B00725BAC /* SearchGoodsCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D1074D241CA2BA8B00725BAC /* SearchGoodsCollectionViewCell.m */; };
 		D109393C1C97FC7E009D3938 /* SortView.m in Sources */ = {isa = PBXBuildFile; fileRef = D109393B1C97FC7E009D3938 /* SortView.m */; };
 		D109393F1C97FCF3009D3938 /* SortModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D109393E1C97FCF3009D3938 /* SortModel.m */; };
+		D10E78E81D2218ED0064C10C /* SMPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = D10E78E71D2218ED0064C10C /* SMPageControl.m */; };
 		D12568361D1A6A4400B6ED77 /* recommandCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D12568351D1A6A4400B6ED77 /* recommandCell.m */; };
 		D12568391D1A6B1900B6ED77 /* RecommandModelNSObject.m in Sources */ = {isa = PBXBuildFile; fileRef = D12568381D1A6B1900B6ED77 /* RecommandModelNSObject.m */; };
 		D131B82A1CAB7F7100E58396 /* detailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D131B8291CAB7F7100E58396 /* detailModel.m */; };
@@ -305,6 +306,8 @@
 		D109393B1C97FC7E009D3938 /* SortView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SortView.m; sourceTree = "<group>"; };
 		D109393D1C97FCF3009D3938 /* SortModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SortModel.h; sourceTree = "<group>"; };
 		D109393E1C97FCF3009D3938 /* SortModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SortModel.m; sourceTree = "<group>"; };
+		D10E78E61D2218ED0064C10C /* SMPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMPageControl.h; sourceTree = "<group>"; };
+		D10E78E71D2218ED0064C10C /* SMPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMPageControl.m; sourceTree = "<group>"; };
 		D12568341D1A6A4400B6ED77 /* recommandCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = recommandCell.h; sourceTree = "<group>"; };
 		D12568351D1A6A4400B6ED77 /* recommandCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = recommandCell.m; sourceTree = "<group>"; };
 		D12568371D1A6B1900B6ED77 /* RecommandModelNSObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecommandModelNSObject.h; sourceTree = "<group>"; };
@@ -910,6 +913,8 @@
 		D1943E8F1CAA5EAD0088D621 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				D10E78E61D2218ED0064C10C /* SMPageControl.h */,
+				D10E78E71D2218ED0064C10C /* SMPageControl.m */,
 				D10391441D11593E00CDD34D /* myUILabel.h */,
 				D10391451D11593E00CDD34D /* myUILabel.m */,
 				D131B82E1CABAAFD00E58396 /* GoodsDetailScrollView.h */,
@@ -1735,6 +1740,7 @@
 				E30AD76C1C719F6F00B5188C /* main.m in Sources */,
 				D101CB191D23ADAD00A1A37A /* LBTModel.m in Sources */,
 				D1034D761D17A290000D893F /* SettingViewController.m in Sources */,
+				D10E78E81D2218ED0064C10C /* SMPageControl.m in Sources */,
 				D1034D681D17A290000D893F /* ModifyNicknameViewController.m in Sources */,
 				D14F8F9C1CDB164600342832 /* DataSigner.m in Sources */,
 				D13C1ED21CFC01D200EDE19E /* TextFieldView.m in Sources */,

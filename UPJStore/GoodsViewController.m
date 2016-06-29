@@ -44,10 +44,17 @@
     [super viewDidLoad];
     
     self.navigationItem.title = @"商品";
-    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor]};
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"backArrow"] style:UIBarButtonItemStyleDone target:self action:@selector(pop)];
+    if (_isFromSort) {
+        self.navigationItem.leftBarButtonItem.tintColor = [UIColor blackColor];
+
+    }else
+    {
     self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
+    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor]};
+        
+    }
     self.navigationController.navigationBar.translucent = NO;
     [self initCollectionView];
     
@@ -141,7 +148,7 @@
     
     goodVC.goodsDic = dic;
     
-    goodVC.isFromHomePage = YES;
+//    goodVC.isFromHomePage = YES;
     
     
     [self.navigationController pushViewController:goodVC animated:YES];

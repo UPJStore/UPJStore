@@ -17,5 +17,5 @@
 
 
 @interface ShoppingCartViewController : UIViewController
-
+@property (nonatomic,assign) BOOL isFromDetail;
 @end
