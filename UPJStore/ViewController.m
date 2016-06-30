@@ -73,8 +73,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    self.navigationItem.title = @"友品集";
-    self.view.backgroundColor = [UIColor blackColor];
+    
 #pragma mark -- 左按钮
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"dingwei"] style:UIBarButtonItemStyleDone target:self action:@selector(leftAction:)];
     self.navigationItem.leftBarButtonItem.tintColor = [UIColor blackColor];
@@ -99,13 +98,16 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    
-    self.navigationItem.title = @"友品集";
-    self.tabBarController.tabBar.hidden = NO;
-    
+    if(self.navigationItem.title == nil)
+    {
+        self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
+        UIImageView *backImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"navigationLogo"]];
+        self.navigationItem.titleView = backImg;
+        
+        self.tabBarController.tabBar.hidden = NO;
+    }
     
 }
-
 
 
 #pragma mark - 数据获取

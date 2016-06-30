@@ -79,11 +79,12 @@
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"backArrow"] style:UIBarButtonItemStyleDone target:self action:@selector(backAction:)];
     self.navigationItem.leftBarButtonItem.tintColor = [UIColor blackColor];
+
     
     title = [[UILabel alloc]initWithFrame:CGRectMake(0,0,kWidth,44)];
     title.text = @"二维码/条形码";
     title.font = [UIFont boldSystemFontOfSize:18];
-    title.textColor = [UIColor whiteColor];
+    title.textColor = [UIColor blackColor];
     title.textAlignment = NSTextAlignmentCenter;
     self.navigationItem.titleView = title;
     self.navigationController.navigationBar.tintColor = [UIColor blackColor];
