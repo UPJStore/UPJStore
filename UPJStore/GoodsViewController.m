@@ -51,8 +51,8 @@
 
     }else
     {
-    self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
-    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor]};
+    self.navigationItem.leftBarButtonItem.tintColor = [UIColor blackColor];
+  //  self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor]};
         
     }
     self.navigationController.navigationBar.translucent = NO;

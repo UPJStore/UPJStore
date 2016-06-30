@@ -9,7 +9,10 @@
 #import <Foundation/Foundation.h>
 
 @interface LBTModel : NSObject
-
 @property (nonatomic,strong) NSString *thumb;
-@property (nonatomic,strong) NSString *advname, *descriptionText,*keyword;
+@property (nonatomic,strong) NSString *advname;
+@property (nonatomic,strong) NSString *descriptionStr;
+@property (nonatomic,strong) NSString *lbid;
+@property (nonatomic,strong) NSString *keyword;
+@property (nonatomic,strong) NSString *link;
 @end

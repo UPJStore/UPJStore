@@ -78,6 +78,7 @@
     [self.view addSubview:view4];
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"backArrow"] style:UIBarButtonItemStyleDone target:self action:@selector(backAction:)];
+    self.navigationItem.leftBarButtonItem.tintColor = [UIColor blackColor];
     
     title = [[UILabel alloc]initWithFrame:CGRectMake(0,0,kWidth,44)];
     title.text = @"二维码/条形码";
@@ -85,7 +86,7 @@
     title.textColor = [UIColor whiteColor];
     title.textAlignment = NSTextAlignmentCenter;
     self.navigationItem.titleView = title;
-    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
     
     // 副标题
     subTitle = [[UILabel alloc]initWithFrame:CGRectMake1(0,(kHeight-220)/2-35, kWidth, 30)];
@@ -146,10 +147,12 @@
     // Do any additional setup after loading the view.
 }
 -(void)backAction:(UIBarButtonItem *)sender{
+    self.navigationController.navigationBar.translucent = YES;
     [self.navigationController popViewControllerAnimated:YES];
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+     self.navigationController.navigationBar.translucent = NO;
     [_session startRunning];
     self.tabBarController.tabBar.hidden = YES;
 }

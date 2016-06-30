@@ -12,8 +12,11 @@
 
 -(void)setValue:(id)value forUndefinedKey:(NSString *)key
 {
-    if ([key isEqualToString:@"id"]) {
+    if([key isEqualToString:@"id"]){
         self.productId = value;
+    }
+    if ([key isEqualToString:@"description"]) {
+        self.descriptionStr = value;
     }
 }
 

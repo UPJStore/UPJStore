@@ -1,140 +1,614 @@
 //
 //  ViewController.m
-//  HomePage
+//  HomePage-3
 //
-//  Created by upj on 16/3/3.
+//  Created by upj on 16/6/12.
 //  Copyright © 2016年 upj. All rights reserved.
 //
 
-#import <AVFoundation/AVFoundation.h>
-#import "UIViewController+CG.h"
 #import "ViewController.h"
 #import "SDCycleScrollView.h"
-#import "CodeViewController.h"
-#import "MapViewController.h"
+#import "MJRefresh.h"
 #import "AFNetworking.h"
 #import "UIImageView+WebCache.h"
-#import "UIImage+GIF.h"
 #import "UIButton+WebCache.h"
+#import "UIViewController+CG.h"
+#import "HomePageTableViewCell.h"
 #import "LBTModel.h"
-#import "CustomCollectionViewCell.h"
+#import "UIImage+GIF.h"
 #import "ProductModel.h"
 #import "HeaderModel.h"
+#import "CustomCollectionViewCell.h"
+#import "DetailTableViewCell.h"
 #import "GoodsViewController.h"
+#import "MapViewController.h"
+#import "CodeViewController.h"
 #import "ActivityViewController.h"
 #import "OthersModel.h"
 #import "UIColor+HexRGB.h"
 #import "MBProgressHUD.h"
 #import "GoodSDetailViewController.h"
 #import "AfterSearchViewController.h"
-#import "AdvertiseViewController.h"
 
 
-@interface ViewController ()<SDCycleScrollViewDelegate,UIScrollViewDelegate,AVCaptureMetadataOutputObjectsDelegate,UICollectionViewDataSource,UICollectionViewDelegate>
+#define kHomePage @"http://m.upinkji.com/api/product/get"
 
-@property (nonatomic,strong)UIScrollView *backSrollview;
-@property (nonatomic,strong)NSMutableArray*dataArr;
-@property (nonatomic,strong)UIButton *miaoShaBtn;
-@property (nonatomic,strong)UIButton *activity1;
-@property (nonatomic,strong)UIButton *activity2;
-@property (nonatomic,strong)UIButton *activity3;
-@property (nonatomic,strong)UIButton *activity4;
-@property (nonatomic,strong)UIButton *activity5;
-@property (nonatomic,strong)UICollectionView * collectionView;
+#define kDetailRandom @"http://m.upinkji.com/api/product/detail_random"
+
+#define KpreferDetail @"http://m.upinkji.com/api/product/detail_discount"
+
+#define kADV @"http://m.upinkji.com/api/adv/getadv.html"
+
+#define kSecKill @"http://m.upinkji.com/api/product/seckill"
+
+#define APPkey @"BwLiQcZIzgUdLx8Bxb"
+
+@interface ViewController ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
+@property (nonatomic,strong)UITableView *HomePageTableView;
+@property (nonatomic,strong)UICollectionView *CollectionView1;
+@property (nonatomic,strong)UICollectionView *CollectionView2;
 @property (nonatomic,strong)NSMutableArray * LBTArr;
-@property (nonatomic,strong)NSMutableArray *images;
+@property (nonatomic,strong)NSMutableArray *imageArr;
 @property (nonatomic,strong)SDCycleScrollView *cycleScrollView;
-@property (nonatomic,strong)NSString *headerImgURLString;
-@property (nonatomic,strong)NSString *goodsPid;
-@property (nonatomic,strong)NSMutableArray *productArr;
-@property (nonatomic, strong)NSMutableArray *headerArr;
-@property (nonatomic,strong)NSString *pid;
+//三个专区数组
 @property (nonatomic,strong)NSMutableArray *pidArr;
-@property (nonatomic,assign)NSInteger i;
-@property (nonatomic,strong)UIView *loadingView;
-@property (nonatomic,strong)NSMutableArray *headerIntroArr;
-@property (nonatomic,strong)MBProgressHUD *loadingHud;
-@property (nonatomic,strong)UIView *noNetworkView;
+@property (nonatomic,strong)NSMutableArray *headerArr;
+//特惠商品数组
+@property (nonatomic,strong)NSMutableArray *preidArr;
+@property (nonatomic,strong)NSMutableArray *preurlArr;
+//热门专区数组
+@property (nonatomic,strong)NSMutableArray *productArr;
+//单品推荐数组
+@property (nonatomic,strong)NSMutableArray *detailArr;
+@property (nonatomic,assign)NSInteger z;
+@property (nonatomic,assign)NSInteger num;
+@property (nonatomic,assign)NSInteger detail_random;
+@property (nonatomic,strong)UIButton *headerBtn;
+
 @end
 
 @implementation ViewController
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushToAd) name:@"pushtoad" object:nil];
-
-    
-    _noNetworkView = nil;
-#pragma mark -- 初始化数组
-    NSString *str = [[NSBundle mainBundle]bundleIdentifier];
-    DLog(@"%@",str);
-    self.view.backgroundColor = [UIColor whiteColor];
-    self.navigationController.navigationBar.translucent = NO;
+    // Do any additional setup after loading the view, typically from a nib.
+    self.navigationItem.title = @"友品集";
+    self.view.backgroundColor = [UIColor blackColor];
 #pragma mark -- 左按钮
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"dingwei"] style:UIBarButtonItemStyleDone target:self action:@selector(leftAction:)];
-    self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
+    self.navigationItem.leftBarButtonItem.tintColor = [UIColor blackColor];
 #pragma mark -- 右按钮
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"saomakuang"] style:UIBarButtonItemStyleDone target:self action:@selector(rightAction:)];
-    self.navigationItem.rightBarButtonItem.tintColor = [UIColor whiteColor];
+    self.navigationItem.rightBarButtonItem.tintColor = [UIColor blackColor];
     
-    _dataArr=[[NSMutableArray alloc]init];
-    _LBTArr = [NSMutableArray array];
-    _productArr = [NSMutableArray new];
-    _headerArr = [NSMutableArray new];
+    _z = 0;
+    _num = 0;
+    _detail_random = 0;
+    _LBTArr = [NSMutableArray new];
+    _imageArr = [NSMutableArray new];
     _pidArr = [NSMutableArray new];
-    _headerIntroArr = [NSMutableArray new];
+    _headerArr = [NSMutableArray new];
+    _productArr = [NSMutableArray new];
+    _detailArr = [NSMutableArray new];
+    [self setTableView];
     
-    _i = 0;
-    self.navigationController.navigationBar.barTintColor = [UIColor colorFromHexRGB:@"cc2245"];
-    
-    [self setMBHUD];
-    [self getData];
-    
-    // Do any additional setup after loading the view, typically from a nib.
+    self.HomePageTableView.mj_header = [MJRefreshNormalHeader  headerWithRefreshingTarget:self refreshingAction:@selector(getData)];
+    [self.HomePageTableView.mj_header beginRefreshing];
 }
 
-#pragma mark -- 添加广告页面
-- (void)pushToAd {
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
     
-    AdvertiseViewController *adVc = [[AdvertiseViewController alloc] init];
-    
-    [self.navigationController pushViewController:adVc animated:YES];
-    
-}
-
-#pragma mark -- 加载动画
--(void)setMBHUD{
-    _loadingHud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    // Set the custom view mode to show any view.
-    /*
-     _loadingHud.mode = MBProgressHUDModeCustomView;
-     UIImage *gif = [UIImage sd_animatedGIFNamed:@"youpinji"];
-     
-     UIImageView *gifView = [[UIImageView alloc]initWithImage:gif];
-     _loadingHud.customView = gifView;
-     */
-    _loadingHud.bezelView.backgroundColor = [UIColor clearColor];
-    _loadingHud.animationType = MBProgressHUDAnimationFade;
-    _loadingHud.backgroundColor = [UIColor whiteColor];
-}
-#pragma mark -- 返回
--(void)pop{
-    self.navigationController.navigationBarHidden = YES;
+    self.navigationItem.title = @"友品集";
     self.tabBarController.tabBar.hidden = NO;
-    [self.navigationController popViewControllerAnimated:YES];
-}
-#pragma mark -- 自带标签的图片轮播
--(void)setBackSrollview{
-    
-    _backSrollview = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, kWidth, kHeight-60)];
-    _backSrollview.backgroundColor = [UIColor whiteColor];
-    _backSrollview.contentSize = CGSizeMake(kWidth, kHeight+1000);
-    self.backSrollview.showsVerticalScrollIndicator = NO;
-    [self.view addSubview:_backSrollview];
     
     
 }
+
+
+
+#pragma mark - 数据获取
+//轮播图数据获取
+-(void)getData
+{
+    if (_LBTArr.count == 0)
+    {
+        NSDictionary * dic =@{@"appkey":APPkey};
+#pragma dic MD5
+        NSDictionary * Ndic = [self md5DicWith:dic];
+        
+        AFHTTPSessionManager * manager = [AFHTTPSessionManager manager];
+        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+        manager.responseSerializer = [AFJSONResponseSerializer serializer];
+        manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+        
+        [manager POST:kADV parameters:Ndic progress:^(NSProgress * _Nonnull downloadProgress){}
+              success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
+         {
+             NSArray * arr = responseObject;
+             
+             for (NSDictionary *dic  in arr)
+             {
+                 
+                 LBTModel *model = [[LBTModel alloc]init];
+                 [model setValuesForKeysWithDictionary:dic];
+                 [_LBTArr addObject:model];
+             }
+             [self getSeckillData];
+         }
+              failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
+         {
+             NSLog(@"%@",error);
+             [self.HomePageTableView.mj_header endRefreshing];
+             UIAlertController *noAlert = [UIAlertController alertControllerWithTitle:@"提示" message:@"请检查你的网络状态🌚" preferredStyle:UIAlertControllerStyleAlert];
+             [self.navigationController presentViewController:noAlert animated:YES completion:^{
+                 sleep(1);
+                 [self.navigationController dismissViewControllerAnimated:YES completion:^{
+                     [self.HomePageTableView.mj_header beginRefreshing];
+                 }];
+             }];
+         }];
+    }
+    else
+    {
+        [self getSeckillData];
+        [self.HomePageTableView.mj_header endRefreshing];
+    }
+}
+
+//获取秒杀专区数据
+-(void)getSeckillData
+{
+    NSDictionary * dic =@{@"appkey":APPkey};
+#pragma dic MD5
+    NSDictionary * Ndic = [self md5DicWith:dic];
+    
+    AFHTTPSessionManager * manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    
+    [manager POST:kSecKill parameters:Ndic progress:^(NSProgress * _Nonnull downloadProgress)
+     {
+         
+     }
+          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
+     {
+         NSLog(@"%@",responseObject);
+        [self getHeaderDataAndModelData];
+         
+     }
+          failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
+     {
+         NSLog(@"%@",error);
+         [self.HomePageTableView.mj_header endRefreshing];
+     }];
+
+}
+
+
+//先获取三个专区数据
+-(void)getHeaderDataAndModelData
+{
+    if (_z < 3)
+    {
+        NSDictionary * dic =@{@"appkey":APPkey,@"num":[NSString stringWithFormat:@"%ld",(long)_num],@"limit":@"6"};
+#pragma dic MD5
+        NSDictionary * Ndic = [self md5DicWith:dic];
+        
+        AFHTTPSessionManager * manager = [AFHTTPSessionManager manager];
+        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+        manager.responseSerializer = [AFJSONResponseSerializer serializer];
+        manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+        
+        [manager POST:kHomePage parameters:Ndic progress:^(NSProgress * _Nonnull downloadProgress)
+         {
+             
+         }
+              success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
+         {
+             NSLog(@"%@",responseObject);
+             HeaderModel *Hmodel = [[HeaderModel alloc]init];
+             [Hmodel setValuesForKeysWithDictionary:responseObject];
+             [_headerArr addObject:Hmodel];
+             [_pidArr addObject:Hmodel.pid];
+             /*
+              NSArray *arr = responseObject[@"list"];
+              NSMutableArray * mArr = [NSMutableArray array];
+              for (NSDictionary *dic in arr)
+              {
+              ProductModel *model = [[ProductModel alloc]init];
+              [model setValuesForKeysWithDictionary:dic];
+              [mArr addObject:model];
+              }
+              [_productArr addObject:mArr];
+              */
+             _z++;
+             _num++;
+             [self getHeaderDataAndModelData];
+             
+         }
+              failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
+         {
+             NSLog(@"%@",error);
+             [self.HomePageTableView.mj_header endRefreshing];
+         }];
+    }
+    else
+    {
+        [self.HomePageTableView reloadData];
+        [self.HomePageTableView.mj_header endRefreshing];
+        
+    }
+    if (_z == 3)
+    {
+        self.HomePageTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(addData)];
+    }
+}
+
+//刷新获得特惠商品和热门专区数据
+-(void)addData{
+    if (_z < 5)
+    {
+        if (_z == 3) {
+            //特惠商品数据获取
+            NSDictionary * dic =@{@"appkey":APPkey};
+#pragma dic MD5
+            NSDictionary * Ndic = [self md5DicWith:dic];
+            
+            AFHTTPSessionManager * manager = [AFHTTPSessionManager manager];
+            manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+            manager.responseSerializer = [AFJSONResponseSerializer serializer];
+            manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+            
+            [manager POST:KpreferDetail parameters:Ndic progress:^(NSProgress * _Nonnull downloadProgress)
+             {
+                 
+             }
+                  success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
+             {
+                 NSLog(@"%@",responseObject);
+                 _preidArr = [NSMutableArray arrayWithArray:responseObject[@"goodid"]];
+                 _preurlArr = [NSMutableArray arrayWithArray:responseObject[@"url"]];
+                 _z++;
+                 
+                 [self.HomePageTableView reloadData];
+                 [self addData];
+             }
+                  failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
+             {
+                 NSLog(@"%@",error);
+                 [self.HomePageTableView.mj_footer endRefreshing];
+             }];
+        }else if( _z == 4){
+            
+            NSDictionary * dic =@{@"appkey":APPkey,@"num":@"3",@"limit":@"6"};
+#pragma dic MD5
+            NSDictionary * Ndic = [self md5DicWith:dic];
+            
+            AFHTTPSessionManager * manager = [AFHTTPSessionManager manager];
+            manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+            manager.responseSerializer = [AFJSONResponseSerializer serializer];
+            manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+            
+            [manager POST:kHomePage parameters:Ndic progress:^(NSProgress * _Nonnull downloadProgress)
+             {
+                 
+             }
+                  success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
+             {
+                 HeaderModel *Hmodel = [[HeaderModel alloc]init];
+                 [Hmodel setValuesForKeysWithDictionary:responseObject];
+                 [_headerArr addObject:Hmodel];
+                 [_pidArr addObject:Hmodel.pid];
+                 NSArray *arr = responseObject[@"list"];
+                 NSMutableArray * mArr = [NSMutableArray array];
+                 for (NSDictionary *dic in arr)
+                 {
+                     ProductModel *model = [[ProductModel alloc]init];
+                     [model setValuesForKeysWithDictionary:dic];
+                     [mArr addObject:model];
+                 }
+                 [_productArr addObject:mArr];
+                 _z++;
+                 [self.HomePageTableView reloadData];
+                 [self.HomePageTableView.mj_footer endRefreshing];
+             }
+                  failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
+             {
+                 NSLog(@"%@",error);
+                 [self.HomePageTableView.mj_footer endRefreshing];
+             }];
+        }
+    }else if(_z >= 5 &&_z<43)
+    {
+        self.HomePageTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:nil];
+        NSDictionary * dic =@{@"appkey":APPkey,@"num":[NSString stringWithFormat:@"%ld",_detail_random]};
+        _detail_random ++;
+#pragma dic MD5
+        NSDictionary * Ndic = [self md5DicWith:dic];
+        
+        AFHTTPSessionManager * manager = [AFHTTPSessionManager manager];
+        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+        manager.responseSerializer = [AFJSONResponseSerializer serializer];
+        manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+        
+        [manager POST:kDetailRandom parameters:Ndic progress:^(NSProgress * _Nonnull downloadProgress)
+         {
+             
+         }
+              success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
+         {
+             NSLog(@"%@",responseObject);
+             _z ++;
+             ProductModel *model = [[ProductModel alloc]init];
+             [model setValuesForKeysWithDictionary:responseObject];
+             [_detailArr addObject:model];
+             [self.HomePageTableView reloadData];
+             [self.HomePageTableView.mj_footer endRefreshing];
+             self.HomePageTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(addData)];
+         }
+              failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
+         {
+             NSLog(@"%@",error);
+             [self.HomePageTableView.mj_footer endRefreshing];
+         }];
+        
+        [self.HomePageTableView reloadData];
+        [self.HomePageTableView.mj_footer endRefreshing];
+        // [self.HomePageTableView.mj_footer setHidden:YES];
+    }else if (_z==43)
+    {
+        [self.HomePageTableView.mj_footer endRefreshing];
+        [self.HomePageTableView.mj_footer setHidden:YES];
+    }
+}
+
+-(void)setTableView
+{
+    //tableView 设置
+    _HomePageTableView = [[UITableView alloc]initWithFrame:CGRectMake1(0, 0, 414, 736)];
+    _HomePageTableView.delegate = self;
+    _HomePageTableView.dataSource = self;
+    _HomePageTableView.backgroundColor = [UIColor whiteColor];
+    _HomePageTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _HomePageTableView.showsVerticalScrollIndicator = NO;
+    
+    [_HomePageTableView registerClass:[HomePageTableViewCell class] forCellReuseIdentifier:@"homepagecell"];
+    [_HomePageTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"lbtcell"];
+    [_HomePageTableView registerClass:[DetailTableViewCell class] forCellReuseIdentifier:@"detailcell"];
+    
+    [self.view addSubview:_HomePageTableView];
+    
+    //collectionView设置
+    UICollectionViewFlowLayout *layout= [[UICollectionViewFlowLayout alloc]init];
+    _CollectionView1 = [[UICollectionView alloc]initWithFrame:CGRectMake1(0, 40, 414, 300) collectionViewLayout:layout];
+    
+    _CollectionView1.backgroundColor = [UIColor whiteColor];
+    _CollectionView1.delegate = self;
+    _CollectionView1.dataSource = self;
+    _CollectionView1.showsVerticalScrollIndicator = NO;
+    [_CollectionView1 registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"collcell"];
+    _CollectionView1.contentSize = CGSizeMake1(414, 330);
+    
+    UICollectionViewFlowLayout *layout1= [[UICollectionViewFlowLayout alloc]init];
+    layout1.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+    _CollectionView2 = [[UICollectionView alloc]initWithFrame:CGRectMake1(0, 295, 414, 200) collectionViewLayout:layout1];
+    _CollectionView2.backgroundColor = [UIColor whiteColor];
+    _CollectionView2.delegate = self;
+    _CollectionView2.dataSource = self;
+    _CollectionView2.showsVerticalScrollIndicator = NO;
+    _CollectionView2.showsHorizontalScrollIndicator = NO;
+    
+    [_CollectionView2 registerClass:[CustomCollectionViewCell class] forCellWithReuseIdentifier:@"cocell"];
+    _CollectionView2.contentSize = CGSizeMake1(414, 200);
+}
+
+#pragma mark - tableView设置
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row == 0) {
+        return CGFloatMakeY(250);
+    }else if(indexPath.row == 1){
+        return CGFloatMakeY(0);
+    }else if(indexPath.row <= 4){
+        return CGFloatMakeY(300);
+    }else if(indexPath.row == 5)
+    {
+        return CGFloatMakeY(350);
+    }else if(indexPath.row == 6)
+    {
+        return CGFloatMakeY(500);
+    }else if(indexPath.row == 7)
+    {
+        return CGFloatMakeY(430);
+    }else
+    {
+        return CGFloatMakeY(390);
+    }
+}
+
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    if (_headerArr.count == 0) {
+        return 4;
+    }else
+    {
+        return _z+2;
+    }
+}
+
+//根据每行的数据进行分类。
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row == 0) {
+        UITableViewCell *cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"lbtcell"];
+        _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake1(0, 0, 414,250) delegate:self placeholderImage:[UIImage imageNamed:@"pltu"]];
+        _cycleScrollView.pageControlStyle = SDCycleScrollViewPageContolStyleAnimated;
+        _imageArr = [NSMutableArray array];;
+        for (LBTModel *model in _LBTArr) {
+            [_imageArr addObject:[NSString stringWithFormat:@"http://www.upinkji.com/resource/attachment/%@",model.thumb]];
+        }
+        _cycleScrollView.imageURLStringsGroup = _imageArr;
+        [cell addSubview:_cycleScrollView];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        return cell;
+    }else if(indexPath.row == 1)
+    {
+        UITableViewCell *cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"lbtcell"];
+        
+        //  HomePageTableViewCell *cell = [[HomePageTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"homepagecell"];
+        //  cell.footView.frame = CGRectMake1(0, 490, 414, 10);
+        //  cell.titleLabel.text = @" ——  限时抢购  —— ";
+        
+        //限时抢购
+        //  UIView *view = [[UIView alloc]initWithFrame:CGRectMake1(0, 40, 414, 450)];
+        //   view.backgroundColor = [UIColor grayColor];
+        //   [cell addSubview:view];
+        
+        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        return cell;
+    }else if(indexPath.row <= 4)
+    {
+        HomePageTableViewCell *cell = [[HomePageTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"homepagecell"];
+        cell.footView.frame = CGRectMake1(0, 290, 414, 10);
+        if(_headerArr.count != 0){
+            HeaderModel *model = _headerArr[indexPath.row-2];
+            _headerBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+            [_headerBtn setTag:indexPath.row-2];
+            [_headerBtn sd_setBackgroundImageWithURL:[NSURL URLWithString:model.thumb] forState:UIControlStateNormal];
+            _headerBtn.frame = CGRectMake1(0, 40, 414, 250);
+            [_headerBtn addTarget:self action:@selector(headerBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+            [cell addSubview:_headerBtn];
+            cell.titleLabel.text =[NSString stringWithFormat:@" ——  %@  —— ",model.name];
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        return cell;
+    }else if(indexPath.row <=6)
+    {
+        HomePageTableViewCell *cell = [[HomePageTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"homepagecell"];
+        if(indexPath.row == 5)
+        {
+            //  cell.backgroundColor = [UIColor redColor];
+            cell.titleLabel.text = @" ——  特惠商品  —— ";
+            //  cell.footView.frame = CGRectMake1(0, 370, 414, 10);
+            [cell addSubview:_CollectionView1];
+        }else if(indexPath.row == 6)
+        {
+            cell.titleLabel.text = @" ——  热门专区  —— ";
+            HeaderModel *model = _headerArr[3];
+            _headerBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+            [_headerBtn setTag:3];
+            [_headerBtn sd_setBackgroundImageWithURL:[NSURL URLWithString:model.thumb] forState:UIControlStateNormal];
+            _headerBtn.frame = CGRectMake1(0, 40, 414, 250);
+            [_headerBtn addTarget:self action:@selector(headerBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+            [cell addSubview:_headerBtn];
+            [cell addSubview:_CollectionView2];
+            //   cell.backgroundColor = [UIColor blueColor];
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        return cell;
+    }
+    else
+    {
+        DetailTableViewCell *cell = [[DetailTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"detailcell"];
+        UIView *lineView1 = [[UIView alloc]initWithFrame:CGRectMake1(0, 0, 414, 0.5)];
+        lineView1.backgroundColor = [UIColor colorFromHexRGB:@"d9d9d9"];
+        [cell addSubview:lineView1];
+        
+        cell.backgroundColor = [UIColor whiteColor];
+        
+        ProductModel *model = _detailArr[indexPath.row-7];
+        cell.model = model;
+        [cell.detailImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.upinkji.com/resource/attachment/%@",model.thumb]]];
+        
+        if(indexPath.row == 7){
+            UIView *lineView2 = [[UIView alloc]initWithFrame:CGRectMake1(0, 39.5, 414, 0.5)];
+            lineView2.backgroundColor = [UIColor colorFromHexRGB:@"d9d9d9"];
+            cell.titleLabel.text = @"单品推荐";
+            [cell addSubview:lineView2];
+            [cell change];
+            
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        return cell;
+    }
+}
+
+#pragma mark - collectionView设置
+
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    if(collectionView == _CollectionView1)
+    {
+        return 6;
+    }else if(collectionView == _CollectionView2)
+    {
+        return 6;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (collectionView == _CollectionView1) {
+        UICollectionViewCell *cell = [_CollectionView1 dequeueReusableCellWithReuseIdentifier:@"collcell" forIndexPath:indexPath];
+        UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake1(0, 0, 200, 90)];
+        [imageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.upinkji.com/%@",_preurlArr[indexPath.row]]]];
+        cell.backgroundView = imageView;
+        return cell;
+    }else if (collectionView == _CollectionView2) {
+        CustomCollectionViewCell *cell = [_CollectionView2 dequeueReusableCellWithReuseIdentifier:@"cocell" forIndexPath:indexPath];
+        NSMutableArray * mArr= _productArr[0];
+        
+        cell.model = mArr[indexPath.row];
+        
+        [cell.productImg sd_setImageWithURL:[NSURL URLWithString:cell.model.thumb]];
+        // cell.backgroundColor = [UIColor redColor];
+        return cell;
+    }else
+    {
+        UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"collcell" forIndexPath:indexPath];
+        cell.backgroundColor = [UIColor blueColor];
+        return cell;
+    }
+}
+
+-(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (collectionView == _CollectionView1) {
+        return CGSizeMake1(200, 90);
+    }else if(collectionView == _CollectionView2)
+    {
+        return CGSizeMake1(128, 150);
+    }else
+    {
+        return CGSizeMake1(200, 200);
+    }
+}
+
+-(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
+{
+    //上，左，下，右
+    if (collectionView == _CollectionView1) {
+        return UIEdgeInsetsMake(5, 0, 0, 0);
+    }else if(collectionView == _CollectionView2)
+    {
+        return UIEdgeInsetsMake(0, 5, 0, 0);
+    }else
+    {
+        return UIEdgeInsetsMake(0, 0, 0, 0);
+    }
+}
+
+#pragma mark -- 点击方法
 -(void)leftAction:(UIBarButtonItem *)btn{
     DLog(@"定位");
     MapViewController *mapView = [[MapViewController alloc]init];
@@ -146,369 +620,81 @@
     [self.navigationController pushViewController:codeView animated:YES];
 }
 
-#pragma mark -- 轮播点击事件
+//轮播点击事件
 -(void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index{
-    AfterSearchViewController * afSearchVC = [[AfterSearchViewController alloc]init];
     LBTModel * model = _LBTArr[index];
+    NSLog(@"%@",model.lbid);
+    
+    AfterSearchViewController * afSearchVC = [[AfterSearchViewController alloc]init];
     afSearchVC.KeyWord = model.keyword;
     afSearchVC.thumb = model.thumb;
     afSearchVC.advname = model.advname;
-    afSearchVC.descriptionText = model.descriptionText;
+    afSearchVC.descriptionText = model.descriptionStr;
     afSearchVC.isFromLBT = YES;
     afSearchVC.backgroundColor = self.view.backgroundColor;
-    [self.navigationController pushViewController:afSearchVC animated:YES];}
-#pragma mark -- 秒杀活动
--(void)setMiaoSha{
+    [self.navigationController pushViewController:afSearchVC animated:YES];
     
-    self.miaoShaBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.miaoShaBtn.frame = CGRectMake1(5, 175, kWidth-10, 90*1.5-10);
-    [self.miaoShaBtn setBackgroundImage:[UIImage imageNamed:@"banner02@3x.png"] forState:UIControlStateNormal];
-    self.miaoShaBtn.layer.cornerRadius = 5;
-    //    [self.backSrollview addSubview:self.miaoShaBtn];
-}
-#pragma mark -- 各种活动
--(void)setActivity{
-    self.activity1 = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.activity1.tag = 11;
-    self.activity1.frame = CGRectMake1(5,200, 414/2-7.5, 120-5);
-    [self.activity1 setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://www.upinkji.com/resource/attachment/images/2016/01/332760528997873789.jpg"]]] forState:UIControlStateNormal];
-    [self.activity1 addTarget:self action:@selector(ActivityBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-    self.activity1.layer.cornerRadius = 5;
-    [self.backSrollview addSubview:self.activity1];
-    
-    self.activity2 = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.activity2.tag = 22;
-    self.activity2.frame = CGRectMake1(414/2+2.5, 200, 414/2-7.5, 120-5);
-    [self.activity2 setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://www.upinkji.com/resource/attachment/images/2016/01/611268353810817048.jpg"]]] forState:UIControlStateNormal];
-    self.activity2.layer.cornerRadius = 5;
-    [self.activity2 addTarget:self action:@selector(ActivityBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-    [self.backSrollview addSubview:self.activity2];
-    
-    self.activity3 = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.activity3.tag = 33;
-    self.activity3.frame = CGRectMake1(5,320+2.5,414-10,190-7.5);
-    self.activity3.layer.cornerRadius = 5;
-    [self.activity3 setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://www.upinkji.com/resource/attachment/images/2016/01/291349526580463032.jpg"]]] forState:UIControlStateNormal];
-    
-    [self.activity3 addTarget:self action:@selector(ActivityBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-    [self.backSrollview addSubview:self.activity3];
-    
-    self.activity4 = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.activity4.tag = 44;
-    self.activity4.frame = CGRectMake1(5,510+2.5,414-10,190-7.5);
-    [self.activity4 setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://www.upinkji.com/resource/attachment/images/2016/01/473757046878255970.jpg"]]] forState:UIControlStateNormal];
-    
-    self.activity4.layer.cornerRadius = 5;
-    [self.activity4 addTarget:self action:@selector(ActivityBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-    [self.backSrollview addSubview:self.activity4];
-    
-    self.activity5 = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.activity5.tag = 55;
-    self.activity5.frame = CGRectMake1(5,700+2.5,414-10,190-7.5);
-    [self.activity5 setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://www.upinkji.com/resource/attachment/images/2016/01/21787130544155649.jpg"]]] forState:UIControlStateNormal];
-    self.activity5.layer.cornerRadius = 5;
-    [self.activity5 addTarget:self action:@selector(ActivityBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-    [self.backSrollview addSubview:self.activity5];
-    
-    [self setTopic];
-}
-#pragma mark — 精选活动
--(void)setTopic{
-    
-    UIView *topic = [[UIView alloc]initWithFrame:CGRectMake1(5, 890, 414-20, 60)];
-    UILabel *topicLabel = [[UILabel alloc]initWithFrame:CGRectMake1(0, 0, 414, 50)];
-    topicLabel.text = @"精选活动";
-    topicLabel.textColor = [UIColor darkGrayColor];
-    topicLabel.textAlignment = NSTextAlignmentCenter;
-    
-    UIView *line = [[UIView alloc]initWithFrame:CGRectMake1(170,40, 414-340,2)];
-    line.backgroundColor = [UIColor lightGrayColor];
-    
-    [topic addSubview:topicLabel];
-    [topic addSubview:line];
-    [self.backSrollview addSubview:topic];
-}
-#pragma mark -- 活动Btn
--(void)ActivityBtnAction:(UIButton *)sender{
-    ActivityViewController *ActivityVC = [[ActivityViewController alloc]init];
-    switch ([sender tag]) {
-        case 11:
-            ActivityVC.ActivityTitle = @"宝宝奶粉";
-            ActivityVC.headerImg = [UIImage imageNamed:@"activity1"];
-            ActivityVC.backgroundColor = [UIColor colorWithRed:168.0/255.0 green:240.0/255.0 blue:1.0 alpha:1];
-            ActivityVC.pid = @"2";
-            break;
-        case 22:
-            ActivityVC.ActivityTitle = @"宝宝用品";
-            ActivityVC.headerImg = [UIImage imageNamed:@"activity2"];
-            ActivityVC.backgroundColor = [UIColor colorFromHexRGB:@"FAAADC"];
-            ActivityVC.pid = @"5";
-            break;
-        case 33:
-            ActivityVC.ActivityTitle = @"美颜面膜";
-            ActivityVC.headerImg = [UIImage imageNamed:@"activity3"];
-            ActivityVC.backgroundColor = [UIColor whiteColor];
-            ActivityVC.pid = @"21";
-            break;
-        case 44:
-            ActivityVC.ActivityTitle = @"生活家居";
-            ActivityVC.headerImg = [UIImage imageNamed:@"activity4"];
-            ActivityVC.backgroundColor = [UIColor colorFromHexRGB:@"64B5E0"];
-            ActivityVC.pid = @"22";
-            break;
-        case 55:
-            ActivityVC.ActivityTitle = @"营养保健";
-            ActivityVC.headerImg = [UIImage imageNamed:@"activity5"];
-            ActivityVC.backgroundColor = [UIColor colorFromHexRGB:@"8acb0b"];
-            ActivityVC.pid = @"63";
-            break;
-        default:
-            break;
-    }
-    [self.navigationController pushViewController:ActivityVC animated:YES];
     
 }
-#pragma mark -- 获取数据
--(void)getData{
-    NSDictionary * dic =@{@"appkey":APPkey};
-#pragma dic MD5
-    NSDictionary * Ndic = [self md5DicWith:dic];
-    
-    AFHTTPSessionManager * manager = [AFHTTPSessionManager manager];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-    manager.responseSerializer = [AFJSONResponseSerializer serializer];
-    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    
-    [manager POST:kADV parameters:Ndic progress:^(NSProgress * _Nonnull downloadProgress) {
+//单品点击方法
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row >6) {
+        ProductModel *model = _detailArr[indexPath.row-7];
+        GoodSDetailViewController *goodVC = [[GoodSDetailViewController alloc]init];
+        NSDictionary * dic = @{@"appkey":APPkey,@"id":model.productId};
         
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        goodVC.goodsDic = dic;
         
-        DLog(@"%@",responseObject);
-        NSArray * arr = responseObject;
+        goodVC.isFromHomePage = YES;
         
-        for (NSDictionary *dic  in arr)
-        {
-            
-            LBTModel *model = [[LBTModel alloc]init];
-            model.descriptionText = dic[@"description"];
-            [model setValuesForKeysWithDictionary:dic];
-            
-            [_LBTArr addObject:model];
-        }
-        [_images removeAllObjects];
-        
-        //数据获取完后再添加控件。
-        [self getHeaderDataAndModelData];
-        
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        DLog(@"%@",error);
-        [_loadingHud hideAnimated:YES];
-        _loadingHud = nil;
-        [self initWithoutNetworkPage];
-        
-    }];
-    
-}
-
--(void)getHeaderDataAndModelData{
-    if (_i<6){
-        NSDictionary * dic =@{@"appkey":APPkey,@"num":[NSString stringWithFormat:@"%ld",(long)_i],@"limit":@"6"};
-#pragma dic MD5
-        NSDictionary * Ndic = [self md5DicWith:dic];
-        
-        AFHTTPSessionManager * manager = [AFHTTPSessionManager manager];
-        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-        manager.responseSerializer = [AFJSONResponseSerializer serializer];
-        manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-        
-        [manager POST:kHomePage parameters:Ndic progress:^(NSProgress * _Nonnull downloadProgress) {
-            
-        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            DLog(@"%@",responseObject);
-            HeaderModel *Hmodel = [[HeaderModel alloc]init];
-            [Hmodel setValuesForKeysWithDictionary:responseObject];
-            [_headerArr addObject:Hmodel];
-            [_pidArr addObject:Hmodel.pid];
-            NSArray *arr = responseObject[@"list"];
-            NSMutableArray * mArr = [NSMutableArray array];
-            for (NSDictionary *dic in arr)
-            {
-                ProductModel *model = [[ProductModel alloc]init];
-                [model setValuesForKeysWithDictionary:dic];
-                [mArr addObject:model];
-            }
-            [_productArr addObject:mArr];
-            _i++;
-            
-            [self getHeaderDataAndModelData];
-            
-        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            DLog(@"%@",error);
-        }];
-    }else{
-        [self setBackSrollview];
-        
-        _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake1(0, 0, 414,190) delegate:self placeholderImage:[UIImage imageNamed:@"placeholder"]];
-        _cycleScrollView.pageControlStyle = SDCycleScrollViewPageContolStyleAnimated;
-        _cycleScrollView.placeholderImage = [UIImage imageNamed:@"pltu"];
-        NSMutableArray *LBTMarr = [NSMutableArray array];
-        for (LBTModel * model  in _LBTArr) {
-            [LBTMarr addObject:[NSString stringWithFormat:kSImageUrl,model.thumb]];
-        }
-        _cycleScrollView.imageURLStringsGroup = LBTMarr;
-        
-        [_backSrollview addSubview:_cycleScrollView];
-        [self setActivity];
-        [self setCollectionView];
-        [self.collectionView reloadData];
-        _collectionView.frame = CGRectMake1(0,950,414,_headerArr.count*600);
-        _backSrollview.contentSize = CGSizeMake(CGFloatMakeX(414), (CGFloatMakeY(1100)+_headerArr.count*CGFloatMakeY(600)-64));
-        
-        [_loadingHud hideAnimated:YES];
-        _loadingHud = nil;
+        [self.navigationController pushViewController:goodVC animated:YES];
     }
 }
 
-#pragma mark -- 断网界面
--(void)initWithoutNetworkPage{
-    if(!_noNetworkView){
-        [self.backSrollview removeFromSuperview];
-        AppDelegate *app = [[UIApplication sharedApplication]delegate];
-        
-        _noNetworkView = [[UIView alloc]initWithFrame:CGRectMake1(0, 0, 414, 736-64-49)];
-        _noNetworkView.backgroundColor = [UIColor whiteColor];
-        
-        UIImageView *noNetworkImg = [[UIImageView alloc]initWithFrame:CGRectMake(0,0,100*app.autoSizeScaleY,100*app.autoSizeScaleY)];
-        noNetworkImg.center = CGPointMake(kWidth/2, kHeight/2-150*app.autoSizeScaleY);
-        noNetworkImg.image = [UIImage imageNamed:@"withoutNetwork"];
-        
-        UILabel *noworkLabel = [[UILabel alloc]initWithFrame:CGRectMake1(0, 0, 414, 20)];
-        noworkLabel.text = @"网络不太顺畅哦~";
-        noworkLabel.textAlignment = NSTextAlignmentCenter;
-        noworkLabel.font = [UIFont boldSystemFontOfSize:14*app.autoSizeScaleY];
-        noworkLabel.textColor = [UIColor colorWithRed:102.0/255 green:102.0/255 blue:102.0/255 alpha:1];
-        noworkLabel.center = CGPointMake(kWidth/2, kHeight/2-65*app.autoSizeScaleY);
-        
-        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        btn.frame = CGRectMake1(0,0,100,40);
-        btn.center = CGPointMake(kWidth/2, kHeight/2-15*app.autoSizeScaleY);
-        btn.layer.cornerRadius = 10*app.autoSizeScaleY;
-        btn.clipsToBounds = YES;
-        [btn setTitle:@"重新加载"forState:UIControlStateNormal];
-        btn.titleLabel.font = [UIFont systemFontOfSize:15*app.autoSizeScaleY];
-        btn.backgroundColor = [UIColor colorFromHexRGB:@"cc2245"];
-        [btn addTarget:self action:@selector(reloadBtn) forControlEvents:UIControlEventTouchUpInside];
-        
-        [self.view addSubview:_noNetworkView];
-        [_noNetworkView addSubview:noNetworkImg];
-        [_noNetworkView addSubview:noworkLabel];
-        [_noNetworkView addSubview:btn];
-    }
-}
--(void)reloadBtn{
+//每个cell的图片点击方法
+-(void)headerBtnAction:(UIButton *)sender
+{
+    NSLog(@"%ld pid = %@ description : %@.💙",(long)sender.tag,_pidArr[sender.tag],[_headerArr[sender.tag] descriptionStr]);
     
-    [_noNetworkView removeFromSuperview];
-    [self viewDidLoad];
-    
-}
-#pragma mark -- collectionView
--(void)setCollectionView{
-    UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc]init];
-    flowLayout.itemSize = CGSizeMake1((414-50)/3,180);
-    flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
-    flowLayout.sectionInset = UIEdgeInsetsMake(10,7.5,10,7.5);
-    self.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake1(0,555,414,kHeight) collectionViewLayout:flowLayout];
-    self.collectionView.delegate = self;
-    self.collectionView.dataSource = self;
-    self.collectionView.backgroundColor = [UIColor whiteColor];
-    self.collectionView.scrollEnabled = NO;
-    
-    //注册cell
-    [self.collectionView registerClass:[CustomCollectionViewCell class] forCellWithReuseIdentifier:@"collectionViewCellReuse"];
-    //注册分区头
-    [self.collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"Header"];
-    [self.backSrollview addSubview:self.collectionView];
-    
-}
--(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return 6;
-}
-#pragma mark -- 什么样的cell
--(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    
-    CustomCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"collectionViewCellReuse" forIndexPath:indexPath];
-
-    NSMutableArray * mArr= _productArr[indexPath.section];
-    
-    cell.model = mArr[indexPath.row];
-    
-    [cell.productImg sd_setImageWithURL:[NSURL URLWithString:cell.model.thumb]];
-
-    return cell;
-}
--(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
-    return CGSizeMake1(414,150*414.0/320);
-}
--(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    
-    GoodSDetailViewController *goodVC = [[GoodSDetailViewController alloc]init];
-    
-    ProductModel * model  = _productArr[indexPath.section][indexPath.row];
-    
-    NSDictionary * dic = @{@"appkey":APPkey,@"id":model.productId};
-    
-    goodVC.goodsDic = dic;
-    
-    //    goodVC.isFromHomePage = YES;
-    
-    [self.navigationController pushViewController:goodVC animated:NO];
-}
-#pragma mark -- 分区头
--(UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
-    if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
-        
-        UICollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"Header" forIndexPath:indexPath];
-        
-        HeaderModel *model = _headerArr[indexPath.section];
-        UIButton *headerBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [headerBtn setTag:indexPath.section+1];
-        headerBtn.frame = CGRectMake(0, 0, headerView.bounds.size.width, headerView.bounds.size.height);
-        [headerBtn addTarget:self action:@selector(headerBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-        [headerBtn sd_setBackgroundImageWithURL:[NSURL URLWithString:model.thumb] forState:UIControlStateNormal];
-        [headerView addSubview:headerBtn];
-        return headerView;
-    }
-    return nil;
-}
--(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
-    
-    return _headerArr.count;
-}
-
--(void)headerBtnAction:(UIButton *)sender{
-    
-    DLog(@"%ld pid = %@ description : %@.💙",(long)sender.tag,_pidArr[sender.tag-1],[_headerArr[sender.tag-1] descriptionStr]);
     GoodsViewController *goodsView = [[GoodsViewController alloc]init];
     goodsView.headerImg = sender.currentBackgroundImage;
-    goodsView.pid = _pidArr[sender.tag-1];
-    goodsView.introduce = [_headerArr[sender.tag-1] descriptionStr];
+    goodsView.pid = _pidArr[sender.tag];
+    goodsView.introduce = [_headerArr[sender.tag] descriptionStr];
     [self.navigationController pushViewController:goodsView animated:YES];
     
 }
 
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    if(self.navigationItem.title == nil)
-    {
-        self.navigationController.navigationBar.barTintColor = [UIColor colorFromHexRGB:@"cc2245"];
-        UIImageView *backImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"navigationLogo"]];
-        self.navigationItem.titleView = backImg;
+
+//小分区的点击方法
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (collectionView == _CollectionView1) {
+        GoodSDetailViewController *goodVC = [[GoodSDetailViewController alloc]init];
+        NSString *pid = [NSString stringWithFormat:@"%@",_preidArr[indexPath.row]];
+        NSDictionary * dic = @{@"appkey":APPkey,@"id":pid};
         
-        self.tabBarController.tabBar.hidden = NO;
+        goodVC.goodsDic = dic;
+        
+        goodVC.isFromHomePage = YES;
+        
+        [self.navigationController pushViewController:goodVC animated:YES];
+        
+    }else if(collectionView == _CollectionView2)
+    {
+        GoodSDetailViewController *goodVC = [[GoodSDetailViewController alloc]init];
+        ProductModel * model  = _productArr[0][indexPath.row];
+        NSDictionary * dic = @{@"appkey":APPkey,@"id":model.productId};
+        
+        goodVC.goodsDic = dic;
+        
+        goodVC.isFromHomePage = YES;
+        
+        [self.navigationController pushViewController:goodVC animated:YES];
     }
-    
 }
--(void)didReceiveMemoryWarning {
+
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
