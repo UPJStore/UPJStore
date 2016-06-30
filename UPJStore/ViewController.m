@@ -73,13 +73,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    
+    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor colorFromHexRGB:@"cc2245"]};
 #pragma mark -- 左按钮
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"dingwei"] style:UIBarButtonItemStyleDone target:self action:@selector(leftAction:)];
-    self.navigationItem.leftBarButtonItem.tintColor = [UIColor blackColor];
+    self.navigationItem.leftBarButtonItem.tintColor = [UIColor colorFromHexRGB:@"999999"];
 #pragma mark -- 右按钮
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"saomakuang"] style:UIBarButtonItemStyleDone target:self action:@selector(rightAction:)];
-    self.navigationItem.rightBarButtonItem.tintColor = [UIColor blackColor];
+    self.navigationItem.rightBarButtonItem.tintColor = [UIColor colorFromHexRGB:@"999999"];
     
     _z = 0;
     _num = 0;
@@ -102,6 +102,7 @@
     {
         self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
         UIImageView *backImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"navigationLogo"]];
+        backImg.contentMode = UIViewContentModeScaleAspectFit;
         self.navigationItem.titleView = backImg;
         
         self.tabBarController.tabBar.hidden = NO;

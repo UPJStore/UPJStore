@@ -62,11 +62,8 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"backArrow"] style:UIBarButtonItemStyleDone target:self action:@selector(pop)];
     self.navigationItem.leftBarButtonItem.tintColor = [UIColor blackColor];
     self.navigationItem.title = @"商品详情";
+    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor colorFromHexRGB:@"cc2245"]};
 
-    if (CGColorEqualToColor(self.navigationController.navigationBar.barTintColor.CGColor, [UIColor colorFromHexRGB:@"cc2245"].CGColor))
-    {
-        self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor]};
-    }
 
     
     
@@ -82,7 +79,7 @@
             }
         }
     }
-    self.view.backgroundColor = [UIColor colorFromHexRGB:@"cccccc"];
+    self.view.backgroundColor = [UIColor colorFromHexRGB:@"f0f0f0"];
     
     self.navigationController.navigationBar.translucent = NO;
     [self.view addSubview:self.scrollView];
@@ -170,6 +167,8 @@
     _ContentView.backgroundColor = [UIColor whiteColor];
     
     _contentScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, CGFloatMakeY(40), kWidth, kHeight)];
+    _contentScrollView.showsVerticalScrollIndicator = NO;
+    _contentScrollView.showsHorizontalScrollIndicator = NO;
     _contentScrollView.contentSize = CGSizeMake(kWidth*2, kHeight);
     
     _contentScrollView.scrollEnabled = NO;
@@ -211,6 +210,8 @@
     
     _webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, kWidth, kHeight-124-CGFloatMakeY(30))];
     [_webView loadHTMLString:_model.content baseURL:nil];
+    _webView.scrollView.showsVerticalScrollIndicator = NO;
+    _webView.scrollView.showsHorizontalScrollIndicator = NO;
     _webView.delegate = self;
     _webView.scrollView.delegate = self;
     [_webView reload];
@@ -442,6 +443,8 @@
 {
     self.goodsScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, kWidth, CGFloatMakeY(300))];
     _goodsScrollView.backgroundColor = [UIColor whiteColor];
+    _goodsScrollView.showsHorizontalScrollIndicator = NO;
+    _goodsScrollView.showsVerticalScrollIndicator = NO;
     self.goodsScrollView.contentSize = CGSizeMake(kWidth*pageArr.count, 0);
     self.goodsScrollView.delegate =self;
     self.goodsScrollView.pagingEnabled = YES;
@@ -500,6 +503,8 @@
         
         _scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, kWidth, kHeight)];
         _scrollView.contentSize = CGSizeMake(kWidth, kHeight*2);
+        _scrollView.showsVerticalScrollIndicator = NO;
+        _scrollView.showsHorizontalScrollIndicator = NO;
 //        _scrollView.backgroundColor  = [UIColor colorFromHexRGB:@"f0f0f0"];
         _scrollView.delegate =self;
         
@@ -810,6 +815,8 @@
         _recommandCollectionView.backgroundColor  = [UIColor whiteColor];
         _recommandCollectionView.delegate  = self;
         _recommandCollectionView.dataSource = self;
+        _recommandCollectionView.showsHorizontalScrollIndicator = NO;
+        _recommandCollectionView.showsVerticalScrollIndicator = NO;
         _recommandCollectionView.layer.borderWidth = 0.3;
         _recommandCollectionView.layer.borderColor = [[UIColor colorFromHexRGB:@"d9d9d9"]CGColor];
         [_recommandCollectionView registerClass:[recommandCell class] forCellWithReuseIdentifier:@"cell"];

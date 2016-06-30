@@ -35,6 +35,7 @@
     UITextField *password;
     BOOL isFirst;
     NSString * force_upgrade;
+    NSInteger inAppCount;
 }
 
 @end
@@ -58,6 +59,11 @@
     
     
     [self VersionBUtton];
+    
+    if ([[NSUserDefaults standardUserDefaults] valueForKey:@"inAppCount"] ==nil) {
+        inAppCount = 0;
+    }else
+        inAppCount = [[[NSUserDefaults standardUserDefaults] valueForKey:@"inAppCount"] integerValue];
     
 //    [self showAdv];
     
@@ -483,12 +489,10 @@
         NSDictionary * dic2 =verarr[0];
         NSString *verStr = dic2[@"version"];
         
-        NSData * data2 = [NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://m.upinkji.com/api/version/all?appkey=%@",APPkey]]] options:NSJSONReadingAllowFragments error:nil];
-        DLog(@"data2 %@",data2);
+        NSArray * data2Arr = [NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://m.upinkji.com/api/version/all?appkey=%@",APPkey]]] options:NSJSONReadingAllowFragments error:nil];
         
         NSString * nowVersion = [[[NSBundle mainBundle] infoDictionary]objectForKey:@"CFBundleVersion"];
         
-        NSArray * data2Arr = (NSArray*)data2;
         NSInteger i = 0;
         for (NSDictionary * dic  in data2Arr) {
             if ([dic[@"version"] isEqualToString:nowVersion]) {
@@ -517,7 +521,7 @@
     NSString * nowVersion = [[[NSBundle mainBundle] infoDictionary]objectForKey:@"CFBundleVersion"];
     DLog(@"新版本 ： %@ ，当前版本 %@ ",[timer userInfo],nowVersion);
     
-    if ([[timer userInfo] doubleValue] > [nowVersion doubleValue])
+    if ([[timer userInfo] doubleValue] > [nowVersion doubleValue]&& inAppCount == 0 )
     {
         
         DLog(@"新版本 ： %@ ，当前版本 %@ ",[timer userInfo],nowVersion);
@@ -543,6 +547,13 @@
             
         }];
     }
+    inAppCount++;
+    
+    if (inAppCount >5) {
+        inAppCount = 0;
+    }
+    
+    [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInteger:inAppCount] forKey:@"inAppCount"];
 
 }
 

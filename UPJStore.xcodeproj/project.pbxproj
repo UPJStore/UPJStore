@@ -128,6 +128,7 @@
 		D1ADB2F21C940E8B000B134E /* goodsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D1ADB2F01C940E8B000B134E /* goodsModel.m */; };
 		D1ADB2F51C940EA6000B134E /* goodsCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D1ADB2F41C940EA6000B134E /* goodsCollectionViewCell.m */; };
 		D1ADB30C1C941094000B134E /* CodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1ADB3091C941094000B134E /* CodeViewController.m */; };
+		D1CC1A801D24C3900011B226 /* UPJSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1CC1A7F1D24C3900011B226 /* UPJSearchViewController.m */; };
 		D1D14E311D1A909F00069176 /* SelectPayMethohViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D14E301D1A909F00069176 /* SelectPayMethohViewController.m */; };
 		D1D4A0F71CB5045500BC6913 /* TAAbstractDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D4A0EA1CB5045500BC6913 /* TAAbstractDotView.m */; };
 		D1D4A0F81CB5045500BC6913 /* TAAnimatedDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D4A0EC1CB5045500BC6913 /* TAAnimatedDotView.m */; };
@@ -502,6 +503,8 @@
 		D1ADB2F41C940EA6000B134E /* goodsCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = goodsCollectionViewCell.m; sourceTree = "<group>"; };
 		D1ADB3081C941094000B134E /* CodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CodeViewController.h; sourceTree = "<group>"; };
 		D1ADB3091C941094000B134E /* CodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CodeViewController.m; sourceTree = "<group>"; };
+		D1CC1A7E1D24C3900011B226 /* UPJSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPJSearchViewController.h; sourceTree = "<group>"; };
+		D1CC1A7F1D24C3900011B226 /* UPJSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPJSearchViewController.m; sourceTree = "<group>"; };
 		D1D14E301D1A909F00069176 /* SelectPayMethohViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectPayMethohViewController.m; sourceTree = "<group>"; };
 		D1D4A0E91CB5045500BC6913 /* TAAbstractDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAAbstractDotView.h; sourceTree = "<group>"; };
 		D1D4A0EA1CB5045500BC6913 /* TAAbstractDotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAAbstractDotView.m; sourceTree = "<group>"; };
@@ -1348,6 +1351,8 @@
 				D1074D211CA2AF9100725BAC /* AfterSearchViewController.m */,
 				D1FB119B1CB6081700F57A44 /* brandViewController.h */,
 				D1FB119C1CB6081700F57A44 /* brandViewController.m */,
+				D1CC1A7E1D24C3900011B226 /* UPJSearchViewController.h */,
+				D1CC1A7F1D24C3900011B226 /* UPJSearchViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1742,6 +1747,7 @@
 				D19112A91CA2742E00FE73EA /* waitSearchCell.m in Sources */,
 				D101CB181D23ADAD00A1A37A /* HeaderModel.m in Sources */,
 				D14F8FA01CDB164600342832 /* openssl_wrapper.m in Sources */,
+				D1CC1A801D24C3900011B226 /* UPJSearchViewController.m in Sources */,
 				D101CB1C1D23E35E00A1A37A /* SecKillModel.m in Sources */,
 				E30AD76C1C719F6F00B5188C /* main.m in Sources */,
 				D101CB191D23ADAD00A1A37A /* LBTModel.m in Sources */,
