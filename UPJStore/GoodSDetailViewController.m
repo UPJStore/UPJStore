@@ -179,7 +179,7 @@
     UIButton * detailBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     detailBtn.layer.borderWidth = 0.4;
     detailBtn.layer.borderColor = [[UIColor colorFromHexRGB:@"d9d9d9"]CGColor];
-    detailBtn.frame = CGRectMake1(10, 5, k6PWidth/2-10, 30);
+    detailBtn.frame = CGRectMake1(10, 5, k6PWidth/2-10, 28);
     [detailBtn setTitle:@"商品详情" forState:UIControlStateNormal];
     detailBtn.selected = YES;
     detailBtn.tag = 100;
@@ -193,7 +193,7 @@
     UIButton * FAQBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     FAQBtn.layer.borderWidth = 0.4;
     FAQBtn.layer.borderColor = [[UIColor colorFromHexRGB:@"d9d9d9"]CGColor];
-    FAQBtn.frame = CGRectMake1(k6PWidth/2, 5, k6PWidth/2-10, 30);
+    FAQBtn.frame = CGRectMake1(k6PWidth/2, 5, k6PWidth/2-10, 28);
     FAQBtn.tag = 101;
     [FAQBtn addTarget:self action:@selector(changeView:) forControlEvents:UIControlEventTouchUpInside];
     [FAQBtn setTitle:@"温馨提示" forState:UIControlStateNormal];
@@ -791,8 +791,6 @@
     NSDictionary * dic = @{@"appkey":APPkey,@"id":model.internalBaseClassIdentifier};
     
     goodVC.goodsDic = dic;
-    goodVC.isFromDetail = YES;
-    //    goodVC.isFromHomePage = YES;
     
     [self.navigationController pushViewController:goodVC animated:NO];
 }
@@ -937,13 +935,13 @@
 {
     AppraiseViewController *appraiseVC = [[AppraiseViewController alloc]init];
     appraiseVC.appraiseArr = _appraiseArr;
-   
     [self.navigationController pushViewController:appraiseVC animated:YES];
     
 }
 
 -(void)pop{
     [self.navigationController popViewControllerAnimated:YES];
+    
     if (_isFromHomePage == YES)
     {
         
@@ -951,13 +949,7 @@
         
     }
     
-    if (_isFromCollection||_isFromDetail)
-    {
-        self.tabBarController.tabBar.hidden = YES;
-    }
-    
-    else self.tabBarController.tabBar.hidden = NO;
-    
+
 }
 
 

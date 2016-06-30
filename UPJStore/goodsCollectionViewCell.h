@@ -12,4 +12,5 @@
 
 @property (nonatomic,strong) UIImageView * goodsView;
 @property (nonatomic,strong) UILabel *nameLabel;
+
 @end

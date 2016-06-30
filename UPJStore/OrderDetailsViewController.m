@@ -259,7 +259,6 @@
     NSDictionary * dic = @{@"appkey":APPkey,@"id":[NSString stringWithFormat:@"%ld",btn.tag]};
     
     goodVC.goodsDic = dic;
-    goodVC.isFromDetail = YES;
     //    goodVC.isFromHomePage = YES;
     
     [self.navigationController pushViewController:goodVC animated:NO];

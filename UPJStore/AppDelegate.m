@@ -42,7 +42,8 @@
 @implementation AppDelegate
 
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
     // Override point for customization after application launch.
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
@@ -58,11 +59,13 @@
     
     [self VersionBUtton];
     
-    [self showAdv];
+//    [self showAdv];
     
     return YES;
 }
 
+
+#pragma  she
 -(void)showAdv
 {
     // 1.判断沙盒中是否存在广告图片，如果存在，直接显示
@@ -101,7 +104,6 @@
     
     // TODO 请求广告接口
     
-    // 这里原本采用美团的广告接口，现在了一些固定的图片url代替
     NSArray *imageArray = @[@"http://m.upinkji.com/static/app/images/app_function_ad.jpg"];
     NSString *imageUrl = imageArray.lastObject;
 
@@ -329,7 +331,9 @@
         
     }];
 }
--(NSString *)md5:(NSString *)str {
+
+-(NSString *)md5:(NSString *)str
+{
     
     const char* cStr = [str UTF8String];
     unsigned char result[CC_MD5_DIGEST_LENGTH];
@@ -378,7 +382,6 @@
 }
 
 #pragma mark -- 账号密码文本框
-
 
 -(BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url{
     return [WXApi handleOpenURL:url delegate:self];

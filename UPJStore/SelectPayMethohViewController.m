@@ -246,6 +246,7 @@
 #pragma mark -- 支付宝支付
 -(void)goToAlipay{
     NSDictionary *dic = @{@"appkey":APPkey,@"id":self.orderID,@"mid":[self returnMid]};
+    
     NSDictionary * Ndic = [self md5DicWith:dic];
     AFHTTPSessionManager * manager = [AFHTTPSessionManager manager];
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
@@ -256,6 +257,7 @@
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
         DLog(@"%@",responseObject);
+        
         NSString *partner = ALIPAY_PARTNER;  //支付宝商户id-账号id
         NSString *seller = ALIPAY_SELLER;
         NSString *privateKey = ALIPAY_PRIVATEKEY;  //私钥
@@ -321,6 +323,7 @@
         }
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
         DLog("%@",error);
         
     }];

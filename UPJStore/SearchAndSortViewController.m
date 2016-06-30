@@ -50,7 +50,7 @@
 @property (nonatomic,strong) UIView * reloadView;
 @property (nonatomic,strong)UIView *noNetworkView;
 @property (nonatomic,assign) NSInteger count;
-@property (nonatomic,strong) NSMutableArray * PcateArr;
+@property (nonatomic,strong) NSMutableArray * PcateArr, * desArr;
 @end
 
 
@@ -438,9 +438,14 @@
 -(void)goToGoodsCollectionView:(UIButton*)btn
 {
     GoodsViewController *goodsView = [[GoodsViewController alloc]init];
-//    goodsView.headerImg = sender.currentBackgroundImage;
+    goodsView.headerImg = btn.currentBackgroundImage;
     goodsView.pid =[NSString stringWithFormat:@"%ld",btn.tag];
-//    goodsView.introduce = [_headerArr[sender.tag-1] descriptionStr];
+    for (NSDictionary *dic  in _desArr) {
+        if ([[dic valueForKey:@"pcate"] isEqualToString:[NSString stringWithFormat:@"%ld",btn.tag]] ) {
+                goodsView.introduce = dic[@"name"];
+
+        }
+    }
     goodsView.isFromSort = YES;
     [self.navigationController pushViewController:goodsView animated:YES];
 }
@@ -492,6 +497,8 @@
         [_headSortArr addObject:dic[@"thumb"]];
         
         [self.PcateArr addObject:dic[@"pcate"]];
+        
+        [self.desArr addObject:@{@"name":dic[@"name"],@"pcate":dic[@"pcate"]}];
         
         _count ++;
         [self getSortModelData];
@@ -935,6 +942,14 @@
         
     }
     return _KindArr;
+}
+
+-(NSMutableArray *)desArr
+{
+    if (!_desArr) {
+        _desArr = [NSMutableArray array];
+    }
+    return _desArr;
 }
 
 -(void)hasReloadView

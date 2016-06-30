@@ -20,7 +20,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.tabBarController.tabBar.hidden = YES;
     self.navigationItem.title = @"大家都这样评价~";
     _heightArr = [NSMutableArray array];
     self.view. backgroundColor = [UIColor whiteColor];
