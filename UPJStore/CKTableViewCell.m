@@ -75,7 +75,8 @@
     {
         nameLabel.text = [NSString stringWithFormat:@"昵称： %@",model.nickname];
         
-        NSMutableAttributedString * attr = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"关注时间： %@",[self timeWithcuo:_model.createtime]]];
+        NSMutableAttributedString * attr = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"关注时间： %@",[self timeWithcuo:model.createtime]]];
+        
         [attr addAttribute:NSForegroundColorAttributeName value:[UIColor colorFromHexRGB:@"999999"] range:NSMakeRange(0, 5)];
         createTimeLabel.attributedText = attr;
     

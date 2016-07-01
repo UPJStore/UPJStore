@@ -14,6 +14,7 @@
 #import "SearchGoodsCollectionViewCell.h"
 #import "GoodSDetailViewController.h"
 #import "XLPlainFlowLayout.h"
+#import "UIColor+HexRGB.h"
 
 @interface AfterSearchViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UIScrollViewDelegate>
 
@@ -38,7 +39,7 @@
     
     if (_isFromLBT ==YES)
     {
-        self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor]};
+        self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor colorFromHexRGB:@"cc2245"]};
 
     }
     [self getDataWithStr:_KeyWord];

@@ -63,6 +63,7 @@
     _headerView.delegate = self;
     _headerView.imageView.userInteractionEnabled = YES;
     if ([self returnIsLogin]) {
+        _headerView.imageView.image = [UIImage imageWithData:[self returnImageData]];
         [self postmid];
     }
     // 添加手势设置头像

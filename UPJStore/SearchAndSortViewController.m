@@ -35,7 +35,6 @@
 @property (nonatomic,strong) UIButton *sortBtn,*brandBtn;
 @property (nonatomic,assign) NSInteger i;
 @property (nonatomic,assign) NSInteger key;
-@property (nonatomic,strong) UISearchController *searchVC;
 @property (nonatomic,strong) NSMutableArray * KindArr;
 @property (nonatomic,strong) NSMutableArray *BrandArr;
 @property (nonatomic,strong) NSMutableArray * headSortArr, *allSortArr;

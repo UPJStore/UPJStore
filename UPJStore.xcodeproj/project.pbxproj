@@ -52,7 +52,6 @@
 		D1034D761D17A290000D893F /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1034D5C1D17A290000D893F /* SettingViewController.m */; };
 		D10391391D113F9F00CDD34D /* AdvertiseView.m in Sources */ = {isa = PBXBuildFile; fileRef = D10391361D113F9F00CDD34D /* AdvertiseView.m */; };
 		D103913A1D113F9F00CDD34D /* AdvertiseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D10391381D113F9F00CDD34D /* AdvertiseViewController.m */; };
-		D10391401D11511F00CDD34D /* Reveal.framework in Resources */ = {isa = PBXBuildFile; fileRef = D103913E1D1150C300CDD34D /* Reveal.framework */; };
 		D10391461D11593E00CDD34D /* myUILabel.m in Sources */ = {isa = PBXBuildFile; fileRef = D10391451D11593E00CDD34D /* myUILabel.m */; };
 		D103B76D1CDB268500DC850A /* AddressTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D103B7641CDB268500DC850A /* AddressTableViewCell.m */; };
 		D103B76E1CDB268500DC850A /* AttentionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D103B7661CDB268500DC850A /* AttentionTableViewCell.m */; };
@@ -128,6 +127,7 @@
 		D1ADB2F21C940E8B000B134E /* goodsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D1ADB2F01C940E8B000B134E /* goodsModel.m */; };
 		D1ADB2F51C940EA6000B134E /* goodsCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D1ADB2F41C940EA6000B134E /* goodsCollectionViewCell.m */; };
 		D1ADB30C1C941094000B134E /* CodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1ADB3091C941094000B134E /* CodeViewController.m */; };
+		D1CC1A801D24C3900011B226 /* UPJSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1CC1A7F1D24C3900011B226 /* UPJSearchViewController.m */; };
 		D1D14E311D1A909F00069176 /* SelectPayMethohViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D14E301D1A909F00069176 /* SelectPayMethohViewController.m */; };
 		D1D4A0F71CB5045500BC6913 /* TAAbstractDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D4A0EA1CB5045500BC6913 /* TAAbstractDotView.m */; };
 		D1D4A0F81CB5045500BC6913 /* TAAnimatedDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D4A0EC1CB5045500BC6913 /* TAAnimatedDotView.m */; };
@@ -154,10 +154,6 @@
 		D1F7C9C61CBF7E8700F2EC14 /* MemberModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D1F7C9BF1CBF7E8700F2EC14 /* MemberModel.m */; };
 		D1F7C9C71CBF7E8700F2EC14 /* OrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D1F7C9C11CBF7E8700F2EC14 /* OrderModel.m */; };
 		D1F7CA671CBF961900F2EC14 /* open.png in Resources */ = {isa = PBXBuildFile; fileRef = D1F7CA661CBF961900F2EC14 /* open.png */; };
-		D1F7D3A01CE46FFD009FACB3 /* 引1.png in Resources */ = {isa = PBXBuildFile; fileRef = D1F7D39C1CE46FFD009FACB3 /* 引1.png */; };
-		D1F7D3A11CE46FFD009FACB3 /* 引2.png in Resources */ = {isa = PBXBuildFile; fileRef = D1F7D39D1CE46FFD009FACB3 /* 引2.png */; };
-		D1F7D3A21CE46FFD009FACB3 /* 引3.png in Resources */ = {isa = PBXBuildFile; fileRef = D1F7D39E1CE46FFD009FACB3 /* 引3.png */; };
-		D1F7D3A31CE46FFD009FACB3 /* 引4.png in Resources */ = {isa = PBXBuildFile; fileRef = D1F7D39F1CE46FFD009FACB3 /* 引4.png */; };
 		D1F9E7941CB90433000F215E /* UIViewController+CG.m in Sources */ = {isa = PBXBuildFile; fileRef = D1F9E7931CB90433000F215E /* UIViewController+CG.m */; };
 		D1FB119D1CB6081700F57A44 /* brandViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1FB119C1CB6081700F57A44 /* brandViewController.m */; };
 		D1FB11A01CB6083200F57A44 /* brandModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D1FB119F1CB6083200F57A44 /* brandModel.m */; };
@@ -502,6 +498,9 @@
 		D1ADB2F41C940EA6000B134E /* goodsCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = goodsCollectionViewCell.m; sourceTree = "<group>"; };
 		D1ADB3081C941094000B134E /* CodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CodeViewController.h; sourceTree = "<group>"; };
 		D1ADB3091C941094000B134E /* CodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CodeViewController.m; sourceTree = "<group>"; };
+		D1CC1A7E1D24C3900011B226 /* UPJSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPJSearchViewController.h; sourceTree = "<group>"; };
+		D1CC1A7F1D24C3900011B226 /* UPJSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPJSearchViewController.m; sourceTree = "<group>"; };
+		D1CC1A811D25270B0011B226 /* libReveal.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libReveal.dylib; sourceTree = "<group>"; };
 		D1D14E301D1A909F00069176 /* SelectPayMethohViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectPayMethohViewController.m; sourceTree = "<group>"; };
 		D1D4A0E91CB5045500BC6913 /* TAAbstractDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAAbstractDotView.h; sourceTree = "<group>"; };
 		D1D4A0EA1CB5045500BC6913 /* TAAbstractDotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAAbstractDotView.m; sourceTree = "<group>"; };
@@ -551,10 +550,6 @@
 		D1F7C9C01CBF7E8700F2EC14 /* OrderModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderModel.h; sourceTree = "<group>"; };
 		D1F7C9C11CBF7E8700F2EC14 /* OrderModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderModel.m; sourceTree = "<group>"; };
 		D1F7CA661CBF961900F2EC14 /* open.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = open.png; sourceTree = "<group>"; };
-		D1F7D39C1CE46FFD009FACB3 /* 引1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "引1.png"; sourceTree = "<group>"; };
-		D1F7D39D1CE46FFD009FACB3 /* 引2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "引2.png"; sourceTree = "<group>"; };
-		D1F7D39E1CE46FFD009FACB3 /* 引3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "引3.png"; sourceTree = "<group>"; };
-		D1F7D39F1CE46FFD009FACB3 /* 引4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "引4.png"; sourceTree = "<group>"; };
 		D1F9E7921CB90433000F215E /* UIViewController+CG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+CG.h"; sourceTree = "<group>"; };
 		D1F9E7931CB90433000F215E /* UIViewController+CG.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+CG.m"; sourceTree = "<group>"; };
 		D1FB119B1CB6081700F57A44 /* brandViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = brandViewController.h; sourceTree = "<group>"; };
@@ -1092,10 +1087,6 @@
 		D1F4FA491CBE3AE000C56508 /* OpenImage */ = {
 			isa = PBXGroup;
 			children = (
-				D1F7D39C1CE46FFD009FACB3 /* 引1.png */,
-				D1F7D39D1CE46FFD009FACB3 /* 引2.png */,
-				D1F7D39E1CE46FFD009FACB3 /* 引3.png */,
-				D1F7D39F1CE46FFD009FACB3 /* 引4.png */,
 				D1F7CA661CBF961900F2EC14 /* open.png */,
 			);
 			name = OpenImage;
@@ -1251,6 +1242,7 @@
 		E3E43CBC1C72C26A00E875F5 /* Vender */ = {
 			isa = PBXGroup;
 			children = (
+				D1CC1A811D25270B0011B226 /* libReveal.dylib */,
 				D195419B1CE5CDF0003F614F /* libXG-SDK.a */,
 				D195419C1CE5CDF0003F614F /* XGPush.h */,
 				D195419D1CE5CDF0003F614F /* XGSetting.h */,
@@ -1348,6 +1340,8 @@
 				D1074D211CA2AF9100725BAC /* AfterSearchViewController.m */,
 				D1FB119B1CB6081700F57A44 /* brandViewController.h */,
 				D1FB119C1CB6081700F57A44 /* brandViewController.m */,
+				D1CC1A7E1D24C3900011B226 /* UPJSearchViewController.h */,
+				D1CC1A7F1D24C3900011B226 /* UPJSearchViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1573,15 +1567,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D10391401D11511F00CDD34D /* Reveal.framework in Resources */,
-				D1F7D3A21CE46FFD009FACB3 /* 引3.png in Resources */,
-				D1F7D3A01CE46FFD009FACB3 /* 引1.png in Resources */,
 				D103B7911CDB315C00DC850A /* idcardicon.png in Resources */,
-				D1F7D3A31CE46FFD009FACB3 /* 引4.png in Resources */,
 				D1FD29B41CBC86FE00B616EC /* read_me.txt in Resources */,
 				2507FF421CB5F3F900B51ABA /* area.plist in Resources */,
 				D1F7CA671CBF961900F2EC14 /* open.png in Resources */,
-				D1F7D3A11CE46FFD009FACB3 /* 引2.png in Resources */,
 				25C090511C8ECC9B0057A5CB /* shi@2x.png in Resources */,
 				D14F8F881CDB163100342832 /* AlipaySDK.bundle in Resources */,
 				E30AD77A1C719F6F00B5188C /* LaunchScreen.storyboard in Resources */,
@@ -1742,6 +1731,7 @@
 				D19112A91CA2742E00FE73EA /* waitSearchCell.m in Sources */,
 				D101CB181D23ADAD00A1A37A /* HeaderModel.m in Sources */,
 				D14F8FA01CDB164600342832 /* openssl_wrapper.m in Sources */,
+				D1CC1A801D24C3900011B226 /* UPJSearchViewController.m in Sources */,
 				D101CB1C1D23E35E00A1A37A /* SecKillModel.m in Sources */,
 				E30AD76C1C719F6F00B5188C /* main.m in Sources */,
 				D101CB191D23ADAD00A1A37A /* LBTModel.m in Sources */,
@@ -1931,14 +1921,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Shaolun Lin (LYFRC335VT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Shaolun Lin (LYFRC335VT)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Shenzhen Weisida Computer Hardware And Software Development Co., Ltd. (F2EC8M8VR5)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shenzhen Weisida Computer Hardware And Software Development Co., Ltd. (F2EC8M8VR5)";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/UPJStore",
 				);
-				GCC_PREFIX_HEADER = /Users/upj/Desktop/iii/UPJStore/PrefixHeader.pch;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_ROOT}/Headers/Public\"",
@@ -1979,7 +1968,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.upj.UPinkJiAPPStore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "eafc3aec-1421-4f39-81d3-85e633b78ada";
+				PROVISIONING_PROFILE = "754b063a-bcb1-4b9b-a93a-c5ac7e003d97";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -1990,14 +1979,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Shaolun Lin (LYFRC335VT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Shaolun Lin (LYFRC335VT)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Shenzhen Weisida Computer Hardware And Software Development Co., Ltd. (F2EC8M8VR5)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shenzhen Weisida Computer Hardware And Software Development Co., Ltd. (F2EC8M8VR5)";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/UPJStore",
 				);
-				GCC_PREFIX_HEADER = /Users/upj/Desktop/iii/UPJStore/PrefixHeader.pch;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_ROOT}/Headers/Public\"",
@@ -2038,7 +2026,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.upj.UPinkJiAPPStore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "eafc3aec-1421-4f39-81d3-85e633b78ada";
+				PROVISIONING_PROFILE = "754b063a-bcb1-4b9b-a93a-c5ac7e003d97";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

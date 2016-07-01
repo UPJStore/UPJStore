@@ -110,6 +110,7 @@
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
 
     NSDictionary * dic =@{@"member_id":[self returnMid],@"appkey":APPkey,@"page":[NSString stringWithFormat:@"%ld",(long)page]};
+
 #pragma dic MD5
     NSDictionary * Ndic = [self md5DicWith:dic];
     
