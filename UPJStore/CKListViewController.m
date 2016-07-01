@@ -156,11 +156,16 @@
             [self.Level2Arr addObject:model];
         }
         if ([(UIButton *)[_LevelView viewWithTag:1] isSelected]==YES) {
-            self.tableArr = _Level1Arr;
+            if (_Level1Arr.count != 0) {
+                self.tableArr = _Level1Arr;
+            }
         }
         else
         {
-            self.tableArr = _Level2Arr;
+            if (_Level2Arr.count != 0) {
+                self.tableArr = _Level2Arr;
+            }
+            
         }
         
         [_tableview reloadData];
@@ -244,6 +249,8 @@
         _tableview.delegate = self;
         _tableview.separatorStyle = NO;
         _tableview.allowsSelection = NO;
+        _tableview.showsVerticalScrollIndicator = NO;
+        _tableview.showsHorizontalScrollIndicator = NO;
     }
     return _tableview;
 }
