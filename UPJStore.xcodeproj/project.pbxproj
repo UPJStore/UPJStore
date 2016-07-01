@@ -283,7 +283,6 @@
 		D10391361D113F9F00CDD34D /* AdvertiseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdvertiseView.m; sourceTree = "<group>"; };
 		D10391371D113F9F00CDD34D /* AdvertiseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdvertiseViewController.h; sourceTree = "<group>"; };
 		D10391381D113F9F00CDD34D /* AdvertiseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdvertiseViewController.m; sourceTree = "<group>"; };
-		D103913E1D1150C300CDD34D /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Reveal.framework; sourceTree = "<group>"; };
 		D10391441D11593E00CDD34D /* myUILabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = myUILabel.h; path = ../myUILabel.h; sourceTree = "<group>"; };
 		D10391451D11593E00CDD34D /* myUILabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = myUILabel.m; path = ../myUILabel.m; sourceTree = "<group>"; };
 		D103B7631CDB268500DC850A /* AddressTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressTableViewCell.h; sourceTree = "<group>"; };
@@ -500,7 +499,6 @@
 		D1ADB3091C941094000B134E /* CodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CodeViewController.m; sourceTree = "<group>"; };
 		D1CC1A7E1D24C3900011B226 /* UPJSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPJSearchViewController.h; sourceTree = "<group>"; };
 		D1CC1A7F1D24C3900011B226 /* UPJSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPJSearchViewController.m; sourceTree = "<group>"; };
-		D1CC1A811D25270B0011B226 /* libReveal.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libReveal.dylib; sourceTree = "<group>"; };
 		D1D14E301D1A909F00069176 /* SelectPayMethohViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectPayMethohViewController.m; sourceTree = "<group>"; };
 		D1D4A0E91CB5045500BC6913 /* TAAbstractDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAAbstractDotView.h; sourceTree = "<group>"; };
 		D1D4A0EA1CB5045500BC6913 /* TAAbstractDotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAAbstractDotView.m; sourceTree = "<group>"; };
@@ -1188,7 +1186,6 @@
 		E3E43CB61C72C18100E875F5 /* Other */ = {
 			isa = PBXGroup;
 			children = (
-				D103913E1D1150C300CDD34D /* Reveal.framework */,
 				D1FD29AD1CBC86FE00B616EC /* SDK1.6.2 */,
 				2507FF3F1CB5F3F900B51ABA /* area.plist */,
 				D1F9E7921CB90433000F215E /* UIViewController+CG.h */,
@@ -1242,7 +1239,6 @@
 		E3E43CBC1C72C26A00E875F5 /* Vender */ = {
 			isa = PBXGroup;
 			children = (
-				D1CC1A811D25270B0011B226 /* libReveal.dylib */,
 				D195419B1CE5CDF0003F614F /* libXG-SDK.a */,
 				D195419C1CE5CDF0003F614F /* XGPush.h */,
 				D195419D1CE5CDF0003F614F /* XGSetting.h */,
@@ -1928,6 +1924,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/UPJStore",
 				);
+				GCC_PREFIX_HEADER = /Users/upj/Desktop/UPJStoreGithub/UPJStore/PrefixHeader.pch;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_ROOT}/Headers/Public\"",
@@ -1963,8 +1960,6 @@
 					"\"Security\"",
 					"-framework",
 					"\"SystemConfiguration\"",
-					"-framework",
-					Reveal,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.upj.UPinkJiAPPStore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1986,6 +1981,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/UPJStore",
 				);
+				GCC_PREFIX_HEADER = /Users/upj/Desktop/UPJStoreGithub/UPJStore/PrefixHeader.pch;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_ROOT}/Headers/Public\"",
@@ -2021,8 +2017,6 @@
 					"\"Security\"",
 					"-framework",
 					"\"SystemConfiguration\"",
-					"-framework",
-					Reveal,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.upj.UPinkJiAPPStore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
