@@ -24,6 +24,10 @@
 
 @property (nonatomic,strong) NSMutableArray *tableArr;
 @property (nonatomic,assign) NSInteger pageCount;
+
+@property (nonatomic,strong) NSString *Level1Str;
+@property (nonatomic,strong) NSString *Level2Str;
+
 @end
 
 @implementation CKListViewController
@@ -116,9 +120,14 @@
         
         NSDictionary * dic = responseObject;
         
-        [(UIButton *)[_LevelView viewWithTag:1] setTitle:[NSString stringWithFormat:@"一级会员（%@）",dic[@"count1"]] forState:UIControlStateNormal];
+        _Level1Str = [NSString stringWithFormat:@"%@",dic[@"count1"]];
+        _Level2Str = [NSString stringWithFormat:@"%@",dic[@"count2"]];
         
-        [(UIButton *)[_LevelView viewWithTag:2] setTitle:[NSString stringWithFormat:@"二级会员（%@）",dic[@"count2"]] forState:UIControlStateNormal];
+        [(UIButton *)[_LevelView viewWithTag:1] setTitle:[NSString stringWithFormat:@"一级会员（%@）",_Level1Str] forState:UIControlStateNormal];
+        
+        if (![_Level2Str isEqualToString:@"0"]) {
+             [(UIButton *)[_LevelView viewWithTag:2] setTitle:[NSString stringWithFormat:@"二级会员（%@）",_Level2Str] forState:UIControlStateNormal];
+        }
 
         
         NSMutableArray * arr1 = dic[@"fansall"];
@@ -127,11 +136,22 @@
         for (NSDictionary *dic  in arr1) {
             CKModel *model = [[CKModel alloc]init];
             [model setValuesForKeysWithDictionary:dic];
+            if(model.nickname.length == 0)
+            {
+                model.nickname = @" ";
+            }
             [self.Level1Arr addObject:model];
         }
         for (NSDictionary * dic in arr2) {
             CKModel * model = [[CKModel alloc]init];
             [model setValuesForKeysWithDictionary:dic];
+            if(model.nickname.length == 0)
+            {
+                model.nickname = @" ";
+            }
+            if (model.tui.length == 0) {
+                model.tui = @" ";
+            }
             [self.Level2Arr addObject:model];
         }
         if ([(UIButton *)[_LevelView viewWithTag:1] isSelected]==YES) {
