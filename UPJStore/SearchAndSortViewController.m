@@ -224,8 +224,7 @@
     return CGSizeMake1(90, 105);
     
 }
-
-//一共有几个分区
+ //一共有几个分区
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
     if (_KindArr.count == 0) {

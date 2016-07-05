@@ -136,6 +136,13 @@
 
 #define kRemind @"http://m.upinkji.com/api/order/remind"
 
+#define kDetailRandom @"http://m.upinkji.com/api/product/detail_random"
+
+#define KpreferDetail @"http://m.upinkji.com/api/product/detail_discount"
+
+#define kSecKill @"http://m.upinkji.com/api/product/seckill"
+
+
 #define kWidth [UIScreen mainScreen].bounds.size.width
 
 #define kHeight [UIScreen mainScreen].bounds.size.height

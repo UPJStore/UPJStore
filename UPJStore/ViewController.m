@@ -30,19 +30,6 @@
 #import "GoodSDetailViewController.h"
 #import "AfterSearchViewController.h"
 
-
-#define kHomePage @"http://m.upinkji.com/api/product/get"
-
-#define kDetailRandom @"http://m.upinkji.com/api/product/detail_random"
-
-#define KpreferDetail @"http://m.upinkji.com/api/product/detail_discount"
-
-#define kADV @"http://m.upinkji.com/api/adv/getadv.html"
-
-#define kSecKill @"http://m.upinkji.com/api/product/seckill"
-
-#define APPkey @"BwLiQcZIzgUdLx8Bxb"
-
 @interface ViewController ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 @property (nonatomic,strong)UITableView *HomePageTableView;
 @property (nonatomic,strong)UICollectionView *CollectionView1;
@@ -426,10 +413,10 @@
         return CGFloatMakeY(500);
     }else if(indexPath.row == 7)
     {
-        return CGFloatMakeY(430);
+        return CGFloatMakeY(440);
     }else
     {
-        return CGFloatMakeY(390);
+        return CGFloatMakeY(400);
     }
 }
 
@@ -546,17 +533,7 @@
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    if(collectionView == _CollectionView1)
-    {
-        return 6;
-    }else if(collectionView == _CollectionView2)
-    {
-        return 6;
-    }
-    else
-    {
-        return 0;
-    }
+    return 6;
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
