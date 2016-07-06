@@ -29,19 +29,8 @@
 #import "MBProgressHUD.h"
 #import "GoodSDetailViewController.h"
 #import "AfterSearchViewController.h"
-
-
-#define kHomePage @"http://m.upinkji.com/api/product/get"
-
-#define kDetailRandom @"http://m.upinkji.com/api/product/detail_random"
-
-#define KpreferDetail @"http://m.upinkji.com/api/product/detail_discount"
-
-#define kADV @"http://m.upinkji.com/api/adv/getadv.html"
-
-#define kSecKill @"http://m.upinkji.com/api/product/seckill"
-
-#define APPkey @"BwLiQcZIzgUdLx8Bxb"
+#import "CollectModel.h"
+#import "LoginViewController.h"
 
 @interface ViewController ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 @property (nonatomic,strong)UITableView *HomePageTableView;
@@ -74,10 +63,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor colorFromHexRGB:@"cc2245"]};
-#pragma mark -- 左按钮
+#pragma mark - 左按钮
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"dingwei"] style:UIBarButtonItemStyleDone target:self action:@selector(leftAction:)];
     self.navigationItem.leftBarButtonItem.tintColor = [UIColor colorFromHexRGB:@"999999"];
-#pragma mark -- 右按钮
+#pragma mark - 右按钮
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"saomakuang"] style:UIBarButtonItemStyleDone target:self action:@selector(rightAction:)];
     self.navigationItem.rightBarButtonItem.tintColor = [UIColor colorFromHexRGB:@"999999"];
     
@@ -106,6 +95,7 @@
         self.navigationItem.titleView = backImg;
         
         self.tabBarController.tabBar.hidden = NO;
+        [_HomePageTableView reloadData];
     }
     
 }
@@ -179,7 +169,7 @@
           success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
      {
          NSLog(@"%@",responseObject);
-        [self getHeaderDataAndModelData];
+         [self getHeaderDataAndModelData];
          
      }
           failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
@@ -187,7 +177,7 @@
          NSLog(@"%@",error);
          [self.HomePageTableView.mj_header endRefreshing];
      }];
-
+    
 }
 
 
@@ -426,10 +416,10 @@
         return CGFloatMakeY(500);
     }else if(indexPath.row == 7)
     {
-        return CGFloatMakeY(430);
+        return CGFloatMakeY(440);
     }else
     {
-        return CGFloatMakeY(390);
+        return CGFloatMakeY(400);
     }
 }
 
@@ -527,8 +517,18 @@
         
         ProductModel *model = _detailArr[indexPath.row-7];
         cell.model = model;
-        
         [cell.detailImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.upinkji.com/resource/attachment/%@",model.thumb]] placeholderImage:[UIImage imageNamed:@"lbtP"]];
+
+        if (![self iscollectioned:model.productId]) {
+            [cell.attentionBtn setTitle:@"+关注" forState:UIControlStateNormal];
+            //cell.attentionBtn.tag = 1;
+        }else
+        {
+            [cell.attentionBtn setTitle:@"已关注" forState:UIControlStateNormal];
+            //cell.attentionBtn.tag = 2;
+        }
+        cell.attentionBtn.tag = model.productId.integerValue;
+        [cell.attentionBtn addTarget:self action:@selector(POSTCollectionData:) forControlEvents:UIControlEventTouchUpInside];
         
         if(indexPath.row == 7){
             UIView *lineView2 = [[UIView alloc]initWithFrame:CGRectMake1(0, 39.5, 414, 0.5)];
@@ -543,21 +543,109 @@
     }
 }
 
+
+//判断方法
+-(BOOL)iscollectioned:(NSString*)goodsid
+{
+    if ([self returnIsLogin])
+    {
+        for (CollectModel * model in [self returnCollect])
+        {
+            if ([goodsid isEqualToString:[model valueForKey:@"id"]]) {
+                return YES;
+            }
+        }
+        return NO;
+    }else
+    {
+        return NO;
+    }
+}
+
+-(void)POSTCollectionData:(UIButton *)btn
+{
+    if (![self returnIsLogin]) {
+        LoginViewController * LoginVC = [[LoginViewController alloc]init];
+        LoginVC.isFromDetail = YES;
+        [self.navigationController pushViewController:LoginVC animated:YES];
+    }else{
+        
+        NSDictionary * dic =@{@"appkey":APPkey,@"mid":[self returnMid],@"gid":[NSString stringWithFormat:@"%ld",btn.tag]};
+#pragma dic MD5
+        
+        NSDictionary * nDic = [self md5DicWith:dic];
+        
+        AFHTTPSessionManager * manager = [AFHTTPSessionManager manager];
+        manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+        manager.responseSerializer  = [AFJSONResponseSerializer serializer];
+        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+        
+        [manager POST:kCollectionGoods parameters:nDic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            
+            DLog(@"%@",responseObject);
+            NSDictionary * errDic = responseObject;
+            NSString * str = errDic[@"errmsg"];
+            if ([btn.titleLabel.text isEqualToString:@"+关注"]) {
+                [btn setTitle:@"已关注" forState:UIControlStateNormal];
+            }else
+            {
+                [btn setTitle:@"+关注" forState:UIControlStateNormal];
+            }
+            
+            UIAlertController* collectionGoods = [UIAlertController alertControllerWithTitle:nil message:str preferredStyle:UIAlertControllerStyleAlert];
+            
+            [self presentViewController:collectionGoods animated:YES completion:nil];
+            
+            [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(dismissAVC:) userInfo:nil repeats:NO];
+            [self postcollect];
+            
+            
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            
+        }];
+    }
+}
+
+-(void)postcollect
+{
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    
+    NSDictionary *dic = @{@"appkey":APPkey,@"mid":[self returnMid]};
+#pragma dic MD5
+    NSDictionary * Ndic = [self md5DicWith:dic];
+    [manager POST:kCollectList parameters:Ndic progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        DLog(@"%@",responseObject);
+        NSNumber *number = [responseObject valueForKey:@"errcode"];
+        NSString *errcode = [NSString stringWithFormat:@"%@",number];
+        if ([errcode isEqualToString:@"0"]) {
+            NSArray *jsonArr = @[];
+            [self setCollectwithCollect:jsonArr];
+        }else{
+            NSArray *jsonArr = [NSArray arrayWithArray:responseObject];
+            [self setCollectwithCollect:jsonArr];
+        }NSArray *jsonArr1 = [NSArray arrayWithArray:responseObject];
+        [self setCollectwithCollect:jsonArr1];
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        DLog(@"failure%@",error);
+    }];
+}
+
+-(void)dismissAVC:(NSTimer *)timer
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 #pragma mark - collectionView设置
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    if(collectionView == _CollectionView1)
-    {
-        return 6;
-    }else if(collectionView == _CollectionView2)
-    {
-        return 6;
-    }
-    else
-    {
-        return 0;
-    }
+    return 6;
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -612,7 +700,7 @@
     }
 }
 
-#pragma mark -- 点击方法
+#pragma mark - 点击方法
 -(void)leftAction:(UIBarButtonItem *)btn{
     DLog(@"定位");
     MapViewController *mapView = [[MapViewController alloc]init];

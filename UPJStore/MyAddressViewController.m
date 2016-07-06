@@ -145,7 +145,7 @@
     cell.fullAddressStr = model1.address;
     cell.mid = [self returnMid];
     cell.aid = model1.aid;
-    cell.addressLabel.text = [NSString stringWithFormat:@"%@%@%@%@.\n%@",model1.province,model1.city,model1.area,model1.address,model1.idcard];
+    cell.addressLabel.text = [NSString stringWithFormat:@"%@%@%@%@\n%@",model1.province,model1.city,model1.area,model1.address,model1.idcard];
     cell.tag = indexPath.row;
     NSMutableAttributedString *str = [[NSMutableAttributedString alloc]initWithString:cell.addressLabel.text];
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc]init];

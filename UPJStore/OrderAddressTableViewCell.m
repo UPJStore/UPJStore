@@ -13,10 +13,10 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         
-        UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake1(5, 40, 20, 20)];
+        UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake1(10, 40, 20, 20)];
         imageView.image = [UIImage imageNamed:@"地标_2"];
         [self.contentView addSubview:imageView];
-        UIImageView * arrowImageView = [[UIImageView alloc]initWithFrame:CGRectMake1(414-20, 40, 20, 20)];
+        UIImageView * arrowImageView = [[UIImageView alloc]initWithFrame:CGRectMake1(414-40, 40, 20, 20)];
         arrowImageView.image = [UIImage imageNamed:@"前进"];
         [self.contentView addSubview:arrowImageView];
         
@@ -29,7 +29,7 @@
         _mobileLab.textAlignment = NSTextAlignmentRight;
         [self.contentView addSubview:_mobileLab];
         
-        _addressLab = [[UILabel alloc]initWithFrame:CGRectMake1(40, 40, 414-60, 50)];
+        _addressLab = [[UILabel alloc]initWithFrame:CGRectMake1(40, 40, 414-80, 50)];
         _addressLab.font = [UIFont systemFontOfSize:CGFloatMakeY(15)];
         _addressLab.numberOfLines = 0 ;
         [self.contentView addSubview:_addressLab];
