@@ -103,9 +103,18 @@
         self.salesBtn.titleLabel.font = [UIFont systemFontOfSize:CGFloatMakeY(12)];
         [self addSubview:self.salesBtn];
         
+        self.attentionBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        self.attentionBtn.layer.borderWidth = 0.5;
+        self.attentionBtn.layer.cornerRadius = 5;
+        self.attentionBtn.layer.borderColor = [UIColor grayColor].CGColor;
+        self.attentionBtn.frame = CGRectMake1(340, 20, 60, 30);
+         [self.attentionBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+         self.attentionBtn.titleLabel.font = [UIFont systemFontOfSize:CGFloatMakeY(12)];
+        [self addSubview:self.attentionBtn];
     }
     return self;
 }
+
 
 -(void)change
 {
@@ -117,6 +126,7 @@
     self.productLabel.frame = CGRectMake1(83, 390, 55, 40);
     btn.frame = CGRectMake1(9, 395, 125, 30);
      self.salesBtn.frame = CGRectMake1(320, 395, 80, 30);
+    self.attentionBtn.frame = CGRectMake1(340, 60, 60, 30);
 
 }
 

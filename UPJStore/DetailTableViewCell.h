@@ -22,6 +22,7 @@
 @property(nonatomic,strong)myUILabel *desLabel;
 @property(nonatomic,strong)UIButton *salesBtn;
 @property(nonatomic,strong)ProductModel *model;
+@property(nonatomic,strong)UIButton *attentionBtn;
 
 -(void)change;
 
