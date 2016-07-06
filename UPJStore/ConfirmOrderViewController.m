@@ -278,13 +278,13 @@
         cell.layer.borderColor = [[UIColor lightGrayColor]CGColor];
         cell.nameLab.text = nameStr;
         cell.mobileLab.text =mobileStr;
-        cell.addressLab.text = addressStr;
+        cell.addressLab.text = [NSString stringWithFormat:@"%@%@%@%@",provinceStr,cityStr,areaStr,addressStr];
         
         if (imageView==nil) {
-            imageView = [[UIImageView alloc]initWithFrame:CGRectMake1(5, 40, 20, 20)];
+            imageView = [[UIImageView alloc]initWithFrame:CGRectMake1(10, 40, 20, 20)];
             imageView.image = [UIImage imageNamed:@"addImg"];
             [cell.contentView addSubview:imageView];
-            UIImageView * arrowImageView = [[UIImageView alloc]initWithFrame:CGRectMake1(414-20, 40, 20, 20)];
+            UIImageView * arrowImageView = [[UIImageView alloc]initWithFrame:CGRectMake1(414-30, 40, 20, 20)];
             arrowImageView.image = [UIImage imageNamed:@"箭头"];
             [cell.contentView addSubview:arrowImageView];
             
@@ -318,11 +318,14 @@
         cell.contentView.layer.borderWidth = 1;
         cell.contentView.layer.borderColor = [[UIColor lightGrayColor]CGColor];
         
+        UIImageView *imageView1 = [[UIImageView alloc]initWithFrame:CGRectMake1(20, 10, 30, 30)];
+        imageView1.image = [UIImage imageNamed:@"addCoupon"];
+        [cell addSubview:imageView1];
         
-        cell.imageView.image = [UIImage imageNamed:@"addCoupon"];
+       // cell.imageView.image = [UIImage imageNamed:@"addCoupon"];
         
         if (_couponLabel == nil) {
-            _couponLabel = [[UILabel alloc]initWithFrame:CGRectMake1(60, 5, 414-100, 90)];
+            _couponLabel = [[UILabel alloc]initWithFrame:CGRectMake1(60, 10, 414-100, 30)];
             [cell.contentView addSubview:_couponLabel];
             _couponLabel.text = @"兑换优惠券";
         }
@@ -419,6 +422,9 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 3) {
         return CGFloatMakeY(200);
+    }else if(indexPath.section == 2)
+    {
+        return CGFloatMakeY(50);
     }else
     {
         return CGFloatMakeY(100);
@@ -516,7 +522,7 @@
     [UIView setAnimationDuration:animationDuration];
     
     //将视图的Y坐标向上移动，以使下面腾出地方用于软键盘的显示
-    self.view.frame = CGRectMake(0.0f, -170.0f, self.view.frame.size.width, self.view.frame.size.height); //64-216
+    self.view.frame = CGRectMake(0.0f, -205.0f, self.view.frame.size.width, self.view.frame.size.height); //64-216
     
     [UIView commitAnimations];
     return YES;

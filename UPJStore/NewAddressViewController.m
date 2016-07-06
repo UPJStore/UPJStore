@@ -131,6 +131,9 @@
         phoneNumberTextField.text = _editphoneStr;
         idcardTextField.text = _editidcardStr;
         cityTextField.text = [NSString stringWithFormat:@"%@%@%@",_editprovinceStr,_editcityStr,_editareaStr];
+        provinceStr = _editprovinceStr;
+        cityStr = _editcityStr;
+        areaStr = _editareaStr;
         fullAddressTextView.text = _editfulladdressStr;
         headLabel.hidden = YES;
     }
