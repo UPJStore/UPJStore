@@ -1917,8 +1917,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Shenzhen Weisida Computer Hardware And Software Development Co., Ltd. (F2EC8M8VR5)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shenzhen Weisida Computer Hardware And Software Development Co., Ltd. (F2EC8M8VR5)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Shaolun Lin (LYFRC335VT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Shaolun Lin (LYFRC335VT)";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1963,7 +1963,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.upj.UPinkJiAPPStore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "754b063a-bcb1-4b9b-a93a-c5ac7e003d97";
+				PROVISIONING_PROFILE = "74337ca5-a4b4-4de9-afaa-d8eb3c2de658";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -1974,8 +1974,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Shenzhen Weisida Computer Hardware And Software Development Co., Ltd. (F2EC8M8VR5)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shenzhen Weisida Computer Hardware And Software Development Co., Ltd. (F2EC8M8VR5)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Shaolun Lin (LYFRC335VT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Shaolun Lin (LYFRC335VT)";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2020,7 +2020,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.upj.UPinkJiAPPStore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "754b063a-bcb1-4b9b-a93a-c5ac7e003d97";
+				PROVISIONING_PROFILE = "74337ca5-a4b4-4de9-afaa-d8eb3c2de658";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

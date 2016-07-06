@@ -78,15 +78,15 @@
 {
      #pragma dic MD5
         NSDictionary * Ndic = [self md5DicWith:_dic];
-        AFHTTPSessionManager * manager = [AFHTTPSessionManager manager];
+        AFHTTPSessionManager * manager = [self sharedManager];;
         
         manager.responseSerializer = [AFJSONResponseSerializer serializer];
         
         manager.requestSerializer = [AFHTTPRequestSerializer serializer];
         
-        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-        
-        
+        //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    
+    
         [manager POST:kCouponList parameters:Ndic progress:^(NSProgress * _Nonnull downloadProgress) {
             
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -140,14 +140,14 @@
 #pragma dic MD5
     NSDictionary * Ndic = [self md5DicWith:dic];
     DLog(@"Ndic = %@",Ndic);
-    AFHTTPSessionManager * manager = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager * manager = [self sharedManager];;
     
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-    
+    //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+
     
     [manager POST:kDoCoupon parameters:Ndic progress:^(NSProgress * _Nonnull downloadProgress) {
         
@@ -197,14 +197,14 @@
 #pragma dic MD5
     NSDictionary * Ndic = [self md5DicWith:dic];
     DLog(@"Ndic = %@",Ndic);
-    AFHTTPSessionManager * manager = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager * manager = [self sharedManager];;
     
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-    
+    //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+
     
     [manager POST:kCouponNumber parameters:Ndic progress:^(NSProgress * _Nonnull downloadProgress) {
         
@@ -226,14 +226,14 @@
                 
                 NSDictionary * Ndic = [self md5DicWith:CouponDic];
                 DLog(@"Ndic = %@",Ndic);
-                AFHTTPSessionManager * manager = [AFHTTPSessionManager manager];
+                AFHTTPSessionManager * manager = [self sharedManager];;
                 
                 manager.responseSerializer = [AFJSONResponseSerializer serializer];
                 
                 manager.requestSerializer = [AFHTTPRequestSerializer serializer];
                 
-                manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-                
+                //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+
                 [manager POST:kDoCoupon parameters:Ndic progress:^(NSProgress * _Nonnull uploadProgress) {
                     
                 } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {

@@ -75,7 +75,7 @@
     WXMediaMessage *message = [WXMediaMessage message];
     message.title = @"点击下载友品集APP，开启品质新生活";
     message.description = @"友品集APP隆重上线啦~与我们乘着友谊的巨轮进入跨境购物的伟大航道，想得到物美价廉的海外商品吗？快来寻宝吧！！";
-    [message setThumbImage:[UIImage imageNamed:@"pltu"]];
+    [message setThumbImage:[UIImage imageNamed:@"lbtP"]];
     
     WXWebpageObject *webpageObject = [WXWebpageObject object];
     webpageObject.webpageUrl = _urlSTR;
@@ -96,11 +96,11 @@
 #pragma dic MD5
     NSDictionary * Ndic = [self md5DicWith:dic];
     
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager *manager = [self sharedManager];;
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+
     
     [manager POST:kShareUrl parameters:Ndic progress:^(NSProgress * _Nonnull downloadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {

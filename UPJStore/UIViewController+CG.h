@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "AppDelegate.h"
 
+
+
 CG_INLINE CGSize
 CGSizeMake1(CGFloat width, CGFloat height)
 {
@@ -67,8 +69,22 @@ CGFloatMakeY (CGFloat y)
     return yFloat;
 }
 
+CG_INLINE CGRect
+CGRectMakeCode(CGFloat x, CGFloat y, CGFloat width, CGFloat height){
+    
+    CGRect rect;
+    //如果使用此结构体，那么对传递过来的参数，在内部做了比例系数的改变
+    rect.origin.x = x;//原点的X坐标的改变
+    rect.origin.y = y-64;//原点的Y坐标的改变
+    rect.size.width = width;//宽的改变
+    rect.size.height = height;//高的改变
+    return rect;
+}
 
 @interface UIViewController (CG)
+
+
+-(AFHTTPSessionManager *)sharedManager;
 
 -(NSData*)returnImageData;
 

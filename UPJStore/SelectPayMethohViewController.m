@@ -179,13 +179,13 @@
 #pragma dic MD5
     NSDictionary * Ndic = [self md5DicWith:dic];
     
-    AFHTTPSessionManager * manager = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager * manager = [self sharedManager];;
     
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
     
     
     [manager POST:KPay parameters:Ndic progress:^(NSProgress * _Nonnull downloadProgress) {
@@ -248,10 +248,10 @@
     NSDictionary *dic = @{@"appkey":APPkey,@"id":self.orderID,@"mid":[self returnMid]};
     
     NSDictionary * Ndic = [self md5DicWith:dic];
-    AFHTTPSessionManager * manager = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager * manager = [self sharedManager];;
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
     [manager POST:kAlipay parameters:Ndic progress:^(NSProgress * _Nonnull downloadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {

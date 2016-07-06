@@ -8,9 +8,9 @@
 
 #import "CodeViewController.h"
 #import <AVFoundation/AVFoundation.h>
-#import "AppDelegate.h"
 #import "AFNetWorking.h"
 #import "GoodSDetailViewController.h"
+#import "UIViewController+CG.h"
 #import <CommonCrypto/CommonDigest.h>
 
 
@@ -25,6 +25,7 @@
     NSString *code;
     UIAlertController *alertCon;
     NSString *productId;
+    UIAlertController *addToShopCartAlert;
 }
 
 @property ( strong , nonatomic ) AVCaptureDevice * device;
@@ -59,10 +60,10 @@
      [self.view addSubview:visualView4];
      */
     
-    UIView *view1 = [[UIView alloc]initWithFrame:CGRectMake1(0, 0, kWidth, (kHeight-220)/2)];
-    UIView *view2 = [[UIView alloc]initWithFrame:CGRectMake1(0, (kHeight-220)/2, (kWidth-220)/2,220)];
-    UIView *view3 = [[UIView alloc]initWithFrame:CGRectMake1((kWidth-220)/2+220,(kHeight-220)/2, (kWidth-220)/2,220)];
-    UIView *view4 = [[UIView alloc]initWithFrame:CGRectMake1(0,(kHeight-220)/2+220, kWidth, (kHeight-220)/2)];
+    UIView *view1 = [[UIView alloc]initWithFrame:CGRectMakeCode(0, 0, kWidth, (kHeight-220)/2)];
+    UIView *view2 = [[UIView alloc]initWithFrame:CGRectMakeCode(0, (kHeight-220)/2, (kWidth-220)/2,220)];
+    UIView *view3 = [[UIView alloc]initWithFrame:CGRectMakeCode((kWidth-220)/2+220,(kHeight-220)/2, (kWidth-220)/2,220)];
+    UIView *view4 = [[UIView alloc]initWithFrame:CGRectMakeCode(0,(kHeight-220)/2+220, kWidth, (kHeight-220)/2)];
     view1.backgroundColor = [UIColor blackColor];
     view1.alpha = 0.8;
     view2.backgroundColor = [UIColor blackColor];
@@ -90,7 +91,7 @@
     self.navigationController.navigationBar.tintColor = [UIColor blackColor];
     
     // 副标题
-    subTitle = [[UILabel alloc]initWithFrame:CGRectMake1(0,(kHeight-220)/2-35, kWidth, 30)];
+    subTitle = [[UILabel alloc]initWithFrame:CGRectMakeCode(0,(kHeight-220)/2-35, kWidth, 30)];
     subTitle.text = @"对准二维码/条形码到框内即可扫描";
     subTitle.font = [UIFont boldSystemFontOfSize:11];
     subTitle.textColor = [UIColor whiteColor];
@@ -98,14 +99,14 @@
     [self.view addSubview:subTitle];
     
     // 扫码框
-    codeFrame = [[UIImageView alloc]initWithFrame:CGRectMake1((kWidth-220)/2, (kHeight-220)/2, 220, 220)];
+    codeFrame = [[UIImageView alloc]initWithFrame:CGRectMakeCode((kWidth-220)/2, (kHeight-220)/2, 220, 220)];
     codeFrame.backgroundColor = [UIColor clearColor];
     codeFrame.layer.borderWidth = 2;
     codeFrame.layer.borderColor = [[UIColor whiteColor]CGColor];
     [self.view addSubview:codeFrame];
     
     // 四角
-    cornerView = [[UIImageView alloc]initWithFrame:CGRectMake1((kWidth-230)/2, (kHeight-230)/2, 230, 230)];
+    cornerView = [[UIImageView alloc]initWithFrame:CGRectMakeCode((kWidth-230)/2, (kHeight-230)/2, 230, 230)];
     cornerView.backgroundColor = [UIColor clearColor];
     cornerView.image = [UIImage imageNamed:@"corner"];
     [self.view addSubview:cornerView];
@@ -173,11 +174,11 @@
         
         NSDictionary * Ndic = [self md5DicWith:dic];
         
-        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+        AFHTTPSessionManager *manager = [self sharedManager];;
         manager.responseSerializer = [AFJSONResponseSerializer serializer];
         manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-        
-        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+        //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+
         
         [manager POST:kGoodDetailURL parameters:Ndic progress:^(NSProgress * _Nonnull uploadProgress) {
             
@@ -204,10 +205,13 @@
             DLog(@"failure%@",error);
         }];
     }else if ([code rangeOfString:@"weisida"].location !=NSNotFound){
+        
         DLog(@"%@",code);
+        
         NSString *testStr = code;
-        productId = [self getOnlyNum:testStr][1];
-        DLog(@"结果为:%@",[self getOnlyNum:testStr][1]);
+        productId = [[self getOnlyNum:testStr] lastObject];
+        
+        DLog(@"结果为:%@",[[self getOnlyNum:testStr] lastObject]);
         
         /*
          NSRange range = NSMakeRange(47,4);//匹配得到的下标
@@ -221,11 +225,11 @@
         
         NSDictionary * Ndic = [self md5DicWith:dic];
         
-        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+        AFHTTPSessionManager *manager = [self sharedManager];;
         manager.responseSerializer = [AFJSONResponseSerializer serializer];
         manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-        
-        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+        //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+
         
         [manager POST:kGoodDetailURL parameters:Ndic progress:^(NSProgress * _Nonnull uploadProgress) {
             
@@ -244,9 +248,12 @@
                 [self.navigationController presentViewController:alertCon animated:YES completion:nil];
                 
             }else{
-                GoodSDetailViewController * goodDetailVC = [[GoodSDetailViewController alloc]init];
-                goodDetailVC.goodsDic = dic;
-                [self.navigationController pushViewController:goodDetailVC animated:YES];
+                
+                NSDictionary * dic2 = @{@"appkey":APPkey,@"mid":[self returnMid],@"id":dic[@"id"],@"amount":@"1"} ;
+                
+                [self addGoodsToShoppingCartWithDic:dic2];
+                
+
             }
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             DLog(@"failure%@",error);
@@ -266,60 +273,58 @@
     //    [self.navigationController popViewControllerAnimated:YES];
 }
 
+-(void)dismissAVC:(NSTimer *)timer
+{
+    [self dismissViewControllerAnimated:YES completion:^{
+        
+        GoodSDetailViewController * goodDetailVC = [[GoodSDetailViewController alloc]init];
+        goodDetailVC.goodsDic = @{@"appkey":APPkey,@"id":productId};
+;
+        [self.navigationController pushViewController:goodDetailVC animated:YES];
+    }];
+}
+
+-(void)addGoodsToShoppingCartWithDic:(NSDictionary *)dic
+{
+    
+#pragma dic MD5
+    NSDictionary * Ndic = [self md5DicWith:dic];
+    
+    AFHTTPSessionManager *manager = [self sharedManager];;
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+
+    [manager POST:kAddGoods parameters:Ndic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        DLog(@"%@",responseObject);
+        addToShopCartAlert = [UIAlertController alertControllerWithTitle:@"加入购物车成功" message:nil preferredStyle:UIAlertControllerStyleAlert];
+        
+        [self presentViewController:addToShopCartAlert animated:YES completion:nil];
+        
+
+        [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(dismissAVC:) userInfo:nil repeats:NO];
+        
+        
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        DLog(@"error %@",error);
+    }];
+    
+}
+
 - (NSArray *)getOnlyNum:(NSString *)str  {
-    NSString *onlyNumStr = [str stringByReplacingOccurrencesOfString:@"[^0-9&]" withString:@"" options:NSRegularExpressionSearch range:NSMakeRange(0, [str length])];      NSArray *numArr = [onlyNumStr componentsSeparatedByString:@"&"];      return numArr;
+    
+    NSString *onlyNumStr = [str stringByReplacingOccurrencesOfString:@"[^0-9&]" withString:@"" options:NSRegularExpressionSearch range:NSMakeRange(0, [str length])];
+    
+    NSArray *numArr = [onlyNumStr componentsSeparatedByString:@"&"];
+    return numArr;
 }
 
 - (BOOL)isPureInt:(NSString*)string{
     NSScanner* scan = [NSScanner scannerWithString:string];
     int val;
     return[scan scanInt:&val] && [scan isAtEnd];
-}
--(NSString *)md5:(NSString *)str {
-    
-    const char* cStr = [str UTF8String];
-    unsigned char result[CC_MD5_DIGEST_LENGTH];
-    CC_MD5(cStr, strlen(cStr), result);
-    
-    NSMutableString *ret = [NSMutableString stringWithCapacity:CC_MD5_DIGEST_LENGTH];
-    for (NSInteger i=0; i<CC_MD5_DIGEST_LENGTH; i++) {
-        [ret appendFormat:@"%02x", result[i]];
-    }
-    
-    return ret;
-}
--(NSDictionary *)md5DicWith:(NSDictionary *)dic
-{
-    NSString *str = @"";
-    NSArray * arr =[dic allKeys];
-    NSArray *newArray = [arr sortedArrayUsingSelector:@selector(compare:)];
-    //    DLog(@"new array = %@",newArray);
-    
-    for (int i = 0 ; i< newArray.count+1 ;i++) {
-        
-        if (i == arr.count) {
-            str = [NSString stringWithFormat:@"%@&key=%@",str,appsecret];
-        }
-        else
-        {
-            if (str.length >0) {
-                
-                str = [NSString stringWithFormat:@"%@&%@=%@",str,newArray[i],[dic valueForKey:newArray[i]]];
-                
-            }
-            else
-                str = [NSString stringWithFormat:@"%@=%@",newArray[i],[dic valueForKey:newArray[i]]];
-            
-        }
-    }
-    
-    //    DLog(@"str = %@",str);
-    
-    NSString *tokenStr = [self md5:str];
-    
-    NSMutableDictionary * Ndic = [NSMutableDictionary dictionaryWithObject:tokenStr forKey:@"token"];
-    [Ndic addEntriesFromDictionary:dic];
-    return Ndic;
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -341,14 +346,4 @@
  // Pass the selected object to the new view controller.
  }
  */
-CG_INLINE CGRect
-CGRectMake1(CGFloat x, CGFloat y, CGFloat width, CGFloat height){
-    
-    CGRect rect;
-    //如果使用此结构体，那么对传递过来的参数，在内部做了比例系数的改变
-    rect.origin.x = x;//原点的X坐标的改变
-    rect.origin.y = y-64;//原点的Y坐标的改变
-    rect.size.width = width;//宽的改变
-    rect.size.height = height;//高的改变
-    return rect;
-}@end
+@end

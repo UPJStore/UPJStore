@@ -98,9 +98,9 @@
     NSDictionary *dic = @{@"ios_wechat_openid":appdelegate.openid,@"uname":name.textfield.text,@"pwd":password.textfield.text,@"appkey":APPkey,@"unionid":appdelegate.unionid};
     NSDictionary * Ndic = [self md5DicWith:dic];
     
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager *manager = [self sharedManager];;
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
     //传入的参数
     
     //发送请求

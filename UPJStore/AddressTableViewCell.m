@@ -86,10 +86,11 @@
 -(void)postDataWith:(NSDictionary*)dic
 {
     NSDictionary * Ndic = [self md5DicWith:dic];
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager *manager = [self sharedManager];;
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+
     [manager POST: kSetDefault parameters:Ndic progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -109,12 +110,12 @@
 
 -(void)deleteBtnAction
 {
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager *manager = [self sharedManager];;
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
     NSDictionary *dic =@{@"appkey":APPkey,@"aid":_aid,@"mid":_mid};
-    
+    //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+
     NSDictionary * Ndic =[self md5DicWith:dic];
 
     [manager POST:kRemove parameters:Ndic progress:^(NSProgress * _Nonnull uploadProgress) {

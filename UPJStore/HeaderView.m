@@ -122,7 +122,7 @@
         _imageView.image = [UIImage imageNamed:@"geren@3x"];
     }else{
         NSURL *url = [NSURL URLWithString:image];
-        [_imageView sd_setImageWithURL:url];
+        [_imageView sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"geren@3x"]];
     }
     label.text = [NSString stringWithFormat:@"%@,欢迎你回来",name];
 }

@@ -48,7 +48,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationController.navigationBar.translucent = NO;
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationItem.title = @"购物车";
 
@@ -103,7 +102,7 @@
     
     _scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, kWidth, kHeight)];
     _scrollView.showsVerticalScrollIndicator = NO;
-    _scrollView.contentSize = CGSizeMake(kWidth,kHeight+CGFloatMakeY(210));
+    _scrollView.contentSize = CGSizeMake(kWidth,kHeight+CGFloatMakeY(260));
     _scrollView.backgroundColor = [UIColor whiteColor];
     _scrollView.delegate = self;
     _scrollView.scrollEnabled = YES;
@@ -133,7 +132,7 @@
     [self getData];
     
     
-    _goodsCollectionView  = [[UICollectionView alloc]initWithFrame:CGRectMake(0,CGFloatMakeY(300), kWidth, kHeight-64-60-CGFloatMakeY(40)) collectionViewLayout:layout];
+    _goodsCollectionView  = [[UICollectionView alloc]initWithFrame:CGRectMake(0,CGFloatMakeY(300), kWidth, kHeight-64-60-25) collectionViewLayout:layout];
     _goodsCollectionView.backgroundColor = [UIColor whiteColor];
     _goodsCollectionView.showsVerticalScrollIndicator = NO;
     _goodsCollectionView.scrollEnabled = NO;
@@ -155,11 +154,11 @@
 #pragma dic MD5
     NSDictionary * Ndic = [self md5DicWith:dic];
     
-    AFHTTPSessionManager * manager = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager * manager = [self sharedManager];;
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
     
     
     [manager POST:kSNet parameters:Ndic progress:^(NSProgress * _Nonnull downloadProgress) {
@@ -366,10 +365,10 @@
 #pragma dic MD5
     NSDictionary * Ndic = [self md5DicWith:dic];
     
-    AFHTTPSessionManager * manager = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager * manager = [self sharedManager];;
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
     
     [manager POST:kOrder parameters:Ndic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
@@ -575,10 +574,10 @@
         
     }else
     [self setMBHUD];
-    AFHTTPSessionManager * manager = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager * manager = [self sharedManager];;
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
     //    DLog(@"dic = %@",dic);
     [manager POST:kCheck parameters:Ndic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
@@ -653,10 +652,10 @@
     #pragma dic MD5
     NSDictionary * Ndic = [self md5DicWith:dic];
     
-    AFHTTPSessionManager * manager = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager * manager = [self sharedManager];;
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
     
     [manager POST:kSDeleGoods parameters:Ndic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         DLog(@"%@",responseObject);
@@ -733,7 +732,7 @@
     }else
     _endView.frame = CGRectMake(0, self.view.frame.size.height-_endView.frame.size.height-49, kWidth, _endView.frame.size.height);
     
-    self.tableView.frame=CGRectMake(0, 0, self.tableView.frame.size.width, kHeight-[ShoppingCartEndView getViewHeight]);
+    self.tableView.frame=CGRectMake(0, 0, self.tableView.frame.size.width, kHeight-[ShoppingCartEndView getViewHeight]-49);
     [UIView commitAnimations];
 }
 
@@ -776,7 +775,7 @@
     
     NSString * imgStr = [NSString stringWithFormat:@"http://www.upinkji.com/resource/attachment/%@",Model.thumb];
     
-    [cell.goodsView sd_setImageWithURL:[NSURL URLWithString:imgStr]];
+    [cell.goodsView sd_setImageWithURL:[NSURL URLWithString:imgStr] placeholderImage:[UIImage imageNamed:@"lbtP"]];
     
     cell.titleLabel.text = Model.title;
     
@@ -837,6 +836,7 @@
         [UIView setAnimationDelegate:self];
         
         _scrollView.contentOffset = CGPointMake(0,CGFloatMakeY(260));
+        
         [UIView commitAnimations];
         _scrollView.scrollEnabled = NO;
     }
@@ -860,11 +860,11 @@
 #pragma dic MD5
     NSDictionary * Ndic = [self md5DicWith:dic];
     
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager *manager = [self sharedManager];;
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
     
     [manager POST:kSURL parameters:Ndic progress:^(NSProgress * _Nonnull uploadProgress) {
         
@@ -962,6 +962,8 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    self.navigationController.navigationBar.translucent = NO;
+
     if (_isFromDetail == YES) {
         self.tabBarController.tabBar.hidden = YES;
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"backArrow"] style:UIBarButtonItemStyleDone target:self action:@selector(pop)];

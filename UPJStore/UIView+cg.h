@@ -68,7 +68,12 @@ CGFloatMakeY (CGFloat y)
 }
 @interface UIView (cg)
 
+-(AFHTTPSessionManager *)sharedManager;
+
+
 -(NSString *)returnMid;
+
+
 
 -(void)setMidwithMid:(NSString* )mid;
 

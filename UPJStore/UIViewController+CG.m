@@ -8,7 +8,23 @@
 
 #import "UIViewController+CG.h"
 #import <CommonCrypto/CommonDigest.h>
+
 @implementation UIViewController (CG)
+
+-(AFHTTPSessionManager *)sharedManager
+{
+    static AFHTTPSessionManager *manager = nil;
+    static dispatch_once_t onceToken;
+    
+    dispatch_once(&onceToken, ^{
+        
+        manager = [AFHTTPSessionManager manager];
+        
+    });
+    
+    return manager;
+    
+}
 
 -(NSData*)returnImageData
 {

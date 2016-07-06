@@ -91,11 +91,11 @@
 #pragma dic MD5
     NSDictionary * Ndic = [self md5DicWith:dic];
     
-    AFHTTPSessionManager * manager = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager * manager = [self sharedManager];;
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-    
+    //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+
     [manager POST:kOrder parameters:Ndic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         DLog(@"%@",responseObject);
         _modelDic = responseObject;
@@ -164,13 +164,13 @@
 #pragma dic MD5
         NSDictionary * Ndic = [self md5DicWith:dic];
         
-        AFHTTPSessionManager * manager = [AFHTTPSessionManager manager];
+        AFHTTPSessionManager * manager = [self sharedManager];;
         
         manager.responseSerializer = [AFJSONResponseSerializer serializer];
         
         manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-        
-        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+        //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+
         
         
         [manager POST:kSubmit parameters:Ndic progress:^(NSProgress * _Nonnull downloadProgress) {
@@ -258,7 +258,7 @@
             cell = [[ComfirmOrderTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"reuseCell"];
         }
         CommodModel *model = _modelArr[indexPath.row];
-        [cell.productImg sd_setImageWithURL:[NSURL URLWithString:model.thumb]];
+        [cell.productImg sd_setImageWithURL:[NSURL URLWithString:model.thumb]placeholderImage:[UIImage imageNamed:@"lbtP"]];
         cell.titleLabel.text = model.title;
         cell.totalPrice.text = [NSString stringWithFormat:@"￥%@",model.marketprice];
         cell.total.text = [NSString stringWithFormat:@"×%@",model.total];

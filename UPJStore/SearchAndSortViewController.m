@@ -145,7 +145,8 @@
     _brandCollectionView.delegate =self;
     _brandCollectionView.dataSource = self;
     _brandCollectionView.scrollEnabled= NO;
-    [_brandCollectionView registerClass:[goodsCollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
+    
+    [_brandCollectionView registerClass:[goodsCollectionViewCell class] forCellWithReuseIdentifier:@"CollectionCell"];
     
     [_brandScrollView addSubview:_brandCollectionView];
     
@@ -276,8 +277,8 @@
 //每个ITEM显示什么样的cell
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    goodsCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
-    
+    goodsCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CollectionCell" forIndexPath:indexPath];
+
     //获取model
     NSArray * arr =  _BrandArr[indexPath.section];
     NSDictionary *brandDic = arr[indexPath.row];
@@ -289,7 +290,7 @@
     
     NSString *str = [NSString stringWithFormat:kSImageUrl,model.thumb];
     
-    [cell.goodsView sd_setImageWithURL:[NSURL URLWithString:str]];
+    [cell.goodsView sd_setImageWithURL:[NSURL URLWithString:str] placeholderImage:[UIImage imageNamed:@"lbtP"]];
     
     
     //    cell.backgroundColor =[UIColor redColor];
@@ -315,11 +316,11 @@
 #pragma dic MD5
     NSDictionary * Ndic = [self md5DicWith:dic];
     
-    AFHTTPSessionManager * manager = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager * manager = [self sharedManager];;
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
 
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
     [manager POST:kSBrandGoodUrl parameters:Ndic progress:^(NSProgress * _Nonnull downloadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -360,12 +361,12 @@
 #pragma dic MD5
         NSDictionary * Ndic = [self md5DicWith:dic];
         
-        AFHTTPSessionManager * manager = [AFHTTPSessionManager manager];
+        AFHTTPSessionManager * manager = [self sharedManager];;
 
         manager.responseSerializer = [AFJSONResponseSerializer serializer];
         manager.requestSerializer = [AFHTTPRequestSerializer serializer];
 
-        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+        //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
         
         [manager POST:kSBrandGoodUrl parameters:Ndic progress:^(NSProgress * _Nonnull downloadProgress) {
             
@@ -471,12 +472,12 @@
 #pragma dic MD5
     NSDictionary * Ndic = [self md5DicWith:dic];
     
-    AFHTTPSessionManager * manager = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager * manager = [self sharedManager];;
     
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
 
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
     
     [manager POST:kGetKeyWord parameters:Ndic progress:^(NSProgress * _Nonnull downloadProgress) {
         
@@ -501,7 +502,8 @@
         
         _count ++;
         [self getSortModelData];
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
+    {
      
         if ([error code] == -1001) {
              [self ReloadDataWithCase:3];
@@ -619,12 +621,12 @@
 #pragma dic MD5
     NSDictionary * Ndic = [self md5DicWith:dic];
     
-    AFHTTPSessionManager * manager = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager * manager = [self sharedManager];;
     
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
     
     [manager POST:kTitleURL parameters:Ndic progress:^(NSProgress * _Nonnull downloadProgress) {
         

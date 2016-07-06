@@ -152,10 +152,10 @@
 
 -(void)postDataWith:(NSDictionary*)dic
 {
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager *manager = [self sharedManager];;
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
 #pragma dic MD5
     NSDictionary * Ndic = [self md5DicWith:dic];
     [manager POST:kVcode parameters:Ndic progress:^(NSProgress * _Nonnull uploadProgress) {
@@ -176,10 +176,10 @@
 
 -(BOOL)checkPhone
 {
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager *manager = [self sharedManager];;
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
 #pragma dic MD5
     NSDictionary *dic = @{@"appkey":APPkey,@"phone":registerview.textfield.text};
     NSDictionary * Ndic = [self md5DicWith:dic];
