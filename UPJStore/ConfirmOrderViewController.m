@@ -471,12 +471,8 @@
         }
         
     }
-    
-    
     [self addsInfoWithDic:_addsDic];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reduce:) name:@"reduce" object:nil];
-    
-    
 }
 
 -(void)reduce:(NSNotification *)reduce

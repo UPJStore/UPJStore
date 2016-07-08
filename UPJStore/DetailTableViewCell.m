@@ -8,6 +8,7 @@
 
 #import "DetailTableViewCell.h"
 #import "UIViewController+CG.h"
+#import "UIView+Frame.h"
 
 @implementation DetailTableViewCell
 {
@@ -27,16 +28,16 @@
     self.marketLabel.text = [NSString stringWithFormat:@"¥ %@",model.marketprice];
     self.productLabel.text = [NSString stringWithFormat:@"¥ %@",model.productprice];
     [self.salesBtn setTitle:[NSString stringWithFormat:@"销量:%@",model.sales] forState:UIControlStateNormal];
+    if (model.marketprice.length == 5) {
+        [lineView setX:lineView.frame.origin.x-10];
+        [self.productLabel setX:self.productLabel.frame.origin.x-10];
+        [btn setWidth:btn.frame.size.width-10];
+        if (model.productprice.length == 5) {
+            [btn setWidth:btn.frame.size.width-5];
+        }
+    }
     if (model.descriptionStr.length != 0) {
         self.desLabel.text = model.descriptionStr;
-    }
-    if (model.marketprice.length == 5) {
-        lineView.frame = CGRectMake1(69, 360, 1, 20);
-        self.productLabel.frame = CGRectMake1(73, 350, 55, 40);
-        btn.frame = CGRectMake1(9, 355, 115, 30);
-        if (model.productprice.length == 5) {
-            btn.frame = CGRectMake1(9, 355, 110, 30);
-        }
     }
 }
 
@@ -118,15 +119,15 @@
 
 -(void)change
 {
-    self.detailImg.frame = CGRectMake1(82, 40, 250, 250);
-    self.detailtitleLabel.frame = CGRectMake1(10, 290, 394, 40);
-     self.desLabel.frame = CGRectMake1(10, 330, 394, 60);
-    self.marketLabel.frame = CGRectMake1(10, 390, 70, 40);
-    lineView.frame = CGRectMake1(79, 400, 1, 20);
-    self.productLabel.frame = CGRectMake1(83, 390, 55, 40);
-    btn.frame = CGRectMake1(9, 395, 125, 30);
-     self.salesBtn.frame = CGRectMake1(320, 395, 80, 30);
-    self.attentionBtn.frame = CGRectMake1(340, 60, 60, 30);
+    [self.detailImg setY:self.detailImg.frame.origin.y+40];
+    [self.detailtitleLabel setY:self.detailtitleLabel.frame.origin.y+40];
+    [self.desLabel setY:self.desLabel.frame.origin.y+40];
+    [self.marketLabel setY:self.marketLabel.frame.origin.y+40];
+    [lineView setY:lineView.frame.origin.y+40];
+    [self.productLabel setY:self.productLabel.frame.origin.y+40];
+    [btn setY:btn.frame.origin.y+40];
+    [self.salesBtn setY:self.salesBtn.frame.origin.y+40];
+    [self.attentionBtn setY:self.attentionBtn.frame.origin.y+40];
 
 }
 

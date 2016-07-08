@@ -678,7 +678,7 @@
         return CGSizeMake1(200, 90);
     }else if(collectionView == _CollectionView2)
     {
-        return CGSizeMake1(128, 150);
+        return CGSizeMake1(150, 160);
     }else
     {
         return CGSizeMake1(200, 200);
@@ -692,7 +692,7 @@
         return UIEdgeInsetsMake(5, 0, 0, 0);
     }else if(collectionView == _CollectionView2)
     {
-        return UIEdgeInsetsMake(0, 5, 0, 0);
+        return UIEdgeInsetsMake(0, 15, 0, 15);
     }else
     {
         return UIEdgeInsetsMake(0, 0, 0, 0);

@@ -66,6 +66,7 @@
 		D10E78E81D2218ED0064C10C /* SMPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = D10E78E71D2218ED0064C10C /* SMPageControl.m */; };
 		D12568361D1A6A4400B6ED77 /* recommandCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D12568351D1A6A4400B6ED77 /* recommandCell.m */; };
 		D12568391D1A6B1900B6ED77 /* RecommandModelNSObject.m in Sources */ = {isa = PBXBuildFile; fileRef = D12568381D1A6B1900B6ED77 /* RecommandModelNSObject.m */; };
+		D12742A41D2E5517007E3844 /* UIView+Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = D12742A31D2E5517007E3844 /* UIView+Frame.m */; };
 		D131B82A1CAB7F7100E58396 /* detailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D131B8291CAB7F7100E58396 /* detailModel.m */; };
 		D131B82D1CABA09900E58396 /* appraiseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D131B82C1CABA09900E58396 /* appraiseModel.m */; };
 		D131B8301CABAAFD00E58396 /* GoodsDetailScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = D131B82F1CABAAFD00E58396 /* GoodsDetailScrollView.m */; };
@@ -310,6 +311,8 @@
 		D12568351D1A6A4400B6ED77 /* recommandCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = recommandCell.m; sourceTree = "<group>"; };
 		D12568371D1A6B1900B6ED77 /* RecommandModelNSObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecommandModelNSObject.h; sourceTree = "<group>"; };
 		D12568381D1A6B1900B6ED77 /* RecommandModelNSObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommandModelNSObject.m; sourceTree = "<group>"; };
+		D12742A21D2E5517007E3844 /* UIView+Frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Frame.h"; sourceTree = "<group>"; };
+		D12742A31D2E5517007E3844 /* UIView+Frame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Frame.m"; sourceTree = "<group>"; };
 		D131B8281CAB7F7100E58396 /* detailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = detailModel.h; sourceTree = "<group>"; };
 		D131B8291CAB7F7100E58396 /* detailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = detailModel.m; sourceTree = "<group>"; };
 		D131B82B1CABA09900E58396 /* appraiseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = appraiseModel.h; sourceTree = "<group>"; };
@@ -1192,6 +1195,8 @@
 				D1F9E7931CB90433000F215E /* UIViewController+CG.m */,
 				D100734E1C9FE2480052EBE9 /* UIView+cg.h */,
 				D100734F1C9FE2480052EBE9 /* UIView+cg.m */,
+				D12742A21D2E5517007E3844 /* UIView+Frame.h */,
+				D12742A31D2E5517007E3844 /* UIView+Frame.m */,
 			);
 			name = Other;
 			sourceTree = "<group>";
@@ -1696,6 +1701,7 @@
 				D101CB101D23AD3600A1A37A /* HomePageTableViewCell.m in Sources */,
 				D100EB181CF5873E00C4531F /* CKModel.m in Sources */,
 				D1ADB2E91C940E64000B134E /* recommendCollectionViewCell.m in Sources */,
+				D12742A41D2E5517007E3844 /* UIView+Frame.m in Sources */,
 				D19E23501CA96259008047B5 /* KCAnnotation.m in Sources */,
 				D1034D751D17A290000D893F /* PhoneRegisteredViewController.m in Sources */,
 				D103B76F1CDB268500DC850A /* CollectTableViewCell.m in Sources */,
