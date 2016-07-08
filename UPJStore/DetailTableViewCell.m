@@ -58,6 +58,7 @@
         [self addSubview:self.footView];
         
         self.detailImg = [[UIImageView alloc]initWithFrame:CGRectMake1(82, 0, 250, 250)];
+        self.detailImg.contentMode = UIViewContentModeScaleAspectFit;
         [self addSubview:self.detailImg];
         
         self.detailtitleLabel = [[UILabel alloc]initWithFrame:CGRectMake1(10, 250, 394, 40)];

@@ -175,6 +175,7 @@
           failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
      {
          NSLog(@"%@",error);
+         [self getSeckillData];
          [self.HomePageTableView.mj_header endRefreshing];
      }];
     
@@ -206,17 +207,6 @@
              [Hmodel setValuesForKeysWithDictionary:responseObject];
              [_headerArr addObject:Hmodel];
              [_pidArr addObject:Hmodel.pid];
-             /*
-              NSArray *arr = responseObject[@"list"];
-              NSMutableArray * mArr = [NSMutableArray array];
-              for (NSDictionary *dic in arr)
-              {
-              ProductModel *model = [[ProductModel alloc]init];
-              [model setValuesForKeysWithDictionary:dic];
-              [mArr addObject:model];
-              }
-              [_productArr addObject:mArr];
-              */
              _z++;
              _num++;
              [self getHeaderDataAndModelData];
@@ -329,7 +319,7 @@
         
         [manager POST:kDetailRandom parameters:Ndic progress:^(NSProgress * _Nonnull downloadProgress)
          {
-             
+
          }
               success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
          {
@@ -338,9 +328,15 @@
              ProductModel *model = [[ProductModel alloc]init];
              [model setValuesForKeysWithDictionary:responseObject];
              [_detailArr addObject:model];
-             [self.HomePageTableView reloadData];
              [self.HomePageTableView.mj_footer endRefreshing];
+             if ([self isKeepGetdataWith:_detail_random]) {
+                 [self addData];
+                 
+             }else{
+            
+                 [self.HomePageTableView reloadData];
              self.HomePageTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(addData)];
+             }
          }
               failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
          {
@@ -355,6 +351,16 @@
     {
         [self.HomePageTableView.mj_footer endRefreshing];
         [self.HomePageTableView.mj_footer setHidden:YES];
+    }
+}
+
+-(BOOL)isKeepGetdataWith:(NSInteger)num
+{
+    if ((num+1)%3 == 0) {
+        return NO;
+    }else
+    {
+    return YES;
     }
 }
 
