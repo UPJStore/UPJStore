@@ -1529,7 +1529,7 @@
 				TargetAttributes = {
 					E30AD7661C719F6F00B5188C = {
 						CreatedOnToolsVersion = 7.2.1;
-						DevelopmentTeam = T4XWTR42U9;
+						DevelopmentTeam = RNEHSG84PD;
 					};
 					E30AD77F1C719F6F00B5188C = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -1969,7 +1969,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.upj.UPinkJiAPPStore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "74337ca5-a4b4-4de9-afaa-d8eb3c2de658";
+				PROVISIONING_PROFILE = "eafc3aec-1421-4f39-81d3-85e633b78ada";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -2026,7 +2026,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.upj.UPinkJiAPPStore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "74337ca5-a4b4-4de9-afaa-d8eb3c2de658";
+				PROVISIONING_PROFILE = "eafc3aec-1421-4f39-81d3-85e633b78ada";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
