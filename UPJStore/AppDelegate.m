@@ -283,7 +283,8 @@
                 DLog(@"%@",dic0);
                 AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
                 manager.responseSerializer = [AFJSONResponseSerializer serializer];
-                manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+                //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+
                 //传入的参数
                 NSDictionary * Ndic = [self md5DicWith:dic0];
                 [manager POST:kOther parameters:Ndic progress:^(NSProgress * _Nonnull uploadProgress) {
@@ -479,7 +480,7 @@
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
+//    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", nil];
 
     [manager GET:@"https://itunes.apple.com/lookup?id=1104253189" parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
     {
@@ -580,7 +581,7 @@
         
         UITabBarItem *tabItem = [tabController.tabBar.items objectAtIndex:i];
         
-        tabItem.title = arr[i];
+        tabItem.title = [arr objectAtIndex:i];
         tabItem.selectedImage = [[UIImage imageNamed:[NSString stringWithFormat:@"tabSel%d",i]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         tabItem.image = [[UIImage imageNamed:[NSString stringWithFormat:@"tab%d",i]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         

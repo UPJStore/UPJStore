@@ -102,7 +102,7 @@
     CollectModel *model = dataArr[indexPath.row];
     cell.titlelabel.text = model.title;
     cell.pricelabel.text = [NSString stringWithFormat:@"¥%@",model.marketprice];
-    [cell.pictureView sd_setImageWithURL:[NSURL URLWithString:model.thumb]];
+    [cell.pictureView sd_setImageWithURL:[NSURL URLWithString:model.thumb] placeholderImage:[UIImage imageNamed:@"lbtP"]];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
@@ -143,10 +143,10 @@
 
 -(void)postcollect
 {
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager *manager = [self sharedManager];;
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
     
     NSDictionary *dic = @{@"appkey":APPkey,@"mid":[self returnMid]};
     #pragma dic MD5

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "MemberModel.h"
+#import "AFNetWorking.h"
 
 @protocol sendModel;
 
@@ -32,6 +33,8 @@
 @protocol sendModel <NSObject>
 
 -(void)loginFinishWithmodel:(MemberModel *)model;
+
+-(AFHTTPSessionManager *)sharedHTTPSession;
 
 @end
 

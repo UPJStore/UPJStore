@@ -95,8 +95,8 @@
 #pragma dic MD5
     NSDictionary * Ndic = [self md5DicWith:dic];
     
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    AFHTTPSessionManager *manager = [self sharedManager];;
+    //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     

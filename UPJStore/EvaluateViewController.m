@@ -305,17 +305,17 @@
 -(void)postDataWith:(NSDictionary*)dic
 {
     NSDictionary * Ndic = [self md5DicWith:dic];
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager *manager = [self sharedManager];;
     //申明返回的结果是json类型
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     //    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     //申明请求的数据是json类型
     //    manager.requestSerializer=[AFJSONRequestSerializer serializer];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    
+    //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+
     //如果报接受类型不一致请替换一致text/html或别的
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-    //        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     //传入的参数
     //发送请求
     [manager POST:kEvaluate parameters:Ndic progress:^(NSProgress * _Nonnull uploadProgress) {

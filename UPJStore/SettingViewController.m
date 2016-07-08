@@ -143,9 +143,9 @@
             NSDictionary *dic = @{@"mid":[self returnMid],@"type":@"wechat",@"appkey":APPkey};
 #pragma dic MD5
             NSDictionary * Ndic = [self md5DicWith:dic];
-            AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+            AFHTTPSessionManager *manager = [self sharedManager];;
             manager.responseSerializer = [AFJSONResponseSerializer serializer];
-            manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+            //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
             
             //发送请求
             [manager POST:kUnbind parameters:Ndic progress:^(NSProgress * _Nonnull uploadProgress) {

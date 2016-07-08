@@ -117,7 +117,7 @@
     
 #pragma dic MD5
     NSDictionary * Ndic = [self md5DicWith:dic];
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager *manager = [self sharedManager];;
     //申明返回的结果是json类型
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     //    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
@@ -126,7 +126,7 @@
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     
     //如果报接受类型不一致请替换一致text/html或别的
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
     //        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     //传入的参数
     //    NSDictionary *parameters = @{@"uname":@"18825040608",@"pwd":@"12345678"};
@@ -166,7 +166,7 @@
 #pragma dic MD5
     NSDictionary * Ndic = [self md5DicWith:dic];
     
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager *manager = [self sharedManager];;
     //申明返回的结果是json类型
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     //    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
@@ -175,7 +175,7 @@
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     
     //如果报接受类型不一致请替换一致text/html或别的
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
     //        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     
     //发送请求
@@ -198,7 +198,7 @@
 #pragma dic MD5
     NSDictionary * Ndic = [self md5DicWith:dic];
     
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager *manager = [self sharedManager];;
     //申明返回的结果是json类型
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     //    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
@@ -207,7 +207,7 @@
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     
     //如果报接受类型不一致请替换一致text/html或别的
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
     //        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     
     //发送请求
@@ -229,7 +229,7 @@
 #pragma dic MD5
     NSDictionary * Ndic = [self md5DicWith:dic];
     
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager *manager = [self sharedManager];;
     //申明返回的结果是json类型
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     //    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
@@ -238,7 +238,7 @@
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     
     //如果报接受类型不一致请替换一致text/html或别的
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
     //        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     
     //发送请求

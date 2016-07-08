@@ -371,10 +371,10 @@
 
 -(void)postmid
 {
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager *manager = [self sharedManager];;
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
     NSDictionary *dic = @{@"appkey":APPkey,@"mid":[self returnMid]};
     
     NSDictionary * Ndic = [self md5DicWith:dic];
@@ -390,7 +390,7 @@
         {
             if (![_imageStr isEqualToString:[self returnImage]]) {
                 NSURL *url = [NSURL URLWithString:_imageStr];
-                [_headerView.imageView sd_setImageWithURL:url];
+                [_headerView.imageView sd_setImageWithURL:url ];
                 [self setImagewithImage:_imageStr];
                 NSData *data = [[NSData alloc]initWithContentsOfURL:url];
                 [self setImagedatawithImagedata:data];
@@ -400,7 +400,7 @@
                 if ([self returnImageData].length == 0)
                 {
                     NSURL *url = [[NSURL alloc]initWithString:_imageStr];
-                    [_headerView.imageView sd_setImageWithURL:url];
+                    [_headerView.imageView sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"geren"]];
                     NSData *data1 = [[NSData alloc]initWithContentsOfURL:url];
                     [self setImagedatawithImagedata:data1];
                     
@@ -419,10 +419,10 @@
 
 -(void)postaddress
 {
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager *manager = [self sharedManager];;
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
     NSDictionary *dic = @{@"appkey":APPkey,@"mid":[self returnMid]};
     
     NSDictionary * Ndic = [self md5DicWith:dic];
@@ -442,11 +442,11 @@
 -(void)postcollect
 {
     
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager *manager = [self sharedManager];;
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
     
     NSDictionary *dic = @{@"appkey":APPkey,@"mid":[self returnMid]};
     NSDictionary * Ndic = [self md5DicWith:dic];
@@ -473,11 +473,11 @@
 {
     
     
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager *manager = [self sharedManager];;
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
     NSDictionary *dic = @{@"appkey":APPkey,@"mid":[self returnMid]};
     
     NSDictionary *Ndic = [self md5DicWith:dic];
@@ -503,7 +503,7 @@
 
 -(void)postCoupon
 {
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager *manager = [self sharedManager];;
     //申明返回的结果是json类型
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     //    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
@@ -512,7 +512,7 @@
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     
     //如果报接受类型不一致请替换一致text/html或别的
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
     //        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     //传入的参数
     NSDictionary *dic = @{@"appkey":APPkey,@"mid":[self returnMid]};
@@ -606,9 +606,9 @@
     
     NSDictionary * Ndic = [self md5DicWith:dic];
     
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager *manager = [self sharedManager];;
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
     //传入的参数
     
     //发送请求

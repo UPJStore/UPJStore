@@ -10,6 +10,24 @@
 #import <CommonCrypto/CommonDigest.h>
 
 @implementation UIView (cg)
+
+
+-(AFHTTPSessionManager *)sharedManager
+{
+    static AFHTTPSessionManager *manager = nil;
+    static dispatch_once_t onceToken;
+    
+    dispatch_once(&onceToken, ^{
+        
+        manager = [AFHTTPSessionManager manager];
+        
+    });
+    
+    return manager;
+    
+}
+
+
 -(NSString*)returnMid
 {
     NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];

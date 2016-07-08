@@ -111,8 +111,8 @@
 #pragma dic MD5
         NSDictionary * Ndic = [self md5DicWith:dic];
         
-        AFHTTPSessionManager * manager = [AFHTTPSessionManager manager];
-        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+        AFHTTPSessionManager * manager = [self sharedManager];
+        //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
         manager.responseSerializer = [AFJSONResponseSerializer serializer];
         manager.requestSerializer = [AFHTTPRequestSerializer serializer];
         
@@ -157,8 +157,8 @@
 #pragma dic MD5
     NSDictionary * Ndic = [self md5DicWith:dic];
     
-    AFHTTPSessionManager * manager = [AFHTTPSessionManager manager];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    AFHTTPSessionManager * manager = [self sharedManager];;
+    //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     
@@ -190,8 +190,8 @@
 #pragma dic MD5
         NSDictionary * Ndic = [self md5DicWith:dic];
         
-        AFHTTPSessionManager * manager = [AFHTTPSessionManager manager];
-        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+        AFHTTPSessionManager * manager = [self sharedManager];;
+        //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
         manager.responseSerializer = [AFJSONResponseSerializer serializer];
         manager.requestSerializer = [AFHTTPRequestSerializer serializer];
         
@@ -250,8 +250,8 @@
 #pragma dic MD5
             NSDictionary * Ndic = [self md5DicWith:dic];
             
-            AFHTTPSessionManager * manager = [AFHTTPSessionManager manager];
-            manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+            AFHTTPSessionManager * manager = [self sharedManager];;
+            //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
             manager.responseSerializer = [AFJSONResponseSerializer serializer];
             manager.requestSerializer = [AFHTTPRequestSerializer serializer];
             
@@ -280,8 +280,8 @@
 #pragma dic MD5
             NSDictionary * Ndic = [self md5DicWith:dic];
             
-            AFHTTPSessionManager * manager = [AFHTTPSessionManager manager];
-            manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+            AFHTTPSessionManager * manager = [self sharedManager];;
+            //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
             manager.responseSerializer = [AFJSONResponseSerializer serializer];
             manager.requestSerializer = [AFHTTPRequestSerializer serializer];
             
@@ -322,8 +322,8 @@
 #pragma dic MD5
         NSDictionary * Ndic = [self md5DicWith:dic];
         
-        AFHTTPSessionManager * manager = [AFHTTPSessionManager manager];
-        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+        AFHTTPSessionManager * manager = [self sharedManager];;
+        //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
         manager.responseSerializer = [AFJSONResponseSerializer serializer];
         manager.requestSerializer = [AFHTTPRequestSerializer serializer];
         
@@ -439,7 +439,7 @@
 {
     if (indexPath.row == 0) {
         UITableViewCell *cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"lbtcell"];
-        _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake1(0, 0, 414,250) delegate:self placeholderImage:[UIImage imageNamed:@"pltu"]];
+        _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake1(0, 0, 414,250) delegate:self placeholderImage:[UIImage imageNamed:@"lbtP"]];
         _cycleScrollView.pageControlStyle = SDCycleScrollViewPageContolStyleAnimated;
         _imageArr = [NSMutableArray array];;
         for (LBTModel *model in _LBTArr) {
@@ -517,7 +517,8 @@
         
         ProductModel *model = _detailArr[indexPath.row-7];
         cell.model = model;
-        [cell.detailImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.upinkji.com/resource/attachment/%@",model.thumb]]];
+        [cell.detailImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.upinkji.com/resource/attachment/%@",model.thumb]] placeholderImage:[UIImage imageNamed:@"lbtP"]];
+
         if (![self iscollectioned:model.productId]) {
             [cell.attentionBtn setTitle:@"+关注" forState:UIControlStateNormal];
             //cell.attentionBtn.tag = 1;
@@ -652,7 +653,7 @@
     if (collectionView == _CollectionView1) {
         UICollectionViewCell *cell = [_CollectionView1 dequeueReusableCellWithReuseIdentifier:@"collcell" forIndexPath:indexPath];
         UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake1(0, 0, 200, 90)];
-        [imageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.upinkji.com/%@",_preurlArr[indexPath.row]]]];
+        [imageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.upinkji.com/%@",_preurlArr[indexPath.row]]]placeholderImage:[UIImage imageNamed:@"lbtP"]];
         cell.backgroundView = imageView;
         return cell;
     }else if (collectionView == _CollectionView2) {
@@ -661,7 +662,7 @@
         
         cell.model = mArr[indexPath.row];
         
-        [cell.productImg sd_setImageWithURL:[NSURL URLWithString:cell.model.thumb]];
+        [cell.productImg sd_setImageWithURL:[NSURL URLWithString:cell.model.thumb] placeholderImage:[UIImage imageNamed:@"lbtP"]];
         // cell.backgroundColor = [UIColor redColor];
         return cell;
     }else

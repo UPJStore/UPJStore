@@ -77,7 +77,7 @@
     [self.view addSubview:infoView];
     
     UIImageView * goodSImage = [[UIImageView alloc]initWithFrame:CGRectMake1(10, 10, 150, 180)];
-    [goodSImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:kSImageUrl,_modelDic[@"thumb"]]]];
+    [goodSImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:kSImageUrl,_modelDic[@"thumb"]]]placeholderImage:[UIImage imageNamed:@"lbtP"]];
     [infoView addSubview:goodSImage];
 
     
@@ -367,14 +367,14 @@
 #pragma dic MD5
         NSDictionary * Ndic = [self md5DicWith:dic];
         
-        AFHTTPSessionManager * manager = [AFHTTPSessionManager manager];
+        AFHTTPSessionManager * manager = [self sharedManager];;
         
         manager.responseSerializer = [AFJSONResponseSerializer serializer];
         
         manager.requestSerializer = [AFHTTPRequestSerializer serializer];
         
-        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-        
+        //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+
         
         [manager POST:kSubmit parameters:Ndic progress:^(NSProgress * _Nonnull downloadProgress) {
             

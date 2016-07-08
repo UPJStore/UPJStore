@@ -118,13 +118,13 @@
 #pragma dic MD5
     NSDictionary * Ndic = [self md5DicWith:_dic];
     
-    AFHTTPSessionManager * manager = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager * manager = [self sharedManager];;
     
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-    
+    //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+
     
     [manager POST:kSBrandGoodUrl parameters:Ndic progress:^(NSProgress * _Nonnull downloadProgress) {
         
@@ -158,12 +158,12 @@
 #pragma dic MD5
     NSDictionary * Ndic = [self md5DicWith:dic];
     
-    AFHTTPSessionManager * manager = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager * manager = [self sharedManager];;
     
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
 
     
     [manager POST:kSAttenTionBrandUrl parameters:Ndic progress:^(NSProgress * _Nonnull downloadProgress) {
@@ -227,7 +227,7 @@
     
     brandModel *Model =self.goodsArr[indexPath.row];
     
-    [cell.goodsImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:kSImageUrl,Model.thumb]]];
+    [cell.goodsImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:kSImageUrl,Model.thumb]]placeholderImage:[UIImage imageNamed:@"lbtP"]];
     cell.goodsImageView.contentMode = UIViewContentModeScaleAspectFit;
     cell.priceLabel.text = [NSString stringWithFormat:@"¥%@",Model.marketprice];
     cell.titleLabel.text = Model.title;

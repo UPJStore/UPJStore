@@ -56,7 +56,7 @@
         UIImageView *CountryimageView = [[UIImageView alloc]initWithFrame:CGRectMake(CGFloatMakeY(9), marketPrice.frame.origin.y+CGFloatMakeY(40), CGFloatMakeY(18), CGFloatMakeY(18))];
         NSString *imageURL = [NSString stringWithFormat:kSImageUrl,model.img];
         CountryimageView.contentMode = UIViewContentModeScaleAspectFit;
-        [CountryimageView sd_setImageWithURL:[NSURL URLWithString:imageURL]];
+        [CountryimageView sd_setImageWithURL:[NSURL URLWithString:imageURL]placeholderImage:[UIImage imageNamed:@"lbtP"]];
         [self addSubview:CountryimageView];
         
         

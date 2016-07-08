@@ -93,11 +93,11 @@
 #pragma dic MD5
     NSDictionary * Ndic = [self md5DicWith:dic];
     
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager *manager = [self sharedManager];;
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
     
     [manager POST:ProductURL parameters:Ndic progress:^(NSProgress * _Nonnull downloadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -127,7 +127,8 @@
     ProductsCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"collectionViewCellReuse" forIndexPath:indexPath];
     
     cell.model = _goodsArr[indexPath.row];
-    [cell.productImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:kSImageUrl,cell.model.thumb]]];
+    
+    [cell.productImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:kSImageUrl,cell.model.thumb]]placeholderImage:[UIImage imageNamed:@"lbtP"]];
 
     return cell;
 }

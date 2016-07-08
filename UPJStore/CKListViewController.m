@@ -102,12 +102,13 @@
 -(void)postTokenWithPage:(NSInteger)page
 {
     
-    AFHTTPSessionManager * manager = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager * manager = [self sharedManager];;
     
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+
 
     NSDictionary * dic =@{@"member_id":[self returnMid],@"appkey":APPkey,@"page":[NSString stringWithFormat:@"%ld",(long)page]};
 
@@ -273,7 +274,7 @@
         cell = [[CKTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:Identifier];
     }
     
-    [cell.avatarVIew sd_setImageWithURL:[NSURL URLWithString:model.avatar]];
+    [cell.avatarVIew sd_setImageWithURL:[NSURL URLWithString:model.avatar]placeholderImage:[UIImage imageNamed:@"lbtP"]];
     [cell initWithModel:model];
     return cell;
 }

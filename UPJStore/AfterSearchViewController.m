@@ -80,12 +80,12 @@
 #pragma dic MD5
     NSDictionary * Ndic = [self md5DicWith:dic];
     
-    AFHTTPSessionManager * manager = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager * manager = [self sharedManager];;
     
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-  
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+
     
     
     [manager POST:kSSearchUrl parameters:Ndic progress:^(NSProgress * _Nonnull downloadProgress) {
@@ -186,7 +186,7 @@
                 if (headerView.subviews.count < 1) {
                     UIImageView *headerImgView = [[UIImageView alloc]initWithFrame:CGRectMake1(0, 0, 414, 195)];
                     
-                    [headerImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:kSImageUrl,_thumb]]];
+                    [headerImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:kSImageUrl,_thumb]] placeholderImage:[UIImage imageNamed:@"lbtP"]];
                     
                     UILabel *selectLabel = [[UILabel alloc]initWithFrame:CGRectMake1(10,196, 414-20,80)];
                     selectLabel.text = _descriptionText;
@@ -303,7 +303,7 @@
     
     SearchModel *Model =self.goodsArr[indexPath.row];
     
-    [cell.goodsImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:kSImageUrl,Model.thumb]]];
+    [cell.goodsImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:kSImageUrl,Model.thumb]]placeholderImage:[UIImage imageNamed:@"lbtP"]];
     cell.priceLabel.text = [NSString stringWithFormat:@"¥%@",Model.marketprice];
     cell.goodsImageView.contentMode = UIViewContentModeScaleAspectFit;
     cell.titleLabel.text = Model.title;
