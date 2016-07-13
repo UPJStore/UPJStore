@@ -89,6 +89,7 @@
     [self initSearchScrollView];
     
     
+    
 }
 
 
@@ -600,7 +601,8 @@
 {
     
     _searchTableView.hidden = NO;
-    self.tabBarController.tabBar.hidden = YES;
+    self.isShowTab = YES;
+    [self hideTabBarWithTabState:self.isShowTab];
     if (searchBar.text.length!= 0 ) {
         _searchTableView.allowsSelection =YES;
     }
@@ -663,7 +665,8 @@
         [_userdefault setObject:self.searchRecordArr forKey:@"recordArr"];
 
     }
-    self.tabBarController.tabBar.hidden = YES;
+    self.isShowTab = YES;
+    [self hideTabBarWithTabState:self.isShowTab];
     _searchTableView.allowsSelection =YES;
     
     
@@ -674,7 +677,8 @@
 {
     _searchTableView.hidden = YES;
     
-    self.tabBarController.tabBar.hidden = NO;
+    self.isShowTab = NO;
+    [self showTabBarWithTabState:self.isShowTab];
 }
 
 
@@ -801,7 +805,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-#pragma 还没加入数组
+    #pragma 还没加入数组
     [self goSearchWithStr:_someThingArr[indexPath.row] withIsFromBtn:NO];
     
 }
@@ -847,10 +851,9 @@
 {
     [super viewDidAppear:animated];
     
-    self.tabBarController.tabBar.hidden = NO;
-
+    self.isShowTab = NO;
     
-    
+    [self showTabBarWithTabState:self.isShowTab];
 
 }
 

@@ -254,17 +254,22 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {   [super viewWillAppear:animated];
-    self.tabBarController.tabBar.hidden = YES;
+    self.isShowTab = YES;
+    [self hideTabBarWithTabState:self.isShowTab];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     if (_isFromAtten) {
-        self.tabBarController.tabBar.hidden = YES;
+        self.isShowTab = YES;
+        [self hideTabBarWithTabState:self.isShowTab];
     }
     else
-    self.tabBarController.tabBar.hidden = NO;
+    {
+        self.isShowTab = NO;
+        [self showTabBarWithTabState:self.isShowTab];
+    }
 }
 
 - (void)didReceiveMemoryWarning {

@@ -34,7 +34,5 @@
 
 -(void)loginFinishWithmodel:(MemberModel *)model;
 
--(AFHTTPSessionManager *)sharedHTTPSession;
-
 @end
 

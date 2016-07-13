@@ -108,6 +108,10 @@
     self.isCollectionView =[[UIImageView alloc]initWithFrame:CGRectMake(0,CGFloatMakeY(10), kWidth/6, CGFloatMakeY(20))];
     _isCollectionView.contentMode =UIViewContentModeScaleAspectFit;
     [_endView addSubview:_isCollectionView];
+    
+    UIView * view = [[UIView alloc]initWithFrame:CGRectMake1(kWidth/6, CGFloatMakeY(5), CGFloatMakeX(0.5), CGFloatMakeY(40))];
+    view.backgroundColor = [UIColor colorFromHexRGB:@"999999"];
+    [_endView addSubview:view];
     self.isCollectionLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, CGFloatMakeY(30), kWidth/6, CGFloatMakeY(20))];
     _isCollectionLabel.textAlignment = NSTextAlignmentCenter;
     [_endView addSubview:_isCollectionLabel];
@@ -117,7 +121,7 @@
     
     [collectionBtn setSelected:_isCollection];
     collectionBtn.tag = 666;
-    _isCollectionLabel.font = [UIFont systemFontOfSize:CGFloatMakeY(12)];
+    _isCollectionLabel.font = [UIFont systemFontOfSize:CGFloatMakeY(14)];
      _isCollectionLabel.textColor = [UIColor colorFromHexRGB:@"666666"];
     if (collectionBtn.isSelected == YES) {
         _isCollectionView.image  = [UIImage imageNamed:@"isCollection-YES"];
@@ -128,6 +132,9 @@
     }
     [collectionBtn addTarget:self action:@selector(collectionBtn:) forControlEvents:UIControlEventTouchUpInside];
     [_endView addSubview:collectionBtn];
+    
+    
+    
     UIButton * shoppingCartBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     shoppingCartBtn.frame = CGRectMake(kWidth/6, 0, kWidth/6, CGFloatMakeY(50));
     [shoppingCartBtn addTarget:self action:@selector(goToShoppingCart:) forControlEvents:UIControlEventTouchUpInside];
@@ -403,15 +410,20 @@
 {
     self.descView = [[descriptionView alloc]initWithFrame:CGRectMake(0, CGFloatMakeY(300), kWidth, 0) withModel:_model];
     _descView.backgroundColor = [UIColor whiteColor];
-    UILabel *postageLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGFloatMakeX(300),self.descView.frame.size.height-CGFloatMakeY(40) ,CGFloatMakeX(100), CGFloatMakeY(20))];
+    
+    UILabel *postageLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGFloatMakeX(10),self.descView.frame.size.height-CGFloatMakeY(25) ,CGFloatMakeX(100), CGFloatMakeY(25))];
     postageLabel.font =[UIFont systemFontOfSize:CGFloatMakeY(15)];
-    postageLabel.textAlignment = NSTextAlignmentCenter;
+    postageLabel.textAlignment = NSTextAlignmentLeft;
     if (_model.dispatch == 0) {
         postageLabel.text = @"邮费: 包邮";
         
     }else
         postageLabel.text = [NSString stringWithFormat:@"邮费：¥%ld",(long)_model.dispatch];
-    
+
+    UIView * lineView = [[UIView alloc]initWithFrame:CGRectMake(0, postageLabel.frame.origin.y-0.6, kWidth, 0.6)];
+    lineView.backgroundColor = [UIColor colorFromHexRGB:@"d9d9d9"];
+    [self.descView addSubview:lineView];
+
     [self.scrollView addSubview:_descView];
     [_descView addSubview:postageLabel];
     
@@ -991,7 +1003,8 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.tabBarController.tabBar.hidden = YES;
+    self.isShowTab = YES;
+    [self hideTabBarWithTabState:self.isShowTab];
 }
 
 - (void)didReceiveMemoryWarning {

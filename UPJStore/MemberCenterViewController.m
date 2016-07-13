@@ -542,7 +542,8 @@
 {
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = YES;
-    self.tabBarController.tabBar.hidden = NO;
+    self.isShowTab = NO;
+    [self showTabBarWithTabState:self.isShowTab];
     self.navigationController.navigationBar.translucent = NO;
     self.mid = [self returnMid];
     self.islogin = [self returnIsLogin];

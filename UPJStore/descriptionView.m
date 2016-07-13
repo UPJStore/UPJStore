@@ -53,7 +53,7 @@
         
         
         
-        UIImageView *CountryimageView = [[UIImageView alloc]initWithFrame:CGRectMake(CGFloatMakeY(9), marketPrice.frame.origin.y+CGFloatMakeY(40), CGFloatMakeY(18), CGFloatMakeY(18))];
+        UIImageView *CountryimageView = [[UIImageView alloc]initWithFrame:CGRectMake(CGFloatMakeY(9), marketPrice.frame.origin.y+CGFloatMakeY(45), CGFloatMakeY(18), CGFloatMakeY(18))];
         NSString *imageURL = [NSString stringWithFormat:kSImageUrl,model.img];
         CountryimageView.contentMode = UIViewContentModeScaleAspectFit;
         [CountryimageView sd_setImageWithURL:[NSURL URLWithString:imageURL]placeholderImage:[UIImage imageNamed:@"lbtP"]];
@@ -61,7 +61,7 @@
         
         
         CGFloat titleLength = [model.title boundingRectWithSize:CGSizeMake(kWidth, 2000) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:CGFloatMakeY(17)]} context:nil].size.height + CGFloatMakeY(17) +5;
-        myUILabel * titleLabel = [[myUILabel alloc]initWithFrame:CGRectMake(CGFloatMakeX(36),marketPrice.frame.origin.y+CGFloatMakeY(40), CGFloatMakeX(414-54), titleLength)];
+        myUILabel * titleLabel = [[myUILabel alloc]initWithFrame:CGRectMake(CGFloatMakeX(36),marketPrice.frame.origin.y+CGFloatMakeY(45), CGFloatMakeX(414-54), titleLength)];
         titleLabel.text = model.title;
         titleLabel.textAlignment = NSTextAlignmentLeft;
         titleLabel.lineBreakMode = NSLineBreakByWordWrapping;

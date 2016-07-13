@@ -27,7 +27,8 @@
     UIColor *backcolor = [UIColor colorWithRed:240.0/255 green:240.0/255 blue:240.0/255 alpha:1];
     self.navigationController.navigationBarHidden = NO;
     self.navigationItem.title = @"昵称修改";
-    self.tabBarController.tabBar.hidden = YES;
+    self.isShowTab = YES;
+    [self hideTabBarWithTabState:self.isShowTab];
     self.navigationController.navigationBar.translucent = NO;
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"backArrow"] style:UIBarButtonItemStylePlain target:self action:@selector(pop)];

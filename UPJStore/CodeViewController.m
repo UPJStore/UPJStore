@@ -156,7 +156,8 @@
     [super viewWillAppear:animated];
      self.navigationController.navigationBar.translucent = NO;
     [_session startRunning];
-    self.tabBarController.tabBar.hidden = YES;
+    self.isShowTab = YES;
+    [self hideTabBarWithTabState:self.isShowTab];
 }
 #pragma mark AVCaptureMetadataOutputObjectsDelegate
 - ( void )captureOutput:( AVCaptureOutput *)captureOutput didOutputMetadataObjects:( NSArray *)metadataObjects fromConnection:( AVCaptureConnection *)connection
@@ -330,7 +331,8 @@
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
-    self.tabBarController.tabBar.hidden = NO;
+    self.isShowTab = NO;
+    [self showTabBarWithTabState:self.isShowTab];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

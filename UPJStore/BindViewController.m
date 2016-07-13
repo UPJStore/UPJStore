@@ -120,7 +120,8 @@
 
 -(void)pop{
     [self.navigationController popViewControllerAnimated:YES];
-    self.tabBarController.tabBar.hidden = YES;
+    self.isShowTab = YES;
+    [self hideTabBarWithTabState:self.isShowTab];
 }
 
 - (void)didReceiveMemoryWarning {

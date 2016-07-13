@@ -168,7 +168,7 @@ static CGFloat CELL_HEIGHT =100;
     _shoppingImgView.layer.borderWidth = 1;
     _shoppingImgView.layer.borderColor = [UIColor colorFromHexRGB:@"e2e2e2"].CGColor;
     [_shoppingImgView sd_setImageWithURL:[NSURL URLWithString:model.model.thumb] placeholderImage:[UIImage imageNamed:@"default"]];
-    
+    _shoppingImgView.contentMode = UIViewContentModeScaleAspectFit;
     _title.text= model.model.title;
     _priceLab.text =[NSString stringWithFormat:@"￥%@", model.model.marketprice];
     

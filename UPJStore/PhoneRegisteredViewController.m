@@ -53,7 +53,7 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"backArrow"] style:UIBarButtonItemStyleDone target:self action:@selector(pop)];
     self.navigationItem.leftBarButtonItem.tintColor = [UIColor blackColor];
     
-    registerview = [[TextFieldView alloc]initWithFrame:CGRectMake1(0,10, 414, 736) String:@"手机号" picture:@"phoneIcon甲硝"number:414];
+    registerview = [[TextFieldView alloc]initWithFrame:CGRectMake1(0,10, 414, 736) String:@"手机号" picture:@"phoneIcon"number:414];
     registerview.textfield.keyboardType = UIKeyboardTypeNumberPad;
     [self.view addSubview:registerview];
     
@@ -234,7 +234,8 @@
 {
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = NO;
-    self.tabBarController.tabBar.hidden = YES;
+    self.isShowTab = YES;
+    [self hideTabBarWithTabState:self.isShowTab];
     self.navigationController.navigationBar.translucent = NO;
 }
 

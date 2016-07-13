@@ -87,6 +87,7 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    
     if(self.navigationItem.title == nil)
     {
         self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
@@ -94,7 +95,9 @@
         backImg.contentMode = UIViewContentModeScaleAspectFit;
         self.navigationItem.titleView = backImg;
         
-        self.tabBarController.tabBar.hidden = NO;
+        self.isShowTab = NO;
+        [self showTabBarWithTabState:self.isShowTab];
+        
         [_HomePageTableView reloadData];
     }
     

@@ -50,7 +50,8 @@
     
     couponDic = @{@"reduce":@"0",@"coupon_code":@"0",@"couponid":@"0",@"title":@"0"};
     
-    self.tabBarController.tabBar.hidden = YES;
+    self.isShowTab = YES;
+    [self hideTabBarWithTabState:self.isShowTab];
     self.view.backgroundColor = [UIColor colorFromHexRGB:@"f0f0f0"];
     self.navigationItem.title = @"确认订单";
 
@@ -78,6 +79,7 @@
     
     UIImageView * goodSImage = [[UIImageView alloc]initWithFrame:CGRectMake1(10, 10, 150, 180)];
     [goodSImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:kSImageUrl,_modelDic[@"thumb"]]]placeholderImage:[UIImage imageNamed:@"lbtP"]];
+    goodSImage.contentMode = UIViewContentModeScaleAspectFit;
     [infoView addSubview:goodSImage];
 
     
@@ -145,6 +147,7 @@
     address.backgroundColor = [UIColor whiteColor];
     UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake1(5, 40, 20, 20)];
     imageView.image = [UIImage imageNamed:@"addImg"];
+    
     [address addSubview:imageView];
     [self.view addSubview:address];
     
@@ -234,6 +237,7 @@
     
     UIImageView * weChatImageView = [[UIImageView alloc]initWithFrame:CGRectMake1(10, 20, 30, 30)];
     weChatImageView.image = [UIImage imageNamed:@"绿色logo"];
+    weChatImageView.contentMode = UIViewContentModeScaleAspectFit;
     [payMethod addSubview:weChatImageView];
     
     UILabel * weChatLabel = [[UILabel alloc]initWithFrame:CGRectMake1(50, 20, 100, 30)];
@@ -244,6 +248,7 @@
     
     UIImageView * AliImageView = [[UIImageView alloc]initWithFrame:CGRectMake1(160, 20, 30, 30)];
     AliImageView.image = [UIImage imageNamed:@"biao"];
+    AliImageView.contentMode = UIViewContentModeScaleAspectFit;
     [payMethod addSubview:AliImageView];
     
     UILabel * AliLabel = [[UILabel alloc]initWithFrame:CGRectMake1(200, 20, 100, 30)];
@@ -280,6 +285,7 @@
     
     UIImageView * AddImageView = [[UIImageView alloc]initWithFrame:CGRectMake1(379, 5, 30, 30)];
     AddImageView.image = [UIImage imageNamed:@"addCoupon"];
+    AddImageView.contentMode = UIViewContentModeScaleAspectFit;
     [selectView addSubview:AddImageView];
 }
 

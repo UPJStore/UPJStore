@@ -73,6 +73,7 @@
     noneCart.backgroundColor = [UIColor colorWithRed:240.0/255 green:240.0/255 blue:240.0/255 alpha:1];
     
     UIImageView * shoppingCartIcon = [[UIImageView alloc]initWithFrame:CGRectMake1(0,0, 200, 160)];
+    shoppingCartIcon.contentMode = UIViewContentModeScaleAspectFit;
     shoppingCartIcon.center  = CGPointMake(kWidth/2, CGFloatMakeY(90));
     shoppingCartIcon.image = [UIImage imageNamed:@"shoppingCar"];
     
@@ -770,6 +771,7 @@
     recommendCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"recommendCell" forIndexPath:indexPath];
     
     cell.goodsView.image = [UIImage imageNamed:@"shopping"];
+
     
     recommendGoodsModel *Model =self.modelArr[indexPath.row];
     
@@ -810,7 +812,7 @@
 {
     DLog(@"scrollview  %f",_scrollView.contentOffset.y);
     DLog(@"goodsCollectionView %f",_goodsCollectionView.contentOffset.y);
-
+    
     if (scrollView == _goodsCollectionView) {
         if (scrollView.contentOffset.y < CGFloatMakeY(-60))
         {
@@ -825,24 +827,31 @@
             _scrollView.scrollEnabled = YES;
             
         }
-
+        
     }else if (scrollView == _scrollView){
-    if (_scrollView.contentOffset.y >= CGFloatMakeY(260))
-    {
-        
-        _goodsCollectionView.scrollEnabled = YES;
-        [UIView beginAnimations:@"move" context:nil];
-        [UIView setAnimationDuration:0.5];
-        [UIView setAnimationDelegate:self];
-        
-        _scrollView.contentOffset = CGPointMake(0,CGFloatMakeY(260));
-        
-        [UIView commitAnimations];
-        _scrollView.scrollEnabled = NO;
+        if (_scrollView.contentOffset.y >= CGFloatMakeY(260))
+        {
+            
+            _goodsCollectionView.scrollEnabled = YES;
+            [UIView beginAnimations:@"move" context:nil];
+            [UIView setAnimationDuration:0.5];
+            [UIView setAnimationDelegate:self];
+            
+            _scrollView.contentOffset = CGPointMake(0,CGFloatMakeY(260));
+            
+            [UIView commitAnimations];
+            _scrollView.scrollEnabled = NO;
+        }
     }
-    }
+
+    
 }
 
+
+-(void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
+{
+    
+}
 
 -(void)goToHomePage:(UIButton *)btn
 {
@@ -965,10 +974,13 @@
     self.navigationController.navigationBar.translucent = NO;
 
     if (_isFromDetail == YES) {
-        self.tabBarController.tabBar.hidden = YES;
+        self.isShowTab = YES;
+        [self hideTabBarWithTabState:self.isShowTab];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"backArrow"] style:UIBarButtonItemStyleDone target:self action:@selector(pop)];
     }else
-        self.tabBarController.tabBar.hidden = NO;
+    {  self.isShowTab = NO;
+        [self showTabBarWithTabState:self.isShowTab];
+    }
     
     self.navigationController.navigationBar.hidden = NO;
     

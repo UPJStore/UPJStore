@@ -117,7 +117,8 @@
             [model setValuesForKeysWithDictionary:jsonDic];
             [appdelegate.delegate loginFinishWithmodel:model];
             self.navigationController.navigationBarHidden = YES;
-            self.tabBarController.tabBar.hidden = NO;
+            self.isShowTab = NO;
+            [self showTabBarWithTabState:self.isShowTab];
             [self.navigationController popToRootViewControllerAnimated:YES];
             num = @"back";
         }else{
@@ -147,7 +148,8 @@
 
 -(void)pop{
     [self.navigationController popViewControllerAnimated:YES];
-    self.tabBarController.tabBar.hidden = YES;
+    self.isShowTab = YES;
+    [self hideTabBarWithTabState:self.isShowTab];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

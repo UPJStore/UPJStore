@@ -29,7 +29,8 @@
     //例行navigationcontroller设置
     self.navigationController.navigationBarHidden = NO;
     self.navigationItem.title = @"个人资料修改";
-    self.tabBarController.tabBar.hidden = YES;
+    self.isShowTab = YES;
+    [self hideTabBarWithTabState:self.isShowTab];
     self.navigationController.navigationBar.translucent = NO;
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"backArrow"] style:UIBarButtonItemStyleDone target:self action:@selector(pop)];

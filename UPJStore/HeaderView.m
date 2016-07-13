@@ -119,10 +119,10 @@
     label.hidden = NO;
     
     if ([image isEqualToString:@"0"]) {
-        _imageView.image = [UIImage imageNamed:@"geren@3x"];
+        _imageView.image = [UIImage imageNamed:@"geren"];
     }else{
         NSURL *url = [NSURL URLWithString:image];
-        [_imageView sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"geren@3x"]];
+        [_imageView sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"geren"]];
     }
     label.text = [NSString stringWithFormat:@"%@,欢迎你回来",name];
 }
