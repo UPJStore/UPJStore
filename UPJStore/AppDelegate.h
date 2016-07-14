@@ -28,13 +28,12 @@
 @property (nonatomic,strong) NSString *nickname;
 @property (nonatomic,strong) NSString *headimgurl;
 
+
 @end
 
 @protocol sendModel <NSObject>
 
 -(void)loginFinishWithmodel:(MemberModel *)model;
-
--(AFHTTPSessionManager *)sharedHTTPSession;
 
 @end
 

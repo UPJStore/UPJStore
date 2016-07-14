@@ -169,14 +169,14 @@
             {
                 label1.text = @"没有可使用的优惠券";
                 isUsed = NO;
-                [self modelGet];
+                [self postCoupon];
             }
                 break;
             case 1:
             {
                 label1.text = @"没有已使用的优惠券";
                 isUsed = YES;
-                [self modelGet];
+                [self postCoupon];
             }
                 break;
             default:

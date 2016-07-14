@@ -101,7 +101,7 @@
     CollectTableViewCell *cell = [[CollectTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"collect"];
     CollectModel *model = dataArr[indexPath.row];
     cell.titlelabel.text = model.title;
-    cell.pricelabel.text = [NSString stringWithFormat:@"¥%@",model.marketprice];
+    cell.pricelabel.text = [NSString stringWithFormat:@" ¥%@",model.marketprice];
     [cell.pictureView sd_setImageWithURL:[NSURL URLWithString:model.thumb] placeholderImage:[UIImage imageNamed:@"lbtP"]];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;

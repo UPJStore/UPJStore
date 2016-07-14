@@ -42,9 +42,10 @@
     _Couponfield = [[UITextField alloc]initWithFrame:CGRectMake1(55, 140, 414-80-30, 40)];
     _Couponfield.layer.borderWidth = 1;
     _Couponfield.delegate =self;
+    _Couponfield.textAlignment = 1;
     _Couponfield.layer.borderColor =[[UIColor colorFromHexRGB:@"e54b3d"]CGColor];
     _Couponfield.layer.cornerRadius = 10;
-    _Couponfield.placeholder = @"\t请输入兑换码";
+    _Couponfield.placeholder = @"请输入兑换码";
     [_Couponfield setValue:[UIColor colorFromHexRGB:@"e54b3d"] forKeyPath:@"_placeholderLabel.textColor"];
 
 
@@ -271,14 +272,20 @@
     }];
 }
 
+-(void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    textField.placeholder = @"";
+}
 
-
+-(void)textFieldDidEndEditing:(UITextField *)textField
+{
+    textField.placeholder = @"请输入兑换码";
+}
 
 -(void)pop
 {
     
     [self.navigationController popViewControllerAnimated:YES];
-    
 }
 
 -(NSMutableArray *)couponList

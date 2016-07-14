@@ -50,10 +50,6 @@
 //所绑定的店铺的id
 @property(nonatomic,strong)NSString *bind_shop;
 
-@property(nonatomic,strong)NSString *pwd;
-
-@property(nonatomic,strong)NSString *from_user;
-
 @property(nonatomic,strong)NSString *mid;
 
 @property(nonatomic,strong)NSString *realname;
@@ -61,5 +57,11 @@
 @property(nonatomic,strong)NSString *nickname;
 
 @property(nonatomic,strong)NSString *mobile;
+
+@property(nonatomic,strong)NSString *age;
+
+@property(nonatomic,strong)NSString *gender;
+
+@property(nonatomic,strong)NSString *unionid;
 
 @end

@@ -22,7 +22,7 @@
 @property (nonatomic,assign) CGFloat tableViewCellHeight,tableViewCellHeight0,tableViewCellHeight1;
 @property (nonatomic,strong) NSMutableArray *searchRecordArr;
 @property (nonatomic,strong) NSUserDefaults * userdefault;
-@property (nonatomic,assign)    BOOL shouldBeginEditing;
+@property (nonatomic,assign) BOOL shouldBeginEditing;
 @property (nonatomic,strong) NSArray * reArr;
 @property (nonatomic,strong) UIView * reloadView;
 @property (nonatomic,strong)UIView *noNetworkView;

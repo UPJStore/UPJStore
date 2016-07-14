@@ -37,7 +37,7 @@
         [self addSubview:_goodDetailBtn];
 
         _button = [UIButton buttonWithType:UIButtonTypeCustom];
-        _button.frame = CGRectMake1(340, 65, 50, 25);
+        _button.frame = CGRectMake1(330, 65, 70, 25);
         [_button setTitle:@"评价" forState:UIControlStateNormal];
         [_button.layer setCornerRadius:3];
         [_button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
