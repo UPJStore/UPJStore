@@ -8,6 +8,7 @@
 
 #import "UIViewController+CG.h"
 #import <CommonCrypto/CommonDigest.h>
+#import <objc/runtime.h>
 
 @implementation UIViewController (CG)
 
@@ -217,6 +218,75 @@
 {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults setValue:conpon forKey:@"conpon"];
+}
+
+
+static const void *isShowTabKey = &isShowTabKey;
+
+@dynamic isShowTab;
+
+-(BOOL)isShowTab
+{
+    return objc_getAssociatedObject(self, isShowTabKey);
+}
+
+-(void)setIsShowTab:(BOOL)isShowTab
+{
+    objc_setAssociatedObject(self, isShowTabKey, [NSNumber numberWithBool:isShowTab], OBJC_ASSOCIATION_ASSIGN);
+    
+}
+
+-(BOOL)hideTabBarWithTabState:(BOOL) tabBarIsShow {
+    if (!tabBarIsShow)
+    {
+        
+    }
+    
+    [UIView animateWithDuration:0.35
+                     animations:^{
+                         CGRect tabFrame = self.tabBarController.tabBar.frame;
+                         NSLog(@"MinY %.f",CGRectGetMinY(tabFrame));
+                         NSLog(@"GetHeight %.f",CGRectGetHeight(tabFrame));
+                         NSLog(@"origin.y %.f",tabFrame.origin.y);
+
+                         if (tabFrame.origin.y < kHeight) {
+                             tabFrame.origin.y = tabFrame.size.height + CGRectGetMinY(tabFrame);
+                         }
+                         self.tabBarController.tabBar.frame = tabFrame;
+                     }];
+    return NO;
+}
+
+- (BOOL)showTabBarWithTabState:(BOOL) tabBarIsShow {
+    if (tabBarIsShow)
+    {
+        
+    }
+    [UIView animateWithDuration:0.35
+                     animations:^{
+                         CGRect tabFrame = self.tabBarController.tabBar.frame;
+                         NSLog(@"MinY %.f",CGRectGetMinY(tabFrame));
+                         NSLog(@"GetHeight %.f",CGRectGetHeight(tabFrame));
+                         NSLog(@"origin.y %.f",tabFrame.origin.y);
+                         
+                         if (tabFrame.origin.y >= kHeight)
+                         {
+                             tabFrame.origin.y = CGRectGetHeight(tabFrame) - CGRectGetMinY(tabFrame);
+                             
+                         }
+                         
+                         if (tabFrame.origin.y < 0) {
+                             tabFrame.origin.y = -tabFrame.origin.y;
+                         }
+                         
+                         if (tabFrame.origin.y > kHeight) {
+                             tabFrame.origin.y = kHeight;
+                         }
+
+
+                         self.tabBarController.tabBar.frame = tabFrame;
+                     }];
+    return YES;
 }
 
 @end

@@ -83,6 +83,7 @@ CGRectMakeCode(CGFloat x, CGFloat y, CGFloat width, CGFloat height){
 
 @interface UIViewController (CG)
 
+@property (nonatomic,assign) BOOL isShowTab;
 
 -(AFHTTPSessionManager *)sharedManager;
 
@@ -136,5 +137,9 @@ CGRectMakeCode(CGFloat x, CGFloat y, CGFloat width, CGFloat height){
 -(NSDictionary *)md5DicWith:(NSDictionary *)dic;
 -(NSArray*)returnCoupon;
 -(void)setConponwithConpon:(NSArray*)conpon;
+
+-(BOOL)hideTabBarWithTabState:(BOOL) tabBarIsShow;
+
+-(BOOL)showTabBarWithTabState:(BOOL) tabBarIsShow;
 
 @end

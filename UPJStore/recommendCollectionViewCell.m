@@ -15,7 +15,7 @@
     self =  [super initWithFrame:frame];
     if (self) {
         self.goodsView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height-45)];
-        
+        self.goodsView.contentMode = UIViewContentModeScaleAspectFit;
         
         self.titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, self.bounds.size.height-45, self.bounds.size.width,30)];
         self.titleLabel.font = [UIFont systemFontOfSize:12];

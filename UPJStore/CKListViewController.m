@@ -38,7 +38,8 @@
     self.view.backgroundColor =[UIColor whiteColor];
     self.navigationController.navigationBarHidden = NO;
     self.navigationController.navigationBar.translucent = NO;
-    self.tabBarController.tabBar.hidden =YES;
+    self.isShowTab =YES;
+    
     self.navigationItem.title = @"我的会员";
     self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor blackColor]};
@@ -288,9 +289,11 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
     self.navigationController.navigationBarHidden = NO;
     self.navigationController.navigationBar.translucent = NO;
-    self.tabBarController.tabBar.hidden =YES;
+    self.isShowTab =YES;
+    [self hideTabBarWithTabState:self.isShowTab];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

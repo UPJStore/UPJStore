@@ -317,7 +317,8 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    self.tabBarController.tabBar.hidden = NO;
+    self.isShowTab = NO;
+    [self showTabBarWithTabState:self.isShowTab];
     
 }
 
@@ -435,7 +436,8 @@
         self.navigationItem.title = _advname;
     }else
         self.navigationItem.title = _KeyWord;
-    self.tabBarController.tabBar.hidden = YES;
+    self.isShowTab = YES;
+    [self hideTabBarWithTabState:self.isShowTab];
 }
 -(void)pop
 {

@@ -7,7 +7,7 @@
 //
 
 #import "HowToDoViewController.h"
-#import "UIView+cg.h"
+#import "UIViewController+CG.h"
 #import "TextView.h"
 
 @interface HowToDoViewController ()
@@ -76,7 +76,8 @@
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = NO;
     self.navigationController.navigationBar.translucent = NO;
-    self.tabBarController.tabBar.hidden = YES;
+    self.isShowTab = YES;
+    [self hideTabBarWithTabState:self.isShowTab];
 }
 
 -(void)pop

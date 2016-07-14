@@ -64,14 +64,17 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"backArrow"] style:UIBarButtonItemStyleDone target:self action:@selector(pop)];
     self.navigationItem.leftBarButtonItem.tintColor =  [UIColor colorWithRed:204.0/255 green:34.0/255 blue:69.0/255 alpha:1];
     
-    self.tabBarController.tabBar.hidden = YES;
+    self.isShowTab = YES;
+    
+    [self hideTabBarWithTabState:self.isShowTab];
     
     [self postOrderWtihDic:_dic];
     
     // Do any additional setup after loading the view.
 }
 -(void)pop{
-    self.tabBarController.tabBar.hidden = NO;
+    self.isShowTab = NO;
+    [self showTabBarWithTabState:self.isShowTab];
     [self.navigationController popViewControllerAnimated:YES];
 }
 -(UITableView *)goodsTableView
@@ -451,16 +454,20 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {   [super viewWillAppear:animated];
+    
     if (_addsDic == nil) {
         
         for (NSDictionary * dic in [self returnAddress]) {
-            if ([dic[@"isdefault"]isEqualToString:@"1"]) {
+            if ([dic[@"isdefault"]isEqualToString:@"1"])
+            {
                 _addsDic = [NSDictionary dictionaryWithDictionary:dic];
             }
         }
         
     }
+    
     [self addsInfoWithDic:_addsDic];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reduce:) name:@"reduce" object:nil];
 }
 
@@ -479,6 +486,7 @@
     if (_addsDic == nil)
     {
         _noView.hidden = NO;
+        aidStr = nil;
     }
     else
     {

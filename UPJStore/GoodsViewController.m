@@ -42,7 +42,7 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    
+    [self showTabBarWithTabState:self.isShowTab];
     self.navigationItem.title = @"商品";
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"backArrow"] style:UIBarButtonItemStyleDone target:self action:@selector(pop)];
@@ -310,7 +310,9 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.tabBarController.tabBar.hidden = YES;
+    self.isShowTab = YES;
+    [self hideTabBarWithTabState:self.isShowTab];
+    
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
