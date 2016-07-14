@@ -59,6 +59,8 @@
 		D103B7711CDB268500DC850A /* CouponTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D103B76C1CDB268500DC850A /* CouponTableViewCell.m */; };
 		D103B7771CDB26B800DC850A /* OrderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D103B7761CDB26B800DC850A /* OrderTableViewCell.m */; };
 		D103B7911CDB315C00DC850A /* idcardicon.png in Resources */ = {isa = PBXBuildFile; fileRef = D103B7901CDB315C00DC850A /* idcardicon.png */; };
+		D105D69E1D34815E00245915 /* AgentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D105D69D1D34815E00245915 /* AgentsViewController.m */; };
+		D105D6A11D349D4B00245915 /* AgentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D105D6A01D349D4B00245915 /* AgentViewController.m */; };
 		D1074D221CA2AF9100725BAC /* AfterSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1074D211CA2AF9100725BAC /* AfterSearchViewController.m */; };
 		D1074D251CA2BA8B00725BAC /* SearchGoodsCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D1074D241CA2BA8B00725BAC /* SearchGoodsCollectionViewCell.m */; };
 		D109393C1C97FC7E009D3938 /* SortView.m in Sources */ = {isa = PBXBuildFile; fileRef = D109393B1C97FC7E009D3938 /* SortView.m */; };
@@ -296,6 +298,10 @@
 		D103B7751CDB26B800DC850A /* OrderTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderTableViewCell.h; sourceTree = "<group>"; };
 		D103B7761CDB26B800DC850A /* OrderTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderTableViewCell.m; sourceTree = "<group>"; };
 		D103B7901CDB315C00DC850A /* idcardicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = idcardicon.png; sourceTree = "<group>"; };
+		D105D69C1D34815E00245915 /* AgentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgentsViewController.h; sourceTree = "<group>"; };
+		D105D69D1D34815E00245915 /* AgentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgentsViewController.m; sourceTree = "<group>"; };
+		D105D69F1D349D4B00245915 /* AgentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgentViewController.h; sourceTree = "<group>"; };
+		D105D6A01D349D4B00245915 /* AgentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgentViewController.m; sourceTree = "<group>"; };
 		D1074D201CA2AF9100725BAC /* AfterSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AfterSearchViewController.h; sourceTree = "<group>"; };
 		D1074D211CA2AF9100725BAC /* AfterSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AfterSearchViewController.m; sourceTree = "<group>"; };
 		D1074D231CA2BA8B00725BAC /* SearchGoodsCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchGoodsCollectionViewCell.h; sourceTree = "<group>"; };
@@ -1386,6 +1392,10 @@
 			children = (
 				D1034D2F1D17A290000D893F /* CKListViewController.h */,
 				D1034D301D17A290000D893F /* CKListViewController.m */,
+				D105D69C1D34815E00245915 /* AgentsViewController.h */,
+				D105D69D1D34815E00245915 /* AgentsViewController.m */,
+				D105D69F1D349D4B00245915 /* AgentViewController.h */,
+				D105D6A01D349D4B00245915 /* AgentViewController.m */,
 				D1034D331D17A290000D893F /* FeedbackViewController.h */,
 				D1034D341D17A290000D893F /* FeedBackViewController.m */,
 				D1034D371D17A290000D893F /* HowToDoViewController.h */,
@@ -1676,6 +1686,7 @@
 				D100EB281CF5B4FA00C4531F /* ModifyTableViewCell.m in Sources */,
 				D1ADB2EC1C940E6D000B134E /* ShoppingCartViewController.m in Sources */,
 				D1034D631D17A290000D893F /* ForgetViewController.m in Sources */,
+				D105D6A11D349D4B00245915 /* AgentViewController.m in Sources */,
 				D131B82D1CABA09900E58396 /* appraiseModel.m in Sources */,
 				D14F8FA21CDB164600342832 /* RSADataVerifier.m in Sources */,
 				D13A49DE1CFC16F900E05290 /* MemberTableViewCell.m in Sources */,
@@ -1748,6 +1759,7 @@
 				D103B7771CDB26B800DC850A /* OrderTableViewCell.m in Sources */,
 				D1AAD9851CA65F010013FFBB /* ShoppingCartEndView.m in Sources */,
 				D1F7C9C61CBF7E8700F2EC14 /* MemberModel.m in Sources */,
+				D105D69E1D34815E00245915 /* AgentsViewController.m in Sources */,
 				D14F8F9D1CDB164600342832 /* DataVerifier.m in Sources */,
 				D19E233A1CA95E2B008047B5 /* ProductsModel.m in Sources */,
 				D1034D641D17A290000D893F /* HowToDoViewController.m in Sources */,

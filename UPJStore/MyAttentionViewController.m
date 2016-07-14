@@ -153,12 +153,10 @@
         DLog(@"%@",responseObject);
         NSString *str1 = [responseObject valueForKey:@"errmsg"];
         UIAlertController * alertCon = [UIAlertController alertControllerWithTitle:nil message:str1 preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [self postattention];
-        }];
-        [alertCon addAction:okAction];
-    
         [self presentViewController:alertCon animated:YES completion:nil];
+        [self postattention];
+        sleep(1);
+        [self dismissViewControllerAnimated:YES completion:nil];
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         DLog(@"failure%@",error);

@@ -27,6 +27,8 @@
 #import "SettingViewController.h"
 #import "CouponModel.h"
 #import "CKListViewController.h"
+#import "AgentsViewController.h"
+#import "AgentViewController.h"
 
 #define widthSize 414.0/320
 #define hightSize 736.0/568
@@ -71,7 +73,7 @@
     PerInfView * perinfView = [[PerInfView alloc]initWithFrame:CGRectMake1(0, 124*widthSize, k6PWidth, 52*widthSize)];
     perinfView.delegate =self;
     
-    _arr = @[@"收货地址",@"我的优惠券",@"关于友品集",@"意见反馈",@"客服热线",@"我的会员"];
+    _arr = @[@"收货地址",@"我的优惠券",@"关于友品集",@"意见反馈",@"客服热线",@"我的会员",@"代理商入口"];
     _scrollView = [[UIScrollView alloc]initWithFrame:[UIScreen mainScreen].bounds];
     _scrollView.scrollEnabled = YES;
     _scrollView.delegate = self;
@@ -243,8 +245,11 @@
                     }
                     if (indexPath.row == 5) {
                         CKListViewController * ckListVC = [[CKListViewController alloc]init];
-                        
                         [self.navigationController pushViewController:ckListVC animated:YES];
+                    }
+                    if (indexPath.row == 6) {
+                        AgentViewController *AVC = [[AgentViewController alloc]init];
+                        [self.navigationController pushViewController:AVC animated:YES];
                     }
                 }
             }

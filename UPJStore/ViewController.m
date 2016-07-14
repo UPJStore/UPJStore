@@ -331,11 +331,9 @@
              [self.HomePageTableView.mj_footer endRefreshing];
              if ([self isKeepGetdataWith:_detail_random]) {
                  [self addData];
-                 
              }else{
-            
                  [self.HomePageTableView reloadData];
-             self.HomePageTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(addData)];
+                 self.HomePageTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(addData)];
              }
          }
               failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)

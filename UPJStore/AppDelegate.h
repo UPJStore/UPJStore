@@ -32,6 +32,7 @@
 @property (nonatomic,strong) NSString *nickname;
 @property (nonatomic,strong) NSString *headimgurl;
 
+
 @end
 
 @protocol sendModel <NSObject>

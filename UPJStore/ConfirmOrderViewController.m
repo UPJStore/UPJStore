@@ -392,32 +392,21 @@
     return CGFloatMakeY(30);
 }
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, CGFloatMakeY(30))];
+    UILabel *headerLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, self.view.bounds.size.width, CGFloatMakeY(30))];
+    headerLabel.font = [UIFont systemFontOfSize:CGFloatMakeY(14)];
+    [headerView addSubview:headerLabel];
+    
     if (section == 0) {
-        UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, CGFloatMakeY(30))];
-        UILabel *headerLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, self.view.bounds.size.width, CGFloatMakeY(30))];
         headerLabel.text = @"订单商品";
-        [headerView addSubview:headerLabel];
-        return headerView;
     }else if(section == 1){
-        UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, CGFloatMakeY(30))];
-        UILabel *headerLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, self.view.bounds.size.width, CGFloatMakeY(30))];
         headerLabel.text = @"收货信息";
-        [headerView addSubview:headerLabel];
-        return headerView;
     }else if(section == 2){
-        UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, CGFloatMakeY(30))];
-        UILabel *headerLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, self.view.bounds.size.width, CGFloatMakeY(30))];
         headerLabel.text = @"优惠券";
-        [headerView addSubview:headerLabel];
-        return headerView;
     }else if (section == 3){
-        UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, CGFloatMakeY(30))];
-        UILabel *headerLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, self.view.bounds.size.width, CGFloatMakeY(30))];
         headerLabel.text = @"备注";
-        [headerView addSubview:headerLabel];
-        return headerView;
     }
-    return nil;
+    return headerView;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 3) {
@@ -506,6 +495,7 @@
         mobileStr = dic[@"mobile"];
         provinceStr = dic[@"province"];
         nameStr = dic[@"realname"];
+        
         [_goodsTableView reloadData];
     }
     _addsDic = nil;
