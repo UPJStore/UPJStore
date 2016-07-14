@@ -9,7 +9,6 @@
 #import "FeedBackViewController.h"
 #import "UIViewController+CG.h"
 #import "MBProgressHUD.h"
-#import "AFNetworking.h"
 
 #define Limit_Number 200
 

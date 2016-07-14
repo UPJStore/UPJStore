@@ -9,8 +9,6 @@
 #import "PhoneRegisteredViewController.h"
 #import "TextFieldView.h"
 #import "NameRegisteredViewController.h"
-#import "AppDelegate.h"
-#import "AFNetworking.h"
 #import "UIViewController+CG.h"
 #import "ForgetViewController.h"
 

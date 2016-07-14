@@ -9,6 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "MemberModel.h"
 #import "AFNetWorking.h"
+#import "UIColor+HexRGB.h"
+#import "UIImageView+WebCaChe.h"
+
+
 
 @protocol sendModel;
 

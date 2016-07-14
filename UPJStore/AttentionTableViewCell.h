@@ -22,7 +22,6 @@
 
 @property(nonatomic,strong)NSString *mid;
 
--(void)getImageViewWithstr:(NSString*)str;
 
 @end
 

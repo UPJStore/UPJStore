@@ -10,7 +10,6 @@
 #import "NewAddressViewController.h"
 #import "AddressModel.h"
 #import "AddressTableViewCell.h"
-#import "AFNetworking.h"
 #import "UIViewController+CG.h"
 #import "MBProgressHUD.h"
 

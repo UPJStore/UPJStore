@@ -7,13 +7,11 @@
 //
 
 #import "MyCollectViewController.h"
-#import "AFNetworking.h"
 #import "CollectModel.h"
 #import "UIViewController+CG.h"
 #import "CollectTableViewCell.h"
 #import "MBProgressHUD.h"
 #import "GoodSDetailViewController.h"
-#import "UIImageView+WebCaChe.h"
 
 @interface MyCollectViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
@@ -21,7 +19,7 @@
     NSArray *dataArr;
     UIImageView *imageView;
     UILabel *label;
-    UITableView *tableView;
+    UITableView *BackTableView;
 }
 @property (nonatomic,strong)MBProgressHUD *loadingHud;
 @end
@@ -53,14 +51,14 @@
     label.font = [UIFont systemFontOfSize:CGFloatMakeY(14)];
     [self.view addSubview:label];
     
-    tableView = [[UITableView alloc]initWithFrame:CGRectMake1(0, 0, 414, 672)];
-    tableView.delegate = self;
-    tableView.dataSource = self;
-    tableView.showsVerticalScrollIndicator = NO;
-    tableView.backgroundColor = backcolor;
-    [tableView registerClass:[CollectTableViewCell class] forCellReuseIdentifier:@"collect"];
-    tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [self.view addSubview:tableView];
+    BackTableView = [[UITableView alloc]initWithFrame:CGRectMake1(0, 0, 414, 672)];
+    BackTableView.delegate = self;
+    BackTableView.dataSource = self;
+    BackTableView.showsVerticalScrollIndicator = NO;
+    BackTableView.backgroundColor = backcolor;
+    [BackTableView registerClass:[CollectTableViewCell class] forCellReuseIdentifier:@"collect"];
+    BackTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self.view addSubview:BackTableView];
     [self setMBHUD];
     [self postcollect];
  //   [self modelGet];
@@ -77,16 +75,16 @@
     }
     dataArr = [NSArray arrayWithArray:tempArr];
     if (dataArr.count == 0) {
-        tableView.hidden = YES;
+        BackTableView.hidden = YES;
         imageView.hidden = NO;
         label.hidden = NO;
     }
     else
     {
-        tableView.hidden = NO;
+        BackTableView.hidden = NO;
         imageView.hidden = YES;
         label.hidden = YES;
-        [tableView reloadData];
+        [BackTableView reloadData];
     }
     [_loadingHud hideAnimated:YES];
 }
@@ -98,7 +96,7 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CollectTableViewCell *cell = [[CollectTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"collect"];
+    CollectTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"collect"];
     CollectModel *model = dataArr[indexPath.row];
     cell.titlelabel.text = model.title;
     cell.pricelabel.text = [NSString stringWithFormat:@"¥%@",model.marketprice];

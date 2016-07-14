@@ -172,7 +172,11 @@
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    CouponTableViewCell *cell = [[CouponTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"coupon" FromCoupon:YES];
+    
+    CouponTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"coupon"];
+    if (!cell) {
+        cell =    [[CouponTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"coupon" FromCoupon:YES];
+    }
 
     CouponModel *model = _couponList[indexPath.row];
     cell.backgroundColor = [UIColor clearColor];

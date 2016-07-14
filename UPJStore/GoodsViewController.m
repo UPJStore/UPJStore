@@ -7,11 +7,9 @@
 //
 
 #import "GoodsViewController.h"
-#import "AFNetworking.h"
 #import "ProductsModel.h"
 #import "ProductsCollectionViewCell.h"
 #import "UIViewController+CG.h"
-#import "UIImageView+WebCache.h"
 #import "XLPlainFlowLayout.h"
 #import "GoodSDetailViewController.h"
 

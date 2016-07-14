@@ -8,10 +8,8 @@
 
 #import "SearchAndSortViewController.h"
 #import "goodsCollectionViewCell.h"
-#import "UIImageView+WebCache.h"
 #import "goodsModel.h"
 #import "KindModel.h"
-#import "AFNetworking.h"
 #import "SortView.h"
 #import "SortModel.h"
 #import "UIViewController+CG.h"
@@ -19,7 +17,6 @@
 #import "waitSearchCell.h"
 #import "AfterSearchViewController.h"
 #import "brandViewController.h"
-#import "UIColor+HexRGB.h"
 #import "UIButton+WebCache.h"
 #import "GoodsViewController.h"
 

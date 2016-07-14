@@ -8,7 +8,6 @@
 
 #import "AttentionTableViewCell.h"
 #import "UIViewController+CG.h"
-#import "AFNetworking.h"
 
 
 @implementation AttentionTableViewCell
@@ -47,11 +46,7 @@
     return self;
 }
 
--(void)getImageViewWithstr:(NSString*)str
-{
-    UIImage *image=[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:str]]];
-    self.pictureView.image = image;
-}
+
 
 -(void)cancelAction:(UIButton*)btn
 {

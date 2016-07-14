@@ -10,7 +10,6 @@
 #import "UIViewController+CG.h"
 #import "AttentionModel.h"
 #import "AttentionTableViewCell.h"
-#import "AFNetworking.h"
 #import "MBProgressHUD.h"
 #import "brandViewController.h"
 
@@ -20,7 +19,7 @@
     NSArray *dataArr;
     UIImageView *imageView;
     UILabel *label;
-    UITableView *tableView;
+    UITableView * BackTableView;
 }
 @property (nonatomic,strong)MBProgressHUD *loadingHud;
 @end
@@ -54,14 +53,14 @@
     label.font = [UIFont systemFontOfSize:CGFloatMakeY(14)];
     [self.view addSubview:label];
     
-    tableView = [[UITableView alloc]initWithFrame:CGRectMake1(0, 0, 414, 736)];
-    tableView.delegate = self;
-    tableView.dataSource = self;
-    tableView.showsVerticalScrollIndicator = NO;
-    tableView.backgroundColor = backcolor;
-    [tableView registerClass:[AttentionTableViewCell class] forCellReuseIdentifier:@"attention"];
-    tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [self.view addSubview:tableView];
+    BackTableView = [[UITableView alloc]initWithFrame:CGRectMake1(0, 0, 414, 736)];
+    BackTableView.delegate = self;
+    BackTableView.dataSource = self;
+    BackTableView.showsVerticalScrollIndicator = NO;
+    BackTableView.backgroundColor = backcolor;
+    [BackTableView registerClass:[AttentionTableViewCell class] forCellReuseIdentifier:@"attention"];
+    BackTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self.view addSubview:BackTableView];
     [self setMBHUD];
     [self postattention];
 }
@@ -80,16 +79,16 @@
     
     
     if (dataArr.count == 0) {
-        tableView.hidden = YES;
+        BackTableView.hidden = YES;
         imageView.hidden = NO;
         label.hidden = NO;
     }
     else
     {
-        tableView.hidden = NO;
+        BackTableView.hidden = NO;
         imageView.hidden = YES;
         label.hidden = YES;
-        [tableView reloadData];
+        [BackTableView reloadData];
     }
     [_loadingHud hideAnimated:YES];
 }
@@ -101,17 +100,22 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    AttentionTableViewCell *cell = [[AttentionTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"collect"];
+    
+    
+    AttentionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"attention"];
+
     AttentionModel *model = dataArr[indexPath.row];
     cell.titleLabel.text = model.title;
     cell.pid = model.pid;
     cell.delegate = self;
     cell.mid = [self returnMid];
-    [cell getImageViewWithstr:[@"http://www.upinkji.com/resource/attachment/" stringByAppendingString:model.thumb]];
+    
+    [cell.pictureView sd_setImageWithURL:[NSURL URLWithString:[@"http://www.upinkji.com/resource/attachment/" stringByAppendingString:model.thumb]] placeholderImage:[UIImage imageNamed:@"lbtP"]];
     cell.pictureView.contentMode = UIViewContentModeScaleAspectFit;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    return cell;
+        return cell;
 }
+
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
