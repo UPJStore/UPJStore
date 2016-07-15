@@ -8,9 +8,11 @@
 
 #import "MyCookieViewController.h"
 #import "ExchangeView.h"
+#import "AppDelegate.h"
 #import "HowToDoViewController.h"
-#import "UIViewController+CG.h"
 
+#define widthSize 414.0/320
+#define hightSize 736.0/568
 
 @interface MyCookieViewController ()
 {
