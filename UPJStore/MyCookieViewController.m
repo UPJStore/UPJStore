@@ -10,6 +10,7 @@
 #import "ExchangeView.h"
 #import "AppDelegate.h"
 #import "HowToDoViewController.h"
+#import "UIViewController+CG.h"
 
 #define widthSize 414.0/320
 #define hightSize 736.0/568
@@ -60,7 +61,7 @@
     cookieImageView.frame = CGRectMake1(414/2-52*widthSize,80*hightSize, 52*widthSize, 67*hightSize);
     [self.view addSubview:cookieImageView];
     
-    UILabel *numberLabel = [[UILabel alloc]initWithFrame:CGRectMake1(179*widthSize, 64+42*hightSize, 35, 58)];
+    UILabel *numberLabel = [[UILabel alloc]initWithFrame:CGRectMake(179*widthSize, 64+42*hightSize, 35, 58)];
     numberLabel.text = @"0";
     numberLabel.textAlignment = 1;
     numberLabel.textColor = [UIColor blackColor];
