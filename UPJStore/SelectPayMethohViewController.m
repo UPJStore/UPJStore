@@ -11,7 +11,6 @@
 #import "SelectPayMethohViewController.h"
 #import "SelectTableViewCell.h"
 #import "PaySuccessViewController.h"
-#import "AFNetworking.h"
 #import "UIViewController+CG.h"
 // 微信
 #import "WXApi.h"
@@ -21,7 +20,6 @@
 #import "APAuthV2Info.h"
 #import "DataSigner.h"
 #import "UIColor+HexRGB.h"
-
 @interface SelectPayMethohViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic,strong)UITableView *selectPayTabelView;

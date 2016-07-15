@@ -10,7 +10,6 @@
 #import "UIViewController+CG.h"
 #import "MapAddressModel.h"
 #import "KCAnnotation.h"
-#import "AFNetworking.h"
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
 

@@ -7,8 +7,6 @@
 //
 #import "AppDelegate.h"
 #import "ShoppingCartViewController.h"
-#import "AFNetworking.h"
-#import "UIImageView+WebCache.h"
 #import "recommendCollectionViewCell.h"
 #import "recommendGoodsModel.h"
 #import "UIViewController+CG.h"
@@ -195,7 +193,8 @@
         
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        //        DLog(@"%@",error);
+        
+                DLog(@"%@",error);
     }];
     
 }

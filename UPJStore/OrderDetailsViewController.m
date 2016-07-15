@@ -7,13 +7,11 @@
 //
 
 #import "OrderDetailsViewController.h"
-#import "AFNetworking.h"
 #import "UIViewController+CG.h"
 #import "CommodModel.h"
 #import "EvaluateViewController.h"
 #import "CommodView.h"
 #import "MBProgressHUD.h"
-#import "UIColor+HexRGB.h"
 #import "SelectPayMethohViewController.h"
 #import "GoodSDetailViewController.h"
 

@@ -9,7 +9,6 @@
 #import "EvaluateViewController.h"
 #import "UIViewController+CG.h"
 #import "CommodModel.h"
-#import "AFNetworking.h"
 #import "MBProgressHUD.h"
 
 @interface EvaluateViewController ()<UITextViewDelegate>

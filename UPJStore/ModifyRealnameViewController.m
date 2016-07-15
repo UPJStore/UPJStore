@@ -9,7 +9,6 @@
 
 #import "ModifyRealnameViewController.h"
 #import "UIViewController+CG.h"
-#import "AFNetworking.h"
 #import "MBProgressHUD.h"
 
 @interface ModifyRealnameViewController ()

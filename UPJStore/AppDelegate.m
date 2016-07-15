@@ -11,7 +11,6 @@
 #import "SearchAndSortViewController.h"
 #import "ShoppingCartViewController.h"
 #import "MemberCenterViewController.h"
-#import "UIColor+HexRGB.h"
 #import "AFNetWorking.h"
 #import "LoginViewController.h"
 #import "UIViewController+CG.h"
@@ -181,6 +180,7 @@
     
     return nil;
 }
+
 -(void)onResp:(BaseReq *)resp{
     
     /*
@@ -287,6 +287,7 @@
 
                 //传入的参数
                 NSDictionary * Ndic = [self md5DicWith:dic0];
+                
                 [manager POST:kOther parameters:Ndic progress:^(NSProgress * _Nonnull uploadProgress) {
                 } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                     DLog(@"%@",responseObject);
@@ -321,7 +322,8 @@
                         [alertCon addAction:okAction];
                         [self.window.rootViewController presentViewController:alertCon animated:YES completion:nil];
                     }
-                } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
+                {
                     DLog(@"failure%@",error);
                 }];
                 

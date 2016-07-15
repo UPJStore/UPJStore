@@ -8,7 +8,6 @@
 
 #import "NewAddressViewController.h"
 #import "MyAddressViewController.h"
-#import "AFNetworking.h"
 #import "UIViewController+CG.h"
 #import "MBProgressHUD.h"
 

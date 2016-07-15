@@ -9,12 +9,10 @@
 #import "OrderViewController.h"
 #import "OrderModel.h"
 #import "OrderTableViewCell.h"
-#import "AFNetworking.h"
 #import "UIViewController+CG.h"
 #import "OrderDetailsViewController.h"
 #import "EvaluateViewController.h"
 #import "MBProgressHUD.h"
-#import "UIColor+HexRGB.h"
 #import "SelectPayMethohViewController.h"
 
 #define widthSize 414.0/320

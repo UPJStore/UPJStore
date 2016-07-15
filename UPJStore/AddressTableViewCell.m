@@ -7,9 +7,7 @@
 //
 
 #import "AddressTableViewCell.h"
-#import "AFNetworking.h"
 #import "UIView+cg.h"
-#import "UIColor+HexRGB.h"
 
 @implementation AddressTableViewCell
 

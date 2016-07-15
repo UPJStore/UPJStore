@@ -8,8 +8,6 @@
 
 #import "NameRegisteredViewController.h"
 #import "TextFieldView.h"
-#import "AppDelegate.h"
-#import "AFNetworking.h"
 #import "UIViewController+CG.h"
 #import "AgreementViewController.h"
 #import "MBProgressHUD.h"

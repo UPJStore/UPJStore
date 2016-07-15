@@ -103,13 +103,18 @@
 
     
     [manager POST:kShareUrl parameters:Ndic progress:^(NSProgress * _Nonnull downloadProgress) {
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        DLog(@"%@",kShareUrl);
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
+    {
+        
+        
         DLog(@"%@",responseObject);
+        
         _urlSTR = responseObject[@"data"];
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
         DLog(@"%@",error);
+        
     }];
 
 }

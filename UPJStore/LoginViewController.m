@@ -8,10 +8,8 @@
 
 #import "LoginViewController.h"
 #import "LoginView.h"
-#import "AppDelegate.h"
 #import "PhoneRegisteredViewController.h"
 #import "MemberModel.h"
-#import "AFNetworking.h"
 #import "UIViewController+CG.h"
 #import "MBProgressHUD.h"
 #import "BindViewController.h"

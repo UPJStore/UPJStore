@@ -8,13 +8,10 @@
 
 #import "ActivityViewController.h"
 #import "ViewController.h"
-#import "AFNetworking.h"
 #import "OthersModel.h"
-#import "UIColor+HexRGB.h"
 #import "ProductsCollectionViewCell.h"
 #import "UIViewController+CG.h"
 #import "GoodSDetailViewController.h"
-#import "UIImageView+WebCache.h"
 
 
 

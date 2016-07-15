@@ -8,12 +8,10 @@
 //
 
 #import "MyCouponViewController.h"
-#import "AFNetworking.h"
 #import "CouponModel.h"
 #import "UIViewController+CG.h"
 #import "CouponTableViewCell.h"
 #import "MBProgressHUD.h"
-#import "UIColor+HexRGB.h"
 
 @interface MyCouponViewController ()<UITableViewDelegate,UITableViewDataSource>
 {

@@ -9,7 +9,6 @@
 #import "ForgetViewController.h"
 #import "TextFieldView.h"
 #import "UIViewController+CG.h"
-#import "AFNetworking.h"
 #import "MBProgressHUD.h"
 
 #define widthSize 414.0/320

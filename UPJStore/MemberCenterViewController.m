@@ -22,14 +22,11 @@
 #import "PhoneRegisteredViewController.h"
 #import "MyCouponViewController.h"
 #import "MyAddressViewController.h"
-#import "AppDelegate.h"
 #import "MemberModel.h"
 #import "UIViewController+CG.h"
 #import "SettingViewController.h"
-#import "AFNetworking.h"
 #import "CouponModel.h"
 #import "CKListViewController.h"
-#import "UIImageView+WebCache.h"
 #import "AgentsViewController.h"
 #import "AgentViewController.h"
 
@@ -329,6 +326,7 @@
 
 -(void)loginFinishWithmodel:(MemberModel *)model
 {
+    
     [self setMidwithMid:model.mid];
     if (model.nickname.length != 0) {
         [self setNamewithNickName:model.nickname];
