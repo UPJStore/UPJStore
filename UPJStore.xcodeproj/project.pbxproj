@@ -1936,7 +1936,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/UPJStore",
 				);
-				GCC_PREFIX_HEADER = /Users/upj/Desktop/iii/UPJStore/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/upj/Desktop/UPJStoreGithub/UPJStore/PrefixHeader.pch;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_ROOT}/Headers/Public\"",
@@ -1993,7 +1993,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/UPJStore",
 				);
-				GCC_PREFIX_HEADER = /Users/upj/Desktop/iii/UPJStore/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = /Users/upj/Desktop/UPJStoreGithub/UPJStore/PrefixHeader.pch;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_ROOT}/Headers/Public\"",
