@@ -10,7 +10,6 @@
 #import "CollectModel.h"
 #import "UIViewController+CG.h"
 #import "CollectTableViewCell.h"
-#import "MBProgressHUD.h"
 #import "GoodSDetailViewController.h"
 
 @interface MyCollectViewController ()<UITableViewDataSource,UITableViewDelegate>
@@ -21,7 +20,6 @@
     UILabel *label;
     UITableView *BackTableView;
 }
-@property (nonatomic,strong)MBProgressHUD *loadingHud;
 @end
 
 @implementation MyCollectViewController
@@ -86,7 +84,7 @@
         label.hidden = YES;
         [BackTableView reloadData];
     }
-    [_loadingHud hideAnimated:YES];
+    [self.loadingHud hideAnimated:YES];
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -168,21 +166,6 @@
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         DLog(@"failure%@",error);
     }];
-}
-#pragma mark -- 加载动画
--(void)setMBHUD{
-    _loadingHud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    // Set the custom view mode to show any view.
-    /*
-     _loadingHud.mode = MBProgressHUDModeCustomView;
-     UIImage *gif = [UIImage sd_animatedGIFNamed:@"youpinji"];
-     
-     UIImageView *gifView = [[UIImageView alloc]initWithImage:gif];
-     _loadingHud.customView = gifView;
-     */
-    _loadingHud.bezelView.backgroundColor = [UIColor clearColor];
-    _loadingHud.animationType = MBProgressHUDAnimationFade;
-    _loadingHud.backgroundColor = [UIColor whiteColor];
 }
 
 

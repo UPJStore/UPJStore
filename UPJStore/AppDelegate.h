@@ -32,7 +32,7 @@
 @property (nonatomic,strong) NSString *nickname;
 @property (nonatomic,strong) NSString *headimgurl;
 
-
++(AFHTTPSessionManager *)sharedManager;
 @end
 
 @protocol sendModel <NSObject>

@@ -11,7 +11,6 @@
 #import "PhoneRegisteredViewController.h"
 #import "MemberModel.h"
 #import "UIViewController+CG.h"
-#import "MBProgressHUD.h"
 #import "BindViewController.h"
 
 
@@ -26,7 +25,6 @@
     NSString *errcode;
     NSTimer * timer;
 }
-@property (nonatomic,strong)MBProgressHUD *loadingHud;
 @end
 
 @implementation LoginViewController
@@ -146,8 +144,8 @@
         }
         else
         {
-            [_loadingHud hideAnimated:YES];
-            _loadingHud =nil;
+            [self.loadingHud hideAnimated:YES];
+            self.loadingHud =nil;
             NSString *str1 = [responseObject valueForKey:@"errmsg"];
             alertCon = [UIAlertController alertControllerWithTitle:nil message:str1 preferredStyle:UIAlertControllerStyleAlert];
             timer = [NSTimer scheduledTimerWithTimeInterval:0.3 target:self selector:@selector(dismiss) userInfo:nil repeats:NO];
@@ -181,11 +179,19 @@
     [manager POST:kShow parameters:Ndic progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        
+        
         DLog(@"%@",responseObject);
+        
         NSArray *jsonArr = [NSArray arrayWithArray:responseObject];
         [self setAddresswithAddress:jsonArr];
+        
+        
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
         DLog(@"failure%@",error);
+        
     }];
 }
 
@@ -311,8 +317,8 @@
 - (void)display {
     
     AppDelegate *appdelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    [_loadingHud hideAnimated:YES];
-    _loadingHud =nil;
+    [self.loadingHud hideAnimated:YES];
+    self.loadingHud =nil;
     BindViewController *bindVC = [[BindViewController alloc]init];
     bindVC.nicknameStr = appdelegate.nickname;
     bindVC.headimgurl = appdelegate.headimgurl;
@@ -323,8 +329,8 @@
 
 -(void)pop
 {
-    [_loadingHud hideAnimated:YES];
-    _loadingHud =nil;
+    [self.loadingHud hideAnimated:YES];
+    self.loadingHud =nil;
     UIAlertController *alert1 = [UIAlertController alertControllerWithTitle:nil message:@"登录成功" preferredStyle:UIAlertControllerStyleAlert];
     timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(hide) userInfo:nil repeats:NO];
     [self presentViewController:alert1 animated:YES completion:nil];
@@ -365,20 +371,6 @@
     // Dispose of any resources that can be recreated.
 }
 
--(void)setMBHUD{
-    _loadingHud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    // Set the custom view mode to show any view.
-    /*
-     _loadingHud.mode = MBProgressHUDModeCustomView;
-     UIImage *gif = [UIImage sd_animatedGIFNamed:@"youpinji"];
-     
-     UIImageView *gifView = [[UIImageView alloc]initWithImage:gif];
-     _loadingHud.customView = gifView;
-     */
-    _loadingHud.bezelView.backgroundColor = [UIColor lightGrayColor];
-    _loadingHud.animationType = MBProgressHUDAnimationFade;
-    _loadingHud.backgroundColor = [UIColor clearColor];
-}
 
 /*
  #pragma mark - Navigation

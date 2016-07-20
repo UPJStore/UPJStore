@@ -9,14 +9,12 @@
 
 #import "ModifyRealnameViewController.h"
 #import "UIViewController+CG.h"
-#import "MBProgressHUD.h"
 
 @interface ModifyRealnameViewController ()
 {
     UITableView *modifyTableView;
     UITextField *textField;
 }
-@property (nonatomic,strong)MBProgressHUD *loadingHud;
 @end
 
 @implementation ModifyRealnameViewController
@@ -81,8 +79,8 @@
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         DLog(@"%@",responseObject);
-        [_loadingHud hideAnimated:YES];
-        _loadingHud = nil;
+        [self.loadingHud hideAnimated:YES];
+        self.loadingHud = nil;
         [self setNamewithRealName:textField.text];
         [self pop];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -90,20 +88,6 @@
     }];
 }
 
--(void)setMBHUD{
-    _loadingHud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    // Set the custom view mode to show any view.
-    /*
-     _loadingHud.mode = MBProgressHUDModeCustomView;
-     UIImage *gif = [UIImage sd_animatedGIFNamed:@"youpinji"];
-     
-     UIImageView *gifView = [[UIImageView alloc]initWithImage:gif];
-     _loadingHud.customView = gifView;
-     */
-    _loadingHud.bezelView.backgroundColor = [UIColor lightGrayColor];
-    _loadingHud.animationType = MBProgressHUDAnimationFade;
-    _loadingHud.backgroundColor = [UIColor clearColor];
-}
 
 -(void)pop
 {

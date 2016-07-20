@@ -8,7 +8,6 @@
 
 #import "FeedBackViewController.h"
 #import "UIViewController+CG.h"
-#import "MBProgressHUD.h"
 
 #define Limit_Number 200
 
@@ -17,7 +16,6 @@
 @property (nonatomic,strong)UILabel *headLabel ;
 @property (nonatomic,strong) UILabel *showCountLabel;
 @property (nonatomic,strong) NSString *numberStr;
-@property (nonatomic,strong)MBProgressHUD *loadingHud;
 @property (nonatomic,strong)UITextField * contactView;
 @end
 
@@ -78,21 +76,6 @@
     
 }
 
-#pragma mark -- 加载动画
--(void)setMBHUD{
-    _loadingHud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    // Set the custom view mode to show any view.
-    /*
-     _loadingHud.mode = MBProgressHUDModeCustomView;
-     UIImage *gif = [UIImage sd_animatedGIFNamed:@"youpinji"];
-     
-     UIImageView *gifView = [[UIImageView alloc]initWithImage:gif];
-     _loadingHud.customView = gifView;
-     */
-    _loadingHud.bezelView.backgroundColor = [UIColor clearColor];
-    _loadingHud.animationType = MBProgressHUDAnimationFade;
-    _loadingHud.backgroundColor = [UIColor whiteColor];
-}
 
 -(void)pop
 {
@@ -171,8 +154,8 @@
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         DLog(@"%@",responseObject);
-        [_loadingHud hideAnimated:YES];
-        _loadingHud = nil;
+        [self.loadingHud hideAnimated:YES];
+        self.loadingHud = nil;
         UIAlertController *alertCon2 = [UIAlertController alertControllerWithTitle:nil message:@"反馈成功" preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:nil];
         [alertCon2 addAction:okAction];

@@ -96,7 +96,7 @@
 #pragma dic MD5
     NSDictionary * Ndic = [self md5DicWith:dic];
     
-    AFHTTPSessionManager *manager = [self sharedManager];;
+    AFHTTPSessionManager *manager = [self sharedManager];
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
@@ -105,11 +105,12 @@
     [manager POST:kShareUrl parameters:Ndic progress:^(NSProgress * _Nonnull downloadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
     {
-        
-        
-        DLog(@"%@",responseObject);
-        
-        _urlSTR = responseObject[@"data"];
+        if ([responseObject isKindOfClass:[NSDictionary class]])
+        {
+            DLog(@"%@",responseObject);
+            
+            _urlSTR = responseObject[@"data"];
+        }
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         

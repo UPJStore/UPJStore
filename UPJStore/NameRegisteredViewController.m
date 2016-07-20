@@ -10,7 +10,6 @@
 #import "TextFieldView.h"
 #import "UIViewController+CG.h"
 #import "AgreementViewController.h"
-#import "MBProgressHUD.h"
 
 #define widthSize 414.0/320
 #define hightSize 736.0/568
@@ -30,7 +29,6 @@
     UIAlertController *alertCon;
     NSString *errcode;
 }
-@property (nonatomic,strong)MBProgressHUD *loadingHud;
 
 @end
 
@@ -221,8 +219,8 @@
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         DLog(@"%@",responseObject);
-        [_loadingHud hideAnimated:YES];
-        _loadingHud = nil;
+        [self.loadingHud hideAnimated:YES];
+        self.loadingHud = nil;
         NSNumber *number = [responseObject valueForKey:@"errcode"];
         errcode = [NSString stringWithFormat:@"%@",number];
         if (![errcode isEqualToString:@"0"])
@@ -255,21 +253,6 @@
     self.navigationController.navigationBar.translucent =NO;
 }
 
-#pragma mark -- 加载动画
--(void)setMBHUD{
-    _loadingHud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    // Set the custom view mode to show any view.
-    /*
-     _loadingHud.mode = MBProgressHUDModeCustomView;
-     UIImage *gif = [UIImage sd_animatedGIFNamed:@"youpinji"];
-     
-     UIImageView *gifView = [[UIImageView alloc]initWithImage:gif];
-     _loadingHud.customView = gifView;
-     */
-    _loadingHud.bezelView.backgroundColor = [UIColor clearColor];
-    _loadingHud.animationType = MBProgressHUDAnimationFade;
-    _loadingHud.backgroundColor = [UIColor whiteColor];
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

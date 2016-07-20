@@ -10,7 +10,6 @@
 #import "UIViewController+CG.h"
 #import "AttentionModel.h"
 #import "AttentionTableViewCell.h"
-#import "MBProgressHUD.h"
 #import "brandViewController.h"
 
 @interface MyAttentionViewController ()<UITableViewDelegate,UITableViewDataSource,AttentionCancelAction>
@@ -21,7 +20,6 @@
     UILabel *label;
     UITableView * BackTableView;
 }
-@property (nonatomic,strong)MBProgressHUD *loadingHud;
 @end
 
 @implementation MyAttentionViewController
@@ -90,7 +88,7 @@
         label.hidden = YES;
         [BackTableView reloadData];
     }
-    [_loadingHud hideAnimated:YES];
+    [self.loadingHud hideAnimated:YES];
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -230,21 +228,7 @@
     [self.navigationController pushViewController:brandVC animated:YES];
 }
 
-#pragma mark -- 加载动画
--(void)setMBHUD{
-    _loadingHud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    // Set the custom view mode to show any view.
-    /*
-     _loadingHud.mode = MBProgressHUDModeCustomView;
-     UIImage *gif = [UIImage sd_animatedGIFNamed:@"youpinji"];
-     
-     UIImageView *gifView = [[UIImageView alloc]initWithImage:gif];
-     _loadingHud.customView = gifView;
-     */
-    _loadingHud.bezelView.backgroundColor = [UIColor clearColor];
-    _loadingHud.animationType = MBProgressHUDAnimationFade;
-    _loadingHud.backgroundColor = [UIColor whiteColor];
-}
+
 
 
 

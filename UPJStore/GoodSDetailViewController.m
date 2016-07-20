@@ -529,6 +529,7 @@
 -(void)getDataWith:(NSDictionary *)dic
 {
     
+    [self setMBHUD];
 #pragma Warn Ndic = dic;
     NSDictionary * Ndic = [self md5DicWith:dic];
     
@@ -541,7 +542,8 @@
     [manager POST:kGoodDetailURL parameters:Ndic progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-
+        [self.loadingHud hideAnimated:YES];
+              self.loadingHud = nil;
         DLog(@"%@",responseObject);
         _model = [detailModel mj_objectWithKeyValues:responseObject];
 

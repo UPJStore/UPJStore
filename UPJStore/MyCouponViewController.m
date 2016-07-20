@@ -11,7 +11,6 @@
 #import "CouponModel.h"
 #import "UIViewController+CG.h"
 #import "CouponTableViewCell.h"
-#import "MBProgressHUD.h"
 
 @interface MyCouponViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
@@ -27,7 +26,6 @@
     BOOL isUsed;
     UIAlertController *alertCon;
 }
-@property (nonatomic,strong)MBProgressHUD *loadingHud;
 @end
 
 @implementation MyCouponViewController
@@ -153,8 +151,8 @@
             couponView.hidden = NO;
         }
     }
-    [_loadingHud hideAnimated:YES];
-    _loadingHud = nil;
+    [self.loadingHud hideAnimated:YES];
+    self.loadingHud = nil;
 }
 
 -(void)tapAction:(UIButton*)button
@@ -269,21 +267,6 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-#pragma mark -- 加载动画
--(void)setMBHUD{
-    _loadingHud = [MBProgressHUD showHUDAddedTo:couponTableView animated:YES];
-    // Set the custom view mode to show any view.
-    /*
-     _loadingHud.mode = MBProgressHUDModeCustomView;
-     UIImage *gif = [UIImage sd_animatedGIFNamed:@"youpinji"];
-     
-     UIImageView *gifView = [[UIImageView alloc]initWithImage:gif];
-     _loadingHud.customView = gifView;
-     */
-    _loadingHud.bezelView.backgroundColor = [UIColor clearColor];
-    _loadingHud.animationType = MBProgressHUDAnimationFade;
-    _loadingHud.backgroundColor = [UIColor whiteColor];
-}
 
 -(void)viewWillAppear:(BOOL)animated
 {

@@ -9,7 +9,6 @@
 #import "NewAddressViewController.h"
 #import "MyAddressViewController.h"
 #import "UIViewController+CG.h"
-#import "MBProgressHUD.h"
 
 @interface NewAddressViewController ()<UITextViewDelegate,UITextFieldDelegate,UIPickerViewDelegate,UIPickerViewDataSource>
 {
@@ -35,7 +34,6 @@
     UIAlertController *alertCon;
 }
 
-@property (nonatomic,strong)MBProgressHUD *loadingHud;
 
 @end
 
@@ -220,8 +218,8 @@
         {
             alertCon = [UIAlertController alertControllerWithTitle:nil message:@"请输入正确的15或18位身份证" preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                [_loadingHud hideAnimated:YES];
-                _loadingHud = nil;
+                [self.loadingHud hideAnimated:YES];
+                self.loadingHud = nil;
             }];
             [alertCon addAction:okAction];
             [self presentViewController:alertCon animated:YES completion:nil];
@@ -232,8 +230,8 @@
     {
         alertCon = [UIAlertController alertControllerWithTitle:nil message:@"请输入正确的11位手机号码" preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [_loadingHud hideAnimated:YES];
-            _loadingHud = nil;
+            [self.loadingHud hideAnimated:YES];
+            self.loadingHud = nil;
         }];
         [alertCon addAction:okAction];
         
@@ -258,8 +256,8 @@
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         DLog(@"%@",responseObject);
-        [_loadingHud hideAnimated:YES];
-        _loadingHud = nil;
+        [self.loadingHud hideAnimated:YES];
+        self.loadingHud = nil;
         [self.delegate tableViewReflash];
         [self.navigationController popViewControllerAnimated:YES];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -402,21 +400,6 @@
     self.navigationController.navigationBar.translucent = NO;
 }
 
-#pragma mark -- 加载动画
--(void)setMBHUD{
-    _loadingHud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    // Set the custom view mode to show any view.
-    /*
-     _loadingHud.mode = MBProgressHUDModeCustomView;
-     UIImage *gif = [UIImage sd_animatedGIFNamed:@"youpinji"];
-     
-     UIImageView *gifView = [[UIImageView alloc]initWithImage:gif];
-     _loadingHud.customView = gifView;
-     */
-    _loadingHud.bezelView.backgroundColor = [UIColor clearColor];
-    _loadingHud.animationType = MBProgressHUDAnimationFade;
-    _loadingHud.backgroundColor = [UIColor whiteColor];
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

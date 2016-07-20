@@ -14,7 +14,6 @@
 #import "SearchGoodsCollectionViewCell.h"
 #import "brandModel.h"
 #import "GoodSDetailViewController.h"
-#import "MBProgressHUD.h"
 #import "LoginViewController.h"
 
 
@@ -24,7 +23,6 @@
 @property (nonatomic,strong) UICollectionView * goodsCollectionView;
 @property (nonatomic,strong) NSMutableArray *goodsArr ;
 @property (nonatomic,strong) UIAlertController * attentionBrand;
-@property (nonatomic,strong)MBProgressHUD *loadingHud;
 @end
 
 @implementation brandViewController
@@ -65,7 +63,7 @@
     }
     else
     {
-        if (_loadingHud == nil ) {
+        if (self.loadingHud == nil ) {
             [self setMBHUD];
             self.navigationItem.rightBarButtonItem.enabled = NO;
             [self AttentionBrand];
@@ -78,21 +76,6 @@
 }
 
 
-#pragma mark -- 加载动画
--(void)setMBHUD{
-    _loadingHud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    // Set the custom view mode to show any view.
-    /*
-     _loadingHud.mode = MBProgressHUDModeCustomView;
-     UIImage *gif = [UIImage sd_animatedGIFNamed:@"youpinji"];
-     
-     UIImageView *gifView = [[UIImageView alloc]initWithImage:gif];
-     _loadingHud.customView = gifView;
-     */
-    _loadingHud.bezelView.backgroundColor = [UIColor clearColor];
-    _loadingHud.animationType = MBProgressHUDAnimationFade;
-    _loadingHud.backgroundColor = [UIColor whiteColor];
-}
 
 
 -(void)initGoodCollectionView
@@ -182,9 +165,9 @@
             _isFocus = NO;
             self.navigationItem.rightBarButtonItem.title = @"关注";
         }
-         [_loadingHud hideAnimated:YES];
+         [self.loadingHud hideAnimated:YES];
 
-        _loadingHud = nil;
+        self.loadingHud = nil;
         self.navigationItem.rightBarButtonItem.enabled = YES;
         
         

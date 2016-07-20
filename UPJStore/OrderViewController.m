@@ -12,7 +12,6 @@
 #import "UIViewController+CG.h"
 #import "OrderDetailsViewController.h"
 #import "EvaluateViewController.h"
-#import "MBProgressHUD.h"
 #import "SelectPayMethohViewController.h"
 
 #define widthSize 414.0/320
@@ -36,7 +35,6 @@
     UILabel *label;
     NSTimer *timer;
 }
-@property (nonatomic,strong)MBProgressHUD *loadingHud;
 @end
 
 @implementation OrderViewController
@@ -411,7 +409,7 @@
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         DLog(@"%@",responseObject);
-        [_loadingHud hideAnimated:YES];
+        [self.loadingHud hideAnimated:YES];
         UIAlertController *alertCon = [UIAlertController alertControllerWithTitle:nil message:@"已提醒发货" preferredStyle:UIAlertControllerStyleAlert];
         
         timer = [NSTimer scheduledTimerWithTimeInterval:0.3  target:self selector:@selector(hide) userInfo:nil repeats:NO];
@@ -437,6 +435,7 @@
 {
 #pragma dic MD5
     NSDictionary * Ndic = [self md5DicWith:dic];
+    
     AFHTTPSessionManager *manager = [self sharedManager];;
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
@@ -445,8 +444,8 @@
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         DLog(@"%@",responseObject);
-        [_loadingHud hideAnimated:YES];
-        _loadingHud =nil;
+        [self.loadingHud hideAnimated:YES];
+        self.loadingHud =nil;
         orderTableView.userInteractionEnabled = YES;
         if (![responseObject[@"data"] isEqual:[NSNull null]]) {
             jsonArr = [NSArray arrayWithArray:responseObject[@"data"]];
@@ -479,21 +478,6 @@
 }
 
 
-#pragma mark -- 加载动画
--(void)setMBHUD{
-    _loadingHud = [MBProgressHUD showHUDAddedTo:orderTableView animated:YES];
-    // Set the custom view mode to show any view.
-    /*
-     _loadingHud.mode = MBProgressHUDModeCustomView;
-     UIImage *gif = [UIImage sd_animatedGIFNamed:@"youpinji"];
-     
-     UIImageView *gifView = [[UIImageView alloc]initWithImage:gif];
-     _loadingHud.customView = gifView;
-     */
-    _loadingHud.bezelView.backgroundColor = [UIColor clearColor];
-    _loadingHud.animationType = MBProgressHUDAnimationFade;
-    _loadingHud.backgroundColor = [UIColor whiteColor];
-}
 
 -(void)hide
 {

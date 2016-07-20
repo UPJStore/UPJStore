@@ -11,7 +11,6 @@
 #import "CommodModel.h"
 #import "EvaluateViewController.h"
 #import "CommodView.h"
-#import "MBProgressHUD.h"
 #import "SelectPayMethohViewController.h"
 #import "GoodSDetailViewController.h"
 
@@ -26,7 +25,6 @@
     UIView *btnView;
     NSTimer *timer;
 }
-@property (nonatomic,strong)MBProgressHUD *loadingHud;
 @end
 
 @implementation OrderDetailsViewController
@@ -383,8 +381,8 @@
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         DLog(@"%@",responseObject);
-        [_loadingHud hideAnimated:YES];
-        _loadingHud = nil;
+        [self.loadingHud hideAnimated:YES];
+        self.loadingHud = nil;
         [self pop];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         DLog(@"failure%@",error);
@@ -413,8 +411,8 @@
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         DLog(@"%@",responseObject);
-        [_loadingHud hideAnimated:YES];
-        _loadingHud = nil;
+        [self.loadingHud hideAnimated:YES];
+        self.loadingHud = nil;
         UIAlertController *alertCon = [UIAlertController alertControllerWithTitle:nil message:@"已提醒发货" preferredStyle:UIAlertControllerStyleAlert];
         timer = [NSTimer scheduledTimerWithTimeInterval:0.3  target:self selector:@selector(hide) userInfo:nil repeats:NO];
         [self presentViewController:alertCon animated:YES completion:nil];
@@ -465,8 +463,8 @@
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         DLog(@"%@",responseObject);
-        [_loadingHud hideAnimated:YES];
-        _loadingHud = nil;
+        [self.loadingHud hideAnimated:YES];
+        self.loadingHud = nil;
         [self pop];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         DLog(@"failure%@",error);
@@ -494,21 +492,6 @@
     [self.navigationController pushViewController:EVC animated:YES];
 }
 
-#pragma mark -- 加载动画
--(void)setMBHUD{
-    _loadingHud = [MBProgressHUD showHUDAddedTo:scrollView animated:YES];
-    // Set the custom view mode to show any view.
-    /*
-     _loadingHud.mode = MBProgressHUDModeCustomView;
-     UIImage *gif = [UIImage sd_animatedGIFNamed:@"youpinji"];
-     
-     UIImageView *gifView = [[UIImageView alloc]initWithImage:gif];
-     _loadingHud.customView = gifView;
-     */
-    _loadingHud.bezelView.backgroundColor = [UIColor clearColor];
-    _loadingHud.animationType = MBProgressHUDAnimationFade;
-    _loadingHud.backgroundColor = [UIColor whiteColor];
-}
 
 -(void)viewWillAppear:(BOOL)animated
 {
