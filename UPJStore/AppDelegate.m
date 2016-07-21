@@ -257,7 +257,7 @@
 }
 -(void)getUserInfo{
     // https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID
-    
+    [self.window.rootViewController setMBHUD];
     NSString *url =[NSString stringWithFormat:@"https://api.weixin.qq.com/sns/userinfo?access_token=%@&openid=%@",self.access_token,self.openid];
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -281,7 +281,7 @@
 #pragma mark -- 传openid给后台验证
                 NSDictionary *dic0 = @{@"app_wechat_openid":self.openid,@"appkey":APPkey,@"unionid":self.unionid};
                 DLog(@"%@",dic0);
-                AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+                AFHTTPSessionManager *manager = [AppDelegate sharedManager];
                 manager.responseSerializer = [AFJSONResponseSerializer serializer];
                 //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
 
@@ -291,7 +291,8 @@
                 [manager POST:kOther parameters:Ndic progress:^(NSProgress * _Nonnull uploadProgress) {
                 } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                     DLog(@"%@",responseObject);
-                    
+                    [self.window.rootViewController.loadingHud hideAnimated:YES];
+                    self.window.rootViewController.loadingHud =nil;
                     NSNumber *number = [responseObject valueForKey:@"errcode"];
                     errcode = [NSString stringWithFormat:@"%@",number];
                     //未绑定账号
@@ -480,37 +481,54 @@
 -(void)VersionBUtton
 {
     
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager *manager = [AppDelegate sharedManager];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
 //    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", nil];
 
     [manager GET:@"https://itunes.apple.com/lookup?id=1104253189" parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
     {
      #pragma 获取数据json化。
-        NSDictionary * dic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
+        NSDictionary * dic;
+        if ([responseObject isKindOfClass:[NSData class]]) {
+          dic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
+
+        }else    dic = responseObject;
+
+        
         NSArray * verarr = dic[@"results"];
         NSDictionary * dic2 =verarr[0];
         NSString *verStr = dic2[@"version"];
         
-        NSArray * data2Arr = [NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://m.upinkji.com/api/version/all?appkey=%@",APPkey]]] options:NSJSONReadingAllowFragments error:nil];
-        
-        NSString * nowVersion = [[[NSBundle mainBundle] infoDictionary]objectForKey:@"CFBundleVersion"];
-        
-        NSInteger i = 0;
-        for (NSDictionary * dic  in data2Arr) {
-            if ([dic[@"version"] isEqualToString:nowVersion]) {
+        NSDictionary * Versiondic = @{@"appkey":APPkey};
+        NSDictionary * Ndic = [self md5DicWith:Versiondic];
+        [manager POST:kAllVersion parameters:Ndic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            NSString * nowVersion = [[[NSBundle mainBundle] infoDictionary]objectForKey:@"CFBundleVersion"];
+            
+            NSInteger i = 0;
+            NSArray * arr;
+            if ([responseObject isKindOfClass:[NSData class]]) {
+                arr = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
                 
-                force_upgrade = dic[@"force_upgrade"];
-                DLog(@"%@",force_upgrade);
-            }
-            else
-                i++;
-        }
-        
-        [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(checkAppUpdate:) userInfo:verStr repeats:NO];
-        
-        
+            }else    arr = responseObject;
 
+            for (NSDictionary * dic  in arr)
+            {
+                if ([dic[@"version"] isEqualToString:nowVersion]) {
+                    
+                    force_upgrade = dic[@"force_upgrade"];
+                    DLog(@"%@",force_upgrade);
+                }
+                else
+                    i++;
+            }
+            
+                 [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(checkAppUpdate:) userInfo:verStr repeats:NO];
+
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            
+        }];
+        
+    
     } failure:^(NSURLSessionTask *operation, NSError *error) {
         NSLog(@"Error: %@", error);
     }];    
@@ -523,8 +541,22 @@
 {
     NSString * nowVersion = [[[NSBundle mainBundle] infoDictionary]objectForKey:@"CFBundleVersion"];
     DLog(@"新版本 ： %@ ，当前版本 %@ ",[timer userInfo],nowVersion);
+    float newVersionF = [[timer userInfo] floatValue]*100;
+    float nowVersionF = [nowVersion floatValue]*100;
     
-    if ([[timer userInfo] doubleValue] > [nowVersion doubleValue]&& inAppCount == 0 )
+    if (![[[timer userInfo] substringFromIndex:[(NSString*)[timer userInfo] length]-1] isEqualToString:@"0"])
+    {
+        int SVersion = [[[timer userInfo] substringFromIndex:[(NSString*)[timer userInfo] length]-1] intValue];
+        newVersionF = (newVersionF + SVersion);
+    }
+
+    if (![[nowVersion substringFromIndex:nowVersion.length-1] isEqualToString:@"0"])
+    {
+        int SVersion = [[nowVersion substringFromIndex:nowVersion.length-1] intValue];
+        nowVersionF = (nowVersionF + SVersion);
+    }
+    
+    if (newVersionF > nowVersionF && inAppCount == 0 )
     {
         
         DLog(@"新版本 ： %@ ，当前版本 %@ ",[timer userInfo],nowVersion);
@@ -635,6 +667,21 @@
         exit(0);
     }];
     //exit(0);
+    
+}
+
++(AFHTTPSessionManager *)sharedManager
+{
+    static AFHTTPSessionManager *manager = nil;
+    static dispatch_once_t onceToken;
+    
+    dispatch_once(&onceToken, ^{
+        
+        manager = [AFHTTPSessionManager manager];
+        
+    });
+    
+    return manager;
     
 }
 

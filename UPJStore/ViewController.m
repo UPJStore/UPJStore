@@ -23,7 +23,6 @@
 #import "CodeViewController.h"
 #import "ActivityViewController.h"
 #import "OthersModel.h"
-#import "MBProgressHUD.h"
 #import "GoodSDetailViewController.h"
 #import "AfterSearchViewController.h"
 #import "CollectModel.h"

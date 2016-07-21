@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "AppDelegate.h"
-
+#import "MBProgressHUD.h"
 
 
 CG_INLINE CGSize
@@ -84,6 +84,8 @@ CGRectMakeCode(CGFloat x, CGFloat y, CGFloat width, CGFloat height){
 @interface UIViewController (CG)
 
 @property (nonatomic,assign) BOOL isShowTab;
+@property (nonatomic,strong)MBProgressHUD *loadingHud;
+
 
 -(AFHTTPSessionManager *)sharedManager;
 
@@ -141,5 +143,12 @@ CGRectMakeCode(CGFloat x, CGFloat y, CGFloat width, CGFloat height){
 -(BOOL)hideTabBarWithTabState:(BOOL) tabBarIsShow;
 
 -(BOOL)showTabBarWithTabState:(BOOL) tabBarIsShow;
+
+#pragma mark -- 网络错误提示
+
+
+#pragma mark -- 加载动画
+-(void)setMBHUD;
+
 
 @end

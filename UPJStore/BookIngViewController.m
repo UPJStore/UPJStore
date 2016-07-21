@@ -13,7 +13,6 @@
 #import "UIImageView+WebCache.h"
 #import "MyAddressViewController.h"
 #import "PaySuccessViewController.h"
-#import "MBProgressHUD.h"
 #import "SelectPayMethohViewController.h"
 #import "ChooseCouponViewController.h"
 
@@ -34,7 +33,6 @@
     UILabel *couponLabel;
     NSDictionary * couponDic;
 }
-@property (nonatomic,strong)MBProgressHUD *loadingHud;
 @end
 
 
@@ -417,21 +415,6 @@
     return totalPrice;
 }
 
-#pragma mark -- 加载动画
--(void)setMBHUD{
-    _loadingHud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    // Set the custom view mode to show any view.
-    /*
-     _loadingHud.mode = MBProgressHUDModeCustomView;
-     UIImage *gif = [UIImage sd_animatedGIFNamed:@"youpinji"];
-     
-     UIImageView *gifView = [[UIImageView alloc]initWithImage:gif];
-     _loadingHud.customView = gifView;
-     */
-    _loadingHud.bezelView.backgroundColor = [UIColor clearColor];
-    _loadingHud.animationType = MBProgressHUDAnimationFade;
-    _loadingHud.backgroundColor = [UIColor whiteColor];
-}
 
 - (void)handlePayResult:(NSNotification *)noti
 {
@@ -477,9 +460,9 @@
         }
         
     }
-    if (_loadingHud != nil) {
-        [_loadingHud setHidden:YES];
-        _loadingHud = nil;
+    if (self.loadingHud != nil) {
+        [self.loadingHud setHidden:YES];
+        self.loadingHud = nil;
     }
     
     [self addsInfoWithDic:_addsDic];

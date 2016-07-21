@@ -11,7 +11,6 @@
 #import "AddressModel.h"
 #import "AddressTableViewCell.h"
 #import "UIViewController+CG.h"
-#import "MBProgressHUD.h"
 
 @interface MyAddressViewController ()<UITableViewDataSource,UITableViewDelegate,tableViewReflash,editbtnAction>
 {
@@ -24,7 +23,6 @@
     NSArray *jsonArr;
     NSArray *dataArr;
 }
-@property (nonatomic,strong)MBProgressHUD *loadingHud;
 
 @end
 
@@ -122,7 +120,7 @@
         label2.hidden = NO;
         addressTableView.hidden = YES;
     }
-    [_loadingHud hideAnimated:YES];
+    [self.loadingHud hideAnimated:YES];
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -248,21 +246,6 @@
     [self postaddress];
 }
 
-#pragma mark -- 加载动画
--(void)setMBHUD{
-    _loadingHud = [MBProgressHUD showHUDAddedTo:addressTableView animated:YES];
-    // Set the custom view mode to show any view.
-    /*
-     _loadingHud.mode = MBProgressHUDModeCustomView;
-     UIImage *gif = [UIImage sd_animatedGIFNamed:@"youpinji"];
-     
-     UIImageView *gifView = [[UIImageView alloc]initWithImage:gif];
-     _loadingHud.customView = gifView;
-     */
-    _loadingHud.bezelView.backgroundColor = [UIColor clearColor];
-    _loadingHud.animationType = MBProgressHUDAnimationFade;
-    _loadingHud.backgroundColor = [UIColor whiteColor];
-}
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {

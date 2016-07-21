@@ -17,7 +17,6 @@
 #import "MyAddressViewController.h"
 #import "GoodSDetailViewController.h"
 #import "OrderViewController.h"
-#import "MBProgressHUD.h"
 #import "ChooseCouponViewController.h"
 
 
@@ -39,7 +38,6 @@
 @property (nonatomic,strong) UILabel * PriceLabel;
 @property (nonatomic,strong) NSDictionary *modelDic;
 @property (nonatomic,strong) NSDictionary * addsDic;
-@property (nonatomic,strong)MBProgressHUD *loadingHud;
 @property (nonatomic,strong) UILabel * noLabel;
 @property (nonatomic,strong) UIView * noView;
 @property (nonatomic,strong) UILabel * couponLabel;
@@ -183,8 +181,8 @@
             selectVC.orderID = orderID;
             selectVC.totalPrice = [NSString stringWithFormat:@"¥%.2f元", [_modelDic[@"total_price"] floatValue]-[couponDic[@"reduce"] floatValue]+[_modelDic[@"dispatch"] floatValue]];
             [self.navigationController pushViewController:selectVC animated:YES];
-            [_loadingHud hideAnimated:YES];
-            _loadingHud = nil;
+            [self.loadingHud hideAnimated:YES];
+            self.loadingHud = nil;
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             
             DLog(@"error : %@",error);
@@ -193,21 +191,6 @@
     }
 }
 
-#pragma mark -- 加载动画
--(void)setMBHUD{
-    _loadingHud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    // Set the custom view mode to show any view.
-    /*
-     _loadingHud.mode = MBProgressHUDModeCustomView;
-     UIImage *gif = [UIImage sd_animatedGIFNamed:@"youpinji"];
-     
-     UIImageView *gifView = [[UIImageView alloc]initWithImage:gif];
-     _loadingHud.customView = gifView;
-     */
-    _loadingHud.bezelView.backgroundColor = [UIColor clearColor];
-    _loadingHud.animationType = MBProgressHUDAnimationFade;
-    _loadingHud.backgroundColor = [UIColor whiteColor];
-}
 
 - (void)handlePayResult:(NSNotification *)noti{
     DLog(@"Notifiction Object : %@",noti.object);

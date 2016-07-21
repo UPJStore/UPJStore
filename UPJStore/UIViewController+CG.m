@@ -12,21 +12,13 @@
 
 @implementation UIViewController (CG)
 
+
 -(AFHTTPSessionManager *)sharedManager
 {
-    static AFHTTPSessionManager *manager = nil;
-    static dispatch_once_t onceToken;
     
-    dispatch_once(&onceToken, ^{
-        
-        manager = [AFHTTPSessionManager manager];
-        
-    });
-    
-    return manager;
+    return [AppDelegate sharedManager];
     
 }
-
 -(NSData*)returnImageData
 {
     NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
@@ -288,5 +280,41 @@ static const void *isShowTabKey = &isShowTabKey;
                      }];
     return YES;
 }
+
+
+#pragma 加载动画属性
+
+static const void * loadingHudKey = &loadingHudKey;
+
+@dynamic loadingHud;
+
+-(MBProgressHUD *)loadingHud
+{
+    return  objc_getAssociatedObject(self, loadingHudKey);
+}
+
+-(void)setLoadingHud:(MBProgressHUD *)loadingHud
+{
+    objc_setAssociatedObject(self, loadingHudKey, loadingHud, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+
+
+#pragma mark -- 加载动画
+-(void)setMBHUD{
+    self.loadingHud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    // Set the custom view mode to show any view.
+    /*
+     self.loadingHud.mode = MBProgressHUDModeCustomView;
+     UIImage *gif = [UIImage sd_animatedGIFNamed:@"youpinji"];
+     
+     UIImageView *gifView = [[UIImageView alloc]initWithImage:gif];
+     self.loadingHud.customView = gifView;
+     */
+//    self.loadingHud.bezelView.backgroundColor = [UIColor clearColor];
+//    self.loadingHud.animationType = MBProgressHUDAnimationFade;
+//    self.loadingHud.backgroundColor = [UIColor whiteColor];
+}
+
 
 @end
