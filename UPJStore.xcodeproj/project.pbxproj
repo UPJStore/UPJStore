@@ -199,13 +199,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0C00B0781B94AD400C71A961 /* Pods-UPJStore.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UPJStore.release.xcconfig"; path = "Pods/Target Support Files/Pods-UPJStore/Pods-UPJStore.release.xcconfig"; sourceTree = "<group>"; };
+		0896EB6AEBC85E39FFE9B571 /* Pods-UPJStore.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UPJStore.debug.xcconfig"; path = "Pods/Target Support Files/Pods-UPJStore/Pods-UPJStore.debug.xcconfig"; sourceTree = "<group>"; };
 		2507FF3F1CB5F3F900B51ABA /* area.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = area.plist; sourceTree = "<group>"; };
 		25C090421C8ECC9B0057A5CB /* cookiebutton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cookiebutton@2x.png"; sourceTree = "<group>"; };
 		25C090431C8ECC9B0057A5CB /* ershi@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ershi@2x.png"; sourceTree = "<group>"; };
 		25C090471C8ECC9B0057A5CB /* cookieicon_04@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cookieicon_04@2x.png"; sourceTree = "<group>"; };
 		25C090481C8ECC9B0057A5CB /* wushi@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wushi@2x.png"; sourceTree = "<group>"; };
 		25C090491C8ECC9B0057A5CB /* shi@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shi@2x.png"; sourceTree = "<group>"; };
+		5EF4DD9C2249956C9AE96234 /* Pods-UPJStore.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UPJStore.release.xcconfig"; path = "Pods/Target Support Files/Pods-UPJStore/Pods-UPJStore.release.xcconfig"; sourceTree = "<group>"; };
 		61D351EFA8468C9DC1A51A45 /* libPods-UPJStore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-UPJStore.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D100734E1C9FE2480052EBE9 /* UIView+cg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+cg.h"; sourceTree = "<group>"; };
 		D100734F1C9FE2480052EBE9 /* UIView+cg.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+cg.m"; sourceTree = "<group>"; };
@@ -594,7 +595,6 @@
 		E30AD78B1C719F6F00B5188C /* UPJStoreUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UPJStoreUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E30AD78F1C719F6F00B5188C /* UPJStoreUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UPJStoreUITests.m; sourceTree = "<group>"; };
 		E30AD7911C719F6F00B5188C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E31996A2FD75F4C47B0AEA06 /* Pods-UPJStore.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UPJStore.debug.xcconfig"; path = "Pods/Target Support Files/Pods-UPJStore/Pods-UPJStore.debug.xcconfig"; sourceTree = "<group>"; };
 		E3E43CCD1C72C3EC00E875F5 /* SearchAndSortViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchAndSortViewController.h; sourceTree = "<group>"; };
 		E3E43CCE1C72C3EC00E875F5 /* SearchAndSortViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchAndSortViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -659,8 +659,8 @@
 		AE73D46F5B5553B9919E3365 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				E31996A2FD75F4C47B0AEA06 /* Pods-UPJStore.debug.xcconfig */,
-				0C00B0781B94AD400C71A961 /* Pods-UPJStore.release.xcconfig */,
+				0896EB6AEBC85E39FFE9B571 /* Pods-UPJStore.debug.xcconfig */,
+				5EF4DD9C2249956C9AE96234 /* Pods-UPJStore.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -1926,7 +1926,7 @@
 		};
 		E30AD7951C719F7000B5188C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E31996A2FD75F4C47B0AEA06 /* Pods-UPJStore.debug.xcconfig */;
+			baseConfigurationReference = 0896EB6AEBC85E39FFE9B571 /* Pods-UPJStore.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1983,7 +1983,7 @@
 		};
 		E30AD7961C719F7000B5188C /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0C00B0781B94AD400C71A961 /* Pods-UPJStore.release.xcconfig */;
+			baseConfigurationReference = 5EF4DD9C2249956C9AE96234 /* Pods-UPJStore.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
