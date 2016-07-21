@@ -104,6 +104,7 @@
         DLog(@"%@",responseObject);
         NSDictionary *dic = responseObject;
         NSArray *arr = [dic mutableArrayValueForKey:@"data"];
+        
         for (NSDictionary *dic in arr ) {
             MapAddressModel *model = [[MapAddressModel alloc]init];
             [model setValuesForKeysWithDictionary:dic];
