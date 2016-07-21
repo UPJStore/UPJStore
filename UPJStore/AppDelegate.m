@@ -382,7 +382,7 @@
         }
     }
     
-//    DLog(@"str = %@",str);
+    DLog(@"str = %@",str);
     
     NSString *tokenStr = [self md5:str];
     
@@ -502,6 +502,11 @@
         NSDictionary * Versiondic = @{@"appkey":APPkey};
         NSDictionary * Ndic = [self md5DicWith:Versiondic];
         [manager POST:kAllVersion parameters:Ndic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            
+            
+            
+            
+            
             NSString * nowVersion = [[[NSBundle mainBundle] infoDictionary]objectForKey:@"CFBundleVersion"];
             
             NSInteger i = 0;
@@ -511,6 +516,15 @@
                 
             }else    arr = responseObject;
 
+            
+//            NSString * s = [arr valueForKey:@"data"];
+//            NSData *  datad = [s dataUsingEncoding:NSUTF8StringEncoding];
+//            NSDictionary * dic = [NSJSONSerialization JSONObjectWithData:datad options:NSJSONReadingMutableContainers error:nil];
+            
+
+            
+            
+            
             for (NSDictionary * dic  in arr)
             {
                 if ([dic[@"version"] isEqualToString:nowVersion]) {

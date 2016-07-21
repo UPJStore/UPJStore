@@ -118,6 +118,12 @@
         [manager POST:kADV parameters:Ndic progress:^(NSProgress * _Nonnull downloadProgress){}
               success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
          {
+             
+//             //字符串json化字典
+//             NSString * s = responseObject[@"data"];
+//             NSData *  datad = [s dataUsingEncoding:NSUTF8StringEncoding];
+//             NSDictionary * dic = [NSJSONSerialization JSONObjectWithData:datad options:NSJSONReadingMutableContainers error:nil];
+             
              NSArray * arr = responseObject;
              
              for (NSDictionary *dic  in arr)
