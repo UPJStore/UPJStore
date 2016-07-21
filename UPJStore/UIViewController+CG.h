@@ -134,6 +134,10 @@ CGRectMakeCode(CGFloat x, CGFloat y, CGFloat width, CGFloat height){
 
 -(void)setIsLoginwithIsLogin:(BOOL)isLogin;
 
+-(BOOL)returnIsAgent;
+
+-(void)setIsAgentwithIsAgent:(BOOL)isAgent;
+
 -(NSString *)md5:(NSString *)str;
 
 -(NSDictionary *)md5DicWith:(NSDictionary *)dic;

@@ -122,6 +122,7 @@
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"是的" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self setMidwithMid:@"0"];
         [self setIsLoginwithIsLogin:NO];
+        [self setIsAgentwithIsAgent:NO];
         [self.delegate midlogout];
         [self pop];
     }];

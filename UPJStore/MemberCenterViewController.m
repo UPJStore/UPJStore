@@ -72,8 +72,17 @@
     [_headerView.imageView addGestureRecognizer:singleRecongnizer];
     PerInfView * perinfView = [[PerInfView alloc]initWithFrame:CGRectMake1(0, 124*widthSize, k6PWidth, 52*widthSize)];
     perinfView.delegate =self;
-    
-    _arr = @[@"收货地址",@"我的优惠券",@"关于友品集",@"意见反馈",@"客服热线",@"我的会员",@"代理商入口"];
+    if (self.islogin) {
+        if ([self returnIsAgent]) {
+            _arr = @[@"收货地址",@"我的优惠券",@"关于友品集",@"意见反馈",@"客服热线",@"我的会员",@"代理商入口"];
+        }else
+        {
+            _arr = @[@"收货地址",@"我的优惠券",@"关于友品集",@"意见反馈",@"客服热线",@"我的会员"];
+        }
+    }else
+    {
+        _arr = @[@"收货地址",@"我的优惠券",@"关于友品集",@"意见反馈",@"客服热线",@"我的会员"];
+    }
     _scrollView = [[UIScrollView alloc]initWithFrame:[UIScreen mainScreen].bounds];
     _scrollView.scrollEnabled = YES;
     _scrollView.delegate = self;
@@ -362,6 +371,17 @@
     {
         [self setImagewithImage:@"0"];
     }
+    if([model.member_agent_id isEqualToString:@"0"])
+    {
+        [self setIsAgentwithIsAgent:NO];
+    }else
+    {
+        [self setIsAgentwithIsAgent:YES];
+    }
+    if ([self returnIsAgent]) {
+        _arr = @[@"收货地址",@"我的优惠券",@"关于友品集",@"意见反馈",@"客服热线",@"我的会员",@"代理商入口"];
+    }
+    [_memberView reloadData];
     [self setIsLoginwithIsLogin:YES];
     [self postaddress];
     [self postcollect];
@@ -550,6 +570,18 @@
     self.navigationController.navigationBar.translucent = NO;
     self.mid = [self returnMid];
     self.islogin = [self returnIsLogin];
+    if (self.islogin) {
+        if ([self returnIsAgent]) {
+            _arr = @[@"收货地址",@"我的优惠券",@"关于友品集",@"意见反馈",@"客服热线",@"我的会员",@"代理商入口"];
+        }else
+        {
+            _arr = @[@"收货地址",@"我的优惠券",@"关于友品集",@"意见反馈",@"客服热线",@"我的会员"];
+        }
+    }else
+    {
+        _arr = @[@"收货地址",@"我的优惠券",@"关于友品集",@"意见反馈",@"客服热线",@"我的会员"];
+    }
+    [_memberView reloadData];
     [_headerView islogin:[self returnIsLogin]];
     [_headerView update:[self returnNickName]];
 }
@@ -564,6 +596,7 @@
 
 -(void)midlogout
 {
+    
     [_headerView logoutfinish];
 }
 

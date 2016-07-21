@@ -304,6 +304,14 @@
         {
             [self setImagewithImage:@"0"];
         }
+        if([model.member_agent_id isEqualToString:@"0"])
+        {
+            [self setIsAgentwithIsAgent:NO];
+        }else
+        {
+            [self setIsAgentwithIsAgent:YES];
+        }
+        
         [self setIsLoginwithIsLogin:YES];
         [self postaddress];
         [self postcollect];

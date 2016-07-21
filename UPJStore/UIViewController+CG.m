@@ -152,6 +152,18 @@
     [userDefaults setBool:isLogin forKey:@"islogin"];
 }
 
+-(BOOL)returnIsAgent
+{
+    NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+    return [userDefaults boolForKey:@"isagent"];
+}
+
+-(void)setIsAgentwithIsAgent:(BOOL)isAgent
+{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setBool:isAgent forKey:@"isagent"];
+}
+
 -(NSString *)md5:(NSString *)str {
     
     const char* cStr = [str UTF8String];
