@@ -105,8 +105,9 @@
         commodView.goodDetailBtn.tag = [commodmodel.aid integerValue];
         [commodView.button addTarget:self action:@selector(evaluateAction:) forControlEvents:UIControlEventTouchUpInside];
         
-        UIImage *image=[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:commodmodel.thumb]]];
-        UIImageView *imageView = [[UIImageView alloc]initWithImage:image];
+        UIImageView *imageView = [[UIImageView alloc]init];
+        [imageView sd_setImageWithURL:[NSURL URLWithString:commodmodel.thumb] placeholderImage:[UIImage imageNamed:@"lbtP"]];
+        imageView.contentMode = UIViewContentModeScaleAspectFit;
         imageView.frame  = CGRectMake1(10, 10, 85, 85);
         [imageView.layer setBorderWidth:0.5];
         [imageView.layer setCornerRadius:5];
