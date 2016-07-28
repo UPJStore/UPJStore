@@ -17,5 +17,8 @@
 @property (nonatomic, strong)NSString *sales;
 @property (nonatomic, strong)NSString *thumb;
 @property (nonatomic, strong)NSString *descriptionStr;
+@property (nonatomic, strong)NSString *img;
+@property (nonatomic, strong)NSString *pcate;
+@property (nonatomic, strong)NSString *country;
 
 @end

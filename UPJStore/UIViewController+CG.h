@@ -148,6 +148,10 @@ CGRectMakeCode(CGFloat x, CGFloat y, CGFloat width, CGFloat height){
 
 -(BOOL)showTabBarWithTabState:(BOOL) tabBarIsShow;
 
+-(BOOL)returnIsFromHomePage;
+
+-(void)setIsFromHomePagewithIsFromHomePage:(BOOL)isFromHomePage;
+
 #pragma mark -- 网络错误提示
 
 

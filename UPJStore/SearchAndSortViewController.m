@@ -47,6 +47,7 @@
 @property (nonatomic,strong)UIView *noNetworkView;
 @property (nonatomic,assign) NSInteger count;
 @property (nonatomic,strong) NSMutableArray * PcateArr, * desArr;
+@property (nonatomic,assign)BOOL isFromhomePage;
 @end
 
 
@@ -851,7 +852,14 @@
     self.isShowTab = NO;
     
     [self showTabBarWithTabState:self.isShowTab];
-
+  /*  if([self returnIsFromHomePage])
+    {
+        AppDelegate *app = [[UIApplication sharedApplication]delegate];
+        _lineView.frame=CGRectMake1(222, 34, 50, 2/app.autoSizeScaleY);
+        _differentScrollView.contentOffset = CGPointMake(kWidth, _differentScrollView.contentOffset.y);
+        [self setIsFromHomePagewithIsFromHomePage:NO];
+    }
+   */
 }
 
 
@@ -862,6 +870,18 @@
 
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBar.translucent = NO;
+    if([self returnIsFromHomePage])
+    {
+        AppDelegate *app = [[UIApplication sharedApplication]delegate];
+        _lineView.frame=CGRectMake1(222, 34, 50, 2/app.autoSizeScaleY);
+        _differentScrollView.contentOffset = CGPointMake(kWidth, _differentScrollView.contentOffset.y);
+        [self setIsFromHomePagewithIsFromHomePage:NO];
+    }
+}
 
 #pragma Mark--请求数据超时显示页面；
 -(void)ReloadDataWithCase:(NSInteger)count

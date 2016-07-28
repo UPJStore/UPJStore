@@ -11,6 +11,7 @@
 @interface AfterSearchViewController : UIViewController
 
 @property (nonatomic,strong) NSString *KeyWord;
+@property (nonatomic,strong) NSString *pcate;
 @property (nonatomic,assign) BOOL isFromBtn;
 @property (nonatomic,assign) BOOL isFromLBT;
 @property (nonatomic,strong)UIColor *backgroundColor;

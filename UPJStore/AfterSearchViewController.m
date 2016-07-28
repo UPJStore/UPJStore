@@ -42,8 +42,16 @@
         self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor colorFromHexRGB:@"cc2245"]};
 
     }
-    [self getDataWithStr:_KeyWord];
-    
+    if(_KeyWord.length !=0)
+    {
+    NSDictionary * dic =@{@"appkey":APPkey,@"keyword":_KeyWord};
+    [self getDataWithdic:dic];
+    }
+    else
+    {
+     NSDictionary * dic =@{@"appkey":APPkey,@"pcate":_pcate};
+        [self getDataWithdic:dic];
+    }
 
     _goodsArr =[NSMutableArray array];
 
@@ -74,9 +82,8 @@
     
 }
 
--(void)getDataWithStr:(NSString *)str
+-(void)getDataWithdic:(NSDictionary *)dic
 {
-    NSDictionary * dic =@{@"appkey":APPkey,@"key":str};
 #pragma dic MD5
     NSDictionary * Ndic = [self md5DicWith:dic];
     
@@ -93,16 +100,16 @@
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         DLog(@"%@",responseObject);
         
-       NSArray* arrr = responseObject;
+       NSArray* arr = responseObject[@"product"];
         
-        for (NSDictionary *dic in arrr) {
+        for (NSDictionary *dic in arr) {
             SearchModel * model = [[SearchModel alloc]init];
             [model setValuesForKeysWithDictionary:dic];
             model.goodId = [dic valueForKey:@"id"];
             [_goodsArr addObject: model];
         }
         
-        if (arrr.count != 0) {
+        if (arr.count != 0) {
              [self initGoodCollectionView];
         }
         else
@@ -165,7 +172,7 @@
 {
     if (_isFromLBT) {
     if (section == 0) {
-        return CGSizeMake1(k6PWidth, 275);
+        return CGSizeMake1(k6PWidth, 400);
     }else
         return CGSizeMake1(k6PWidth, 40);
         
@@ -184,11 +191,11 @@
             
                 UICollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header1" forIndexPath:indexPath];
                 if (headerView.subviews.count < 1) {
-                    UIImageView *headerImgView = [[UIImageView alloc]initWithFrame:CGRectMake1(0, 0, 414, 195)];
+                    UIImageView *headerImgView = [[UIImageView alloc]initWithFrame:CGRectMake1(0, 0, 414, 320)];
                     
                     [headerImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:kSImageUrl,_thumb]] placeholderImage:[UIImage imageNamed:@"lbtP"]];
                     
-                    UILabel *selectLabel = [[UILabel alloc]initWithFrame:CGRectMake1(10,196, 414-20,80)];
+                    UILabel *selectLabel = [[UILabel alloc]initWithFrame:CGRectMake1(10,320, 414-20,80)];
                     selectLabel.text = _descriptionText;
                     selectLabel.numberOfLines = 0;
                     selectLabel.font = [UIFont systemFontOfSize:CGFloatMakeY(13)];
@@ -196,7 +203,7 @@
                     UIColor *fontcolor = [UIColor colorWithRed:153.0/255 green:153.0/255 blue:153.0/255 alpha:1];
                     selectLabel.textColor = fontcolor;
                     
-                    UILabel *linelabel = [[UILabel alloc]initWithFrame:CGRectMake(0, CGFloatMakeY(276), self.view.bounds.size.width, 1)];
+                    UILabel *linelabel = [[UILabel alloc]initWithFrame:CGRectMake(0, CGFloatMakeY(400), self.view.bounds.size.width, 1)];
                     linelabel.backgroundColor = fontcolor;
                     
                     UIView *view2 = [[UIView alloc]initWithFrame:CGRectMake1(0, 0, 414, 50)];
@@ -303,7 +310,7 @@
     
     SearchModel *Model =self.goodsArr[indexPath.row];
     
-    [cell.goodsImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:kSImageUrl,Model.thumb]]placeholderImage:[UIImage imageNamed:@"lbtP"]];
+    [cell.goodsImageView sd_setImageWithURL:[NSURL URLWithString:Model.thumb]placeholderImage:[UIImage imageNamed:@"lbtP"]];
     cell.priceLabel.text = [NSString stringWithFormat:@"¥%@",Model.marketprice];
     cell.goodsImageView.contentMode = UIViewContentModeScaleAspectFit;
     cell.titleLabel.text = Model.title;

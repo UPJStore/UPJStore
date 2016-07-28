@@ -64,7 +64,7 @@
 
 #define kTitleURL @"http://m.upinkji.com/api/Goods/search1"
 
-#define kSSearchUrl @"http://m.upinkji.com/api/goods/search.html"
+#define kSSearchUrl @"http://m.upinkji.com/api/product/search.html"
 
 #define kSBrandGoodUrl @"http://m.upinkji.com/api/goods/goodslist.html"
 
@@ -122,7 +122,7 @@
 
 #define kCheckPhone @"http://m.upinkji.com/api/member/checkMemberByPhone"
 
-#define kHomePage @"http://m.upinkji.com/api/product/get"
+#define kHomePage @"http://m.upinkji.com/api/product/nget"
 
 #define kCKList @"http://m.upinkji.com/api/member/Myfans"
 
@@ -143,6 +143,10 @@
 #define kSecKill @"http://m.upinkji.com/api/product/seckill"
 
 #define kAllVersion @"http://m.upinkji.com/api/version/all"
+
+#define kHomepageImage @"http://m.upinkji.com/api/product/img"
+
+#define KCategory  @"http://m.upinkji.com/api/product/category_hot"
 
 
 #define kWidth [UIScreen mainScreen].bounds.size.width

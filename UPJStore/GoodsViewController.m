@@ -132,7 +132,7 @@
 }
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
     if (section == 0) {
-        return CGSizeMake1(414, 275);
+        return CGSizeMake1(414, 325);
     }
     return CGSizeMake1(414, 50);
 }
@@ -161,11 +161,11 @@
             UICollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"Header1" forIndexPath:indexPath];
             AppDelegate *app = [[UIApplication sharedApplication]delegate];
             
-            UIImageView *headerImgView = [[UIImageView alloc]initWithFrame:CGRectMake1(0, 0, 414, 195)];
+            UIImageView *headerImgView = [[UIImageView alloc]initWithFrame:CGRectMake1(0, 0, 414, 250)];
             
             headerImgView.image = self.headerImg;
             
-            UILabel *selectLabel = [[UILabel alloc]initWithFrame:CGRectMake1(10,196, 414-20,80)];
+            UILabel *selectLabel = [[UILabel alloc]initWithFrame:CGRectMake1(10,250, 414-20,80)];
             selectLabel.text = self.introduce;
             selectLabel.numberOfLines = 0;
             selectLabel.font = [UIFont systemFontOfSize:13*app.autoSizeScaleY];
@@ -173,7 +173,7 @@
             UIColor *fontcolor = [UIColor colorWithRed:153.0/255 green:153.0/255 blue:153.0/255 alpha:1];
             selectLabel.textColor = fontcolor;
             
-            UILabel *linelabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 276*app.autoSizeScaleY, self.view.bounds.size.width, 1)];
+            UILabel *linelabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 326*app.autoSizeScaleY, self.view.bounds.size.width, 1)];
             linelabel.backgroundColor = fontcolor;
             
             UIView *view2 = [[UIView alloc]initWithFrame:CGRectMake1(0, 0, 414, 50)];

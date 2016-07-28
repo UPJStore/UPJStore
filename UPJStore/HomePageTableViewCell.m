@@ -9,8 +9,13 @@
 #import "HomePageTableViewCell.h"
 #import "UIViewController+CG.h"
 #import "UIColor+HexRGB.h"
+#import "HomepageLabel.h"
+#import "CollectModel.h"
 
 @implementation HomePageTableViewCell
+{
+    UITableView *tableView;
+}
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -22,18 +27,93 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self)
     {
-        self.titleLabel = [[UILabel alloc]initWithFrame:CGRectMake1(0, 0, 414, 40)];
-        self.titleLabel.textAlignment = 1;
-        self.titleLabel.font = [UIFont systemFontOfSize:CGFloatMakeY(14)];
-        self.titleLabel.backgroundColor = [UIColor whiteColor];
-        self.titleLabel.textColor = [UIColor blackColor];
+        HomepageLabel *label = [[HomepageLabel alloc]initWithFrame:CGRectMake1(0, 217.5, 414, 50)];
+        [self addSubview:label];
         
-        self.footView = [[UIView alloc]init];
-        self.footView.backgroundColor = [UIColor colorFromHexRGB:@"f0f0f0"];
-        [self addSubview:self.titleLabel];
-        [self addSubview:self.footView];
+        tableView = [[UITableView alloc]initWithFrame:CGRectMake1(0, 267.5, 414, 1200)];
+        tableView.delegate = self;
+        tableView.dataSource = self;
+        tableView.backgroundColor = [UIColor whiteColor];
+       // tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        tableView.showsVerticalScrollIndicator = NO;
+        tableView.scrollEnabled =NO;
+        [tableView registerClass:[ProductTableViewCell class] forCellReuseIdentifier:@"cell"];
+        [self addSubview:tableView];
+        
+        _button = [UIButton buttonWithType:UIButtonTypeCustom];
+        _button.frame = CGRectMake1(0, 1467.5, 414, 40);
+        [_button setTitle:@"更多好货点这里 more" forState:UIControlStateNormal];
+        [_button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        _button.titleLabel.font = [UIFont systemFontOfSize:CGFloatMakeY(14)];
+        [self addSubview:_button];
+        
+        UIImageView *imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"morearrow.png"]];
+        imageView.frame = CGRectMake1(278, 10, 20, 20);
+        [_button addSubview:imageView];
+        
     }
     return self;
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 10;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return CGFloatMakeY(120);
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    ProductTableViewCell *cell = [[ProductTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    ProductModel *model  = _modelArr[indexPath.row];
+    cell.model = model;
+    cell.iscollect = [self iscollectioned:model.productId];
+    cell.delegate = self;
+    [cell.buyButton addTarget:self action:@selector(buyNowAction:) forControlEvents:UIControlEventTouchUpInside];
+    return cell;
+}
+
+-(void)tableViewreflash
+{
+    [tableView reloadData];
+}
+
+//判断方法
+-(BOOL)iscollectioned:(NSString*)goodsid
+{
+    if (self.islogin)
+    {
+        for (CollectModel * model in self.collectArr)
+        {
+            if ([goodsid isEqualToString:[model valueForKey:@"id"]]) {
+                return YES;
+            }
+        }
+        return NO;
+    }else
+    {
+        return NO;
+    }
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    ProductModel *model  = _modelArr[indexPath.row];
+    [self.deletage didselectAction:model.productId];
+}
+
+-(void)buyNowAction:(UIButton*)btn
+{
+    [self.deletage buyNowAction:btn];
+}
+
+-(BOOL)collectAction:(UIButton*)btn
+{
+    return [self.deletage collectNowAction:btn];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

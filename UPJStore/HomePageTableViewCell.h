@@ -7,11 +7,31 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ProductTableViewCell.h"
+@protocol btnAction;
 
-@interface HomePageTableViewCell : UITableViewCell
+@interface HomePageTableViewCell : UITableViewCell <UITableViewDataSource,UITableViewDelegate,collectAction>
 
-@property(nonatomic,strong)UILabel *titleLabel;
+@property(nonatomic,weak)id <btnAction>deletage;
 
-@property(nonatomic,strong)UIView *footView;
+@property(nonatomic,strong)NSArray *modelArr;
+
+@property(nonatomic)BOOL islogin;
+
+@property(nonatomic,strong)NSArray *collectArr;
+
+@property(nonatomic,strong)UIButton *button;
+
+-(void)tableViewreflash;
+
+@end
+
+@protocol btnAction <NSObject>
+
+-(void)buyNowAction:(UIButton*)btn;
+
+-(BOOL)collectNowAction:(UIButton*)btn;
+
+-(void)didselectAction:(NSString*)pid;
 
 @end

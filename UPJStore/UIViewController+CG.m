@@ -224,6 +224,18 @@
     [userDefaults setValue:conpon forKey:@"conpon"];
 }
 
+-(BOOL)returnIsFromHomePage
+{
+    NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+    return [userDefaults boolForKey:@"isFromHomePage"];
+}
+
+-(void)setIsFromHomePagewithIsFromHomePage:(BOOL)isFromHomePage
+{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setBool:isFromHomePage forKey:@"isFromHomePage"];
+}
+
 
 static const void *isShowTabKey = &isShowTabKey;
 

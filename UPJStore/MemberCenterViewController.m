@@ -565,6 +565,7 @@
 {
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = YES;
+    
     self.isShowTab = NO;
     [self showTabBarWithTabState:self.isShowTab];
     self.navigationController.navigationBar.translucent = NO;
