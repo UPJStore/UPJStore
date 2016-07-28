@@ -51,6 +51,7 @@
             NSURL *url=[NSURL URLWithString:commodmodel.thumb];
             UIImageView *imageView = [[UIImageView alloc]init];
             [imageView sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"lbtP"]];
+            imageView.contentMode = UIViewContentModeScaleAspectFit;
             imageView.frame  = CGRectMake1(10, 10, 85, 85);
             [imageView.layer setBorderWidth:0.5];
             [imageView.layer setCornerRadius:5];

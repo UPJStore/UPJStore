@@ -557,16 +557,18 @@
     DLog(@"新版本 ： %@ ，当前版本 %@ ",[timer userInfo],nowVersion);
     float newVersionF = [[timer userInfo] floatValue]*100;
     float nowVersionF = [nowVersion floatValue]*100;
+    NSArray *NewArr = [self getOnlyNum:[timer userInfo]];
+    NSArray *NowArr = [self getOnlyNum:nowVersion];
     
-    if (![[[timer userInfo] substringFromIndex:[(NSString*)[timer userInfo] length]-1] isEqualToString:@"0"])
+    if (NewArr.count == 3)
     {
-        int SVersion = [[[timer userInfo] substringFromIndex:[(NSString*)[timer userInfo] length]-1] intValue];
+        int SVersion = [NewArr[2] intValue];
         newVersionF = (newVersionF + SVersion);
     }
 
-    if (![[nowVersion substringFromIndex:nowVersion.length-1] isEqualToString:@"0"])
+    if (NowArr.count == 3)
     {
-        int SVersion = [[nowVersion substringFromIndex:nowVersion.length-1] intValue];
+        int SVersion = [NowArr[2] intValue];
         nowVersionF = (nowVersionF + SVersion);
     }
     
@@ -697,6 +699,14 @@
     
     return manager;
     
+}
+
+- (NSArray *)getOnlyNum:(NSString *)str  {
+    
+    NSString *onlyNumStr = [str stringByReplacingOccurrencesOfString:@"[^0-9.]" withString:@"" options:NSRegularExpressionSearch range:NSMakeRange(0, [str length])];
+    
+    NSArray *numArr = [onlyNumStr componentsSeparatedByString:@"."];
+    return numArr;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

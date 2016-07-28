@@ -27,7 +27,7 @@
 
 @property (nonatomic,strong) NSString *Level1Str;
 @property (nonatomic,strong) NSString *Level2Str;
-
+@property (nonatomic,assign) BOOL isLoading;
 @end
 
 @implementation CKListViewController
@@ -39,7 +39,7 @@
     self.navigationController.navigationBarHidden = NO;
     self.navigationController.navigationBar.translucent = NO;
     self.isShowTab =YES;
-    
+    _isLoading = NO;
     self.navigationItem.title = @"我的会员";
     self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor blackColor]};
@@ -77,6 +77,7 @@
     _pageCount = 1;
     
     [self MJHeader];
+
     // Do any additional setup after loading the view.
 
 }
@@ -102,14 +103,13 @@
 
 -(void)postTokenWithPage:(NSInteger)page
 {
-    
+    _isLoading = YES;
     AFHTTPSessionManager * manager = [self sharedManager];;
     
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     
     //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-
 
     NSDictionary * dic =@{@"member_id":[self returnMid],@"appkey":APPkey,@"page":[NSString stringWithFormat:@"%ld",(long)page]};
 
@@ -122,6 +122,11 @@
         DLog(@"%@",responseObject);
         
         NSDictionary * dic = responseObject;
+        if (page == 1) {
+            [_tableArr removeAllObjects];
+            [_Level1Arr removeAllObjects];
+            [_Level2Arr removeAllObjects];
+        }
         
         _Level1Str = [NSString stringWithFormat:@"%@",dic[@"count1"]];
         _Level2Str = [NSString stringWithFormat:@"%@",dic[@"count2"]];
@@ -176,13 +181,14 @@
         [self MJFooter];
         [self.tableview.mj_header endRefreshing];
         [self.tableview.mj_footer endRefreshing];
-
+        _isLoading = NO;
+        
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
         DLog(@"errer %@",error);
         [self.tableview.mj_header endRefreshing];
         [self.tableview.mj_footer endRefreshing];
-
+        _isLoading = NO;
     }];
     
 
@@ -193,18 +199,20 @@
 #pragma mark UITableView + 下拉刷新 默认
 - (void)MJHeader
 {
-    __unsafe_unretained __typeof(self) weakSelf = self;
+    if (_isLoading == NO)
+    {
+        __unsafe_unretained __typeof(self) weakSelf = self;
+        
+        // 设置回调（一旦进入刷新状态就会调用这个refreshingBlock）
+        self.tableview.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+            [weakSelf postTokenWithPage:1];
+        }];
+        // 马上进入刷新状态
+        [self.tableview.mj_header beginRefreshing];
+    }
     
-    // 设置回调（一旦进入刷新状态就会调用这个refreshingBlock）
-    self.tableview.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        [_tableArr removeAllObjects];
-        [_Level1Arr removeAllObjects];
-        [_Level2Arr removeAllObjects];
-        [weakSelf postTokenWithPage:1];
-    }];
     
-    // 马上进入刷新状态
-    [self.tableview.mj_header beginRefreshing];
+
 }
 
 - (void)MJFooter
@@ -214,7 +222,9 @@
     
     // 设置回调（一旦进入刷新状态就会调用这个refreshingBlock）
     self.tableview.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-        [weakSelf postTokenWithPage:_pageCount];
+        if (_isLoading == NO) {
+            [weakSelf postTokenWithPage:_pageCount];
+        }
     }];
 }
 
