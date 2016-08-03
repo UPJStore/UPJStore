@@ -20,7 +20,8 @@
 #import "APAuthV2Info.h"
 #import "DataSigner.h"
 #import "UIColor+HexRGB.h"
-@interface SelectPayMethohViewController ()<UITableViewDelegate,UITableViewDataSource>
+#import "JdPayViewController.h"
+@interface SelectPayMethohViewController ()<UITableViewDelegate,UITableViewDataSource,payreturn>
 
 @property (nonatomic,strong)UITableView *selectPayTabelView;
 @property (nonatomic,strong)UIView *orderInfoView;
@@ -89,7 +90,7 @@
 }
 #pragma mark -- tableview
 -(void)initTableView{
-    self.selectPayTabelView = [[UITableView alloc]initWithFrame:CGRectMake1(0,100,414,170) style:UITableViewStylePlain];
+    self.selectPayTabelView = [[UITableView alloc]initWithFrame:CGRectMake1(0,100,414,230) style:UITableViewStylePlain];
     self.selectPayTabelView.scrollEnabled = NO;
     self.selectPayTabelView.delegate = self;
     self.selectPayTabelView.dataSource = self;
@@ -108,13 +109,18 @@
         cell.payLabel.text = @"支付宝支付";
         cell.selectLogo.image = [UIImage imageNamed:@"biao"];
         [cell.sureBtn setTag:22];
+    }else if (indexPath.row == 2)
+    {
+        cell.payLabel.text = @"京东支付";
+        cell.selectLogo.image = [UIImage imageNamed:@"jdpay"];
+        [cell.sureBtn setTag:33];
     }
     return cell;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 3;
+    return 4;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -126,13 +132,21 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
      UIButton *wechatPayBtn = (UIButton *)[self.view viewWithTag:11];
      UIButton *AliPayBtn = (UIButton *)[self.view viewWithTag:22];
+    UIButton *JdPayBtn = (UIButton *)[self.view viewWithTag:33];
      if (indexPath.row == 0) {
          wechatPayBtn.selected = YES;
          AliPayBtn.selected = NO;
+         JdPayBtn.selected = NO;
      }
     if (indexPath.row == 1) {
         AliPayBtn.selected = YES;
         wechatPayBtn.selected = NO;
+        JdPayBtn.selected = NO;
+    }
+    if (indexPath.row == 2) {
+        JdPayBtn.selected = YES;
+        wechatPayBtn.selected = NO;
+        AliPayBtn.selected = NO;
     }
    
 }
@@ -158,6 +172,7 @@
 -(void)payAction{
       UIButton *wechatPay = (UIButton *)[self.view viewWithTag:11];
       UIButton *AliPay = (UIButton *)[self.view viewWithTag:22];
+    UIButton *JdPay = (UIButton *)[self.view viewWithTag:33];
     if (wechatPay.isSelected) {
         DLog(@"微信支付");
         if([WXApi isWXAppInstalled]){
@@ -168,6 +183,10 @@
     }else if (AliPay.isSelected){
         DLog(@"支付宝支付");
         [self goToAlipay];
+    }else if (JdPay.selected)
+    {
+        DLog(@"京东支付");
+        [self goToJdPay];
     }
 }
 #pragma mark -- 微信支付
@@ -212,6 +231,7 @@
         
     }];
 }
+
 - (void)handlePayResult:(NSNotification *)noti{
     DLog(@"Notifiction Object : %@",noti.object);
     UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"支付结果" message:[NSString stringWithFormat:@"%@",noti.object] preferredStyle:UIAlertControllerStyleActionSheet];
@@ -241,6 +261,7 @@
     [alert addAction:actionConfirm];
     [self presentViewController:alert animated:YES completion:nil];
 }
+
 #pragma mark -- 支付宝支付
 -(void)goToAlipay{
     NSDictionary *dic = @{@"appkey":APPkey,@"id":self.orderID,@"mid":[self returnMid]};
@@ -249,7 +270,7 @@
     AFHTTPSessionManager * manager = [self sharedManager];;
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html",nil];
     [manager POST:kAlipay parameters:Ndic progress:^(NSProgress * _Nonnull downloadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -328,6 +349,43 @@
     
     
 }
+
+#pragma mark -- 京东支付
+-(void)goToJdPay
+{
+    NSString *str1 = [NSString stringWithFormat:@"%@%@",[self returnMid],self.orderID];
+    NSString *str = [str1 stringByAppendingString:@"GVqI!%@pCrKk#fvKLXat24Ip"];
+    
+    NSString *nstr = [self md5:str];
+    
+    NSString *ustr = [NSString stringWithFormat:@"?mid=%@&oid=%@&str=%@",[self returnMid],self.orderID,nstr];
+    
+    NSString *urlstr = [kJdpay stringByAppendingString:ustr];
+    
+    JdPayViewController *JPVC = [[JdPayViewController alloc]init];
+    JPVC.urlstr = [NSString stringWithString:urlstr];
+    JPVC.delegate = self;
+    [self.navigationController pushViewController:JPVC animated:YES];
+}
+
+-(void)paysuccess
+{
+    PaySuccessViewController *success = [[PaySuccessViewController alloc]init];
+    success.orderId = self.orderID;
+    [self.navigationController pushViewController:success animated:YES];
+}
+
+-(void)payfail
+{
+    UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"支付结果" message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
+    //添加按钮
+    [alert addAction:[UIAlertAction actionWithTitle:@"重新支付" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self goToJdPay];
+    }]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.isShowTab = YES;

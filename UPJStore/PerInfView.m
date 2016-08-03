@@ -28,6 +28,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         UIColor *percolor = [UIColor colorWithRed:209.0/255 green:65.0/255 blue:94.0/255 alpha:1];
+        /*
         _integralBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _integralBtn.frame =CGRectMake1(0, 0, 138, 68);
         _integralBtn.backgroundColor = percolor;
@@ -38,12 +39,12 @@
         _integralBtn.tag = 0;
         [_integralBtn addTarget:self action:@selector(pushAction:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_integralBtn];
-        
+        */
         _collectBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _collectBtn.frame = CGRectMake1(138, 0, 138, 68);
+        _collectBtn.frame = CGRectMake1(0, 0, 207, 68);
         _collectBtn.backgroundColor = percolor;
         [_collectBtn setTitle:@"收藏的商品" forState:UIControlStateNormal];
-        _collectBtn.titleLabel.font = [UIFont systemFontOfSize:CGFloatMakeY(14)];
+        _collectBtn.titleLabel.font = [UIFont systemFontOfSize:CGFloatMakeY(15)];
         [_collectBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _collectBtn.titleLabel.textAlignment = 1;
         _collectBtn.tag = 1;
@@ -51,21 +52,21 @@
         [self addSubview:_collectBtn];
         
         _concernBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _concernBtn.frame = CGRectMake1(276, 0, 138, 68);
+        _concernBtn.frame = CGRectMake1(207, 0, 207, 68);
         _concernBtn.backgroundColor = percolor;
         [_concernBtn setTitle:@"关注的品牌" forState:UIControlStateNormal];
-        _concernBtn.titleLabel.font = [UIFont systemFontOfSize:CGFloatMakeY(14)];
+        _concernBtn.titleLabel.font = [UIFont systemFontOfSize:CGFloatMakeY(15)];
         [_concernBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _concernBtn.titleLabel.textAlignment = 1;
         _concernBtn.tag = 2;
         [_concernBtn addTarget:self action:@selector(pushAction:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_concernBtn];
 
-        for (int i = 0; i<2; i++) {
-            UIView *line = [[UIView alloc]initWithFrame:CGRectMake1(138*(i+1), 17, 0.5, 31)];
+    //    for (int i = 0; i<2; i++) {
+            UIView *line = [[UIView alloc]initWithFrame:CGRectMake1(206.5, 17, 1, 31)];
             line.backgroundColor = [UIColor whiteColor];
             [self addSubview:line];
-        }
+  //      }
     }
     return self;
 }

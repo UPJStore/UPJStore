@@ -80,8 +80,6 @@
         }
     }
     self.view.backgroundColor = [UIColor colorFromHexRGB:@"f0f0f0"];
-    
-    self.navigationController.navigationBar.translucent = NO;
     [self.view addSubview:self.scrollView];
     [self getDataWith:_goodsDic];
     
@@ -1005,6 +1003,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    self.navigationController.navigationBar.translucent = NO;
     self.isShowTab = YES;
     [self hideTabBarWithTabState:self.isShowTab];
 }

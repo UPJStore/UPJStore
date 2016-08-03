@@ -71,6 +71,7 @@
 #pragma mark - 左按钮
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"dingwei"] style:UIBarButtonItemStyleDone target:self action:@selector(leftAction:)];
     self.navigationItem.leftBarButtonItem.tintColor = [UIColor colorFromHexRGB:@"999999"];
+
 #pragma mark - 右按钮
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"saomakuang"] style:UIBarButtonItemStyleDone target:self action:@selector(rightAction:)];
     self.navigationItem.rightBarButtonItem.tintColor = [UIColor colorFromHexRGB:@"999999"];

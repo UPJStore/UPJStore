@@ -132,7 +132,12 @@
 }
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
     if (section == 0) {
+        if (self.isFromSort) {
+            return CGSizeMake1(414, 268);
+        }else
+        {
         return CGSizeMake1(414, 325);
+        }
     }
     return CGSizeMake1(414, 50);
 }
@@ -175,6 +180,12 @@
             
             UILabel *linelabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 326*app.autoSizeScaleY, self.view.bounds.size.width, 1)];
             linelabel.backgroundColor = fontcolor;
+            
+            if (self.isFromSort) {
+                headerImgView.frame = CGRectMake1(0, 0, 414, 188);
+                selectLabel.frame = CGRectMake1(10, 188, 394, 80);
+                linelabel.frame = CGRectMake(0, 268*app.autoSizeScaleY, self.view.bounds.size.width, 1);
+            }
             
             UIView *view2 = [[UIView alloc]initWithFrame:CGRectMake1(0, 0, 414, 50)];
             view2.backgroundColor = [UIColor blackColor];

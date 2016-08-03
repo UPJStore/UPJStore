@@ -120,6 +120,7 @@
 		D19112A91CA2742E00FE73EA /* waitSearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D19112A81CA2742E00FE73EA /* waitSearchCell.m */; };
 		D1943E951CAA5EF70088D621 /* GoodSDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1943E941CAA5EF70088D621 /* GoodSDetailViewController.m */; };
 		D195419E1CE5CDF0003F614F /* libXG-SDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D195419B1CE5CDF0003F614F /* libXG-SDK.a */; };
+		D1979F3A1D4F2A630056E380 /* JdPayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1979F391D4F2A630056E380 /* JdPayViewController.m */; };
 		D19E22E61CA94796008047B5 /* CommodityShopModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D19E22E51CA94796008047B5 /* CommodityShopModel.m */; };
 		D19E232E1CA95DBB008047B5 /* ProductsCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D19E232D1CA95DBB008047B5 /* ProductsCollectionViewCell.m */; };
 		D19E23311CA95DD1008047B5 /* CustomCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D19E23301CA95DD1008047B5 /* CustomCollectionViewCell.m */; };
@@ -493,6 +494,8 @@
 		D195419B1CE5CDF0003F614F /* libXG-SDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libXG-SDK.a"; sourceTree = "<group>"; };
 		D195419C1CE5CDF0003F614F /* XGPush.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XGPush.h; sourceTree = "<group>"; };
 		D195419D1CE5CDF0003F614F /* XGSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XGSetting.h; sourceTree = "<group>"; };
+		D1979F381D4F2A630056E380 /* JdPayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JdPayViewController.h; sourceTree = "<group>"; };
+		D1979F391D4F2A630056E380 /* JdPayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JdPayViewController.m; sourceTree = "<group>"; };
 		D19E22E41CA94796008047B5 /* CommodityShopModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommodityShopModel.h; sourceTree = "<group>"; };
 		D19E22E51CA94796008047B5 /* CommodityShopModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommodityShopModel.m; sourceTree = "<group>"; };
 		D19E232C1CA95DBB008047B5 /* ProductsCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductsCollectionViewCell.h; sourceTree = "<group>"; };
@@ -1047,6 +1050,8 @@
 			children = (
 				D14F8F1E1CDAF95700342832 /* SelectPayMethohViewController.h */,
 				D1D14E301D1A909F00069176 /* SelectPayMethohViewController.m */,
+				D1979F381D4F2A630056E380 /* JdPayViewController.h */,
+				D1979F391D4F2A630056E380 /* JdPayViewController.m */,
 				D1F7C9B31CBF3B7700F2EC14 /* ConfirmOrderViewController.h */,
 				D1F7C9B41CBF3B7700F2EC14 /* ConfirmOrderViewController.m */,
 				D1ADB2EA1C940E6D000B134E /* ShoppingCartViewController.h */,
@@ -1561,7 +1566,7 @@
 				TargetAttributes = {
 					E30AD7661C719F6F00B5188C = {
 						CreatedOnToolsVersion = 7.2.1;
-						DevelopmentTeam = RNEHSG84PD;
+						DevelopmentTeam = F2EC8M8VR5;
 					};
 					E30AD77F1C719F6F00B5188C = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -1704,6 +1709,7 @@
 				D12568361D1A6A4400B6ED77 /* recommandCell.m in Sources */,
 				D19E232E1CA95DBB008047B5 /* ProductsCollectionViewCell.m in Sources */,
 				D1FC7A891D13CD4500076FA4 /* LineLabel.m in Sources */,
+				D1979F3A1D4F2A630056E380 /* JdPayViewController.m in Sources */,
 				D1034D701D17A290000D893F /* NameRegisteredViewController.m in Sources */,
 				D107E56B1D499AB9007AFFD9 /* OthersModel.m in Sources */,
 				D107E56D1D499AB9007AFFD9 /* ProductsModel.m in Sources */,

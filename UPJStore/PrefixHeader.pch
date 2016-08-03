@@ -114,6 +114,8 @@
 
 #define kAlipay @"http://m.upinkji.com/api/pay/alipay"
 
+#define kJdpay @"http://m.upinkji.com/wap/pay/jdapp.html"
+
 #define kCouponList @"http://m.upinkji.com/api/Coupon/getcouponlist"
 
 #define kDoCoupon @"http://m.upinkji.com/api/Coupon/docoupon"
