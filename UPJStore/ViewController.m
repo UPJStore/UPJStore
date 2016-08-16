@@ -67,7 +67,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor colorFromHexRGB:@"cc2245"]};
+ //   self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor colorFromHexRGB:@"cc2245"]};
 #pragma mark - 左按钮
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"dingwei"] style:UIBarButtonItemStyleDone target:self action:@selector(leftAction:)];
     self.navigationItem.leftBarButtonItem.tintColor = [UIColor colorFromHexRGB:@"999999"];
@@ -150,7 +150,7 @@
              [self.navigationController presentViewController:noAlert animated:YES completion:^{
                  sleep(1);
                  [self.navigationController dismissViewControllerAnimated:YES completion:^{
-                     [self.HomePageTableView.mj_header beginRefreshing];
+                   //  [self.HomePageTableView.mj_header beginRefreshing];
                  }];
              }];
          }];
@@ -761,8 +761,7 @@
         }else{
             NSArray *jsonArr = [NSArray arrayWithArray:responseObject];
             [self setCollectwithCollect:jsonArr];
-        }NSArray *jsonArr1 = [NSArray arrayWithArray:responseObject];
-        [self setCollectwithCollect:jsonArr1];
+        }
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         DLog(@"failure%@",error);

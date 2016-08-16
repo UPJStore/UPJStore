@@ -150,6 +150,7 @@
 
 #define KCategory  @"http://m.upinkji.com/api/product/category_hot"
 
+#define KActivity @"http://m.upinkji.com/api/dcp/getdcp"
 
 #define kWidth [UIScreen mainScreen].bounds.size.width
 

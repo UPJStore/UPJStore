@@ -965,10 +965,7 @@
     }
     
     self.navigationController.navigationBar.hidden = NO;
-    
-    //    DLog(@"viewwillappear");
 
-    
     if ([[self returnMid] isEqualToString:@"0"]||[self returnMid]==nil) {
         _tableView.hidden = YES;
         self.scrollView.hidden = NO;
@@ -978,6 +975,7 @@
         _tableView = nil;
     }else
     {
+        
         [self getDataWithDic:@{@"appkey":APPkey,@"mid":[self returnMid]}];
         
         _scrollView.hidden =YES;

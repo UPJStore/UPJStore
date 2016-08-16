@@ -326,6 +326,7 @@ static const void * loadingHudKey = &loadingHudKey;
 
 #pragma mark -- 加载动画
 -(void)setMBHUD{
+    self.loadingHud.mode = MBProgressHUDModeAnnularDeterminate;
     self.loadingHud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     // Set the custom view mode to show any view.
     /*

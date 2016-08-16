@@ -191,7 +191,7 @@
 }
 #pragma mark -- 微信支付
 -(void)goToWeCHatBuy{
-    
+    [self setMBHUD];
     NSDictionary * dic =@{@"appkey":APPkey,@"mid":[self returnMid],@"id":self.orderID};
 #pragma dic MD5
     NSDictionary * Ndic = [self md5DicWith:dic];
@@ -233,6 +233,8 @@
 }
 
 - (void)handlePayResult:(NSNotification *)noti{
+    [self.loadingHud hideAnimated:YES];
+    self.loadingHud = nil;
     DLog(@"Notifiction Object : %@",noti.object);
     UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"支付结果" message:[NSString stringWithFormat:@"%@",noti.object] preferredStyle:UIAlertControllerStyleActionSheet];
     if ([noti.object isEqualToString:@"成功"]) {
@@ -264,6 +266,7 @@
 
 #pragma mark -- 支付宝支付
 -(void)goToAlipay{
+    [self setMBHUD];
     NSDictionary *dic = @{@"appkey":APPkey,@"id":self.orderID,@"mid":[self returnMid]};
     
     NSDictionary * Ndic = [self md5DicWith:dic];
@@ -321,6 +324,8 @@
                 DLog(@"reslut = %@",resultDic);
                 _record = @"backToRoot";
                 if ([resultDic[@"resultStatus"]isEqualToString:@"6001"]) {
+                    [self.loadingHud hideAnimated:YES];
+                    self.loadingHud = nil;
                     DLog(@"取消支付");
                     UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"支付结果" message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
                     //添加按钮
@@ -332,6 +337,8 @@
                     
                 }else if ([resultDic[@"resultStatus"]isEqualToString:@"9000"]){
                     DLog(@"支付成功");
+                    [self.loadingHud hideAnimated:YES];
+                    self.loadingHud = nil;
                     PaySuccessViewController *success = [[PaySuccessViewController alloc]init];
                     success.orderId = self.orderID;
                     [self.navigationController pushViewController:success animated:YES];

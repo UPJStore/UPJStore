@@ -30,10 +30,12 @@
     self.navigationItem.leftBarButtonItem.tintColor = [UIColor blackColor];
     // Do any additional setup after loading the view.
     
-    webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0,414, 721)];
+    webView = [[UIWebView alloc] initWithFrame:CGRectMake1(0, 0,414, 721)];
     NSURLRequest *request =[NSURLRequest requestWithURL:[NSURL URLWithString:self.urlstr]];
     DLog(@"%@",request.URL);
     webView.delegate = self;
+    webView.scrollView.showsVerticalScrollIndicator = NO;
+    webView.scrollView.showsHorizontalScrollIndicator = NO;
     [self.view addSubview: webView];
     [webView loadRequest:request];
 

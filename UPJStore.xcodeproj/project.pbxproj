@@ -93,6 +93,9 @@
 		D13C1ED11CFC01D200EDE19E /* PerInfView.m in Sources */ = {isa = PBXBuildFile; fileRef = D13C1EC81CFC01D200EDE19E /* PerInfView.m */; };
 		D13C1ED21CFC01D200EDE19E /* TextFieldView.m in Sources */ = {isa = PBXBuildFile; fileRef = D13C1ECA1CFC01D200EDE19E /* TextFieldView.m */; };
 		D13C1ED31CFC01D200EDE19E /* TextView.m in Sources */ = {isa = PBXBuildFile; fileRef = D13C1ECC1CFC01D200EDE19E /* TextView.m */; };
+		D13C9A451D62E6D800F9EE38 /* ActivityModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D13C9A441D62E6D800F9EE38 /* ActivityModel.m */; };
+		D13F76BA1D532EB400D3DD7D /* Bugly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D13F76B91D532EB400D3DD7D /* Bugly.framework */; };
+		D13F76BC1D53302B00D3DD7D /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D13F76BB1D53302B00D3DD7D /* Security.framework */; };
 		D14970751D1E3F1200817AE8 /* SelectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D14970741D1E3F1200817AE8 /* SelectTableViewCell.m */; };
 		D14F8F731CDAFBB400342832 /* APAuthV2Info.m in Sources */ = {isa = PBXBuildFile; fileRef = D14F8F221CDAFBB400342832 /* APAuthV2Info.m */; };
 		D14F8F741CDAFBB400342832 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D14F8F231CDAFBB400342832 /* libcrypto.a */; };
@@ -371,6 +374,10 @@
 		D13C1ECA1CFC01D200EDE19E /* TextFieldView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextFieldView.m; sourceTree = "<group>"; };
 		D13C1ECB1CFC01D200EDE19E /* TextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextView.h; sourceTree = "<group>"; };
 		D13C1ECC1CFC01D200EDE19E /* TextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextView.m; sourceTree = "<group>"; };
+		D13C9A431D62E6D800F9EE38 /* ActivityModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityModel.h; sourceTree = "<group>"; };
+		D13C9A441D62E6D800F9EE38 /* ActivityModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityModel.m; sourceTree = "<group>"; };
+		D13F76B91D532EB400D3DD7D /* Bugly.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bugly.framework; sourceTree = "<group>"; };
+		D13F76BB1D53302B00D3DD7D /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		D14970731D1E3F1200817AE8 /* SelectTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectTableViewCell.h; sourceTree = "<group>"; };
 		D14970741D1E3F1200817AE8 /* SelectTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectTableViewCell.m; sourceTree = "<group>"; };
 		D14F8F1E1CDAF95700342832 /* SelectPayMethohViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectPayMethohViewController.h; sourceTree = "<group>"; };
@@ -623,6 +630,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D13F76BC1D53302B00D3DD7D /* Security.framework in Frameworks */,
 				D1FD29A81CBC83D600B616EC /* SystemConfiguration.framework in Frameworks */,
 				D1FD29AA1CBC83E000B616EC /* CoreTelephony.framework in Frameworks */,
 				D1FD29A41CBC83BD00B616EC /* libz.tbd in Frameworks */,
@@ -632,6 +640,7 @@
 				D14F8F801CDAFD0500342832 /* Foundation.framework in Frameworks */,
 				D14F8F7E1CDAFCD300342832 /* UIKit.framework in Frameworks */,
 				D14F8F7C1CDAFCB000342832 /* CoreGraphics.framework in Frameworks */,
+				D13F76BA1D532EB400D3DD7D /* Bugly.framework in Frameworks */,
 				D14F8F7A1CDAFCA600342832 /* CoreText.framework in Frameworks */,
 				D14F8F781CDAFC9D00342832 /* QuartzCore.framework in Frameworks */,
 				D1FD29AC1CBC843F00B616EC /* libsqlite3.tbd in Frameworks */,
@@ -976,6 +985,8 @@
 				D131B8291CAB7F7100E58396 /* detailModel.m */,
 				D131B82B1CABA09900E58396 /* appraiseModel.h */,
 				D131B82C1CABA09900E58396 /* appraiseModel.m */,
+				D13C9A431D62E6D800F9EE38 /* ActivityModel.h */,
+				D13C9A441D62E6D800F9EE38 /* ActivityModel.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1271,6 +1282,7 @@
 		E3E43CBC1C72C26A00E875F5 /* Vender */ = {
 			isa = PBXGroup;
 			children = (
+				D13F76B91D532EB400D3DD7D /* Bugly.framework */,
 				D195419B1CE5CDF0003F614F /* libXG-SDK.a */,
 				D195419C1CE5CDF0003F614F /* XGPush.h */,
 				D195419D1CE5CDF0003F614F /* XGSetting.h */,
@@ -1477,6 +1489,7 @@
 		E71C293044F61E83AABDF9F2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D13F76BB1D53302B00D3DD7D /* Security.framework */,
 				D14F8F831CDAFD1500342832 /* CoreMotion.framework */,
 				D14F8F811CDAFD0E00342832 /* CFNetwork.framework */,
 				D14F8F7F1CDAFD0500342832 /* Foundation.framework */,
@@ -1566,7 +1579,7 @@
 				TargetAttributes = {
 					E30AD7661C719F6F00B5188C = {
 						CreatedOnToolsVersion = 7.2.1;
-						DevelopmentTeam = F2EC8M8VR5;
+						DevelopmentTeam = RNEHSG84PD;
 					};
 					E30AD77F1C719F6F00B5188C = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -1786,6 +1799,7 @@
 				D107E56E1D499AB9007AFFD9 /* SecKillModel.m in Sources */,
 				D13C1ED21CFC01D200EDE19E /* TextFieldView.m in Sources */,
 				D107E5671D499AB9007AFFD9 /* HeaderModel.m in Sources */,
+				D13C9A451D62E6D800F9EE38 /* ActivityModel.m in Sources */,
 				D1ADB2F11C940E8B000B134E /* KindModel.m in Sources */,
 				D1F4FA3C1CBDE63400C56508 /* CommodModel.m in Sources */,
 				D1AAD9791CA65E8F0013FFBB /* ShoppingCarModel.m in Sources */,
@@ -1968,8 +1982,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Shenzhen Weisida Computer Hardware And Software Development Co., Ltd. (F2EC8M8VR5)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shenzhen Weisida Computer Hardware And Software Development Co., Ltd. (F2EC8M8VR5)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Shaolun Lin (LYFRC335VT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Shaolun Lin (LYFRC335VT)";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1993,6 +2007,7 @@
 					"$(PROJECT_DIR)/UPJStore/SDK1.6.2",
 					"$(PROJECT_DIR)/UPJStore",
 				);
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -2014,8 +2029,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.upj.UPinkJiAPPStore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "754b063a-bcb1-4b9b-a93a-c5ac7e003d97";
+				PROVISIONING_PROFILE = "eafc3aec-1421-4f39-81d3-85e633b78ada";
 				TARGETED_DEVICE_FAMILY = 1;
+				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Debug;
 		};
@@ -2025,8 +2041,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Shenzhen Weisida Computer Hardware And Software Development Co., Ltd. (F2EC8M8VR5)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shenzhen Weisida Computer Hardware And Software Development Co., Ltd. (F2EC8M8VR5)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Shaolun Lin (LYFRC335VT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Shaolun Lin (LYFRC335VT)";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2050,6 +2066,7 @@
 					"$(PROJECT_DIR)/UPJStore/SDK1.6.2",
 					"$(PROJECT_DIR)/UPJStore",
 				);
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -2071,8 +2088,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.upj.UPinkJiAPPStore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "754b063a-bcb1-4b9b-a93a-c5ac7e003d97";
+				PROVISIONING_PROFILE = "eafc3aec-1421-4f39-81d3-85e633b78ada";
 				TARGETED_DEVICE_FAMILY = 1;
+				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Release;
 		};

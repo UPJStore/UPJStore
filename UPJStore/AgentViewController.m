@@ -39,9 +39,11 @@
     NSString *str = [self md5:str2];
      NSString *urlstr = [NSString stringWithFormat:@"http://m.upinkji.com/wap/agent/login.html?m=%@&time=%@&str=%@",[self returnMid],timeString,str];
  //  NSString *urlstr = @"http://www.baidu.com";
-    webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0,414, 721)];
+    webView = [[UIWebView alloc] initWithFrame:CGRectMake1(0, 0,414, 721)];
     NSURLRequest *request =[NSURLRequest requestWithURL:[NSURL URLWithString:urlstr]];
     webView.delegate = self;
+    webView.scrollView.showsVerticalScrollIndicator = NO;
+    webView.scrollView.showsHorizontalScrollIndicator = NO;
     [self.view addSubview: webView];
     [webView loadRequest:request];
 }

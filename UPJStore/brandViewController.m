@@ -237,6 +237,7 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {   [super viewWillAppear:animated];
+    self.navigationController.navigationBar.translucent = NO;
     self.isShowTab = YES;
     [self hideTabBarWithTabState:self.isShowTab];
 }

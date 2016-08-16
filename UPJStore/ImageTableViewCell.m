@@ -16,12 +16,12 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        _label1 = [[UILabel alloc]initWithFrame:CGRectMake1(0, 0, kWidth, 50)];
+        _label1 = [[UILabel alloc]initWithFrame:CGRectMake1(0, 0, k6PWidth, 50)];
         _label1.textAlignment = 1;
         _label1.numberOfLines = 0;
         [self addSubview:_label1];
         
-        _label2 = [[UILabel alloc]initWithFrame:CGRectMake1(0, 220, kWidth, 50)];
+        _label2 = [[UILabel alloc]initWithFrame:CGRectMake1(0, 220, k6PWidth, 50)];
         _label2.textAlignment = 1;
         _label2.numberOfLines = 0;
         NSMutableAttributedString *attributeString1 = [[NSMutableAttributedString alloc] initWithString:@"全球购物体验站\nUPIN SHOP SHOPPING OVERSEAS"];
@@ -32,20 +32,20 @@
         
         if ([reuseIdentifier isEqualToString:@"imagecell1"]) {
             
-            _btn1 = [[UIButton alloc]initWithFrame:CGRectMake1(15, 50, (kWidth-50)/3, 170)];
+            _btn1 = [[UIButton alloc]initWithFrame:CGRectMake1(15, 50, (k6PWidth-50)/3, 170)];
             
             [self addSubview:_btn1];
             
-            _btn2 = [[UIButton alloc]initWithFrame:CGRectMake1(25+(kWidth-50)/3, 50, (kWidth-50)/3, 170)];
+            _btn2 = [[UIButton alloc]initWithFrame:CGRectMake1(25+(k6PWidth-50)/3, 50, (k6PWidth-50)/3, 170)];
            
             [self addSubview:_btn2];
             
-            _btn3 = [[UIButton alloc]initWithFrame:CGRectMake1(35+(kWidth-50)/3*2, 50, (kWidth-50)/3, 170)];
+            _btn3 = [[UIButton alloc]initWithFrame:CGRectMake1(35+(k6PWidth-50)/3*2, 50, (k6PWidth-50)/3, 170)];
             
             [self addSubview:_btn3];
         }
         if ([reuseIdentifier isEqualToString:@"imagecell2"]) {
-            _btn1 = [[UIButton alloc]initWithFrame:CGRectMake1(15, 50, kWidth-30, 150)];
+            _btn1 = [[UIButton alloc]initWithFrame:CGRectMake1(15, 50, k6PWidth-30, 150)];
             
             [self addSubview:_btn1];
         }

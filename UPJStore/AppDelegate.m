@@ -19,6 +19,7 @@
 #import "RealReachability.h"
 #import "AdvertiseView.h"
 #import <AlipaySDK/AlipaySDK.h>
+#import <Bugly/Bugly.h>
 
 #define kWXAPP_ID @"wx50a2b6dce88256c3"
 #define kWXAPP_SECRET @"b8e8be66e271b4083f4ee29c7a59f20b"
@@ -44,6 +45,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [Bugly startWithAppId:@"900044501"];
     // Override point for customization after application launch.
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
@@ -494,19 +496,16 @@
 
         }else    dic = responseObject;
 
-        
         NSArray * verarr = dic[@"results"];
-        NSDictionary * dic2 =verarr[0];
-        NSString *verStr = dic2[@"version"];
+        //做出判断，看有没有下架。假如紧急下架了，就不会运行这个位置，以防崩溃。
+        if (verarr.count != 0) {
+             NSDictionary * dic2 =verarr[0];
+             NSString *verStr = dic2[@"version"];
         
         NSDictionary * Versiondic = @{@"appkey":APPkey};
         NSDictionary * Ndic = [self md5DicWith:Versiondic];
         [manager POST:kAllVersion parameters:Ndic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            
-            
-            
-            
-            
+           
             NSString * nowVersion = [[[NSBundle mainBundle] infoDictionary]objectForKey:@"CFBundleVersion"];
             
             NSInteger i = 0;
@@ -516,15 +515,6 @@
                 
             }else    arr = responseObject;
 
-            
-//            NSString * s = [arr valueForKey:@"data"];
-//            NSData *  datad = [s dataUsingEncoding:NSUTF8StringEncoding];
-//            NSDictionary * dic = [NSJSONSerialization JSONObjectWithData:datad options:NSJSONReadingMutableContainers error:nil];
-            
-
-            
-            
-            
             for (NSDictionary * dic  in arr)
             {
                 if ([dic[@"version"] isEqualToString:nowVersion]) {
@@ -542,14 +532,14 @@
             
         }];
         
-    
+        }
     } failure:^(NSURLSessionTask *operation, NSError *error) {
         NSLog(@"Error: %@", error);
     }];    
     
     [self showView];
 
-    }
+}
 
 -(void)checkAppUpdate:(NSTimer * )timer
 {
@@ -655,7 +645,7 @@
     
     
     
-    [[UINavigationBar appearance]setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor colorFromHexRGB:@"cc2245"]}];
+    [[UINavigationBar appearance]setTitleTextAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"Thonburi" size:CGFloatMakeY(20)]}];
     [WXApi registerApp:@"wx50a2b6dce88256c3" withDescription:@"wechat"];
     
     

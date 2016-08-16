@@ -22,13 +22,13 @@
     //设置线的颜色
     CGContextSetStrokeColorWithColor(context, [UIColor blackColor].CGColor);
     //起始点设置为(0,0):注意这是上下文对应区域中的相对坐标，
-    CGContextMoveToPoint(context, 50, 25);
+    CGContextMoveToPoint(context, CGFloatMakeX(50), CGFloatMakeX(25));
     //设置下一个坐标点
-    CGContextAddLineToPoint(context, 150, 25);
+    CGContextAddLineToPoint(context, CGFloatMakeX(150), CGFloatMakeX(25));
     
-    CGContextMoveToPoint(context, 264, 25);
+    CGContextMoveToPoint(context, CGFloatMakeX(264), CGFloatMakeX(25));
     
-    CGContextAddLineToPoint(context, 364, 25);
+    CGContextAddLineToPoint(context, CGFloatMakeX(364), CGFloatMakeX(25));
 
    
     //连接上面定义的坐标点，也就是开始绘图
@@ -41,7 +41,7 @@
     self.textAlignment = 1;
     self.numberOfLines = 0;
     self.textColor = [UIColor blackColor];
-    NSMutableAttributedString *attributeString1 = [[NSMutableAttributedString alloc] initWithString:@"海外热活好货\nHot product"];
+    NSMutableAttributedString *attributeString1 = [[NSMutableAttributedString alloc] initWithString:@"海外热货好货\nHot product"];
     [attributeString1 setAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:CGFloatMakeY(14)]} range:NSMakeRange(0, 6)];
     [attributeString1 setAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:CGFloatMakeY(8)]} range:NSMakeRange(6,12)];
     self.attributedText = attributeString1;

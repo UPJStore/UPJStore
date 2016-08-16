@@ -71,6 +71,8 @@
     self.goodsCollectionView = [[UICollectionView alloc]initWithFrame:self.view.bounds collectionViewLayout:flowLayout];
     self.goodsCollectionView.delegate = self;
     self.goodsCollectionView.dataSource = self;
+    self.goodsCollectionView.showsVerticalScrollIndicator = NO;
+    self.goodsCollectionView.showsHorizontalScrollIndicator = NO;
     self.goodsCollectionView.backgroundColor = [UIColor whiteColor];
     
     [self.goodsCollectionView registerClass:[ProductsCollectionViewCell class] forCellWithReuseIdentifier:@"collectionViewCellReuse"];
@@ -136,7 +138,7 @@
             return CGSizeMake1(414, 268);
         }else
         {
-        return CGSizeMake1(414, 325);
+        return CGSizeMake1(414, 300);
         }
     }
     return CGSizeMake1(414, 50);
@@ -166,11 +168,11 @@
             UICollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"Header1" forIndexPath:indexPath];
             AppDelegate *app = [[UIApplication sharedApplication]delegate];
             
-            UIImageView *headerImgView = [[UIImageView alloc]initWithFrame:CGRectMake1(0, 0, 414, 250)];
+            UIImageView *headerImgView = [[UIImageView alloc]initWithFrame:CGRectMake1(0, 0, 414, 217.5)];
             
             headerImgView.image = self.headerImg;
             
-            UILabel *selectLabel = [[UILabel alloc]initWithFrame:CGRectMake1(10,250, 414-20,80)];
+            UILabel *selectLabel = [[UILabel alloc]initWithFrame:CGRectMake1(10,217.5, 414-20,80)];
             selectLabel.text = self.introduce;
             selectLabel.numberOfLines = 0;
             selectLabel.font = [UIFont systemFontOfSize:13*app.autoSizeScaleY];
@@ -178,7 +180,7 @@
             UIColor *fontcolor = [UIColor colorWithRed:153.0/255 green:153.0/255 blue:153.0/255 alpha:1];
             selectLabel.textColor = fontcolor;
             
-            UILabel *linelabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 326*app.autoSizeScaleY, self.view.bounds.size.width, 1)];
+            UILabel *linelabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 300*app.autoSizeScaleY, self.view.bounds.size.width, 1)];
             linelabel.backgroundColor = fontcolor;
             
             if (self.isFromSort) {

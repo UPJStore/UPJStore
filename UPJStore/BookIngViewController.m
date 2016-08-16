@@ -311,7 +311,9 @@
     
     noteField = [[UITextField alloc]initWithFrame:CGRectMake1(10, 30, 394, 120)];
     noteField.delegate =self;
+    
     noteField.placeholder = @"亲，还有什么要交代的话，告诉我们吧！";
+    noteField.font = [UIFont systemFontOfSize:CGFloatMakeY(14)];
     
     [noteView addSubview:noteField];
 }
