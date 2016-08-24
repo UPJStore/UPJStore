@@ -76,7 +76,7 @@
         
         [self addSubview:marketPrice];
         
-        self.frame = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, marketPrice.frame.origin.y+marketPrice.frame.size.height);
+        self.frame = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, marketPrice.frame.origin.y+marketPrice.frame.size.height-CGFloatMakeY(5));
         
     }
     return self;

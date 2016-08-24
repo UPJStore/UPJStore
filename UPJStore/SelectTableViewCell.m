@@ -16,8 +16,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         
-        self.layer.borderWidth = 1;
-        self.layer.borderColor = [[UIColor lightGrayColor]CGColor];
+       
         
         self.selectLogo = [[UIImageView alloc]initWithFrame:CGRectMake1(0, 0,30,30)];
         self.selectLogo.center = CGPointMake1(20,30);

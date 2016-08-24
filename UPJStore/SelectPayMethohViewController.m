@@ -50,19 +50,14 @@
     // Do any additional setup after loading the view.
 }
 -(void)pop{
-    //    [self.navigationController popViewControllerAnimated:YES];
-    //    if ([_record isEqualToString:@"backToRoot"]) {
-    
-    [self.navigationController popToRootViewControllerAnimated:YES];
-    //        _record = nil;
-    //    }
+            [self.navigationController popViewControllerAnimated:YES];
 }
 -(void)initOrderInfoView{
     
     self.orderInfoView = [[UIView alloc]initWithFrame:CGRectMake1(0, 0, 414,80)];
     self.orderInfoView.backgroundColor = [UIColor whiteColor];
-    self.orderInfoView.layer.borderWidth = 1;
-    self.orderInfoView.layer.borderColor = [[UIColor lightGrayColor]CGColor];
+    self.orderInfoView.layer.borderWidth = 0.5;
+    self.orderInfoView.layer.borderColor = [[UIColor colorFromHexRGB:@"dddddd"]CGColor];
     UILabel *orderLabel = [[UILabel alloc]initWithFrame:CGRectMake1(10, 10, 394, 30)];
     orderLabel.text = [NSString stringWithFormat:@"订单详情 : %@",self.orderID];
     orderLabel.font = [UIFont systemFontOfSize:CGFloatMakeY(15)];
@@ -158,12 +153,17 @@
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     if (section == 0) {
-        UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 50)];
+        UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width,CGFloatMakeY(50))];
         headerView.backgroundColor = [UIColor whiteColor];
-        UILabel *headerLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, self.view.bounds.size.width-10, 50)];
+        UILabel *headerLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGFloatMakeX(10), 0, self.view.bounds.size.width-CGFloatMakeX(10), CGFloatMakeY(50))];
         headerLabel.font = [UIFont systemFontOfSize:CGFloatMakeY(14)];
         headerLabel.text = @"请选择支付方式";
         [headerView addSubview:headerLabel];
+        
+        UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake1(20, 49.5, 394, 0.5)];
+        lineView.backgroundColor = [UIColor colorFromHexRGB:@"dddddd"];
+        [headerView addSubview:lineView];
+        
         return headerView;
     }
     return nil;

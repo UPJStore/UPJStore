@@ -20,4 +20,6 @@
 
 @property(nonatomic,strong) NSString *descriptionStr;
 
+@property(nonatomic,strong) NSString *pid;
+
 @end

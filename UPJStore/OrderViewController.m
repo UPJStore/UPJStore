@@ -13,6 +13,7 @@
 #import "OrderDetailsViewController.h"
 #import "EvaluateViewController.h"
 #import "SelectPayMethohViewController.h"
+#import "OrderBtn.h"
 
 #define widthSize 414.0/320
 #define hightSize 736.0/568
@@ -50,27 +51,33 @@
     self.navigationItem.title = @"我的订单";
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"backArrow"] style:UIBarButtonItemStyleDone target:self action:@selector(pop)];
     self.navigationItem.leftBarButtonItem.tintColor = [UIColor blackColor];
-    self.view.backgroundColor = backcolor;
+    self.view.backgroundColor = [UIColor colorFromHexRGB:@"f6f6f6"];
     
     NSArray *arr = @[@"全部",@"待付款",@"待发货",@"待收货",@"待评价"];
-    lineView = [[UIView alloc]initWithFrame:CGRectMake1(0, 0, 414, 1)];
-    lineView.backgroundColor = [UIColor colorFromHexRGB:@"e9e9e9"];
-    [self.view addSubview:lineView];
-    lineView2 = [[UIView alloc]initWithFrame:CGRectMake1(0, 44, 414, 1)];
-    lineView2.backgroundColor = [UIColor colorFromHexRGB:@"e9e9e9"];
-    [self.view addSubview:lineView2];
-    redLineView = [UIView new];
     
+    UIView *headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 414, 45)];
+    headView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:headView];
+    lineView = [[UIView alloc]initWithFrame:CGRectMake1(0, 0, 414, 0.5)];
+    lineView.backgroundColor = [UIColor colorFromHexRGB:@"babcbb"];
+    [headView addSubview:lineView];
+    lineView2 = [[UIView alloc]initWithFrame:CGRectMake1(0, 44, 414, 0.5)];
+    lineView2.backgroundColor = [UIColor colorFromHexRGB:@"babcbb"];
+    [headView addSubview:lineView2];
     
     for (int i=0; i<5; i++)
     {
-        UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake1(414/5*i, 0, 414/5, 44)];
+        OrderBtn *button = [[OrderBtn alloc]initWithFrame:CGRectMake1(414/5*i, 0, 414/5, 44)];
         [button setTitle:arr[i] forState:UIControlStateNormal];
-        button.titleLabel.textAlignment = 1;
         button.tag = i;
-        button.titleLabel.font = [UIFont systemFontOfSize:CGFloatMakeY(12)];
-        [button setTitleColor:textcolor forState:UIControlStateNormal];
+        if (i == self.number) {
+            [button setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+        }else
+        {
+        [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        }
         [button addTarget:self action:@selector(tapAction:) forControlEvents:UIControlEventTouchUpInside];
+        
         [self.view addSubview:button];
     }
     
@@ -94,57 +101,17 @@
     [orderTableView registerClass:[OrderTableViewCell class] forCellReuseIdentifier:@"orders"];
     orderTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    switch (self.number)
-    {
-        case 0:
-        {
-            redLineView.frame=CGRectMake1((414/5-32.5)/2, 41, 31, 3);
-            redLineView.backgroundColor = btncolor;
-            [self.view addSubview:redLineView];
-            isEvaluate = NO;
-        }
-            break;
-        case 4:
-        {
-            redLineView.frame=CGRectMake1((414/5-48)/2+414/5*4, 41, 47, 3);
-            redLineView.backgroundColor = btncolor;
-            [self.view addSubview:redLineView];
-            isEvaluate = YES;
-        }
-            break;
-        default:
-        {
-            redLineView.frame=CGRectMake1((414/5-48)/2+414/5*self.number, 41, 47, 3);
-            redLineView.backgroundColor = btncolor;
-            [self.view addSubview:redLineView];
-            isEvaluate = NO;
-        }
-            break;
-    }
     [self switchActionWithnumber:self.number];
     [self setMBHUD];
 }
 
--(void)tapAction:(UIButton*)btn
+-(void)tapAction:(OrderBtn*)btn
 {
+        [btn didtap];
     if (self.number!= btn.tag) {
-        if (btn.tag == 0) {
-            [UIView animateWithDuration:0.5 animations:^{
-                redLineView.frame=CGRectMake1((414/5-32.5)/2, 41, 31, 3);
-            }];
-            isEvaluate = NO;
-        }else if(btn.tag == 4){
-            [UIView animateWithDuration:0.3 animations:^{
-                redLineView.frame=CGRectMake1((414/5-48)/2+414/5*4, 41, 47, 3);
-            }];
+        isEvaluate = NO;
+        if(btn.tag == 4){
             isEvaluate = YES;
-        }
-        else
-        {
-            [UIView animateWithDuration:0.3 animations:^{
-                redLineView.frame=CGRectMake1((414/5-48)/2+414/5*btn.tag, 41, 47, 3);
-            }];
-            isEvaluate = NO;
         }
         [orderTableView setContentOffset:CGPointMake(0, 0) animated:YES];
         self.number = btn.tag;
@@ -153,6 +120,7 @@
         orderTableView.userInteractionEnabled = NO;
         [self modelGet];
     }
+    
 }
 
 -(void)switchActionWithnumber:(NSInteger)number
@@ -217,7 +185,7 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     OrderModel *model = dataArr[indexPath.row];
-    return CGFloatMakeY(120+100*model.goodArr.count);
+    return CGFloatMakeY(75+100*model.goodArr.count);
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -231,6 +199,7 @@
 }
 
 
+
 -(void)statuStrSwitchWith:(NSInteger)number Withcell:(OrderTableViewCell*)cell
 {
     switch (number) {
@@ -240,6 +209,8 @@
             button2Str = @"立即付款";
             [cell.button1 addTarget:self action:@selector(cancelAction:) forControlEvents:UIControlEventTouchUpInside];
             [cell.button2 addTarget:self action:@selector(payAction:) forControlEvents:UIControlEventTouchUpInside];
+            [cell.button2.layer setBorderColor:[UIColor redColor].CGColor];
+            [cell.button2 setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
             break;
         case 1:
             statuStr = @"待发货";
@@ -249,7 +220,7 @@
             break;
         case 2:
             statuStr = @"待收货";
-            button1Str = @"快递追踪";
+            button1Str = @"0";
             button2Str = @"确认收货";
             [cell.button1 addTarget:self action:@selector(expressCheckAction:) forControlEvents:UIControlEventTouchUpInside];
             [cell.button2 addTarget:self action:@selector(confirmAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -494,6 +465,8 @@
     self.navigationController.navigationBar.translucent = NO;
     [self modelGet];
 }
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

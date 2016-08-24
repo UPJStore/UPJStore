@@ -27,6 +27,7 @@
 #import "UIView+Frame.h"
 #import "AfterSearchViewController.h"
 #import "ActivityModel.h"
+#import "GoodsViewController.h"
 
 @interface GoodSDetailViewController ()<UIScrollViewDelegate,UIWebViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource>
 
@@ -423,11 +424,11 @@
     if (self.ishaveActivity == YES) {
         for (int i = 0; i<_activityArr.count; i++) {
             ActivityModel *model = _activityArr[i];
-            UIButton *ActivityBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,self.descView.frame.size.height+CGFloatMakeY(50)*i ,kWidth, CGFloatMakeY(50))];
+            UIButton *ActivityBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,self.descView.frame.size.height+CGFloatMakeY(30)*i ,kWidth, CGFloatMakeY(30))];
             [ActivityBtn setBackgroundColor:[UIColor colorFromHexRGB:@"fafafa"]];
             ActivityBtn.tag = i;
             UIButton *btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-            btn.frame = CGRectMake1(12, 13, 40, 24);
+            btn.frame = CGRectMake1(12, 3, 40, 24);
             [btn setTitle:model.style forState:UIControlStateNormal];
             [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             [btn setBackgroundColor:[UIColor redColor]];
@@ -435,7 +436,7 @@
             btn.layer.cornerRadius = 5.0;
             [ActivityBtn addSubview:btn];
             
-            UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake1(60, 10, 350, 30)];
+            UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake1(70, 0, 350, 30)];
             label.text = model.title;
             label.font = [UIFont systemFontOfSize:CGFloatMakeY(14)];
             label.textColor = [UIColor colorFromHexRGB:@"767676"];
@@ -444,7 +445,7 @@
             [ActivityBtn addTarget:self action:@selector(activityPush:) forControlEvents:UIControlEventTouchUpInside];
             [self.descView addSubview:ActivityBtn];
         }
-         [self.descView setHeight:self.descView.frame.size.height+CGFloatMakeY(50)*_activityArr.count];
+        [self.descView setHeight:self.descView.frame.size.height+CGFloatMakeY(30)*_activityArr.count];
     }
     
     [self.scrollView addSubview:_descView];
@@ -452,8 +453,18 @@
 
 -(void)activityPush:(UIButton*)button
 {
-    AfterSearchViewController * afSearchVC = [[AfterSearchViewController alloc]init];
     ActivityModel *model = _activityArr[button.tag];
+    if (![model.pid isEqualToString:@"0"]) {
+        GoodsViewController *goodsView = [[GoodsViewController alloc]init];
+        
+        goodsView.headerImg = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:kSImageUrl,model.thumb]]]];
+        goodsView.pid = model.pid;
+        goodsView.introduce = model.descriptionStr;
+        [self.navigationController pushViewController:goodsView animated:YES];
+    }else
+    {
+        
+    AfterSearchViewController * afSearchVC = [[AfterSearchViewController alloc]init];
     afSearchVC.KeyWord = model.keyword;
     afSearchVC.thumb = model.thumb;
     afSearchVC.advname = model.keyword;
@@ -461,6 +472,7 @@
     afSearchVC.isFromLBT = YES;
     afSearchVC.backgroundColor = self.view.backgroundColor;
     [self.navigationController pushViewController:afSearchVC animated:YES];
+    }
 }
 
 -(void)initWithInstructionsView
@@ -990,7 +1002,7 @@
         }else
         {
             self.ishaveActivity = YES;
-            NSArray *arr = [NSArray arrayWithArray:responseObject[@"dcp"]];
+            NSArray *arr = [NSArray arrayWithArray:responseObject[@"0"]];
             NSInteger num = 0;
             if (arr.count >3) {
                 num = 3;
@@ -1003,7 +1015,6 @@
                 [model setValuesForKeysWithDictionary:arr[i]];
                 [_activityArr addObject:model];
             }
-        
         }
         [self getDataWith:_goodsDic];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -1013,7 +1024,7 @@
 
 -(void)addGoodsToShoppingCart
 {
-   [self setMBHUD];
+    [self setMBHUD];
     NSDictionary * dic = @{@"appkey":APPkey,@"mid":[self returnMid],@"id":_model.DetailID,@"amount":@"1"} ;
     
 #pragma dic MD5
