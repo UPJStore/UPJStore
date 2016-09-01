@@ -15,6 +15,7 @@
 #import "GoodSDetailViewController.h"
 #import "XLPlainFlowLayout.h"
 #import "UIColor+HexRGB.h"
+#import "MJRefresh.h"
 
 @interface AfterSearchViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UIScrollViewDelegate>
 
@@ -22,6 +23,7 @@
 @property (nonatomic,strong) NSMutableArray * goodsArr;
 @property (nonatomic,assign) BOOL isUp;
 @property (nonatomic,strong) NSArray * arr;
+@property (nonatomic) NSInteger num;
 @end
 
 @implementation AfterSearchViewController
@@ -36,6 +38,8 @@
     self.view.backgroundColor = self.backgroundColor;
     
     self.view.backgroundColor = [UIColor whiteColor];
+    
+    _num = 2;
     
     if (_isFromLBT ==YES)
     {
@@ -74,6 +78,8 @@
     _goodsCollectionView.backgroundColor  = [UIColor whiteColor];
     _goodsCollectionView.delegate  = self;
     _goodsCollectionView.dataSource = self;
+    _goodsCollectionView.showsVerticalScrollIndicator = NO;
+    _goodsCollectionView.showsHorizontalScrollIndicator = NO;
     [_goodsCollectionView registerClass:[SearchGoodsCollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
     [_goodsCollectionView registerClass:[UICollectionReusableView class]forSupplementaryViewOfKind:UICollectionElementKindSectionHeader  withReuseIdentifier:@"header"];
     [_goodsCollectionView registerClass:[UICollectionReusableView class]forSupplementaryViewOfKind:UICollectionElementKindSectionHeader  withReuseIdentifier:@"header1"];
@@ -92,23 +98,17 @@
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-    
-    
-    
     [manager POST:kSSearchUrl parameters:Ndic progress:^(NSProgress * _Nonnull downloadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         DLog(@"%@",responseObject);
-        
         NSArray* arr = responseObject[@"product"];
-        
         for (NSDictionary *dic in arr) {
             SearchModel * model = [[SearchModel alloc]init];
             [model setValuesForKeysWithDictionary:dic];
             model.goodId = [dic valueForKey:@"id"];
             [_goodsArr addObject: model];
         }
-        
         if (arr.count != 0) {
             [self initGoodCollectionView];
         }
@@ -116,15 +116,70 @@
         {
             [self initNoneView];
         }
-        
+        if (arr.count == 20) {
+            _goodsCollectionView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+                [self postDataWithPage];
+            }];
+            _goodsCollectionView.mj_footer.hidden = NO;
+        }
         [self.goodsCollectionView reloadData];
+        
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
-        //        DLog(@"error : %@",error);
+    }];
+}
+
+-(void)postDataWithPage
+{
+    NSDictionary *dic = [NSDictionary new];
+    if(_KeyWord.length !=0)
+    {
+        dic =@{@"appkey":APPkey,@"keyword":_KeyWord,@"page":[NSString stringWithFormat:@"%ld",_num]};
+    }
+    else
+    {
+        dic =@{@"appkey":APPkey,@"pcate":_pcate,@"page":[NSString stringWithFormat:@"%ld",_num]};
+    }
+#pragma dic MD5
+    NSDictionary * Ndic = [self md5DicWith:dic];
+    
+    AFHTTPSessionManager * manager = [self sharedManager];;
+    
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    [manager POST:kSSearchUrl parameters:Ndic progress:^(NSProgress * _Nonnull downloadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        DLog(@"%@",responseObject);
+        NSArray* arr = responseObject[@"product"];
+        if (arr.count == 20) {
+            _num++;
+            _goodsCollectionView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+                [self postDataWithPage];
+            }];
+        }else
+        {
+            _goodsCollectionView.mj_footer.hidden = YES;
+        }
+        for (NSDictionary *dic in arr) {
+            SearchModel * model = [[SearchModel alloc]init];
+            [model setValuesForKeysWithDictionary:dic];
+            model.goodId = [dic valueForKey:@"id"];
+            [_goodsArr addObject: model];
+        }
+        if (arr.count == 0) {
+            _goodsCollectionView.mj_footer.hidden = YES;
+        }else
+        {
+        [self.goodsCollectionView reloadData];
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
     }];
-    
+
 }
+
 
 -(void)initNoneView
 {
