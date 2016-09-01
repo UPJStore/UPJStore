@@ -14,6 +14,7 @@
 #import "EvaluateViewController.h"
 #import "SelectPayMethohViewController.h"
 #import "OrderBtn.h"
+#import "MJRefresh.h"
 
 #define widthSize 414.0/320
 #define hightSize 736.0/568
@@ -24,7 +25,7 @@
     UIView *lineView2;
     UIView *redLineView;
     NSArray *jsonArr;
-    NSArray *dataArr;
+    NSMutableArray *dataArr;
     UITableView *orderTableView;
     UIColor *btncolor;
     UIColor *fontcolor;
@@ -35,6 +36,8 @@
     UIImageView *imageView;
     UILabel *label;
     NSTimer *timer;
+    NSInteger num;
+    BOOL isSelect;
 }
 @end
 
@@ -92,11 +95,11 @@
     label.font = [UIFont systemFontOfSize:CGFloatMakeY(14)];
     [self.view addSubview:label];
     
-    orderTableView = [[UITableView alloc]initWithFrame:CGRectMake1(0, 45, 414, 635)style:UITableViewStylePlain];
+    orderTableView = [[UITableView alloc]initWithFrame:CGRectMake1(0, 45, 414, 625)style:UITableViewStylePlain];
     [self.view addSubview:orderTableView];
     orderTableView.delegate = self;
     orderTableView.dataSource = self;
-    orderTableView.backgroundColor = backcolor;
+    orderTableView.backgroundColor = [UIColor colorFromHexRGB:@"f6f6f6"];
     orderTableView.showsVerticalScrollIndicator = NO;
     [orderTableView registerClass:[OrderTableViewCell class] forCellReuseIdentifier:@"orders"];
     orderTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -107,18 +110,20 @@
 
 -(void)tapAction:(OrderBtn*)btn
 {
+    if (!isSelect) {
+        isSelect = YES;
         [btn didtap];
     if (self.number!= btn.tag) {
         isEvaluate = NO;
         if(btn.tag == 4){
             isEvaluate = YES;
         }
-        [orderTableView setContentOffset:CGPointMake(0, 0) animated:YES];
         self.number = btn.tag;
         [self switchActionWithnumber:btn.tag];
         [self setMBHUD];
         orderTableView.userInteractionEnabled = NO;
         [self modelGet];
+    }
     }
     
 }
@@ -278,7 +283,12 @@
 
 -(void)cancelAction:(UIButton*)btn
 {
-    UIAlertController *alertCon = [UIAlertController alertControllerWithTitle:nil message:@"确定删除订单？" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alertCon = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleAlert];
+    NSMutableAttributedString *hogan = [[NSMutableAttributedString alloc] initWithString:@"确定删除订单？"];
+    [hogan addAttribute:NSFontAttributeName
+                  value:[UIFont systemFontOfSize:CGFloatMakeY(14)]
+                  range:NSMakeRange(0, 7)];
+    [alertCon setValue:hogan forKey:@"attributedMessage"];
     UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"是的" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self setMBHUD];
         orderTableView.userInteractionEnabled = NO;
@@ -305,6 +315,16 @@
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         DLog(@"%@",responseObject);
+        [self.loadingHud hideAnimated:YES];
+        self.loadingHud =nil;
+         UIAlertController *alertCon = [UIAlertController alertControllerWithTitle:nil message:@"订单已经删除" preferredStyle:UIAlertControllerStyleAlert];
+        NSMutableAttributedString *hogan = [[NSMutableAttributedString alloc] initWithString:@"订单已经删除"];
+        [hogan addAttribute:NSFontAttributeName
+                      value:[UIFont systemFontOfSize:CGFloatMakeY(14)]
+                      range:NSMakeRange(0, 6)];
+        [alertCon setValue:hogan forKey:@"attributedMessage"];
+        timer = [NSTimer scheduledTimerWithTimeInterval:0.3  target:self selector:@selector(hide) userInfo:nil repeats:NO];
+        [self presentViewController:alertCon animated:YES completion:nil];
         [self modelGet];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         DLog(@"failure%@",error);
@@ -318,7 +338,12 @@
 
 -(void)confirmAction:(UIButton*)button
 {
-    UIAlertController *alertCon = [UIAlertController alertControllerWithTitle:nil message:@"确定收到货物？" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alertCon = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleAlert];
+    NSMutableAttributedString *hogan = [[NSMutableAttributedString alloc] initWithString:@"确定收到货物？"];
+    [hogan addAttribute:NSFontAttributeName
+                  value:[UIFont systemFontOfSize:CGFloatMakeY(14)]
+                  range:NSMakeRange(0, 7)];
+    [alertCon setValue:hogan forKey:@"attributedMessage"];
     UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"是的" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self setMBHUD];
         orderTableView.userInteractionEnabled = NO;
@@ -381,7 +406,12 @@
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         DLog(@"%@",responseObject);
         [self.loadingHud hideAnimated:YES];
-        UIAlertController *alertCon = [UIAlertController alertControllerWithTitle:nil message:@"已提醒发货" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *alertCon = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleAlert];
+        NSMutableAttributedString *hogan = [[NSMutableAttributedString alloc] initWithString:@"已提醒发货"];
+        [hogan addAttribute:NSFontAttributeName
+                      value:[UIFont systemFontOfSize:CGFloatMakeY(14)]
+                      range:NSMakeRange(0, 5)];
+        [alertCon setValue:hogan forKey:@"attributedMessage"];
         
         timer = [NSTimer scheduledTimerWithTimeInterval:0.3  target:self selector:@selector(hide) userInfo:nil repeats:NO];
         [self presentViewController:alertCon animated:YES completion:nil];
@@ -404,30 +434,34 @@
 
 -(void)postDataWith:(NSDictionary*)dic
 {
+    num = 2;
 #pragma dic MD5
     NSDictionary * Ndic = [self md5DicWith:dic];
     
     AFHTTPSessionManager *manager = [self sharedManager];;
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
     [manager POST:kMine parameters:Ndic progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+   //     [orderTableView setContentOffset:CGPointMake(0, 0) animated:YES];
         DLog(@"%@",responseObject);
         [self.loadingHud hideAnimated:YES];
         self.loadingHud =nil;
+        dataArr = [NSMutableArray new];
         orderTableView.userInteractionEnabled = YES;
         if (![responseObject[@"data"] isEqual:[NSNull null]]) {
             jsonArr = [NSArray arrayWithArray:responseObject[@"data"]];
-            
-            NSMutableArray *tempArr = [NSMutableArray new];
+            //加入判断。假如超过20个，就添加mjfoot.
+            if (jsonArr.count==20) {
+                orderTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(postDataWithPage)];
+            }
             for (NSDictionary *dic in jsonArr) {
                 OrderModel *model = [OrderModel new];
                 [model setValuesForKeysWithDictionary:dic];
-                [tempArr addObject:model];
+                [dataArr addObject:model];
             }
-            dataArr = [NSArray arrayWithArray:tempArr];
             imageView.hidden = YES;
             label.hidden = YES;
             orderTableView.hidden = NO;
@@ -439,12 +473,52 @@
             imageView.hidden = NO;
             label.hidden = NO;
             orderTableView.hidden = YES;
-            //    dataArr = @[];
-            //    [orderTableView reloadData];
         }
+        isSelect  = NO;
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         DLog(@"failure%@",error);
+        
+    }];
+}
+
+-(void)postDataWithPage
+{
+    NSDictionary * dic = @{@"appkey":APPkey,@"mid":_mid,@"status":_orderid,@"page":[NSString stringWithFormat:@"%ld",(long)num]};
+#pragma dic MD5
+    NSDictionary * Ndic = [self md5DicWith:dic];
+    
+    AFHTTPSessionManager *manager = [self sharedManager];;
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    [manager POST:kMine parameters:Ndic progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        DLog(@"%@",responseObject);
+        if (![responseObject[@"data"] isEqual:[NSNull null]]) {
+            jsonArr = [NSArray arrayWithArray:responseObject[@"data"]];
+            if (jsonArr.count == 20) {
+                num++;
+                orderTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(postDataWithPage)];
+            }else
+            {
+                orderTableView.mj_footer.hidden = YES;
+            }
+            for (NSDictionary *dic in jsonArr) {
+                OrderModel *model = [OrderModel new];
+                [model setValuesForKeysWithDictionary:dic];
+                [dataArr addObject:model];
+            }
+            NSLog(@"%ld",(unsigned long)dataArr.count);
+            [orderTableView reloadData];
+        }else
+        {
+           orderTableView.mj_footer.hidden = YES;
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        DLog(@"failure%@",error);
+        [self postDataWithPage];
     }];
 }
 
@@ -463,6 +537,7 @@
     self.isShowTab = YES;
     [self hideTabBarWithTabState:self.isShowTab];
     self.navigationController.navigationBar.translucent = NO;
+    [self switchActionWithnumber:self.number];
     [self modelGet];
 }
 

@@ -84,7 +84,7 @@
     [headView addSubview:consigneeLabel];
     
     UILabel *addressLabel = [[UILabel alloc]init];
-    NSString *labelText = [NSString stringWithFormat:@"%@%@%@%@",_model.province,_model.city,_model.area,_model.address];
+    NSString *labelText = [NSString stringWithFormat:@"%@%@%@%@噢噢噢噢噢噢噢噢哦哦哦噢噢噢噢",_model.province,_model.city,_model.area,_model.address];
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:labelText];
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     [paragraphStyle setLineSpacing:CGFloatMakeY(4)];//调整行间距
@@ -299,7 +299,7 @@
             statuStr = @"已完成";
             button1Str = @"0";
             button2Str = @"评价";
-            //     [button2 addTarget:self action:@selector(evaluateAction:) forControlEvents:UIControlEventTouchUpInside];
+            //[button2 addTarget:self action:@selector(evaluateAction:) forControlEvents:UIControlEventTouchUpInside];
             btnView.hidden = YES;
         //    scrollView.frame = CGRectMake1(0, 0, 414, 672);
             break;
@@ -355,7 +355,12 @@
 
 -(void)cancelAction:(UIButton*)btn
 {
-    UIAlertController *alertCon = [UIAlertController alertControllerWithTitle:nil message:@"确定收到货物？" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alertCon = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleAlert];
+    NSMutableAttributedString *hogan = [[NSMutableAttributedString alloc] initWithString:@"确定删除订单？"];
+    [hogan addAttribute:NSFontAttributeName
+                  value:[UIFont systemFontOfSize:CGFloatMakeY(14)]
+                  range:NSMakeRange(0, 7)];
+    [alertCon setValue:hogan forKey:@"attributedMessage"];
     UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"是的" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self setMBHUD];
         NSDictionary *dic = @{@"appkey":APPkey,@"mid":_mid,@"id":_model.orderid};
@@ -391,6 +396,14 @@
         DLog(@"%@",responseObject);
         [self.loadingHud hideAnimated:YES];
         self.loadingHud = nil;
+        UIAlertController *alertCon = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleAlert];
+        NSMutableAttributedString *hogan = [[NSMutableAttributedString alloc] initWithString:@"订单已经删除"];
+        [hogan addAttribute:NSFontAttributeName
+                      value:[UIFont systemFontOfSize:CGFloatMakeY(14)]
+                      range:NSMakeRange(0, 6)];
+        [alertCon setValue:hogan forKey:@"attributedMessage"];
+        timer = [NSTimer scheduledTimerWithTimeInterval:0.3  target:self selector:@selector(hide) userInfo:nil repeats:NO];
+        [self presentViewController:alertCon animated:YES completion:nil];
         [self pop];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         DLog(@"failure%@",error);
@@ -421,7 +434,12 @@
         DLog(@"%@",responseObject);
         [self.loadingHud hideAnimated:YES];
         self.loadingHud = nil;
-        UIAlertController *alertCon = [UIAlertController alertControllerWithTitle:nil message:@"已提醒发货" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *alertCon = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleAlert];
+        NSMutableAttributedString *hogan = [[NSMutableAttributedString alloc] initWithString:@"已提醒发货"];
+        [hogan addAttribute:NSFontAttributeName
+                      value:[UIFont systemFontOfSize:CGFloatMakeY(14)]
+                      range:NSMakeRange(0, 5)];
+        [alertCon setValue:hogan forKey:@"attributedMessage"];
         timer = [NSTimer scheduledTimerWithTimeInterval:0.3  target:self selector:@selector(hide) userInfo:nil repeats:NO];
         [self presentViewController:alertCon animated:YES completion:nil];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -438,7 +456,12 @@
 
 -(void)confirmAction:(UIButton*)button
 {
-    UIAlertController *alertCon = [UIAlertController alertControllerWithTitle:nil message:@"确定收到货物？" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alertCon = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleAlert];
+    NSMutableAttributedString *hogan = [[NSMutableAttributedString alloc] initWithString:@"确定收到货物？"];
+    [hogan addAttribute:NSFontAttributeName
+                  value:[UIFont systemFontOfSize:CGFloatMakeY(14)]
+                  range:NSMakeRange(0, 7)];
+    [alertCon setValue:hogan forKey:@"attributedMessage"];
     UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"是的" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self setMBHUD];
         NSDictionary *dic = @{@"appkey":APPkey,@"mid":_mid,@"id":_model.orderid,@"status":@"3"};

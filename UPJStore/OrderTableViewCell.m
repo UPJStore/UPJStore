@@ -30,9 +30,9 @@
         [self addSubview:view];
         
         
-        UIView *line = [[UIView alloc]initWithFrame:CGRectMake(0, view.frame.size.height, kWidth, 0.5)];
-        line.backgroundColor = [UIColor colorFromHexRGB:@"babcbb"];;
-        [self addSubview:line];
+        UIView *line = [[UIView alloc]initWithFrame:CGRectMake1(0, 4.5, 414,0.5)];
+        line.backgroundColor = [UIColor colorFromHexRGB:@"babcbb"];
+        [view addSubview:line];
         //顶部栏
         headView = [[UIView alloc]initWithFrame:CGRectMake1(0, 5, 414, 30)];
         

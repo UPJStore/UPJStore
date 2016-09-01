@@ -157,28 +157,21 @@
 
 -(void)sortBtnAction:(UIButton *)btn
 {
-    [UIView beginAnimations:@"move" context:nil];
-    [UIView setAnimationDuration:0.5];
-    [UIView setAnimationDelegate:self];
-    AppDelegate *app = [[UIApplication sharedApplication]delegate];
-    _lineView.frame=CGRectMake1(152, 34, 50, 2/app.autoSizeScaleY);
-    _differentScrollView.contentOffset = CGPointMake(0, _differentScrollView.contentOffset.y);
-    _differentScrollView.showsVerticalScrollIndicator = FALSE;
-    
-    [UIView commitAnimations];
+    [UIView animateWithDuration:0.3 animations:^{
+        AppDelegate *app = [[UIApplication sharedApplication]delegate];
+        _lineView.frame=CGRectMake1(152, 34, 50, 2/app.autoSizeScaleY);
+        _differentScrollView.contentOffset = CGPointMake(0, _differentScrollView.contentOffset.y);
+        _differentScrollView.showsVerticalScrollIndicator = FALSE;
+    }];
 }
 
 -(void)brandBtnAction:(UIButton *)btn
 {
-    [UIView beginAnimations:@"move" context:nil];
-    [UIView setAnimationDuration:0.5];
-    [UIView setAnimationDelegate:self];
-    AppDelegate *app = [[UIApplication sharedApplication]delegate];
-    _lineView.frame=CGRectMake1(222, 34, 50, 2/app.autoSizeScaleY);
-    _differentScrollView.contentOffset = CGPointMake(kWidth, _differentScrollView.contentOffset.y);
-    
-    [UIView commitAnimations];
-    
+    [UIView animateWithDuration:0.3 animations:^{
+        AppDelegate *app = [[UIApplication sharedApplication]delegate];
+        _lineView.frame=CGRectMake1(222, 34, 50, 2/app.autoSizeScaleY);
+        _differentScrollView.contentOffset = CGPointMake(kWidth, _differentScrollView.contentOffset.y);
+    }];
 }
 
 -(void)initScrollView
@@ -208,7 +201,8 @@
     [_differentScrollView addSubview:_sortScrollView];
 }
 
--(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+-(void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView
+{
     scrollView = _differentScrollView;
     if (scrollView.contentOffset.x >kWidth/2) {
         [self brandBtnAction:_brandBtn];

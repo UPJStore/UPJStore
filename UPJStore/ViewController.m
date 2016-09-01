@@ -185,7 +185,7 @@
              [model setValuesForKeysWithDictionary:dic];
              [_homepageImageArr addObject:model];
          }
-         [_HomePageTableView reloadData];
+        // [_HomePageTableView reloadData];
          [self getHeaderDataAndModelData];
      }
           failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
@@ -202,7 +202,7 @@
 {
     if (_z < 1)
     {
-        NSDictionary * dic =@{@"appkey":APPkey,@"num":[NSString stringWithFormat:@"%ld",_num]};
+        NSDictionary * dic =@{@"appkey":APPkey,@"num":[NSString stringWithFormat:@"%ld",(long)_num]};
 #pragma dic MD5
         NSDictionary * Ndic = [self md5DicWith:dic];
         
@@ -259,7 +259,7 @@
     if (_z < 5)
     {
         if (_z == 1) {
-            NSDictionary * dic =@{@"appkey":APPkey,@"num":[NSString stringWithFormat:@"%ld",_num]};
+            NSDictionary * dic =@{@"appkey":APPkey,@"num":[NSString stringWithFormat:@"%ld",(long)_num]};
 #pragma dic MD5
             NSDictionary * Ndic = [self md5DicWith:dic];
             
@@ -304,7 +304,7 @@
             [self addData];
         }else if( _z == 3||_z ==4){
             
-            NSDictionary * dic =@{@"appkey":APPkey,@"num":[NSString stringWithFormat:@"%ld",_num]};
+            NSDictionary * dic =@{@"appkey":APPkey,@"num":[NSString stringWithFormat:@"%ld",(long)_num]};
 #pragma dic MD5
             NSDictionary * Ndic = [self md5DicWith:dic];
             
@@ -704,7 +704,7 @@
         [self.navigationController pushViewController:LoginVC animated:YES];
     }else{
         
-        NSDictionary * dic =@{@"appkey":APPkey,@"mid":[self returnMid],@"gid":[NSString stringWithFormat:@"%ld",btn.tag]};
+        NSDictionary * dic =@{@"appkey":APPkey,@"mid":[self returnMid],@"gid":[NSString stringWithFormat:@"%ld",(long)btn.tag]};
 #pragma dic MD5
         
         NSDictionary * nDic = [self md5DicWith:dic];
@@ -835,7 +835,7 @@
         [self.navigationController pushViewController:LoginVC animated:YES];
     }else
     {
-        NSDictionary * dic = @{@"appkey":APPkey,@"id":[NSString stringWithFormat:@"%ld",btn.tag]};
+        NSDictionary * dic = @{@"appkey":APPkey,@"id":[NSString stringWithFormat:@"%ld",(long)btn.tag]};
         NSDictionary * Ndic = [self md5DicWith:dic];
         
         AFHTTPSessionManager *manager = [self sharedManager];;

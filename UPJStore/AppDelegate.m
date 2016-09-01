@@ -58,15 +58,14 @@
     //    DLog(@"--Y=%f",self.autoSizeScaleY);
     
     
-    
-    [self VersionBUtton];
-    
+    [self showView];
+
     if ([[NSUserDefaults standardUserDefaults] valueForKey:@"inAppCount"] ==nil) {
         inAppCount = 0;
     }else
-        inAppCount = [[[NSUserDefaults standardUserDefaults] valueForKey:@"inAppCount"] integerValue];
-    
-//    [self showAdv];
+    {   inAppCount = [[[NSUserDefaults standardUserDefaults] valueForKey:@"inAppCount"] integerValue];
+    }
+  
     
     return YES;
 }
@@ -537,8 +536,6 @@
         NSLog(@"Error: %@", error);
     }];    
     
-    [self showView];
-
 }
 
 -(void)checkAppUpdate:(NSTimer * )timer
@@ -621,8 +618,9 @@
         
         UITabBarItem *tabItem = [tabController.tabBar.items objectAtIndex:i];
         
-        tabItem.title = [arr objectAtIndex:i];
+        tabItem.title = arr[i];
         tabItem.selectedImage = [[UIImage imageNamed:[NSString stringWithFormat:@"tabSel%d",i]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        
         tabItem.image = [[UIImage imageNamed:[NSString stringWithFormat:@"tab%d",i]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         
         [tabItem setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor colorFromHexRGB:@"cc2245"]} forState:UIControlStateSelected];
@@ -659,6 +657,9 @@
         [user setBool:YES forKey:@"first"];
         [self.window.rootViewController presentViewController:startVC animated:NO completion:nil];
     }
+    
+    [NSTimer scheduledTimerWithTimeInterval:10.0 target:self selector:@selector(VersionBUtton) userInfo:nil repeats:NO];
+   
 }
 
 - (void)exitApplication {
@@ -720,5 +721,7 @@
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
+
+
 
 @end

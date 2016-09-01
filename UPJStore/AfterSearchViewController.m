@@ -34,27 +34,27 @@
     self.navigationController.navigationBar.translucent = NO;
     
     self.view.backgroundColor = self.backgroundColor;
-
+    
     self.view.backgroundColor = [UIColor whiteColor];
     
     if (_isFromLBT ==YES)
     {
         self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor colorFromHexRGB:@"cc2245"]};
-
+        
     }
     if(_KeyWord.length !=0)
     {
-    NSDictionary * dic =@{@"appkey":APPkey,@"keyword":_KeyWord};
-    [self getDataWithdic:dic];
+        NSDictionary * dic =@{@"appkey":APPkey,@"keyword":_KeyWord};
+        [self getDataWithdic:dic];
     }
     else
     {
-     NSDictionary * dic =@{@"appkey":APPkey,@"pcate":_pcate};
+        NSDictionary * dic =@{@"appkey":APPkey,@"pcate":_pcate};
         [self getDataWithdic:dic];
     }
-
+    
     _goodsArr =[NSMutableArray array];
-
+    
     
     // Do any additional setup after loading the view.
 }
@@ -62,7 +62,7 @@
 -(void)initGoodCollectionView
 {
     XLPlainFlowLayout *layout = [XLPlainFlowLayout new];
-
+    
     layout.minimumInteritemSpacing = 20;
     
     layout.scrollDirection = UICollectionViewScrollDirectionVertical;
@@ -70,14 +70,14 @@
     layout.sectionInset = UIEdgeInsetsMake(20, 30, 20,30);
     
     _goodsCollectionView  = [[UICollectionView alloc]initWithFrame:CGRectMake1(0, 0,k6PWidth , k6PHeight-60) collectionViewLayout:layout];
-
+    
     _goodsCollectionView.backgroundColor  = [UIColor whiteColor];
     _goodsCollectionView.delegate  = self;
     _goodsCollectionView.dataSource = self;
     [_goodsCollectionView registerClass:[SearchGoodsCollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
     [_goodsCollectionView registerClass:[UICollectionReusableView class]forSupplementaryViewOfKind:UICollectionElementKindSectionHeader  withReuseIdentifier:@"header"];
     [_goodsCollectionView registerClass:[UICollectionReusableView class]forSupplementaryViewOfKind:UICollectionElementKindSectionHeader  withReuseIdentifier:@"header1"];
-
+    
     [self.view addSubview:_goodsCollectionView];
     
 }
@@ -92,7 +92,7 @@
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-
+    
     
     
     [manager POST:kSSearchUrl parameters:Ndic progress:^(NSProgress * _Nonnull downloadProgress) {
@@ -100,7 +100,7 @@
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         DLog(@"%@",responseObject);
         
-       NSArray* arr = responseObject[@"product"];
+        NSArray* arr = responseObject[@"product"];
         
         for (NSDictionary *dic in arr) {
             SearchModel * model = [[SearchModel alloc]init];
@@ -110,17 +110,17 @@
         }
         
         if (arr.count != 0) {
-             [self initGoodCollectionView];
+            [self initGoodCollectionView];
         }
         else
         {
             [self initNoneView];
         }
-       
+        
         [self.goodsCollectionView reloadData];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
-//        DLog(@"error : %@",error);
+        //        DLog(@"error : %@",error);
         
     }];
     
@@ -137,9 +137,9 @@
     NSMutableAttributedString *aStr = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"抱歉，没有找到与“%@”相关的商品，你可以换个词试试",_KeyWord]];
     [aStr addAttribute:NSForegroundColorAttributeName value:[UIColor  colorWithRed:204.0/255 green:34.0/255 blue:69.0/255 alpha:1] range:NSMakeRange(9, _KeyWord.length)];
     label.font = [UIFont systemFontOfSize:CGFloatMakeY(15)];
-        label.textColor = [UIColor colorWithRed:153.0/255 green:153.0/255 blue:153.0/255 alpha:1];
-     label.attributedText = aStr;
-
+    label.textColor = [UIColor colorWithRed:153.0/255 green:153.0/255 blue:153.0/255 alpha:1];
+    label.attributedText = aStr;
+    
     [self.view addSubview:label];
     
     [self.view addSubview: noneImageView];
@@ -162,7 +162,7 @@
         return 2;
     }else
         
-    return 1;
+        return 1;
 }
 
 #pragma mark -- 分区头分区尾
@@ -171,24 +171,24 @@
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
 {
     if (_isFromLBT) {
-    if (section == 0) {
-        return CGSizeMake1(k6PWidth, 400);
-    }else
-        return CGSizeMake1(k6PWidth, 40);
+        if (section == 0) {
+            return CGSizeMake1(k6PWidth, 400);
+        }else
+            return CGSizeMake1(k6PWidth, 40);
         
     }else
         
         return CGSizeMake1(k6PWidth, 40);
-
+    
 }
 
 //什么样的分区头或者分区尾
 -(UICollectionReusableView*)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
     if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
-    if (_isFromLBT) {
-        if (indexPath.section == 0) {
-            
+        if (_isFromLBT) {
+            if (indexPath.section == 0) {
+                
                 UICollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header1" forIndexPath:indexPath];
                 if (headerView.subviews.count < 1) {
                     UIImageView *headerImgView = [[UIImageView alloc]initWithFrame:CGRectMake1(0, 0, 414, 320)];
@@ -213,11 +213,11 @@
                     [headerView addSubview:selectLabel];
                     [headerView addSubview:linelabel];                }
                 return headerView;
-            
-        
-        }
-    else
-        {
+                
+                
+            }
+            else
+            {
                 UICollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header" forIndexPath:indexPath];
                 if (headerView.subviews.count < 1) {
                     _arr = @[@"最新",@"人气",@"销量",@"价格",@"价格▲",@"价格▼"];
@@ -247,14 +247,14 @@
                     
                 }
                 return headerView;
-        
-        
+                
+                
+            }
         }
-    }
-    else
-        
-    {
-        UICollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header" forIndexPath:indexPath];
+        else
+            
+        {
+            UICollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header" forIndexPath:indexPath];
             if (headerView.subviews.count < 1) {
                 _arr = @[@"最新",@"人气",@"销量",@"价格",@"价格▼",@"价格▲"];
                 
@@ -285,7 +285,7 @@
             return headerView;
         }
     }
-        return nil;
+    return nil;
 }
 
 
@@ -300,7 +300,7 @@
             return self.goodsArr.count;
     }else
         
-    return  self.goodsArr.count;
+        return  self.goodsArr.count;
 }
 
 //每个ITEM显示什么样的cell
@@ -353,8 +353,8 @@
             _isUp = NO;
         }
     }
-
-
+    
+    
     [_goodsCollectionView reloadData];
     [_goodsCollectionView setContentOffset:CGPointMake1(0, 0)animated:YES];
     
@@ -396,7 +396,7 @@
                 val2 = [number2.marketprice intValue];
             }
                 break;
-
+                
             default:
                 break;
         }
@@ -406,7 +406,7 @@
             {
                 return NSOrderedDescending;
             }else
-            return NSOrderedAscending;
+                return NSOrderedAscending;
             
         } else {
             
@@ -414,7 +414,7 @@
             {
                 return NSOrderedAscending;
             }else
-            return NSOrderedDescending;
+                return NSOrderedDescending;
             
         }
         
@@ -432,7 +432,7 @@
     GoodSDetailViewController * goodDetailVC = [[GoodSDetailViewController alloc]init];
     goodDetailVC.goodsDic = @{@"id":Model.goodId,@"appkey":APPkey};
     self.navigationItem.title = @"";
-   
+    
     [self.navigationController pushViewController:goodDetailVC animated:YES];
 }
 
@@ -452,7 +452,7 @@
     self.navigationController.navigationBar.translucent = NO;
     
     [self.navigationController popViewControllerAnimated:YES];
-
+    
 }
 
 
@@ -463,13 +463,13 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end
