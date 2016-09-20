@@ -70,7 +70,7 @@
     _count = 0;
     _userdefault = [NSUserDefaults standardUserDefaults];
     
-//    DLog(@"%@",[_userdefault valueForKey:@"recordArr"]);
+    //    DLog(@"%@",[_userdefault valueForKey:@"recordArr"]);
     
     if ([_userdefault valueForKey:@"recordArr"] == nil) {
         [_userdefault setObject:self.searchRecordArr forKey:@"recordArr"];
@@ -161,7 +161,6 @@
         AppDelegate *app = [[UIApplication sharedApplication]delegate];
         _lineView.frame=CGRectMake1(152, 34, 50, 2/app.autoSizeScaleY);
         _differentScrollView.contentOffset = CGPointMake(0, _differentScrollView.contentOffset.y);
-        _differentScrollView.showsVerticalScrollIndicator = FALSE;
     }];
 }
 
@@ -176,7 +175,7 @@
 
 -(void)initScrollView
 {
-
+    
     _lineView = [[UIView alloc]initWithFrame:CGRectMake1(152, 34, 50, 2)];
     _lineView.backgroundColor = [UIColor redColor];
     [self.view addSubview:_lineView];
@@ -187,6 +186,7 @@
     _differentScrollView.contentSize = CGSizeMake(kWidth*2, kHeight-CGFloatMakeY(150));
     _differentScrollView.pagingEnabled = YES;
     _differentScrollView.delegate =self;
+    _differentScrollView.showsVerticalScrollIndicator = NO;
     [self.view addSubview:_differentScrollView];
     
     
@@ -201,24 +201,25 @@
     [_differentScrollView addSubview:_sortScrollView];
 }
 
--(void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView
+-(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
-    scrollView = _differentScrollView;
-    if (scrollView.contentOffset.x >kWidth/2) {
-        [self brandBtnAction:_brandBtn];
+    if(scrollView == _differentScrollView){
+        if (scrollView.contentOffset.x >kWidth/2) {
+            [self brandBtnAction:_brandBtn];
+        }
+        else if (scrollView.contentOffset.x<kWidth/2)
+        {
+            [self sortBtnAction:_sortBtn];
+        }
     }
-    else if (scrollView.contentOffset.x<kWidth/2)
-        [self sortBtnAction:_sortBtn];
 }
 
 //确定每个item的大小.
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     return CGSizeMake1(90, 105);
-    
 }
- //一共有几个分区
+//一共有几个分区
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
     if (_KindArr.count == 0) {
@@ -270,7 +271,7 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     goodsCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CollectionCell" forIndexPath:indexPath];
-
+    
     //获取model
     NSArray * arr =  _BrandArr[indexPath.section];
     NSDictionary *brandDic = arr[indexPath.row];
@@ -311,7 +312,7 @@
     AFHTTPSessionManager * manager = [self sharedManager];;
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-
+    
     //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
     [manager POST:kSBrandGoodUrl parameters:Ndic progress:^(NSProgress * _Nonnull downloadProgress) {
         
@@ -327,7 +328,7 @@
             [self.KindArr addObject:model];
             
         }
-
+        
         [self getModel];
         
         
@@ -342,7 +343,7 @@
 
 -(void)getModel
 {
-   
+    
     if (_i<_KindArr.count)
     {
         
@@ -354,38 +355,38 @@
         NSDictionary * Ndic = [self md5DicWith:dic];
         
         AFHTTPSessionManager * manager = [self sharedManager];;
-
+        
         manager.responseSerializer = [AFJSONResponseSerializer serializer];
         manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-
+        
         //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
         
         [manager POST:kSBrandGoodUrl parameters:Ndic progress:^(NSProgress * _Nonnull downloadProgress) {
             
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
-        {
-            DLog(@"%@",responseObject);
-            [self hasReloadView];
-            
-            NSArray *arr = responseObject;
-            
-            NSMutableArray *mArr = [NSMutableArray array];
-            
-            for (NSDictionary * dic  in arr)
-            {
-                [mArr addObject:dic];
-            }
-            //            DLog(@"mArr.count : %ld",mArr.count);
-            [_BrandArr addObject:mArr];
-            _i++;
-            [self getModel];
-            
-            
-            
-        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            DLog(@"error : %@ ",error);
-                    [self ReloadDataWithCase:2];
-        }];
+         {
+             DLog(@"%@",responseObject);
+             [self hasReloadView];
+             
+             NSArray *arr = responseObject;
+             
+             NSMutableArray *mArr = [NSMutableArray array];
+             
+             for (NSDictionary * dic  in arr)
+             {
+                 [mArr addObject:dic];
+             }
+             //            DLog(@"mArr.count : %ld",mArr.count);
+             [_BrandArr addObject:mArr];
+             _i++;
+             [self getModel];
+             
+             
+             
+         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+             DLog(@"error : %@ ",error);
+             [self ReloadDataWithCase:2];
+         }];
         
         
     }
@@ -410,7 +411,7 @@
             totalHeight  = height +totalHeight;
         }
         UIButton * HeadBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        HeadBtn.frame = CGRectMake(0, 0, kWidth, CGFloatMakeY(150*414.0/320));
+        HeadBtn.frame = CGRectMake(0, 0, kWidth, CGFloatMakeY(150*414/330));
         [HeadBtn sd_setBackgroundImageWithURL:_headSortArr[i] forState:UIControlStateNormal];
         [HeadBtn addTarget:self action:@selector(goToGoodsCollectionView:) forControlEvents:UIControlEventTouchUpInside];
         HeadBtn.tag = [_PcateArr[i] integerValue];
@@ -434,8 +435,8 @@
     goodsView.pid =[NSString stringWithFormat:@"%ld",btn.tag];
     for (NSDictionary *dic  in _desArr) {
         if ([[dic valueForKey:@"pcate"] isEqualToString:[NSString stringWithFormat:@"%ld",btn.tag]] ) {
-                goodsView.introduce = dic[@"name"];
-
+            goodsView.introduce = dic[@"name"];
+            
         }
     }
     goodsView.isFromSort = YES;
@@ -468,7 +469,7 @@
     
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-
+    
     //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
     
     [manager POST:kGetKeyWord parameters:Ndic progress:^(NSProgress * _Nonnull downloadProgress) {
@@ -495,27 +496,27 @@
         _count ++;
         [self getSortModelData];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
-    {
-     
-        if ([error code] == -1001) {
+     {
+         
+         if ([error code] == -1001) {
              [self ReloadDataWithCase:3];
-        }else
-        {
-            _count = 0;
-            
-            [self initSortView];
-
-        }
-
-        DLog(@"error %@",error);
-        
-    }];
+         }else
+         {
+             _count = 0;
+             
+             [self initSortView];
+             
+         }
+         
+         DLog(@"error %@",error);
+         
+     }];
     
 }
 
 -(void)BtnAction:(UIButton *)btn
 {
-//    DLog(@"%@",btn.titleLabel.text);
+    //    DLog(@"%@",btn.titleLabel.text);
     [self goSearchWithStr:btn.titleLabel.text withIsFromBtn:YES];
 }
 
@@ -583,8 +584,8 @@
         [self.searchTableView reloadData];
     }
     else
-    [self postTitleWithKey];
-
+        [self postTitleWithKey];
+    
     
 }
 
@@ -637,7 +638,7 @@
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         DLog(@"error %@",error);
-                [self ReloadDataWithCase:4];
+        [self ReloadDataWithCase:4];
     }];
     
 }
@@ -655,7 +656,7 @@
         
         [_searchRecordArr addObject:searchBar.text];
         [_userdefault setObject:self.searchRecordArr forKey:@"recordArr"];
-
+        
     }
     self.isShowTab = YES;
     [self hideTabBarWithTabState:self.isShowTab];
@@ -773,7 +774,7 @@
                 _tableViewCellHeight0 = [cell addBtnWithArr:[NSMutableArray arrayWithArray:_searchRecordArr]];
             }else if(indexPath.section == 1)
             {
-
+                
                 _tableViewCellHeight1 = [cell addBtnWithArr:[NSMutableArray arrayWithArray:_reArr]];
             }
         }
@@ -797,14 +798,14 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    #pragma 还没加入数组
+#pragma 还没加入数组
     [self goSearchWithStr:_someThingArr[indexPath.row] withIsFromBtn:NO];
     
 }
 
 -(void)clearAllRecord:(UIButton *)btn
 {
-//    DLog(@"touch！！！");
+    //    DLog(@"touch！！！");
     [_searchRecordArr removeAllObjects];
     
     [_searchTableView reloadData];
@@ -812,7 +813,7 @@
 
 -(void)SearchBtnAction:(UIButton *)btn
 {
-//    DLog(@"btn %@",btn.titleLabel.text);
+    //    DLog(@"btn %@",btn.titleLabel.text);
     [self goSearchWithStr:btn.titleLabel.text withIsFromBtn:NO];
 }
 
@@ -846,14 +847,14 @@
     self.isShowTab = NO;
     
     [self showTabBarWithTabState:self.isShowTab];
-  /*  if([self returnIsFromHomePage])
-    {
-        AppDelegate *app = [[UIApplication sharedApplication]delegate];
-        _lineView.frame=CGRectMake1(222, 34, 50, 2/app.autoSizeScaleY);
-        _differentScrollView.contentOffset = CGPointMake(kWidth, _differentScrollView.contentOffset.y);
-        [self setIsFromHomePagewithIsFromHomePage:NO];
-    }
-   */
+    /*  if([self returnIsFromHomePage])
+     {
+     AppDelegate *app = [[UIApplication sharedApplication]delegate];
+     _lineView.frame=CGRectMake1(222, 34, 50, 2/app.autoSizeScaleY);
+     _differentScrollView.contentOffset = CGPointMake(kWidth, _differentScrollView.contentOffset.y);
+     [self setIsFromHomePagewithIsFromHomePage:NO];
+     }
+     */
 }
 
 
@@ -861,7 +862,7 @@
 {
     [super viewDidDisappear:animated];
     
-
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -874,6 +875,9 @@
         _lineView.frame=CGRectMake1(222, 34, 50, 2/app.autoSizeScaleY);
         _differentScrollView.contentOffset = CGPointMake(kWidth, _differentScrollView.contentOffset.y);
         [self setIsFromHomePagewithIsFromHomePage:NO];
+    }
+    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
     }
 }
 
@@ -913,7 +917,7 @@
         [_noNetworkView addSubview:noworkLabel];
         [_noNetworkView addSubview:btn];
     }
-
+    
 }
 
 

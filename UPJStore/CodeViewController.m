@@ -158,6 +158,9 @@
     [_session startRunning];
     self.isShowTab = YES;
     [self hideTabBarWithTabState:self.isShowTab];
+    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
+    }
 }
 #pragma mark AVCaptureMetadataOutputObjectsDelegate
 - ( void )captureOutput:( AVCaptureOutput *)captureOutput didOutputMetadataObjects:( NSArray *)metadataObjects fromConnection:( AVCaptureConnection *)connection

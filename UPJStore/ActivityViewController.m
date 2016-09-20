@@ -170,7 +170,7 @@
         for (NSDictionary *dic in arr ) {
             ProductsModel *model = [[ProductsModel alloc]init];
             [model setValuesForKeysWithDictionary:dic];
-            model.productID = [dic valueForKey:@"id"];
+            model.goodsid = [dic valueForKey:@"id"];
             [self.goodsArr addObject:model];
         }
         [self.goodsCollectionView reloadData];
@@ -223,7 +223,7 @@
     
     ProductsModel * model  = _goodsArr[indexPath.row];
     
-    NSDictionary * dic = @{@"appkey":APPkey,@"id":model.productID};
+    NSDictionary * dic = @{@"appkey":APPkey,@"id":model.goodsid};
     
     goodVC.goodsDic = dic;
     
@@ -237,6 +237,9 @@
     [super viewWillAppear:animated];
     self.isShowTab = YES;
     [self hideTabBarWithTabState:self.isShowTab];
+    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
+    }
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

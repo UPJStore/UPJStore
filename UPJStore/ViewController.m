@@ -29,11 +29,12 @@
 #import "LoginViewController.h"
 #import "ImageTableViewCell.h"
 #import "UIButton+WebCache.h"
-#import "detailModel.h"
+#import "DetailModel.h"
 #import "MJExtension.h"
 #import "BookIngViewController.h"
 #import "CategoryModel.h"
 #import "brandViewController.h"
+#import "LbtWebViewController.h"
 
 @interface ViewController ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,btnAction>
 @property (nonatomic,strong)UITableView *HomePageTableView;
@@ -41,7 +42,7 @@
 @property (nonatomic,strong)UICollectionView *CollectionView2;
 @property (nonatomic,strong)NSMutableArray * LBTArr;
 @property (nonatomic,strong)NSMutableArray *imageArr;
-@property (nonatomic,strong)detailModel *detailmodel;
+@property (nonatomic,strong)DetailModel *detailmodel;
 @property (nonatomic,strong)SDCycleScrollView *cycleScrollView;
 //三个专区数组
 @property (nonatomic,strong)NSMutableArray *pidArr;
@@ -67,11 +68,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
- //   self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor colorFromHexRGB:@"cc2245"]};
+    //   self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor colorFromHexRGB:@"cc2245"]};
 #pragma mark - 左按钮
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"dingwei"] style:UIBarButtonItemStyleDone target:self action:@selector(leftAction:)];
     self.navigationItem.leftBarButtonItem.tintColor = [UIColor colorFromHexRGB:@"999999"];
-
+    
 #pragma mark - 右按钮
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"saomakuang"] style:UIBarButtonItemStyleDone target:self action:@selector(rightAction:)];
     self.navigationItem.rightBarButtonItem.tintColor = [UIColor colorFromHexRGB:@"999999"];
@@ -150,7 +151,7 @@
              [self.navigationController presentViewController:noAlert animated:YES completion:^{
                  sleep(1);
                  [self.navigationController dismissViewControllerAnimated:YES completion:^{
-                   //  [self.HomePageTableView.mj_header beginRefreshing];
+                     //  [self.HomePageTableView.mj_header beginRefreshing];
                  }];
              }];
          }];
@@ -185,7 +186,7 @@
              [model setValuesForKeysWithDictionary:dic];
              [_homepageImageArr addObject:model];
          }
-        // [_HomePageTableView reloadData];
+         // [_HomePageTableView reloadData];
          [self getHeaderDataAndModelData];
      }
           failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
@@ -218,11 +219,12 @@
               success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
          {
              NSLog(@"%@",responseObject);
+             NSArray *arr = responseObject[@"list"];
+             if (arr.count != 0) {
              HeaderModel *Hmodel = [[HeaderModel alloc]init];
              [Hmodel setValuesForKeysWithDictionary:responseObject];
              [_headerArr addObject:Hmodel];
              [_pidArr addObject:Hmodel.pid];
-             NSArray *arr = responseObject[@"list"];
              NSMutableArray * mArr = [NSMutableArray array];
              for (NSDictionary *dic in arr)
              {
@@ -234,7 +236,12 @@
              _z++;
              _num++;
              [self getHeaderDataAndModelData];
-             
+             }
+             else
+             {
+                 _num++;
+                 [self getHeaderDataAndModelData];
+             }
          }
               failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
          {
@@ -275,11 +282,12 @@
                   success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
              {
                  NSLog(@"%@",responseObject);
+                 NSArray *arr = responseObject[@"list"];
+                 if (arr.count != 0) {
                  HeaderModel *Hmodel = [[HeaderModel alloc]init];
                  [Hmodel setValuesForKeysWithDictionary:responseObject];
                  [_headerArr addObject:Hmodel];
                  [_pidArr addObject:Hmodel.pid];
-                 NSArray *arr = responseObject[@"list"];
                  NSMutableArray * mArr = [NSMutableArray array];
                  for (NSDictionary *dic in arr)
                  {
@@ -292,6 +300,11 @@
                  _num++;
                  [self.HomePageTableView reloadData];
                  [self.HomePageTableView.mj_footer endRefreshing];
+             }else
+             {
+                 _num++;
+                 [self addData];
+             }
              }
                   failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
              {
@@ -319,11 +332,12 @@
              }
                   success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
              {
+                  NSArray *arr = responseObject[@"list"];
+                 if (arr.count != 0) {
                  HeaderModel *Hmodel = [[HeaderModel alloc]init];
                  [Hmodel setValuesForKeysWithDictionary:responseObject];
                  [_headerArr addObject:Hmodel];
                  [_pidArr addObject:Hmodel.pid];
-                 NSArray *arr = responseObject[@"list"];
                  NSMutableArray * mArr = [NSMutableArray array];
                  for (NSDictionary *dic in arr)
                  {
@@ -336,6 +350,11 @@
                  _num++;
                  [self.HomePageTableView reloadData];
                  [self.HomePageTableView.mj_footer endRefreshing];
+                 }else
+                 {
+                     _num++;
+                     [self addData];
+                 }
              }
                   failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
              {
@@ -617,7 +636,7 @@
             for (int i = 0; i<4; i++) {
                 UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
                 btn.frame = CGRectMake1(10+101*i, 55, 91, 50);
-                 CategoryModel *model = _categoryArr[i];
+                CategoryModel *model = _categoryArr[i];
                 [btn sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",model.thumb]] forState:UIControlStateNormal];
                 btn.tag = i;
                 [btn addTarget:self action:@selector(categoryTapAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -788,17 +807,24 @@
 //轮播点击事件
 -(void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index{
     LBTModel * model = _LBTArr[index];
-    NSLog(@"%@",model.lbid);
-    
-    AfterSearchViewController * afSearchVC = [[AfterSearchViewController alloc]init];
-    afSearchVC.KeyWord = model.keyword;
-    afSearchVC.thumb = model.thumb;
-    afSearchVC.advname = model.advname;
-    afSearchVC.descriptionText = model.descriptionStr;
-    afSearchVC.isFromLBT = YES;
-    afSearchVC.backgroundColor = self.view.backgroundColor;
-    [self.navigationController pushViewController:afSearchVC animated:YES];
-    
+   
+    if (model.keyword.length != 0 || model.pcate.length != 0) {
+        AfterSearchViewController * afSearchVC = [[AfterSearchViewController alloc]init];
+        afSearchVC.pcate = model.pcate;
+        afSearchVC.thumb = model.thumb;
+        afSearchVC.pcate = model.pcate;
+        afSearchVC.advname = model.advname;
+        afSearchVC.descriptionText = model.descriptionStr;
+        afSearchVC.isFromLBT = YES;
+        afSearchVC.backgroundColor = self.view.backgroundColor;
+        [self.navigationController pushViewController:afSearchVC animated:YES];
+    }else
+    {
+        LbtWebViewController *lbtvc = [[LbtWebViewController alloc]init];
+        lbtvc.titlestr = model.advname;
+        lbtvc.urlstr = model.link;
+        [self.navigationController pushViewController:lbtvc animated:YES];
+    }
     
 }
 
@@ -848,7 +874,7 @@
             
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             DLog(@"%@",responseObject);
-            _detailmodel = [detailModel mj_objectWithKeyValues:responseObject];
+            _detailmodel = [DetailModel mj_objectWithKeyValues:responseObject];
             BookIngViewController * bVC = [[BookIngViewController alloc]init];
             [self.navigationController pushViewController:bVC animated:YES];
             bVC.modelDic = [_detailmodel mj_keyValues];
@@ -867,7 +893,7 @@
         return NO;
     }else
     {
-    [self postCollectionData:btn];
+        [self postCollectionData:btn];
         return YES;
     }
 }

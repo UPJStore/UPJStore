@@ -397,6 +397,9 @@
     [super viewWillAppear:animated];
     self.isShowTab = YES;
     [self hideTabBarWithTabState:self.isShowTab];
+    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
+    }
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

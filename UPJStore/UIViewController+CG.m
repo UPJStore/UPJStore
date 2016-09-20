@@ -278,7 +278,8 @@ static const void *isShowTabKey = &isShowTabKey;
     {
         
     }
-    [UIView animateWithDuration:0.35
+    [UIView animateWithDuration:0.15
+     
                      animations:^{
                          CGRect tabFrame = self.tabBarController.tabBar.frame;
                          NSLog(@"MinY %.f",CGRectGetMinY(tabFrame));

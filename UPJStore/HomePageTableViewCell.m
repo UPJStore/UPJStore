@@ -30,6 +30,10 @@
         HomepageLabel *label = [[HomepageLabel alloc]initWithFrame:CGRectMake1(0, 217.5, 414, 50)];
         [self addSubview:label];
         
+        UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake1(0, 267, 414, 0.5)];
+        lineView.backgroundColor = [UIColor colorFromHexRGB:@"dddddd"];
+        [self addSubview:lineView];
+        
         tableView = [[UITableView alloc]initWithFrame:CGRectMake1(0, 267.5, 414, 1200)];
         tableView.delegate = self;
         tableView.dataSource = self;

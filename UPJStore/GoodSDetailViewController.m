@@ -9,7 +9,7 @@
 #import "GoodSDetailViewController.h"
 #import "AFNetWorking.h"
 #import "MJExtension.h"
-#import "detailModel.h"
+#import "DetailModel.h"
 #import "appraiseModel.h"
 #import "UIColor+HexRGB.h"
 #import "UIViewController+CG.h"
@@ -35,7 +35,7 @@
 @property (nonatomic,strong) UIScrollView * goodsScrollView,* contentScrollView;
 @property (nonatomic,strong) NSMutableArray *appraiseArr;
 @property (nonatomic,strong) NSMutableArray *thumbArr,*recommandArr;
-@property (nonatomic,strong)  detailModel * model;
+@property (nonatomic,strong)  DetailModel * model;
 @property (nonatomic,strong) descriptionView *descView;
 @property (nonatomic,strong) UIView * endView,*ContentView;
 @property (nonatomic,strong) UIImageView *isCollectionView;
@@ -611,7 +611,7 @@
         [self.loadingHud hideAnimated:YES];
         self.loadingHud = nil;
         DLog(@"%@",responseObject);
-        _model = [detailModel mj_objectWithKeyValues:responseObject];
+        _model = [DetailModel mj_objectWithKeyValues:responseObject];
         
         for (NSDictionary * dic  in _model.appraise) {
             
@@ -1119,6 +1119,9 @@
     self.navigationController.navigationBar.translucent = NO;
     self.isShowTab = YES;
     [self hideTabBarWithTabState:self.isShowTab];
+    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
+    }
 }
 
 - (void)didReceiveMemoryWarning {

@@ -1,43 +1,29 @@
 //
-//  AgreementViewController.m
+//  CommissonWithdrawalViewController.m
 //  UPJStore
 //
-//  Created by 邝健锋 on 16/4/14.
+//  Created by upj on 16/9/20.
 //  Copyright © 2016年 UPJApp. All rights reserved.
 //
 
-#import "AgreementViewController.h"
+#import "CommissonWithdrawalViewController.h"
 #import "UIViewController+CG.h"
 
-@interface AgreementViewController ()
+@interface CommissonWithdrawalViewController ()
 
 @end
 
-@implementation AgreementViewController
+@implementation CommissonWithdrawalViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    UIColor *backcolor = [UIColor colorWithRed:240.0/255 green:240.0/255 blue:240.0/255 alpha:1];
-    //  UIColor *btncolor = [UIColor colorWithRed:204.0/255 green:34.0/255 blue:69.0/255 alpha:1];
-    //  UIColor *fontcolor = [UIColor colorWithRed:153.0/255 green:153.0/255 blue:153.0/255 alpha:1];
-    self.view.backgroundColor = backcolor;
-    
-    self.navigationItem.title = @"用户协议";
+    // Do any additional setup after loading the view.
+    self.view.backgroundColor =[UIColor whiteColor];
+    self.navigationItem.title = @"佣金明细";
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"backArrow"] style:UIBarButtonItemStyleDone target:self action:@selector(pop)];
     self.navigationItem.leftBarButtonItem.tintColor = [UIColor blackColor];
-    
-    // Do any additional setup after loading the view.
-    UIScrollView *scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake1(0, 0, 414, 672)];
-    scrollView.contentSize = CGSizeMake1(414, 5150);
-    scrollView.showsVerticalScrollIndicator = NO;
-    [self.view addSubview:scrollView];
-    
-    UIImage *image = [UIImage imageNamed:@"AgrementPicture"];
-    UIImageView *imageView = [[UIImageView alloc]initWithImage:image];
-    imageView.frame = CGRectMake1(0, 0, 414, 5200);
-    [scrollView addSubview:imageView];
-    
 }
+
 
 -(void)pop
 {
@@ -47,14 +33,16 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
     self.navigationController.navigationBarHidden = NO;
-    self.isShowTab = YES;
+    self.navigationController.navigationBar.translucent = NO;
+    self.isShowTab =YES;
     [self hideTabBarWithTabState:self.isShowTab];
-    self.navigationController.navigationBar.translucent =NO;
     if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
         self.navigationController.interactivePopGestureRecognizer.delegate = nil;
     }
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

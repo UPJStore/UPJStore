@@ -446,6 +446,10 @@
         
     }
     
+    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
+    }
+    
     [self addsInfoWithDic:_addsDic];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reduce:) name:@"reduce" object:nil];

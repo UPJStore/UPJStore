@@ -585,6 +585,9 @@
     [_memberView reloadData];
     [_headerView islogin:[self returnIsLogin]];
     [_headerView update:[self returnNickName]];
+    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
+    }
 }
 
 //设置页面

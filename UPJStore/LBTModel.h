@@ -15,4 +15,5 @@
 @property (nonatomic,strong) NSString *lbid;
 @property (nonatomic,strong) NSString *keyword;
 @property (nonatomic,strong) NSString *link;
+@property (nonatomic,strong) NSString *pcate;
 @end

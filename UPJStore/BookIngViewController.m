@@ -158,13 +158,6 @@
     arrowImageView.image = [UIImage imageNamed:@"箭头"];
     [address addSubview:arrowImageView];
     
-    UIImageView * borImageView = [[UIImageView alloc]initWithFrame:CGRectMake1(0, 0, 414, 9)];
-    borImageView.image =[UIImage imageNamed:@"biankuang_01"];
-    [address addSubview:borImageView];
-    
-    UIImageView * borImageView1 = [[UIImageView alloc]initWithFrame:CGRectMake1(0, 91, 414, 9)];
-    borImageView1.image =[UIImage imageNamed:@"biankuang_01"];
-    [address addSubview:borImageView1];
 
     nameLab = [[UILabel alloc]initWithFrame:CGRectMake1(40, 20, 354/2, 20)];
     nameLab.font = [UIFont systemFontOfSize:CGFloatMakeY(15)];
@@ -469,6 +462,10 @@
     }
     
     [self addsInfoWithDic:_addsDic];
+    
+    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
+    }
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reduce:) name:@"reduce" object:nil];
 

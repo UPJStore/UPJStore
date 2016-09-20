@@ -6,9 +6,9 @@
 //  Copyright © 2016年 UPJApp. All rights reserved.
 //
 
-#import "detailModel.h"
+#import "DetailModel.h"
 
-@implementation detailModel
+@implementation DetailModel
 
 -(void)setValue:(id)value forUndefinedKey:(NSString *)key
 {

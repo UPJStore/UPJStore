@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "detailModel.h"
+#import "DetailModel.h"
 
 @interface descriptionView : UIView
 
--(instancetype)initWithFrame:(CGRect)frame withModel:(detailModel*) model;
+-(instancetype)initWithFrame:(CGRect)frame withModel:(DetailModel*) model;
 
 
 @end

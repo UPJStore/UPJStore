@@ -36,10 +36,6 @@
     [super viewDidLoad];
     [self.view addSubview:self.tableview];
     self.view.backgroundColor =[UIColor whiteColor];
-    self.navigationController.navigationBarHidden = NO;
-    self.navigationController.navigationBar.translucent = NO;
-    self.isShowTab =YES;
-    _isLoading = NO;
     self.navigationItem.title = @"我的会员";
     self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor blackColor]};
@@ -304,6 +300,9 @@
     self.navigationController.navigationBar.translucent = NO;
     self.isShowTab =YES;
     [self hideTabBarWithTabState:self.isShowTab];
+    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
+    }
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "appraiseModel.h"
-@interface detailModel : NSObject
+@interface DetailModel : NSObject
 
 @property (nonatomic,strong) NSString *DetailID ,*title, *content,* marketprice,*thumb,* productprice,*detailDescription,*total,*img,*country;
 @property (nonatomic,strong) NSArray *appraise;

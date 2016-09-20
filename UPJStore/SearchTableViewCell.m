@@ -1,17 +1,17 @@
 //
-//  ProductTableViewCell.m
+//  SearchTableViewCell.m
 //  UPJStore
 //
-//  Created by upj on 16/7/22.
+//  Created by upj on 16/9/8.
 //  Copyright © 2016年 UPJApp. All rights reserved.
 //
 
-#import "ProductTableViewCell.h"
+#import "SearchTableViewCell.h"
 #import "UIViewController+CG.h"
 #import "myUILabel.h"
 #import "LineLabel.h"
 
-@implementation ProductTableViewCell
+@implementation SearchTableViewCell
 {
     UIImageView *imageView;
     UIImageView *countryView;
@@ -27,30 +27,40 @@
     // Initialization code
 }
 
--(void)setModel:(ProductModel *)model
+-(void)setModel1:(SearchModel *)model
 {
     [imageView sd_setImageWithURL:[NSURL URLWithString:model.thumb] placeholderImage:[UIImage imageNamed:@"lbtP"]];
     [countryView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.upinkji.com/resource/attachment/%@",model.img]] placeholderImage:[UIImage imageNamed:@"lbtP"]];
     titleLabel.text = model.title;
     marketpriceLabel.text = model.marketprice;
     productpriceLabel.text = model.productprice;
-    discountLabel.text = [self discountWithmarketPrice:model.marketprice WithproductPrice:model.productprice];
-    _buyButton.tag = model.productId.integerValue;
-    _collectButton.tag = model.productId.integerValue;
+    _buyButton.tag = model.goodsid.integerValue;
+    _collectButton.tag = model.goodsid.integerValue;
+}
+
+-(void)setModel2:(ProductsModel *)model
+{
+    [imageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.upinkji.com/resource/attachment/%@",model.thumb]] placeholderImage:[UIImage imageNamed:@"lbtP"]];
+    [countryView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.upinkji.com/resource/attachment/%@",model.img]] placeholderImage:[UIImage imageNamed:@"lbtP"]];
+    titleLabel.text = model.title;
+    marketpriceLabel.text = model.marketprice;
+    productpriceLabel.text = model.productprice;
+    _buyButton.tag = model.goodsid.integerValue;
+    _collectButton.tag = model.goodsid.integerValue;
 }
 
 -(void)setIscollect:(BOOL)iscollect
 {
     if (iscollect) {
         collectimageView.image = [UIImage imageNamed:@"isCollection-YES"];
-         [_collectButton setTitle:@"已收藏" forState:UIControlStateNormal];
+        [_collectButton setTitle:@"已收藏" forState:UIControlStateNormal];
     }else
     {
         collectimageView.image = [UIImage imageNamed:@"isCollection-NO"];
-         [_collectButton setTitle:@"收藏" forState:UIControlStateNormal];
+        [_collectButton setTitle:@"收藏" forState:UIControlStateNormal];
     }
 }
- 
+
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -59,10 +69,10 @@
         imageView.contentMode = UIViewContentModeScaleAspectFit;
         [self addSubview:imageView];
         
-        countryView = [[UIImageView alloc]initWithFrame:CGRectMake1(110, 10, 20, 20)];
+        countryView = [[UIImageView alloc]initWithFrame:CGRectMake1(112, 10, 20, 20)];
         [self addSubview:countryView];
         
-        titleLabel = [[myUILabel alloc]initWithFrame:CGRectMake1(133, 10, 274, 50)];
+        titleLabel = [[myUILabel alloc]initWithFrame:CGRectMake1(135, 10, 274, 50)];
         [titleLabel setVerticalAlignment:VerticalAlignmentTop];
         titleLabel.numberOfLines = 0;
         titleLabel.font = [UIFont systemFontOfSize:CGFloatMakeY(16)];
@@ -88,16 +98,7 @@
         productpriceLabel.font = [UIFont systemFontOfSize:CGFloatMakeY(14)];
         [self addSubview:productpriceLabel];
         
-        UIImageView *discountimageView = [[UIImageView alloc]initWithFrame:CGRectMake1(240, 65, 50, 20)];
-        discountimageView.image = [UIImage imageNamed:@"band.png"];
-        [self addSubview:discountimageView];
-        
-        discountLabel = [[UILabel alloc]initWithFrame:CGRectMake1(250, 65, 40, 20)];
-        discountLabel.font = [UIFont systemFontOfSize:CGFloatMakeY(12)];
-        discountLabel.textColor = [UIColor whiteColor];
-        discountLabel.textAlignment = 1;
-        [self addSubview:discountLabel];
-
+         
         UIImageView *imageView1 = [[UIImageView alloc]initWithFrame:CGRectMake1(247, 91, 15, 15)];
         imageView1.image = [UIImage imageNamed:@"shoppingCart"];
         [self addSubview:imageView1];
@@ -122,19 +123,6 @@
         
     }
     return self;
-}
-
--(NSString*)discountWithmarketPrice:(NSString*)marketPrice
-                   WithproductPrice:(NSString*)productPrice
-{
-    CGFloat discount = [marketPrice floatValue]/[productPrice floatValue]*10;
-    if (![productPrice isEqualToString:@"0.00"]) {
-        NSString *str = [NSString stringWithFormat:@"%.1f折",discount];
-        return str;
-    }else
-    {
-        return @"0折";
-    }
 }
 
 -(void)collectBtnAction:(UIButton *)btn

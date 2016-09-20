@@ -139,6 +139,9 @@
     self.isShowTab = YES;
     [self hideTabBarWithTabState:self.isShowTab];
     self.navigationController.navigationBar.translucent = YES;
+    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
+    }
 }
 
 - (void)didReceiveMemoryWarning {

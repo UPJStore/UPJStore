@@ -146,6 +146,14 @@
     [self.navigationController pushViewController:FVC animated:YES];
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
+    }
+}
+
 -(void)pop{
     [self.navigationController popViewControllerAnimated:YES];
     self.isShowTab = YES;

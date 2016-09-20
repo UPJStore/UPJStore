@@ -16,11 +16,18 @@
 #import "XLPlainFlowLayout.h"
 #import "UIColor+HexRGB.h"
 #import "MJRefresh.h"
+#import "SearchTableViewCell.h"
+#import "CollectModel.h"
+#import "LoginViewController.h"
+#import "BookIngViewController.h"
+#import "DetailModel.h"
+#import "MJExtension.h"
 
-@interface AfterSearchViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UIScrollViewDelegate>
+@interface AfterSearchViewController ()<UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate,btnAction>
 
-@property (nonatomic,strong) UICollectionView * goodsCollectionView;
+@property (nonatomic,strong) UITableView * goodsTableView;
 @property (nonatomic,strong) NSMutableArray * goodsArr;
+@property (nonatomic,strong)DetailModel *detailmodel;
 @property (nonatomic,assign) BOOL isUp;
 @property (nonatomic,strong) NSArray * arr;
 @property (nonatomic) NSInteger num;
@@ -35,8 +42,6 @@
     self.navigationItem.leftBarButtonItem.tintColor = [UIColor blackColor];
     self.navigationController.navigationBar.translucent = NO;
     
-    self.view.backgroundColor = self.backgroundColor;
-    
     self.view.backgroundColor = [UIColor whiteColor];
     
     _num = 2;
@@ -46,15 +51,18 @@
         self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor colorFromHexRGB:@"cc2245"]};
         
     }
-    if(_KeyWord.length !=0)
+    if(_KeyWord.length != 0)
     {
         NSDictionary * dic =@{@"appkey":APPkey,@"keyword":_KeyWord};
         [self getDataWithdic:dic];
     }
-    else
+    else if(_pcate.length != 0)
     {
         NSDictionary * dic =@{@"appkey":APPkey,@"pcate":_pcate};
         [self getDataWithdic:dic];
+    }else
+    {
+        [self initNoneView];
     }
     
     _goodsArr =[NSMutableArray array];
@@ -63,28 +71,46 @@
     // Do any additional setup after loading the view.
 }
 
--(void)initGoodCollectionView
+-(void)initGoodTableView
 {
-    XLPlainFlowLayout *layout = [XLPlainFlowLayout new];
+    UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake1(0, 0, 414, 40)];
+    headerView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:headerView];
+    _arr = @[@"最新",@"人气",@"销量",@"价格",@"价格▲",@"价格▼"];
+    for(int i = 0; i<4;i++)
+    {
+        
+        UIButton * btn  = [UIButton buttonWithType:UIButtonTypeCustom];
+        if (i==0) {
+            [btn setSelected:YES];
+            [self isFromWhat:1000];
+        }
+        btn.frame = CGRectMake1(i*k6PWidth/4, 0, k6PWidth/4, 40);
+        btn.tag = 1000+i;
+        [btn setTitle:_arr[i] forState:UIControlStateNormal];
+        [btn setTitleColor:[UIColor colorWithRed:102.0/255 green:102.0/255 blue:102.0/255 alpha:1] forState:UIControlStateNormal];
+        [btn setTitleColor:[UIColor colorWithRed:204.0/255 green:34.0/255 blue:69.0/255 alpha:1] forState:UIControlStateSelected];
+        btn.titleLabel.font = [UIFont systemFontOfSize:CGFloatMakeY(14)];
+        [btn addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
+        btn.layer.borderColor = [[UIColor blackColor]CGColor];
+        [headerView addSubview:btn];
+    }
     
-    layout.minimumInteritemSpacing = 20;
+    UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake1(0, 39.5, 414, 0.5)];
+    lineView.backgroundColor = [UIColor colorFromHexRGB:@"dddddd"];
+    [self.view addSubview:lineView];
+
+    _goodsTableView  = [[UITableView alloc]initWithFrame:CGRectMake1(0, 40,k6PWidth , k6PHeight-104)];
+    _goodsTableView.backgroundColor  = [UIColor whiteColor];
+    _goodsTableView.delegate  = self;
+    _goodsTableView.dataSource = self;
+    _goodsTableView.showsVerticalScrollIndicator = NO;
+    _goodsTableView.showsHorizontalScrollIndicator = NO;
+    _goodsTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    [_goodsTableView registerClass:[SearchTableViewCell class] forCellReuseIdentifier:@"cell"];
+    [_goodsTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"header"];
     
-    layout.scrollDirection = UICollectionViewScrollDirectionVertical;
-    
-    layout.sectionInset = UIEdgeInsetsMake(20, 30, 20,30);
-    
-    _goodsCollectionView  = [[UICollectionView alloc]initWithFrame:CGRectMake1(0, 0,k6PWidth , k6PHeight-60) collectionViewLayout:layout];
-    
-    _goodsCollectionView.backgroundColor  = [UIColor whiteColor];
-    _goodsCollectionView.delegate  = self;
-    _goodsCollectionView.dataSource = self;
-    _goodsCollectionView.showsVerticalScrollIndicator = NO;
-    _goodsCollectionView.showsHorizontalScrollIndicator = NO;
-    [_goodsCollectionView registerClass:[SearchGoodsCollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
-    [_goodsCollectionView registerClass:[UICollectionReusableView class]forSupplementaryViewOfKind:UICollectionElementKindSectionHeader  withReuseIdentifier:@"header"];
-    [_goodsCollectionView registerClass:[UICollectionReusableView class]forSupplementaryViewOfKind:UICollectionElementKindSectionHeader  withReuseIdentifier:@"header1"];
-    
-    [self.view addSubview:_goodsCollectionView];
+    [self.view addSubview:_goodsTableView];
     
 }
 
@@ -106,24 +132,24 @@
         for (NSDictionary *dic in arr) {
             SearchModel * model = [[SearchModel alloc]init];
             [model setValuesForKeysWithDictionary:dic];
-            model.goodId = [dic valueForKey:@"id"];
+            model.goodsid = [dic valueForKey:@"id"];
             [_goodsArr addObject: model];
         }
         if (arr.count != 0) {
-            [self initGoodCollectionView];
+            [self initGoodTableView];
+            if(arr.count == 20)
+            {
+                _goodsTableView.mj_footer =  [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+                    [self postDataWithPage];
+                }];
+                _goodsTableView.mj_footer.hidden = NO;
+            }
         }
         else
         {
             [self initNoneView];
         }
-        if (arr.count == 20) {
-            _goodsCollectionView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-                [self postDataWithPage];
-            }];
-            _goodsCollectionView.mj_footer.hidden = NO;
-        }
-        [self.goodsCollectionView reloadData];
-        
+        [_goodsTableView reloadData];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
     }];
@@ -155,32 +181,32 @@
         NSArray* arr = responseObject[@"product"];
         if (arr.count == 20) {
             _num++;
-            _goodsCollectionView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+            _goodsTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
                 [self postDataWithPage];
             }];
         }else
         {
-            _goodsCollectionView.mj_footer.hidden = YES;
+            _goodsTableView.mj_footer.hidden = YES;
         }
         for (NSDictionary *dic in arr) {
             SearchModel * model = [[SearchModel alloc]init];
             [model setValuesForKeysWithDictionary:dic];
-            model.goodId = [dic valueForKey:@"id"];
+            model.goodsid = [dic valueForKey:@"id"];
             [_goodsArr addObject: model];
         }
         if (arr.count == 0) {
-            _goodsCollectionView.mj_footer.hidden = YES;
+            _goodsTableView.mj_footer.hidden = YES;
         }else
         {
-        [self.goodsCollectionView reloadData];
+            [self.goodsTableView reloadData];
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
     }];
-
+    
 }
 
-
+//当没有东西的时候出现
 -(void)initNoneView
 {
     UIImageView *noneImageView = [[UIImageView alloc]initWithFrame:CGRectMake1(234/2*414.0/320, 263/2*736.0/568, 336/3, 336/3)];
@@ -189,11 +215,9 @@
     UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake1(70/2*k6PWidth/320, ((39.0/2+263.0/2)*k6PHeight/568+336/3), k6PWidth-70*k6PWidth/320, 60*k6PHeight/568)];
     label.numberOfLines = 0;
     label.textAlignment = NSTextAlignmentCenter;
-    NSMutableAttributedString *aStr = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"抱歉，没有找到与“%@”相关的商品，你可以换个词试试",_KeyWord]];
-    [aStr addAttribute:NSForegroundColorAttributeName value:[UIColor  colorWithRed:204.0/255 green:34.0/255 blue:69.0/255 alpha:1] range:NSMakeRange(9, _KeyWord.length)];
+    label.text = @"抱歉，没有找到相关的商品，你可以换个词试试";
     label.font = [UIFont systemFontOfSize:CGFloatMakeY(15)];
-    label.textColor = [UIColor colorWithRed:153.0/255 green:153.0/255 blue:153.0/255 alpha:1];
-    label.attributedText = aStr;
+    label.textColor = [UIColor colorFromHexRGB:@"999999"];
     
     [self.view addSubview:label];
     
@@ -203,178 +227,66 @@
 
 
 //确定每个item的大小.
--(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-    return CGSizeMake1(150, 200);
-    
-}
-
-//一共有几个分区
--(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (_isFromLBT) {
-        return 2;
-    }else
-        
-        return 1;
-}
-
-#pragma mark -- 分区头分区尾
-
-//分区头
--(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
-{
-    if (_isFromLBT) {
-        if (section == 0) {
-            return CGSizeMake1(k6PWidth, 400);
+        if (indexPath.row == 0) {
+            return CGFloatMakeY(320);
         }else
-            return CGSizeMake1(k6PWidth, 40);
-        
-    }else
-        
-        return CGSizeMake1(k6PWidth, 40);
-    
-}
-
-//什么样的分区头或者分区尾
--(UICollectionReusableView*)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
-{
-    if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
-        if (_isFromLBT) {
-            if (indexPath.section == 0) {
-                
-                UICollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header1" forIndexPath:indexPath];
-                if (headerView.subviews.count < 1) {
-                    UIImageView *headerImgView = [[UIImageView alloc]initWithFrame:CGRectMake1(0, 0, 414, 320)];
-                    
-                    [headerImgView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:kSImageUrl,_thumb]] placeholderImage:[UIImage imageNamed:@"lbtP"]];
-                    
-                    UILabel *selectLabel = [[UILabel alloc]initWithFrame:CGRectMake1(10,320, 414-20,80)];
-                    selectLabel.text = _descriptionText;
-                    selectLabel.numberOfLines = 0;
-                    selectLabel.font = [UIFont systemFontOfSize:CGFloatMakeY(13)];
-                    selectLabel.textAlignment = NSTextAlignmentCenter;
-                    UIColor *fontcolor = [UIColor colorWithRed:153.0/255 green:153.0/255 blue:153.0/255 alpha:1];
-                    selectLabel.textColor = fontcolor;
-                    
-                    UILabel *linelabel = [[UILabel alloc]initWithFrame:CGRectMake(0, CGFloatMakeY(400), self.view.bounds.size.width, 1)];
-                    linelabel.backgroundColor = fontcolor;
-                    
-                    UIView *view2 = [[UIView alloc]initWithFrame:CGRectMake1(0, 0, 414, 50)];
-                    view2.backgroundColor = [UIColor blackColor];
-                    
-                    [headerView addSubview:headerImgView];
-                    [headerView addSubview:selectLabel];
-                    [headerView addSubview:linelabel];                }
-                return headerView;
-                
-                
-            }
-            else
-            {
-                UICollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header" forIndexPath:indexPath];
-                if (headerView.subviews.count < 1) {
-                    _arr = @[@"最新",@"人气",@"销量",@"价格",@"价格▲",@"价格▼"];
-                    
-                    for(int i = 0; i<4;i++)
-                    {
-                        
-                        UIButton * btn  = [UIButton buttonWithType:UIButtonTypeCustom];
-                        if (i==0) {
-                            [btn setSelected:YES];
-                            [self isFromWhat:1000];
-                        }
-                        btn.frame = CGRectMake(i*headerView.frame.size.width/4, 0, headerView.frame.size.width/4, CGFloatMakeY(40));
-                        btn.tag = 1000+i;
-                        [btn setTitle:_arr[i] forState:UIControlStateNormal];
-                        [btn setTitleColor:[UIColor colorWithRed:102.0/255 green:102.0/255 blue:102.0/255 alpha:1] forState:UIControlStateNormal];
-                        [btn setTitleColor:[UIColor colorWithRed:204.0/255 green:34.0/255 blue:69.0/255 alpha:1] forState:UIControlStateSelected];
-                        [btn addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
-                        btn.layer.borderWidth = 0.5;
-                        btn.layer.borderColor = [[UIColor colorWithRed:204.0/255 green:34.0/255 blue:69.0/255 alpha:1]CGColor];
-                        [headerView addSubview:btn];
-                        headerView.tag = 2000 +i;
-                        
-                    }
-                    
-                    headerView.backgroundColor =[UIColor whiteColor];
-                    
-                }
-                return headerView;
-                
-                
-            }
-        }
-        else
-            
         {
-            UICollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header" forIndexPath:indexPath];
-            if (headerView.subviews.count < 1) {
-                _arr = @[@"最新",@"人气",@"销量",@"价格",@"价格▼",@"价格▲"];
-                
-                for(int i = 0; i<4;i++)
-                {
-                    
-                    UIButton * btn  = [UIButton buttonWithType:UIButtonTypeCustom];
-                    if (i==0) {
-                        [btn setSelected:YES];
-                        [self isFromWhat:1000];
-                    }
-                    btn.frame = CGRectMake(i*headerView.frame.size.width/4, 0, headerView.frame.size.width/4, CGFloatMakeY(40));
-                    btn.tag = 1000+i;
-                    [btn setTitle:_arr[i] forState:UIControlStateNormal];
-                    [btn setTitleColor:[UIColor colorWithRed:102.0/255 green:102.0/255 blue:102.0/255 alpha:1] forState:UIControlStateNormal];
-                    [btn setTitleColor:[UIColor colorWithRed:204.0/255 green:34.0/255 blue:69.0/255 alpha:1] forState:UIControlStateSelected];
-                    [btn addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
-                    btn.layer.borderWidth = 0.5;
-                    btn.layer.borderColor = [[UIColor colorWithRed:204.0/255 green:34.0/255 blue:69.0/255 alpha:1]CGColor];
-                    [headerView addSubview:btn];
-                    headerView.tag = 2000 +i;
-                    
-                }
-                
-                headerView.backgroundColor =[UIColor whiteColor];
-                
-            }
-            return headerView;
+            return CGFloatMakeY(120);
         }
+    }else
+    {
+    return CGFloatMakeY(120);
     }
-    return nil;
 }
-
-
 
 //每个分区有几个ITEM
--(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (_isFromLBT) {
-        if (section == 0) {
-            return 0;
-        }else
-            return self.goodsArr.count;
+        return _goodsArr.count+1;
     }else
-        
-        return  self.goodsArr.count;
+    {
+        return _goodsArr.count;
+    }
 }
 
 //每个ITEM显示什么样的cell
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SearchGoodsCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
-    
-    SearchModel *Model =self.goodsArr[indexPath.row];
-    
-    [cell.goodsImageView sd_setImageWithURL:[NSURL URLWithString:Model.thumb]placeholderImage:[UIImage imageNamed:@"lbtP"]];
-    cell.priceLabel.text = [NSString stringWithFormat:@"¥%@",Model.marketprice];
-    cell.goodsImageView.contentMode = UIViewContentModeScaleAspectFit;
-    cell.titleLabel.text = Model.title;
-    
-    //    cell.backgroundColor =[UIColor redColor];
-    
-    return cell;
+    if (_isFromLBT) {
+        if (indexPath.row == 0) {
+            UITableViewCell *cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"header"];
+            UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake1(0, 0, 414, 320)];
+            [imageView sd_setImageWithURL:[NSURL URLWithString:_thumb]];
+            [cell addSubview:imageView];
+            
+            return cell;
+        }else
+        {
+            SearchModel *model = _goodsArr[indexPath.row-1];
+            SearchTableViewCell *cell = [[SearchTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+            cell.model1 = model;
+            cell.delegate = self;
+            cell.iscollect = [self iscollectioned:model.goodsid];
+            [cell.buyButton addTarget:self action:@selector(buyNowAction:) forControlEvents:UIControlEventTouchUpInside];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            return cell;
+        }
+    }else
+    {
+        SearchModel *model = _goodsArr[indexPath.row];
+        SearchTableViewCell *cell = [[SearchTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+        cell.model1 = model;
+        cell.delegate = self;
+        cell.iscollect = [self iscollectioned:model.goodsid];
+        [cell.buyButton addTarget:self action:@selector(buyNowAction:) forControlEvents:UIControlEventTouchUpInside];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        return cell;
+    }
 }
-
 
 -(void)viewWillDisappear:(BOOL)animated
 {
@@ -382,6 +294,146 @@
     self.isShowTab = NO;
     [self showTabBarWithTabState:self.isShowTab];
     
+}
+
+//判断方法
+-(BOOL)iscollectioned:(NSString*)goodsid
+{
+    if ([self returnIsLogin])
+    {
+        for (CollectModel * model in [self returnCollect])
+        {
+            if ([goodsid isEqualToString:[model valueForKey:@"id"]]) {
+                return YES;
+            }
+        }
+        return NO;
+    }else
+    {
+        return NO;
+    }
+}
+
+-(BOOL)collectAction:(UIButton *)btn
+{
+    if (![self returnIsLogin]) {
+        LoginViewController * LoginVC = [[LoginViewController alloc]init];
+        LoginVC.isFromDetail = YES;
+        [self.navigationController pushViewController:LoginVC animated:YES];
+        return NO;
+    }else
+    {
+        [self postCollectionData:btn];
+        return YES;
+    }
+}
+
+-(void)postCollectionData:(UIButton *)btn
+{
+    if (![self returnIsLogin]) {
+        LoginViewController * LoginVC = [[LoginViewController alloc]init];
+        LoginVC.isFromDetail = YES;
+        [self.navigationController pushViewController:LoginVC animated:YES];
+    }else{
+        
+        NSDictionary * dic =@{@"appkey":APPkey,@"mid":[self returnMid],@"gid":[NSString stringWithFormat:@"%ld",(long)btn.tag]};
+#pragma dic MD5
+        
+        NSDictionary * nDic = [self md5DicWith:dic];
+        
+        AFHTTPSessionManager * manager = [AFHTTPSessionManager manager];
+        manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+        manager.responseSerializer  = [AFJSONResponseSerializer serializer];
+        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+        
+        [manager POST:kCollectionGoods parameters:nDic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            
+            DLog(@"%@",responseObject);
+            NSDictionary * errDic = responseObject;
+            NSString * str = errDic[@"errmsg"];
+            if ([btn.titleLabel.text isEqualToString:@"收藏"]) {
+                [btn setTitle:@"已收藏" forState:UIControlStateNormal];
+            }else
+            {
+                [btn setTitle:@"收藏" forState:UIControlStateNormal];
+            }
+            
+            UIAlertController* collectionGoods = [UIAlertController alertControllerWithTitle:nil message:str preferredStyle:UIAlertControllerStyleAlert];
+            
+            [self presentViewController:collectionGoods animated:YES completion:nil];
+            
+            [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(dismissAVC:) userInfo:nil repeats:NO];
+            [self postcollect];
+            
+            
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            
+        }];
+    }
+}
+
+-(void)postcollect
+{
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    NSDictionary *dic = @{@"appkey":APPkey,@"mid":[self returnMid]};
+#pragma dic MD5
+    NSDictionary * Ndic = [self md5DicWith:dic];
+    [manager POST:kCollectList parameters:Ndic progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        DLog(@"%@",responseObject);
+        NSNumber *number = [responseObject valueForKey:@"errcode"];
+        NSString *errcode = [NSString stringWithFormat:@"%@",number];
+        if ([errcode isEqualToString:@"0"]) {
+            NSArray *jsonArr = @[];
+            [self setCollectwithCollect:jsonArr];
+        }else{
+            NSArray *jsonArr = [NSArray arrayWithArray:responseObject];
+            [self setCollectwithCollect:jsonArr];
+        }
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        DLog(@"failure%@",error);
+    }];
+}
+
+-(void)dismissAVC:(NSTimer *)timer
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(void)buyNowAction:(UIButton *)btn
+{
+    if (![self returnIsLogin]) {
+        LoginViewController * LoginVC = [[LoginViewController alloc]init];
+        LoginVC.isFromDetail = YES;
+        [self.navigationController pushViewController:LoginVC animated:YES];
+    }else
+    {
+        NSDictionary * dic = @{@"appkey":APPkey,@"id":[NSString stringWithFormat:@"%ld",(long)btn.tag]};
+        NSDictionary * Ndic = [self md5DicWith:dic];
+        
+        AFHTTPSessionManager *manager = [self sharedManager];;
+        manager.responseSerializer = [AFJSONResponseSerializer serializer];
+        manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+        
+        //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+        
+        [manager POST:kGoodDetailURL parameters:Ndic progress:^(NSProgress * _Nonnull uploadProgress) {
+            
+        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            DLog(@"%@",responseObject);
+            _detailmodel = [DetailModel mj_objectWithKeyValues:responseObject];
+            BookIngViewController * bVC = [[BookIngViewController alloc]init];
+            [self.navigationController pushViewController:bVC animated:YES];
+            bVC.modelDic = [_detailmodel mj_keyValues];
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            DLog(@"failure%@",error);
+        }];
+    }
 }
 
 -(void)btnAction:(UIButton *)btn
@@ -410,8 +462,8 @@
     }
     
     
-    [_goodsCollectionView reloadData];
-    [_goodsCollectionView setContentOffset:CGPointMake1(0, 0)animated:YES];
+    [_goodsTableView reloadData];
+    [_goodsTableView setContentOffset:CGPointMake1(0, 0)animated:YES];
     
 }
 
@@ -464,31 +516,35 @@
                 return NSOrderedAscending;
             
         } else {
-            
             if (tag == 1003 && _isUp == YES)
             {
                 return NSOrderedAscending;
             }else
                 return NSOrderedDescending;
-            
         }
-        
-        
-        
     }];
     return sortedArray;
 }
 
 
--(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (_isFromLBT) {
+        if (indexPath.row != 0) {
+            SearchModel *Model =self.goodsArr[indexPath.row-1];
+            GoodSDetailViewController * goodDetailVC = [[GoodSDetailViewController alloc]init];
+            goodDetailVC.goodsDic = @{@"id":Model.goodsid,@"appkey":APPkey};
+            self.navigationItem.title = @"商品详情";
+            [self.navigationController pushViewController:goodDetailVC animated:YES];
+        }
+    }else
+    {
     SearchModel *Model =self.goodsArr[indexPath.row];
-    
     GoodSDetailViewController * goodDetailVC = [[GoodSDetailViewController alloc]init];
-    goodDetailVC.goodsDic = @{@"id":Model.goodId,@"appkey":APPkey};
-    self.navigationItem.title = @"";
-    
+    goodDetailVC.goodsDic = @{@"id":Model.goodsid,@"appkey":APPkey};
+    self.navigationItem.title = @"商品详情";
     [self.navigationController pushViewController:goodDetailVC animated:YES];
+    }
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -500,6 +556,9 @@
         self.navigationItem.title = _KeyWord;
     self.isShowTab = YES;
     [self hideTabBarWithTabState:self.isShowTab];
+    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
+    }
 }
 -(void)pop
 {

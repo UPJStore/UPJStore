@@ -11,18 +11,22 @@
 #import "UIImageView+WebCache.h"
 #import "UIColor+HexRGB.h"
 #import "UIViewController+CG.h"
-#import "SearchGoodsCollectionViewCell.h"
-#import "brandModel.h"
+#import "SearchTableViewCell.h"
+#import "ProductsModel.h"
 #import "GoodSDetailViewController.h"
 #import "LoginViewController.h"
+#import "BookIngViewController.h"
+#import "DetailModel.h"
+#import "MJExtension.h"
+#import "CollectModel.h"
 
-
-@interface brandViewController ()<UICollectionViewDelegate,UICollectionViewDataSource>
+@interface brandViewController ()<UITableViewDelegate,UITableViewDataSource,btnAction>
 
 @property (nonatomic,assign) BOOL isFocus;
-@property (nonatomic,strong) UICollectionView * goodsCollectionView;
+@property (nonatomic,strong) UITableView * goodsTableView;
 @property (nonatomic,strong) NSMutableArray *goodsArr ;
 @property (nonatomic,strong) UIAlertController * attentionBrand;
+@property (nonatomic,strong)DetailModel *detailmodel;
 @end
 
 @implementation brandViewController
@@ -32,10 +36,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
 
     [self getData];
-
-
     NSString * isFocusStr = @"关注";
-    
     for (NSDictionary * dic in [self returnAttention]) {
         
         if ([_dic[@"cid"] isEqualToString:dic[@"id"]]==YES) {
@@ -44,14 +45,7 @@
         }
         
     }
-    
- 
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:isFocusStr style:UIBarButtonItemStylePlain target:self action:@selector(FocusBtn:)];
-    
-    
-    
-//    DLog(@"%@",_dic);
-    // Do any additional setup after loading the view.
 }
 
 -(void)FocusBtn:(UIBarButtonItem *)barBtn
@@ -71,28 +65,19 @@
 
     }
     
-    
-  
 }
 
-
-
-
--(void)initGoodCollectionView
+-(void)initGoodTableView
 {
-    UICollectionViewFlowLayout * layout = [[UICollectionViewFlowLayout alloc]init];
-    layout.minimumInteritemSpacing = 20;
-    //    layout.itemSize = CGSizeMake();
-    layout.scrollDirection = UICollectionViewScrollDirectionVertical;
-    layout.sectionInset = UIEdgeInsetsMake(20, 30, 20,30);
-    
-    _goodsCollectionView  = [[UICollectionView alloc]initWithFrame:CGRectMake1(0, 0,k6PWidth , k6PHeight-60) collectionViewLayout:layout];
-    _goodsCollectionView.backgroundColor  = [UIColor whiteColor];
-    _goodsCollectionView.delegate  = self;
-    _goodsCollectionView.dataSource = self;
-    [_goodsCollectionView registerClass:[SearchGoodsCollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
-
-    [self.view addSubview:_goodsCollectionView];
+    _goodsTableView  = [[UITableView alloc]initWithFrame:CGRectMake1(0, 0,k6PWidth , k6PHeight-60)];
+    _goodsTableView.backgroundColor  = [UIColor whiteColor];
+    _goodsTableView.delegate  = self;
+    _goodsTableView.dataSource = self;
+    [_goodsTableView registerClass:[SearchTableViewCell class] forCellReuseIdentifier:@"cell"];
+    _goodsTableView.showsVerticalScrollIndicator = NO;
+    _goodsTableView.showsHorizontalScrollIndicator = NO;
+    _goodsTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    [self.view addSubview:_goodsTableView];
 }
 
 -(void)getData
@@ -105,32 +90,31 @@
     
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    
-    //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-
-    
     [manager POST:kSBrandGoodUrl parameters:Ndic progress:^(NSProgress * _Nonnull downloadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         DLog(@"%@",responseObject);
         NSArray* arrr = responseObject;
         for (NSDictionary * dic in arrr) {
-            
-            brandModel *model = [[brandModel alloc]init];
+            ProductsModel *model = [[ProductsModel alloc]init];
             [model setValuesForKeysWithDictionary:dic];
-            model.goodsID = [dic valueForKey:@"id"];
+            model.goodsid = [dic valueForKey:@"id"];
             [self.goodsArr addObject:model];
         }
-        [self initGoodCollectionView];
-        [self.goodsCollectionView reloadData];
-
+        if (arrr.count != 0) {
+            [self initGoodTableView];
+            [self.goodsTableView reloadData];
+        }else
+        {
+            UIAlertController* collectionGoods = [UIAlertController alertControllerWithTitle:nil message:@"暂无商品数据" preferredStyle:UIAlertControllerStyleAlert];
+            
+            [self presentViewController:collectionGoods animated:YES completion:nil];
+            
+            [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(dismissAVC:) userInfo:nil repeats:NO];
+        }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        
-        //        DLog(@"error : %@",error);
-        
     }];
-    
-    
+  
 }
 
 
@@ -153,8 +137,6 @@
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         DLog(@"%@",responseObject);
-        
-        
 #pragma 更改状态；
         if (_isFocus == NO) {
             _isFocus =YES;
@@ -180,49 +162,175 @@
     
 }
 
-
-//确定每个item的大小.
--(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    return CGSizeMake1(150, 200);
-    
+    return CGFloatMakeY(120);
 }
-
-//一共有几个分区
--(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
-{
-    return 1;
-}
-
-
 
 //每个分区有几个ITEM
--(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return  self.goodsArr.count;
+    return  _goodsArr.count;
 }
 
 //每个ITEM显示什么样的cell
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SearchGoodsCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
-    
-    brandModel *Model =self.goodsArr[indexPath.row];
-    
-    [cell.goodsImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:kSImageUrl,Model.thumb]]placeholderImage:[UIImage imageNamed:@"lbtP"]];
-    cell.goodsImageView.contentMode = UIViewContentModeScaleAspectFit;
-    cell.priceLabel.text = [NSString stringWithFormat:@"¥%@",Model.marketprice];
-    cell.titleLabel.text = Model.title;
-    
+    SearchTableViewCell *cell = [[SearchTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
+    ProductsModel *model = _goodsArr[indexPath.row];
+    cell.model2 = model;
+    cell.delegate = self;
+    cell.iscollect = [self iscollectioned:model.goodsid];
+    [cell.buyButton addTarget:self action:@selector(buyNowAction:) forControlEvents:UIControlEventTouchUpInside];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 
--(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+//判断方法
+-(BOOL)iscollectioned:(NSString*)goodsid
 {
-    brandModel * model = self.goodsArr[indexPath.row];
+    if ([self returnIsLogin])
+    {
+        for (CollectModel * model in [self returnCollect])
+        {
+            if ([goodsid isEqualToString:[model valueForKey:@"id"]]) {
+                return YES;
+            }
+        }
+        return NO;
+    }else
+    {
+        return NO;
+    }
+}
+
+-(BOOL)collectAction:(UIButton *)btn
+{
+    if (![self returnIsLogin]) {
+        LoginViewController * LoginVC = [[LoginViewController alloc]init];
+        LoginVC.isFromDetail = YES;
+        [self.navigationController pushViewController:LoginVC animated:YES];
+        return NO;
+    }else
+    {
+        [self postCollectionData:btn];
+        return YES;
+    }
+}
+
+-(void)postCollectionData:(UIButton *)btn
+{
+    if (![self returnIsLogin]) {
+        LoginViewController * LoginVC = [[LoginViewController alloc]init];
+        LoginVC.isFromDetail = YES;
+        [self.navigationController pushViewController:LoginVC animated:YES];
+    }else{
+        
+        NSDictionary * dic =@{@"appkey":APPkey,@"mid":[self returnMid],@"gid":[NSString stringWithFormat:@"%ld",(long)btn.tag]};
+#pragma dic MD5
+        
+        NSDictionary * nDic = [self md5DicWith:dic];
+        
+        AFHTTPSessionManager * manager = [AFHTTPSessionManager manager];
+        manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+        manager.responseSerializer  = [AFJSONResponseSerializer serializer];
+        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+        
+        [manager POST:kCollectionGoods parameters:nDic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            
+            DLog(@"%@",responseObject);
+            NSDictionary * errDic = responseObject;
+            NSString * str = errDic[@"errmsg"];
+            if ([btn.titleLabel.text isEqualToString:@"收藏"]) {
+                [btn setTitle:@"已收藏" forState:UIControlStateNormal];
+            }else
+            {
+                [btn setTitle:@"收藏" forState:UIControlStateNormal];
+            }
+            
+            UIAlertController* collectionGoods = [UIAlertController alertControllerWithTitle:nil message:str preferredStyle:UIAlertControllerStyleAlert];
+            
+            [self presentViewController:collectionGoods animated:YES completion:nil];
+            
+            [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(dismissAVC:) userInfo:nil repeats:NO];
+            [self postcollect];
+            
+            
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            
+        }];
+    }
+}
+
+-(void)postcollect
+{
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    NSDictionary *dic = @{@"appkey":APPkey,@"mid":[self returnMid]};
+#pragma dic MD5
+    NSDictionary * Ndic = [self md5DicWith:dic];
+    [manager POST:kCollectList parameters:Ndic progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        DLog(@"%@",responseObject);
+        NSNumber *number = [responseObject valueForKey:@"errcode"];
+        NSString *errcode = [NSString stringWithFormat:@"%@",number];
+        if ([errcode isEqualToString:@"0"]) {
+            NSArray *jsonArr = @[];
+            [self setCollectwithCollect:jsonArr];
+        }else{
+            NSArray *jsonArr = [NSArray arrayWithArray:responseObject];
+            [self setCollectwithCollect:jsonArr];
+        }
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        DLog(@"failure%@",error);
+    }];
+}
+
+-(void)dismissAVC:(NSTimer *)timer
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(void)buyNowAction:(UIButton *)btn
+{
+    if (![self returnIsLogin]) {
+        LoginViewController * LoginVC = [[LoginViewController alloc]init];
+        LoginVC.isFromDetail = YES;
+        [self.navigationController pushViewController:LoginVC animated:YES];
+    }else
+    {
+        NSDictionary * dic = @{@"appkey":APPkey,@"id":[NSString stringWithFormat:@"%ld",(long)btn.tag]};
+        NSDictionary * Ndic = [self md5DicWith:dic];
+        
+        AFHTTPSessionManager *manager = [self sharedManager];;
+        manager.responseSerializer = [AFJSONResponseSerializer serializer];
+        manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+        
+        //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+        
+        [manager POST:kGoodDetailURL parameters:Ndic progress:^(NSProgress * _Nonnull uploadProgress) {
+            
+        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            DLog(@"%@",responseObject);
+            _detailmodel = [DetailModel mj_objectWithKeyValues:responseObject];
+            BookIngViewController * bVC = [[BookIngViewController alloc]init];
+            [self.navigationController pushViewController:bVC animated:YES];
+            bVC.modelDic = [_detailmodel mj_keyValues];
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            DLog(@"failure%@",error);
+        }];
+    }
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    ProductsModel * model = self.goodsArr[indexPath.row];
     GoodSDetailViewController * goodsVC = [[GoodSDetailViewController alloc]init];
-    NSDictionary * dic = @{@"appkey":APPkey,@"id":model.goodsID};
+    NSDictionary * dic = @{@"appkey":APPkey,@"id":model.goodsid};
     goodsVC.goodsDic = dic;
     [self.navigationController pushViewController:goodsVC animated:YES];
 }
@@ -240,6 +348,9 @@
     self.navigationController.navigationBar.translucent = NO;
     self.isShowTab = YES;
     [self hideTabBarWithTabState:self.isShowTab];
+    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
+    }
 }
 
 -(void)viewWillDisappear:(BOOL)animated

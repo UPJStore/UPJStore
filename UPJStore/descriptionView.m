@@ -18,7 +18,7 @@
 
 @implementation descriptionView
 
--(instancetype)initWithFrame:(CGRect)frame withModel:(detailModel *)model
+-(instancetype)initWithFrame:(CGRect)frame withModel:(DetailModel *)model
 {
     if (self = [super initWithFrame:frame]) {
         

@@ -10,12 +10,15 @@
 
 @interface ProductsModel : NSObject
 
-@property (nonatomic,strong) NSString *productID;
+@property (nonatomic,strong) NSString *goodsid;
 @property (nonatomic,strong) NSString *title;
 @property (nonatomic,strong) NSString *thumb;
 @property (nonatomic,strong) NSString *marketprice;
+@property (nonatomic,strong) NSString *productprice;
 @property (nonatomic,strong) NSString *sales;
 @property (nonatomic,strong) NSString *createtime;
 @property (nonatomic,strong) NSString *viewcount;
+@property (nonatomic,strong) NSString *img;
+@property (nonatomic,strong) NSString *country;
 
 @end
