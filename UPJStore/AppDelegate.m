@@ -525,7 +525,7 @@
                     i++;
             }
             
-                 [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(checkAppUpdate:) userInfo:verStr repeats:NO];
+                 [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(checkAppUpdate:) userInfo:verStr repeats:NO];
 
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             
@@ -566,7 +566,7 @@
         
         UIAlertController * alVC = [UIAlertController alertControllerWithTitle:@"" message:@"有可更新版本" preferredStyle:UIAlertControllerStyleAlert];
       
-        UIAlertAction * okaction = [UIAlertAction actionWithTitle:@"go" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        UIAlertAction * okaction = [UIAlertAction actionWithTitle:@"更新" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
             NSString * strr = @"https://itunes.apple.com/us/app/you-pin-ji-quan-qiu-gou/id1104253189?l=zh&ls=1&mt=8";
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:strr]];
         }];
@@ -584,10 +584,10 @@
         [self.window.rootViewController presentViewController:alVC animated:YES completion:^{
             
         }];
-    }
+    } 
     inAppCount++;
     
-    if (inAppCount >5) {
+    if (inAppCount >2) {
         inAppCount = 0;
     }
     
@@ -658,7 +658,7 @@
         [self.window.rootViewController presentViewController:startVC animated:NO completion:nil];
     }
     
-    [NSTimer scheduledTimerWithTimeInterval:10.0 target:self selector:@selector(VersionBUtton) userInfo:nil repeats:NO];
+    [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(VersionBUtton) userInfo:nil repeats:NO];
    
 }
 
