@@ -9,6 +9,7 @@
 #import "HeaderView.h"
 #import "UIImageView+WebCache.h"
 #import "UIViewController+CG.h"
+#import "UIButton+WebCache.h"
 
 
 #define widthSize 414.0/320
@@ -36,49 +37,58 @@
     
     if (self = [super initWithFrame:frame]) {
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        btn.frame = CGRectMake1(355, 30, 40, 40);
+        btn.frame = CGRectMake1(365, 20, 40, 40);
         [btn addTarget:self  action:@selector(set1Action:) forControlEvents:UIControlEventTouchUpInside];
-        [btn setBackgroundImage:[UIImage imageNamed:@"settingicon"] forState:UIControlStateNormal];
+        UIImageView *settingImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"settingicon"]];
+        settingImage.frame = CGRectMake1(10, 10, 20, 20);
+        [btn addSubview:settingImage];
         [self addSubview:btn];
         
-        _imageView = [[UIImageView alloc]init];
-        _imageView.frame = CGRectMake1(167, 50, 80, 80);
-        _imageView.layer.cornerRadius =CGFloatMakeY(40);
-        _imageView.clipsToBounds = YES;
-        [self addSubview:_imageView];
+        photoView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"headerPhoto"]];
+        photoView.frame = CGRectMake1(157, 10, 100, 100);
+        photoView.layer.cornerRadius = CGFloatMakeY(45);
+        [self addSubview:photoView];
         
-        label = [[UILabel alloc]initWithFrame:CGRectMake1(0, 146, 414, 20)];
+        _imageBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _imageBtn.frame = CGRectMake1(167, 20, 80, 80);
+        _imageBtn.layer.cornerRadius =CGFloatMakeY(40);
+        _imageBtn.clipsToBounds = YES;
+        [self addSubview:_imageBtn];
+        
+        label = [[UILabel alloc]initWithFrame:CGRectMake1(0, 120, 414, 20)];
         label.textAlignment =1;
-        label.text = [NSString stringWithFormat:@"%@,欢迎你回来",name];
-        label.textColor = [UIColor whiteColor];
-        label.font = [UIFont systemFontOfSize:18];
+        label.text = name;
+        label.textColor = [UIColor blackColor];
+        label.font = [UIFont systemFontOfSize:CGFloatMakeY(16)];
         [self addSubview:label];
         
         logoView = [[UIImageView alloc]initWithFrame:CGRectMake1(0, 26,156,70)];
-        logoView.center = CGPointMake1(207, 78);
+        logoView.center = CGPointMake1(207, 60);
         logoView.image = [UIImage imageNamed:@"logo-3@3x"];
         logoView.contentMode = UIViewContentModeScaleAspectFit;
         [self addSubview:logoView];
         loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         registerBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         
-        loginBtn.frame = CGRectMake1(129,130, 65, 32.5);
+        loginBtn.frame = CGRectMake1(134,105, 65, 32.5);
         [loginBtn setTitle:@"登录" forState:UIControlStateNormal];
+        [loginBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         loginBtn.titleLabel.textAlignment =1;
-        loginBtn.titleLabel.font = [UIFont systemFontOfSize:CGFloatMakeY(18)];
+        loginBtn.titleLabel.font = [UIFont systemFontOfSize:CGFloatMakeY(16)];
         [loginBtn addTarget:self action:@selector(loginAction:) forControlEvents:UIControlEventTouchUpInside];
         
-        registerBtn.frame = CGRectMake1(220, 130, 65, 32.5);
+        registerBtn.frame = CGRectMake1(215, 105, 65, 32.5);
         [registerBtn setTitle:@"注册" forState:UIControlStateNormal];
+        [registerBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         registerBtn.titleLabel.textAlignment = 1;
-        registerBtn.titleLabel.font = [UIFont systemFontOfSize:CGFloatMakeY(18)];
+        registerBtn.titleLabel.font = [UIFont systemFontOfSize:CGFloatMakeY(16)];
         [registerBtn addTarget:self action:@selector(registerAction:) forControlEvents:UIControlEventTouchUpInside];
         
         [self addSubview:loginBtn];
         [self addSubview:registerBtn];
         
-        line = [[UIView alloc]initWithFrame:CGRectMake1(207, 136.5, 1, 26)];
-        line.backgroundColor = [UIColor whiteColor];
+        line = [[UIView alloc]initWithFrame:CGRectMake1(207, 108.5, 1, 26)];
+        line.backgroundColor = [UIColor blackColor];
         [self addSubview:line];
         [self islogin:isLogin];
     }
@@ -93,7 +103,8 @@
         registerBtn.hidden = YES;
         loginBtn.hidden = YES;
         line.hidden = YES;
-        _imageView.hidden = NO;
+        photoView.hidden = NO;
+        _imageBtn.hidden = NO;
         label.hidden = NO;
     }
     else
@@ -102,7 +113,8 @@
         registerBtn.hidden = NO;
         loginBtn.hidden = NO;
         line.hidden = NO;
-        _imageView.hidden = YES;
+        photoView.hidden = YES;
+        _imageBtn.hidden = YES;
         label.hidden = YES;
     }
     
@@ -115,16 +127,17 @@
     registerBtn.hidden = YES;
     loginBtn.hidden = YES;
     line.hidden = YES;
-    _imageView.hidden = NO;
+    photoView.hidden = NO;
+    _imageBtn.hidden = NO;
     label.hidden = NO;
     
     if ([image isEqualToString:@"0"]) {
-        _imageView.image = [UIImage imageNamed:@"geren"];
+        [_imageBtn setImage:[UIImage imageNamed:@"geren"] forState:UIControlStateNormal];
     }else{
         NSURL *url = [NSURL URLWithString:image];
-        [_imageView sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"geren"]];
+        [_imageBtn sd_setImageWithURL:url forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"geren"]];
     }
-    label.text = [NSString stringWithFormat:@"%@,欢迎你回来",name];
+    label.text = name;
 }
 
 -(void)logoutfinish
@@ -133,7 +146,8 @@
     registerBtn.hidden = NO;
     loginBtn.hidden = NO;
     line.hidden = NO;
-    _imageView.hidden = YES;
+    photoView.hidden = YES;
+    _imageBtn.hidden = YES;
     label.hidden = YES;
 }
 
@@ -160,7 +174,7 @@
         label.text = @"未设置昵称";
     }else
     {
-        label.text = [NSString stringWithFormat:@"%@,欢迎你回来",str];
+        label.text = str;
     }
 }
 

@@ -14,7 +14,7 @@
 
 @property(nonatomic,weak)id <LoginAciton> delegate;
 
-@property(nonatomic,strong)UIImageView *imageView;
+@property(nonatomic,strong)UIButton *imageBtn;
 
 -(instancetype)initWithFrame:(CGRect)frame withIsLogin:(BOOL)isLogin withname:(NSString*)name;
 

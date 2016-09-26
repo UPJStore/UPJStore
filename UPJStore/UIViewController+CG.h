@@ -113,7 +113,6 @@ CGRectMakeCode(CGFloat x, CGFloat y, CGFloat width, CGFloat height){
 
 -(void)setPhoneNumberwithPhoneNumber:(NSString* )phonenumber;
 
-
 -(NSString*)returnImage;
 
 -(void)setImagewithImage:(NSString*)image;
@@ -133,15 +132,21 @@ CGRectMakeCode(CGFloat x, CGFloat y, CGFloat width, CGFloat height){
 -(BOOL)returnIsLogin;
 
 -(void)setIsLoginwithIsLogin:(BOOL)isLogin;
-
+//是否为代理商
 -(BOOL)returnIsAgent;
 
 -(void)setIsAgentwithIsAgent:(BOOL)isAgent;
+//是否为经销商
+-(BOOL)returnIsDealer;
+
+-(void)setIsDealerwithIsDealer:(BOOL)isDealer;
 
 -(NSString *)md5:(NSString *)str;
 
 -(NSDictionary *)md5DicWith:(NSDictionary *)dic;
+
 -(NSArray*)returnCoupon;
+
 -(void)setConponwithConpon:(NSArray*)conpon;
 
 -(BOOL)hideTabBarWithTabState:(BOOL) tabBarIsShow;

@@ -33,7 +33,7 @@
 @property(nonatomic,strong)NSString *flagtime;
 //状态
 @property(nonatomic,strong)NSString *status;
-//身份
+//创客
 @property(nonatomic,strong)NSString *flag;
 //点击数
 @property(nonatomic,strong)NSString *clickcount;

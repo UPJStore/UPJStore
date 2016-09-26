@@ -164,6 +164,18 @@
     [userDefaults setBool:isAgent forKey:@"isagent"];
 }
 
+-(BOOL)returnIsDealer
+{
+    NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+    return [userDefaults boolForKey:@"isdealer"];
+}
+
+-(void)setIsDealerwithIsDealer:(BOOL)isDealer
+{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setBool:isDealer forKey:@"isdealer"];
+}
+
 -(NSString *)md5:(NSString *)str {
     
     const char* cStr = [str UTF8String];

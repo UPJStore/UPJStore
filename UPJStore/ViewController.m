@@ -180,7 +180,7 @@
      }
           success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
      {
-         NSLog(@"%@",responseObject);
+         DLog(@"%@",responseObject);
          for (NSDictionary *dic in responseObject) {
              ImageModel *model = [ImageModel new];
              [model setValuesForKeysWithDictionary:dic];
@@ -218,7 +218,7 @@
          }
               success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
          {
-             NSLog(@"%@",responseObject);
+             DLog(@"%@",responseObject);
              NSArray *arr = responseObject[@"list"];
              if (arr.count != 0) {
              HeaderModel *Hmodel = [[HeaderModel alloc]init];
@@ -281,7 +281,7 @@
              }
                   success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
              {
-                 NSLog(@"%@",responseObject);
+                 DLog(@"%@",responseObject);
                  NSArray *arr = responseObject[@"list"];
                  if (arr.count != 0) {
                  HeaderModel *Hmodel = [[HeaderModel alloc]init];
@@ -332,6 +332,7 @@
              }
                   success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
              {
+                 DLog(@"%@",responseObject);
                   NSArray *arr = responseObject[@"list"];
                  if (arr.count != 0) {
                  HeaderModel *Hmodel = [[HeaderModel alloc]init];
@@ -379,7 +380,7 @@
          }
               success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
          {
-             NSLog(@"%@",responseObject);
+             DLog(@"%@",responseObject);
              NSDictionary *dic = [NSDictionary dictionaryWithDictionary:responseObject[@"children"][@"2"]];
              NSArray *arr = [NSArray arrayWithArray:[dic allKeys]];
              for (int i = 0; i<15; i++) {

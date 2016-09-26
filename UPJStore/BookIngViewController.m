@@ -69,6 +69,7 @@
     [self.navigationController popViewControllerAnimated:YES];
     
 }
+
 -(void)initGoodInfo
 {
     UIView * infoView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, CGFloatMakeY(230))];
@@ -512,7 +513,6 @@
     {
         btn.enabled = NO;
     }
-    
 }
 #pragma mark - 屏幕上弹
 -( void )textFieldDidBeginEditing:(UITextField *)textField

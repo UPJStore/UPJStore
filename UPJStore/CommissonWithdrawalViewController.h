@@ -10,4 +10,6 @@
 
 @interface CommissonWithdrawalViewController : UIViewController
 
+@property(nonatomic)BOOL isFlag;
+
 @end

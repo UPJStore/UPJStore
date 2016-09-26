@@ -29,13 +29,19 @@
 #import "CKListViewController.h"
 #import "AgentsViewController.h"
 #import "AgentViewController.h"
+#import "UIButton+WebCache.h"
+#import "CommissonWithdrawalViewController.h"
+#import "DealerViewController.h"
+#import "DealerApplyViewController.h"
 
 #define widthSize 414.0/320
 #define hightSize 736.0/568
-@interface MemberCenterViewController ()<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,LoginAciton,PerinfViewPush,login,logout,sendModel,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+@interface MemberCenterViewController ()<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,LoginAciton,login,logout,sendModel,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
 @property (nonatomic,strong) UITableView * memberView;
-@property (nonatomic,strong) NSArray *arr;
+@property (nonatomic,strong) NSArray *arr1;
+@property (nonatomic,strong) NSArray *arr2;
+@property (nonatomic,strong) NSArray *arr3;
 @property (nonatomic,strong) UIScrollView *scrollView;
 @property (nonatomic,strong) HeaderView * headerView;
 @property (nonatomic,strong) NSString *imageStr;
@@ -52,36 +58,44 @@
     
     self.mid = [self returnMid];
     self.islogin = [self returnIsLogin];
-    UIColor *backcolor = [UIColor colorWithRed:240.0/255 green:240.0/255 blue:240.0/255 alpha:1];
-    self.view.backgroundColor = backcolor;
-    UIColor *headercolor = [UIColor colorWithRed:204.0/255 green:34.0/255 blue:69.0/255 alpha:1];
+    self.view.backgroundColor = [UIColor colorFromHexRGB:@"f0f0f0"];
     
-    
-    _headerView = [[HeaderView alloc]initWithFrame:CGRectMake1(0, -20*widthSize, 414, 144*widthSize) withIsLogin:self.islogin withname:[self returnNickName]];
-    _headerView.backgroundColor = headercolor;
-    _headerView.delegate = self;
-    _headerView.imageView.userInteractionEnabled = YES;
-    if ([self returnIsLogin]) {
-        _headerView.imageView.image = [UIImage imageWithData:[self returnImageData]];
-        [self postmid];
-    }
-    // 添加手势设置头像
-    UITapGestureRecognizer *singleRecongnizer;
-    singleRecongnizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(changeHeaderImg:)];
-    singleRecongnizer.numberOfTapsRequired = 1;
-    [_headerView.imageView addGestureRecognizer:singleRecongnizer];
-    PerInfView * perinfView = [[PerInfView alloc]initWithFrame:CGRectMake1(0, 124*widthSize, k6PWidth, 52*widthSize)];
-    perinfView.delegate =self;
     if (self.islogin) {
+        //判断是否为代理商
         if ([self returnIsAgent]) {
-            _arr = @[@"收货地址",@"我的优惠券",@"关于友品集",@"意见反馈",@"客服热线",@"我的会员",@"代理商入口"];
+            _arr1 = @[@"我的收藏",@"我关注的品牌",@"收货地址",@"我的优惠券",@"代理商入口"];
         }else
         {
-            _arr = @[@"收货地址",@"我的优惠券",@"关于友品集",@"意见反馈",@"客服热线",@"我的会员"];
+            _arr1 = @[@"我的收藏",@"我关注的品牌",@"收货地址",@"我的优惠券"];
+        }
+        //判断是否为经销商
+        if ([self returnIsDealer]) {
+            _arr2 = @[@"店铺二维码",@"我的分店",@"利润提现",@"店铺设置"];
+            _arr3 = @[@" ",@"关于友品集",@"意见反馈",@"联系我们"];
+        }else
+        {
+            _arr2 = @[@"创客二维码",@"我的会员",@"佣金提现"];
+            _arr3 = @[@"开店申请",@"关于友品集",@"意见反馈",@"联系我们"];
         }
     }else
     {
-        _arr = @[@"收货地址",@"我的优惠券",@"关于友品集",@"意见反馈",@"客服热线",@"我的会员"];
+        _arr1 = @[@"我的收藏",@"我关注的品牌",@"收货地址",@"我的优惠券"];
+        _arr2 = @[];
+        _arr3 = @[@"开店申请",@"关于友品集",@"意见反馈",@"联系我们"];
+    }
+    
+    
+    _headerView = [[HeaderView alloc]initWithFrame:CGRectMake1(0, 0, 414, 147) withIsLogin:self.islogin withname:[self returnNickName]];
+    UIImageView *bgimgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"beijing1.jpg"]];
+    bgimgView.frame = CGRectMake1(0, 0, 414, 147);
+    [_headerView addSubview:bgimgView];
+    [_headerView sendSubviewToBack:bgimgView];
+    _headerView.delegate = self;
+    _headerView.imageBtn.userInteractionEnabled = YES;
+    [_headerView.imageBtn addTarget:self action:@selector(changeHeaderImg) forControlEvents:UIControlEventTouchUpInside];
+    if ([self returnIsLogin]) {
+        [_headerView.imageBtn setImage:[UIImage imageWithData:[self returnImageData]] forState:UIControlStateNormal];
+        [self postmid];
     }
     _scrollView = [[UIScrollView alloc]initWithFrame:[UIScreen mainScreen].bounds];
     _scrollView.scrollEnabled = YES;
@@ -90,17 +104,17 @@
     [self.scrollView addSubview:_headerView];
     
     
-    _memberView = [[UITableView alloc]initWithFrame:CGRectMake(0, 176*hightSize*app.autoSizeScaleY, self.view.bounds.size.width, 88*_arr.count) style:UITableViewStylePlain];
+    _memberView = [[UITableView alloc]initWithFrame:CGRectMake1(0, 160,414, 88*(_arr1.count+_arr2.count+_arr3.count)) style:UITableViewStylePlain];
     _memberView.delegate =self;
     _memberView.dataSource = self;
-    _memberView.backgroundColor = backcolor;
+    _memberView.backgroundColor = [UIColor colorFromHexRGB:@"f0f0f0"];
     [_memberView registerClass:[MemberTableViewCell class] forCellReuseIdentifier:@"memberCell"];
     _memberView.scrollEnabled = NO;
     
     [self.scrollView addSubview:_memberView];
-    [self.scrollView addSubview:perinfView];
+    //  [self.scrollView addSubview:perinfView];
     
-    _scrollView.contentSize = CGSizeMake(self.view.bounds.size.width,_headerView.frame.size.height+perinfView.frame.size.height+_memberView.frame.size.height-56*hightSize+30);
+    _scrollView.contentSize = CGSizeMake(self.view.bounds.size.width,_headerView.frame.size.height+_memberView.frame.size.height-56*hightSize+30);
     _scrollView.showsVerticalScrollIndicator = NO;
     // Do any additional setup after loading the view.
 }
@@ -110,14 +124,21 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (section == 0 ) {
-        return 1;
+        return 0;
     }
-    else
-        return _arr.count;
+    else if(section == 1)
+    {
+        return _arr1.count;
+    }else if (section == 2)
+    {
+        return _arr2.count;
+    }else
+    {
+        return _arr3.count;
+    }
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
     NSString *Identifier = @"memberCell";
     MemberTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:Identifier];
     
@@ -125,21 +146,32 @@
         cell = [[MemberTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:Identifier];
     }
     
-    if (indexPath.section==0) {
-        cell.titleLabel.text = @"我的订单";
-        cell.iconView.image = [UIImage imageNamed:@"MyOrder"];
-        cell.iconView.contentMode = UIViewContentModeScaleAspectFit;
-        cell.arrowView.contentMode = UIViewContentModeScaleAspectFit;
+    NSArray *arr = [NSArray new];
+    NSString *str = [NSString new];
+    if (indexPath.section == 1) {
+        arr = [NSArray arrayWithArray:_arr1];
+        str = @"member";
+    }else if (indexPath.section == 2)
+    {
+        arr = [NSArray arrayWithArray:_arr2];
+        str = @"CK";
+    }else if(indexPath.section == 3)
+    {
+        arr = [NSArray arrayWithArray:_arr3];
+        str = @"protocol";
     }
-    else{
-        cell.titleLabel.text = _arr[indexPath.row];
-        
-        cell.iconView.image = [UIImage imageNamed:[NSString stringWithFormat:@"Member%ld",indexPath.row]];
-        
-        //ImageView 自适应。
-        cell.iconView.contentMode = UIViewContentModeScaleAspectFit;
-        cell.arrowView.contentMode = UIViewContentModeScaleAspectFit;
+    
+    if ([arr[indexPath.row] isEqualToString:@" "]) {
+        cell.hidden = YES;
     }
+    cell.titleLabel.text = arr[indexPath.row];
+    
+    cell.iconView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@%ld",str,(long)indexPath.row]];
+    
+    //ImageView 自适应。
+    cell.iconView.contentMode = UIViewContentModeScaleAspectFit;
+    cell.arrowView.contentMode = UIViewContentModeScaleAspectFit;
+    
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
@@ -151,7 +183,7 @@
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    return 4;
 }
 
 #pragma 2016年04月08日15:59:16 修改 图片路径 修改iconView大小
@@ -160,30 +192,58 @@
     if (section == 0) {
         UIView * view = [[UIView alloc]init];
         view.backgroundColor = [UIColor whiteColor];
+        UIButton *orderBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        orderBtn.frame = CGRectMake1(0, 0, 414, 55);
+        orderBtn.tag = 0;
+        [orderBtn addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
+        [view addSubview:orderBtn];
+        
+        UIImageView *iconView1 = [[UIImageView alloc]initWithFrame:CGRectMake1(20, 20, 20, 20)];
+        iconView1.image = [UIImage imageNamed:@"MyOrder"];
+        iconView1.contentMode = UIViewContentModeScaleAspectFit;
+        [orderBtn addSubview:iconView1];
+        
+        UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake1(60, 20, 300, 20)];
+        titleLabel.font = [UIFont systemFontOfSize:CGFloatMakeY(16)];
+        titleLabel.text = @"我的订单";
+        [orderBtn addSubview:titleLabel];
+        
+        UIImageView *arrowView = [[UIImageView alloc]initWithFrame:CGRectMake1(370, 20, 30, 20)];
+        arrowView.image = [UIImage imageNamed:@"rightArrow"];
+        arrowView.contentMode = UIViewContentModeScaleAspectFit;
+        [orderBtn addSubview:arrowView];
+        
         NSArray *arr = @[@"待付款",@"待发货",@"待收货",@"待评价"];
         for (int i = 0; i <4; i++) {
             UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
             
-            UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake1(0, 50, k6PWidth/4, 10)];
-            label.font = [UIFont systemFontOfSize:12];
+            UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake1(0, 45, k6PWidth/4, 10)];
+            label.font = [UIFont systemFontOfSize:CGFloatMakeY(12)];
             label.textAlignment = NSTextAlignmentCenter;
             label.text = arr[i];
+            [btn addSubview:label];
             
-            btn.frame = CGRectMake1(k6PWidth/4*i, 0, k6PWidth/4, 50);
+            btn.frame = CGRectMake1(k6PWidth/4*i,55, k6PWidth/4, 70);
             btn.tag = i+1;
-            [btn addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
+            [btn addTarget:self action:@selector(btnAction:)
+          forControlEvents:UIControlEventTouchUpInside];
+            [view addSubview:btn];
             
             UIImageView * iconView = [[UIImageView alloc]initWithFrame:CGRectMake1(0, 10, 33, 33)];
-            iconView.center = CGPointMake(btn.frame.size.width/2, btn.frame.size.height/2);
+            iconView.center = CGPointMake(btn.frame.size.width/2,(iconView.frame.origin.y+iconView.frame.size.height)/2);
             iconView.contentMode = UIViewContentModeScaleAspectFit;
             
             iconView.image = [UIImage imageNamed:[NSString stringWithFormat:@"dingdan%d",i]];
-            UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake1(0, 70, 414, 1)];
-            lineView.backgroundColor = [UIColor colorWithRed:224.0/255 green:224.0/255 blue:224.0/255 alpha:1];
-            [view addSubview:lineView];
             [btn addSubview:iconView];
-            [view addSubview:btn];
-            [btn addSubview:label];
+            
+            UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake1(0, 54, 414, 1)];
+            lineView.backgroundColor = [UIColor colorFromHexRGB:@"e0e0e0"];
+            [view addSubview:lineView];
+            
+            UIView *lineView2 = [[UIView alloc]initWithFrame:CGRectMake1(0, 119, 414, 1)];
+            lineView2.backgroundColor = [UIColor colorFromHexRGB:@"e0e0e0"];
+            [view addSubview:lineView2];
+            
             
         }
         return view;
@@ -194,18 +254,18 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     if (section  == 0) {
-        return CGFloatMakeY(65);
+        return CGFloatMakeY(120);
     }
     return 0;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return 10;
+    return CGFloatMakeY(10);
 }
 
 -(UIView*)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
-    UIView * view = [[UIView alloc]initWithFrame:CGRectMake1(0, 0, k6PWidth, 16)];
+    UIView * view = [[UIView alloc]initWithFrame:CGRectMake1(0, 0, k6PWidth, 10)];
     UIColor *backcolor = [UIColor colorWithRed:240.0/255 green:240.0/255 blue:240.0/255 alpha:1];
     view.backgroundColor = backcolor;
     return view;
@@ -213,62 +273,122 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == 2)
-    {
-        AboutUPJViewController *  aboutUPJVC =[AboutUPJViewController new];
-        [self.navigationController pushViewController:aboutUPJVC animated:YES];
-    }else
-        if (indexPath.row == 4)
-        {
-            NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"tel:%@",@"020-38989219"];
-            UIWebView * callWebview = [[UIWebView alloc] init];
-            callWebview.backgroundColor = [UIColor blueColor];
-            [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
-            [self.view addSubview:callWebview];
+    if (indexPath.section == 1) {
+        if(_islogin){
+            switch (indexPath.row) {
+                case 0:
+                {
+                    MyCollectViewController *MCVC = [MyCollectViewController new];
+                    MCVC.mid = self.mid;
+                    [self.navigationController pushViewController:MCVC animated:YES];
+                }
+                    break;
+                case 1:
+                {
+                    MyAttentionViewController *MAVC = [MyAttentionViewController new];
+                    [self.navigationController pushViewController:MAVC animated:YES];
+                }
+                    break;
+                case 2:
+                {
+                    MyAddressViewController *myaddressVC = [MyAddressViewController new];
+                    [self.navigationController pushViewController:myaddressVC animated:YES];
+                }
+                    break;
+                case 3:
+                {
+                    MyCouponViewController *mycouponVC = [MyCouponViewController new];
+                    mycouponVC.mid = self.mid;
+                    [self.navigationController pushViewController:mycouponVC animated:YES];
+                }
+                    break;
+                case 4:
+                {
+                    AgentViewController *AVC = [[AgentViewController alloc]init];
+                    [self.navigationController pushViewController:AVC animated:YES];
+                }
+                    break;
+                default:
+                    break;
+            }
         }else
-            if (_islogin)
+        {
+            [self loginAction:nil];
+        }
+    }
+    if(indexPath.section == 2)
+    {
+        switch (indexPath.row) {
+            case 0:
             {
-                if(indexPath.section == 0)
+                
+            }
+                break;
+            case 1:
+            {
+                CKListViewController *CKVC = [CKListViewController new];
+                [self.navigationController pushViewController:CKVC animated:YES];
+            }
+                break;
+                case 2:
+            {
+                CommissonWithdrawalViewController *CWVC = [[CommissonWithdrawalViewController alloc]init];
+                if ([self returnIsDealer]) {
+                    CWVC.isFlag = NO;
+                }else
                 {
-                    OrderViewController *OVC = [OrderViewController new];
-                    OVC.number = 0;
-                    OVC.mid = self.mid;
-                    [self.navigationController pushViewController:OVC animated:YES];
+                    CWVC.isFlag = YES;
                 }
-                else
+                [self.navigationController pushViewController:CWVC  animated:YES];
+            }
+                break;
+                case 3:
+            {
+                
+            }
+            default:
+                break;
+        }
+    }
+    if (indexPath.section == 3) {
+        switch (indexPath.row) {
+            case 0:
+            {
+                DealerApplyViewController* DAVC = [DealerApplyViewController new];
+                [self.navigationController pushViewController:DAVC animated:YES];
+            }
+                break;
+            case 1:
+            {
+                AboutUPJViewController *  aboutUPJVC =[AboutUPJViewController new];
+                [self.navigationController pushViewController:aboutUPJVC animated:YES];
+            }
+                break;
+            case 2:
+            {
+                if (_islogin) {
+                    FeedBackViewController *fbVC = [FeedBackViewController new];
+                    [self.navigationController pushViewController:fbVC animated:YES];
+                }else
                 {
-                    if (indexPath.row == 0)
-                    {
-                        MyAddressViewController *myaddressVC = [MyAddressViewController new];
-                        [self.navigationController pushViewController:myaddressVC animated:YES];
-                    }
-                    if (indexPath.row == 1)
-                    {
-                        MyCouponViewController *mycouponVC = [MyCouponViewController new];
-                        mycouponVC.mid = self.mid;
-                        [self.navigationController pushViewController:mycouponVC animated:YES];
-                    }
-                    if (indexPath.row == 3) {
-                        FeedBackViewController *fbVC = [FeedBackViewController new];
-                        [self.navigationController pushViewController:fbVC animated:YES];
-                    }
-                    if (indexPath.row == 5) {
-                        CKListViewController * ckListVC = [[CKListViewController alloc]init];
-                        [self.navigationController pushViewController:ckListVC animated:YES];
-                    }
-                    if (indexPath.row == 6) {
-                        AgentViewController *AVC = [[AgentViewController alloc]init];
-                        [self.navigationController pushViewController:AVC animated:YES];
-                    }
+                    [self loginAction:nil];
                 }
             }
-            else
+                break;
+            case 3:
             {
-                [self loginAction:nil];
+                NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"tel:%@",@"020-38989219"];
+                UIWebView * callWebview = [[UIWebView alloc] init];
+                callWebview.backgroundColor = [UIColor blueColor];
+                [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
+                [self.view addSubview:callWebview];
             }
+                break;
+            default:
+                break;
+        }
+    }
 }
-
-
 
 -(void)loginAction:(UIButton *)button
 {
@@ -291,39 +411,6 @@
         [self loginAction:nil];
     }
     
-}
-
--(void)perinfViewPush:(NSInteger)number
-{
-    if (_islogin) {
-        switch (number) {
-            case 0:
-            {
-                MyCookieViewController *MCVC = [MyCookieViewController new];
-                [self.navigationController pushViewController:MCVC animated:YES];
-            }
-                break;
-            case 1:
-            {
-                MyCollectViewController *MCVC = [MyCollectViewController new];
-                MCVC.mid = self.mid;
-                [self.navigationController pushViewController:MCVC animated:YES];
-            }
-                break;
-            case 2:
-            {
-                MyAttentionViewController *MAVC = [MyAttentionViewController new];
-                [self.navigationController pushViewController:MAVC animated:YES];
-            }
-                break;
-            default:
-                break;
-        }
-    }
-    else
-    {
-        [self loginAction:nil];
-    }
 }
 
 -(void)registerAction:(UIButton *)btn
@@ -378,8 +465,21 @@
     {
         [self setIsAgentwithIsAgent:YES];
     }
+    //判断是否为代理商
     if ([self returnIsAgent]) {
-        _arr = @[@"收货地址",@"我的优惠券",@"关于友品集",@"意见反馈",@"客服热线",@"我的会员",@"代理商入口"];
+        _arr1 = @[@"我的收藏",@"我关注的品牌",@"收货地址",@"我的优惠券",@"代理商入口"];
+    }else
+    {
+        _arr1 = @[@"我的收藏",@"我关注的品牌",@"收货地址",@"我的优惠券"];
+    }
+    //判断是否为经销商
+    if ([self returnIsDealer]) {
+        _arr2 = @[@"店铺二维码",@"我的分店",@"利润提现",@"店铺设置"];
+        _arr3 = @[@" ",@"关于友品集",@"意见反馈",@"联系我们"];
+    }else
+    {
+        _arr2 = @[@"创客二维码",@"我的会员",@"佣金提现"];
+        _arr3 = @[@"开店申请",@"关于友品集",@"意见反馈",@"联系我们"];
     }
     [_memberView reloadData];
     [self setIsLoginwithIsLogin:YES];
@@ -408,12 +508,12 @@
         _imageStr = responseObject[@"data"][@"avatar"];
         [self setNamewithNickName:responseObject[@"data"][@"nickname"]];
         if (_imageStr==nil || [_imageStr isKindOfClass:[NSNull class]]) {
-            _headerView.imageView.image = [UIImage imageNamed:@"geren"];
+            [_headerView.imageBtn setImage:[UIImage imageNamed:@"geren"] forState:UIControlStateNormal];
         }else
         {
             if (![_imageStr isEqualToString:[self returnImage]]) {
                 NSURL *url = [NSURL URLWithString:_imageStr];
-                [_headerView.imageView sd_setImageWithURL:url ];
+                [_headerView.imageBtn sd_setImageWithURL:url forState:UIControlStateNormal];
                 [self setImagewithImage:_imageStr];
                 NSData *data = [[NSData alloc]initWithContentsOfURL:url];
                 [self setImagedatawithImagedata:data];
@@ -423,14 +523,14 @@
                 if ([self returnImageData].length == 0)
                 {
                     NSURL *url = [[NSURL alloc]initWithString:_imageStr];
-                    [_headerView.imageView sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"geren"]];
+                    [_headerView.imageBtn sd_setImageWithURL:url forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"geren"]];
                     NSData *data1 = [[NSData alloc]initWithContentsOfURL:url];
                     [self setImagedatawithImagedata:data1];
                     
                 }
                 else
                 {
-                    _headerView.imageView.image = [UIImage imageWithData:[self returnImageData]];
+                    [_headerView.imageBtn setImage:[UIImage imageWithData:[self returnImageData]] forState:UIControlStateNormal];
                 }
             }
         }
@@ -564,7 +664,8 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.navigationController.navigationBarHidden = YES;
+    self.navigationController.navigationBarHidden = NO;
+    self.navigationItem.title = @"个人中心";
     
     self.isShowTab = NO;
     [self showTabBarWithTabState:self.isShowTab];
@@ -572,15 +673,27 @@
     self.mid = [self returnMid];
     self.islogin = [self returnIsLogin];
     if (self.islogin) {
+        //判断是否为代理商
         if ([self returnIsAgent]) {
-            _arr = @[@"收货地址",@"我的优惠券",@"关于友品集",@"意见反馈",@"客服热线",@"我的会员",@"代理商入口"];
+            _arr1 = @[@"我的收藏",@"我关注的品牌",@"收货地址",@"我的优惠券",@"代理商入口"];
         }else
         {
-            _arr = @[@"收货地址",@"我的优惠券",@"关于友品集",@"意见反馈",@"客服热线",@"我的会员"];
+            _arr1 = @[@"我的收藏",@"我关注的品牌",@"收货地址",@"我的优惠券"];
+        }
+        //判断是否为经销商
+        if ([self returnIsDealer]) {
+            _arr2 = @[@"店铺二维码",@"我的分店",@"利润提现",@"店铺设置"];
+            _arr3 = @[@" ",@"关于友品集",@"意见反馈",@"联系我们"];
+        }else
+        {
+            _arr2 = @[@"创客二维码",@"我的会员",@"佣金提现"];
+            _arr3 = @[@"开店申请",@"关于友品集",@"意见反馈",@"联系我们"];
         }
     }else
     {
-        _arr = @[@"收货地址",@"我的优惠券",@"关于友品集",@"意见反馈",@"客服热线",@"我的会员"];
+        _arr1 = @[@"我的收藏",@"我关注的品牌",@"收货地址",@"我的优惠券"];
+        _arr2 = @[];
+        _arr3 = @[@"开店申请",@"关于友品集",@"意见反馈",@"联系我们"];
     }
     [_memberView reloadData];
     [_headerView islogin:[self returnIsLogin]];
@@ -605,7 +718,7 @@
 }
 
 // 修改头像
-- (void)changeHeaderImg:(UITapGestureRecognizer *)recognizer{
+- (void)changeHeaderImg{
     if ([self returnIsLogin]) {
         
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"请选择图片来源" message:nil preferredStyle: UIAlertControllerStyleActionSheet];
@@ -635,7 +748,7 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
     UIImage *img1 = [info objectForKey:UIImagePickerControllerEditedImage];
-
+    
     UIImage *img = [self scaleImage:img1 toScale:0.3];
     
     NSData *data = UIImagePNGRepresentation(img);
@@ -661,7 +774,7 @@
         [self.navigationController presentViewController:sucAl animated:YES completion:^{
             sleep(1);
             [self.navigationController dismissViewControllerAnimated:YES completion:^{
-                _headerView.imageView.image = img;
+                [_headerView.imageBtn setImage:img forState:UIControlStateNormal];
                 [self setImagewithImage:responseObject[@"data"]];
             }];
         }];
@@ -682,7 +795,7 @@
 }
 
 - (NSString *) image2DataURL: (UIImage *) image{
- 
+    
     NSData *imageData = nil;
     NSString *mimeType = nil;
     if ([self imageHasAlpha: image])
