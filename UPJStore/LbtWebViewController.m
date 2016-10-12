@@ -8,8 +8,9 @@
 
 #import "LbtWebViewController.h"
 #import "UIViewController+CG.h"
+#import "GoodSDetailViewController.h"
 
-@interface LbtWebViewController ()
+@interface LbtWebViewController ()<UIWebViewDelegate>
 {
     UIWebView *webView;
 }
@@ -32,11 +33,39 @@
     // Do any additional setup after loading the view.
     webView = [[UIWebView alloc] initWithFrame:CGRectMake1(0, 0,414, 721)];
     NSURLRequest *request =[NSURLRequest requestWithURL:[NSURL URLWithString:_urlstr]];
+    webView.delegate = self;
     webView.scrollView.showsVerticalScrollIndicator = NO;
     webView.scrollView.showsHorizontalScrollIndicator = NO;
-    webView.scrollView.scrollEnabled = NO;
+
     [self.view addSubview: webView];
     [webView loadRequest:request];
+}
+
+-(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+{
+    NSString *url1 = [NSString stringWithFormat:@"%@",request.URL];
+    if (url1.length > 43) {
+        NSString *url2 = [url1 substringWithRange:NSMakeRange(0, 44)];
+        if ([url2 isEqualToString:@"http://m.upinkji.com/wap/product/detail.html"]) {
+            NSString *url3 = [url1 substringWithRange:NSMakeRange(48, url1.length-48)];
+            [self pushWithgoodsid:url3];
+            return NO;
+        }else
+        {
+            return YES;
+        }
+    }else
+    {
+        return YES;
+    }
+}
+
+-(void)pushWithgoodsid:(NSString *)goodsid
+{
+    GoodSDetailViewController *GDVC = [GoodSDetailViewController new];
+    NSDictionary * dic = @{@"appkey":APPkey,@"id":goodsid};
+    GDVC.goodsDic = dic;
+    [self.navigationController pushViewController:GDVC animated:YES];
 }
 
 -(void)viewWillAppear:(BOOL)animated

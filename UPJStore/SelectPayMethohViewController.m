@@ -161,7 +161,7 @@
         [headerView addSubview:headerLabel];
         
         UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake1(20, 49.5, 394, 0.5)];
-        lineView.backgroundColor = [UIColor colorFromHexRGB:@"dddddd"];
+        lineView.backgroundColor = [UIColor colorFromHexRGB:@"babcbb"];
         [headerView addSubview:lineView];
         
         return headerView;

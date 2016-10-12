@@ -20,6 +20,8 @@
 #import "AdvertiseView.h"
 #import <AlipaySDK/AlipaySDK.h>
 #import <Bugly/Bugly.h>
+#import <XGPush.h>
+#import <XGSetting.h>
 
 #define kWXAPP_ID @"wx50a2b6dce88256c3"
 #define kWXAPP_SECRET @"b8e8be66e271b4083f4ee29c7a59f20b"
@@ -47,6 +49,32 @@
 {
     [Bugly startWithAppId:@"900044501"];
     // Override point for customization after application launch.
+    //推送
+    [XGPush startApp:2200238610 appKey:@"IX435S1GN2UT"];
+    [XGPush handleLaunching:launchOptions];
+    
+    float sysVer = [[[UIDevice currentDevice] systemVersion] floatValue];
+    if(sysVer < 8){
+        [self registerPush];
+    }
+    else{
+        [self registerPushForIOS8];
+    }
+    //    [XGPush handleLaunching:launchOptions successCallback:successBlock errorCallback:errorBlock];
+    
+    //本地推送示例
+    /*
+     NSDate *fireDate = [[NSDate new] dateByAddingTimeInterval:10];
+     
+     NSMutableDictionary *dicUserInfo = [[NSMutableDictionary alloc] init];
+     [dicUserInfo setValue:@"myid" forKey:@"clockID"];
+     NSDictionary *userInfo = dicUserInfo;
+     
+     [XGPush localNotification:fireDate alertBody:@"测试本地推送" badge:2 alertAction:@"确定" userInfo:userInfo];
+     */
+    
+    // Override point for customization after application launch.
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
@@ -699,6 +727,142 @@
     NSArray *numArr = [onlyNumStr componentsSeparatedByString:@"."];
     return numArr;
 }
+
+#pragma mark -- 推送功能
+//推送功能
+- (void)registerPushForIOS8{
+    //Types
+    UIUserNotificationType types = UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
+    
+    //Actions
+    UIMutableUserNotificationAction *acceptAction = [[UIMutableUserNotificationAction alloc] init];
+    
+    acceptAction.identifier = @"ACCEPT_IDENTIFIER";
+    acceptAction.title = @"Accept";
+    
+    acceptAction.activationMode = UIUserNotificationActivationModeForeground;
+    acceptAction.destructive = NO;
+    acceptAction.authenticationRequired = NO;
+    
+    //Categories
+    UIMutableUserNotificationCategory *inviteCategory = [[UIMutableUserNotificationCategory alloc] init];
+    
+    inviteCategory.identifier = @"INVITE_CATEGORY";
+    
+    [inviteCategory setActions:@[acceptAction] forContext:UIUserNotificationActionContextDefault];
+    
+    [inviteCategory setActions:@[acceptAction] forContext:UIUserNotificationActionContextMinimal];
+
+    NSSet *categories = [NSSet setWithObjects:inviteCategory, nil];
+    
+    UIUserNotificationSettings *mySettings = [UIUserNotificationSettings settingsForTypes:types categories:categories];
+    
+    [[UIApplication sharedApplication] registerUserNotificationSettings:mySettings];
+    
+    
+    [[UIApplication sharedApplication] registerForRemoteNotifications];
+}
+
+- (void)registerPush{
+    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound)];
+}
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    
+    //NSString * deviceTokenStr = [XGPush registerDevice:deviceToken];
+    
+    void (^successBlock)(void) = ^(void){
+        //成功之后的处理
+        NSLog(@"[XGPush Demo]register successBlock");
+    };
+    
+    void (^errorBlock)(void) = ^(void){
+        //失败之后的处理
+        NSLog(@"[XGPush Demo]register errorBlock");
+    };
+    
+    // 设置账号
+    //	[XGPush setAccount:@"test"];
+    
+    //注册设备
+    NSString * deviceTokenStr = [XGPush registerDevice:deviceToken successCallback:successBlock errorCallback:errorBlock];
+    
+    //如果不需要回调
+    //[XGPush registerDevice:deviceToken];
+    
+    //打印获取的deviceToken的字符串
+    NSLog(@"[XGPush Demo] deviceTokenStr is %@",deviceTokenStr);
+}
+
+//如果deviceToken获取不到会进入此事件
+- (void)application:(UIApplication *)app didFailToRegisterForRemoteNotificationsWithError:(NSError *)err {
+    
+    NSString *str = [NSString stringWithFormat: @"Error: %@",err];
+    
+    NSLog(@"[XGPush Demo]%@",str);
+    
+}
+
+- (void)application:(UIApplication*)application didReceiveRemoteNotification:(NSDictionary*)userInfo
+{
+    //推送反馈(app运行时)
+    [XGPush handleReceiveNotification:userInfo];
+    
+    
+    //回调版本示例
+    /*
+     void (^successBlock)(void) = ^(void){
+     //成功之后的处理
+     NSLog(@"[XGPush]handleReceiveNotification successBlock");
+     };
+     
+     void (^errorBlock)(void) = ^(void){
+     //失败之后的处理
+     NSLog(@"[XGPush]handleReceiveNotification errorBlock");
+     };
+     
+     void (^completion)(void) = ^(void){
+     //完成之后的处理
+     NSLog(@"[xg push completion]userInfo is %@",userInfo);
+     };
+     
+     [XGPush handleReceiveNotification:userInfo successCallback:successBlock errorCallback:errorBlock completion:completion];
+     */
+}
+
+-(void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification{
+    //notification是发送推送时传入的字典信息
+    [XGPush localNotificationAtFrontEnd:notification userInfoKey:@"clockID" userInfoValue:@"myid"];
+    
+    //删除推送列表中的这一条
+    [XGPush delLocalNotification:notification];
+    //[XGPush delLocalNotification:@"clockID" userInfoValue:@"myid"];
+    
+    //清空推送列表
+    //[XGPush clearLocalNotifications];
+}
+
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= _IPHONE80_
+
+//注册UserNotification成功的回调
+- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
+{
+    //用户已经允许接收以下类型的推送
+    //UIUserNotificationType allowedTypes = [notificationSettings types];
+    
+}
+
+//按钮点击事件回调
+- (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void (^)())completionHandler{
+    if([identifier isEqualToString:@"ACCEPT_IDENTIFIER"]){
+        NSLog(@"ACCEPT_IDENTIFIER is clicked");
+    }
+    
+    completionHandler();
+}
+
+#endif
+
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

@@ -92,7 +92,7 @@
             }
         }
     }
-    self.view.backgroundColor = [UIColor colorFromHexRGB:@"f0f0f0"];
+    self.view.backgroundColor = [UIColor colorFromHexRGB:@"f6f6f6"];
     [self.view addSubview:self.scrollView];
     [self getActivity];
     
@@ -582,7 +582,7 @@
         _scrollView.contentSize = CGSizeMake(kWidth, kHeight*2);
         _scrollView.showsVerticalScrollIndicator = NO;
         _scrollView.showsHorizontalScrollIndicator = NO;
-        //        _scrollView.backgroundColor  = [UIColor colorFromHexRGB:@"f0f0f0"];
+        //        _scrollView.backgroundColor  = [UIColor colorFromHexRGB:@"f6f6f6"];
         _scrollView.delegate =self;
         
     }

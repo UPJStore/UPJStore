@@ -240,7 +240,7 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CouponTableViewCell *cell = [[CouponTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"coupon"];
+    CouponTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"coupon" forIndexPath:indexPath];
     CouponModel *model ;
     if (!isUsed) {
         model = dataArr[indexPath.row];

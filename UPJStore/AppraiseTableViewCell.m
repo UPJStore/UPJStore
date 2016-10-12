@@ -44,7 +44,7 @@
         [self.contentView addSubview: ContentLabel];
 
         lightView = [[UIView alloc]initWithFrame:CGRectMake(0, CGFloatMakeY(65), kWidth, CGFloatMakeY(10))];
-        lightView.backgroundColor = [UIColor colorFromHexRGB:@"f0f0f0"];
+        lightView.backgroundColor = [UIColor colorFromHexRGB:@"f6f6f6"];
         [self.contentView addSubview:lightView];
 
     }

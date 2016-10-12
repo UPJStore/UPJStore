@@ -84,7 +84,7 @@
         [headerView addSubview:btn];
     }
     UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake1(0, 39.5, 414, 0.5)];
-    lineView.backgroundColor = [UIColor colorFromHexRGB:@"dddddd"];
+    lineView.backgroundColor = [UIColor colorFromHexRGB:@"babcbb"];
     [self.view addSubview:lineView];
     
     self.goodsTableView = [[UITableView alloc]initWithFrame:CGRectMake1(0, 40, 414, k6PHeight-104)];
@@ -163,16 +163,15 @@
 {
     if (_isFromSort) {
         if (indexPath.row == 0) {
-            UITableViewCell *cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"header"];
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"header" forIndexPath:indexPath];
             UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake1(0, 0, 414, 150*414/330)];
             imageView.image = _headerImg;
             [cell addSubview:imageView];
-            
             return cell;
         }else
         {
             ProductsModel *model = _goodsArr[indexPath.row-1];
-            SearchTableViewCell *cell = [[SearchTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+            SearchTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
             cell.model2 = model;
             cell.delegate = self;
             cell.iscollect = [self iscollectioned:model.goodsid];
@@ -183,7 +182,7 @@
     }else
     {
         ProductsModel *model = _goodsArr[indexPath.row];
-        SearchTableViewCell *cell = [[SearchTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+        SearchTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
         cell.model2 = model;
         cell.delegate = self;
         cell.iscollect = [self iscollectioned:model.goodsid];

@@ -95,6 +95,8 @@
 		D13C9A451D62E6D800F9EE38 /* ActivityModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D13C9A441D62E6D800F9EE38 /* ActivityModel.m */; };
 		D13F76BA1D532EB400D3DD7D /* Bugly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D13F76B91D532EB400D3DD7D /* Bugly.framework */; };
 		D13F76BC1D53302B00D3DD7D /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D13F76BB1D53302B00D3DD7D /* Security.framework */; };
+		D141AD381DACC26600E5172E /* libXG-SDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D141AD351DACC26600E5172E /* libXG-SDK.a */; };
+		D148F4A91D9B9231009D03B4 /* DealerDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D148F4A81D9B9231009D03B4 /* DealerDetailViewController.m */; };
 		D14909331D8291C900888069 /* LbtWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D14909321D8291C900888069 /* LbtWebViewController.m */; };
 		D14970751D1E3F1200817AE8 /* SelectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D14970741D1E3F1200817AE8 /* SelectTableViewCell.m */; };
 		D14A68211D94F9B800529928 /* DealerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D14A68201D94F9B800529928 /* DealerViewController.m */; };
@@ -127,7 +129,11 @@
 		D15405E51D6AAF8500BDE4AD /* order.png in Resources */ = {isa = PBXBuildFile; fileRef = D15405E41D6AAF8500BDE4AD /* order.png */; };
 		D15406041D6AD2CE00BDE4AD /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D15406001D6AD2CE00BDE4AD /* libWeChatSDK.a */; };
 		D15406051D6AD2CE00BDE4AD /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = D15406011D6AD2CE00BDE4AD /* README.txt */; };
+		D1549D091DAB32950040A8CF /* ApplyConfirmViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1549D081DAB32950040A8CF /* ApplyConfirmViewController.m */; };
 		D1576DA51D8FDD59002DD268 /* open.png in Resources */ = {isa = PBXBuildFile; fileRef = D1576DA41D8FDD59002DD268 /* open.png */; };
+		D162125F1D9A0A1F007A194F /* CommissonTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D162125E1D9A0A1F007A194F /* CommissonTableViewCell.m */; };
+		D16212621D9A23E0007A194F /* DrawalModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D16212611D9A23E0007A194F /* DrawalModel.m */; };
+		D16212651D9A4D7E007A194F /* DealerSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D16212641D9A4D7E007A194F /* DealerSettingViewController.m */; };
 		D19112A61CA273F700FE73EA /* SearchModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D19112A51CA273F700FE73EA /* SearchModel.m */; };
 		D19112A91CA2742E00FE73EA /* waitSearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D19112A81CA2742E00FE73EA /* waitSearchCell.m */; };
 		D1943E951CAA5EF70088D621 /* GoodSDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1943E941CAA5EF70088D621 /* GoodSDetailViewController.m */; };
@@ -192,6 +198,7 @@
 		D1FD29AA1CBC83E000B616EC /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1FD29A91CBC83E000B616EC /* CoreTelephony.framework */; };
 		D1FD29AC1CBC843F00B616EC /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D1FD29AB1CBC843F00B616EC /* libsqlite3.tbd */; };
 		D1FD29B71CBC8B4B00B616EC /* BookIngViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1FD29B61CBC8B4B00B616EC /* BookIngViewController.m */; };
+		D1FFCCF91DADDC8B002A58A2 /* DealerDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D1FFCCF81DADDC8B002A58A2 /* DealerDetailTableViewCell.m */; };
 		E30AD76C1C719F6F00B5188C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E30AD76B1C719F6F00B5188C /* main.m */; };
 		E30AD76F1C719F6F00B5188C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E30AD76E1C719F6F00B5188C /* AppDelegate.m */; };
 		E30AD7771C719F6F00B5188C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E30AD7761C719F6F00B5188C /* Assets.xcassets */; };
@@ -387,6 +394,11 @@
 		D13C9A441D62E6D800F9EE38 /* ActivityModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityModel.m; sourceTree = "<group>"; };
 		D13F76B91D532EB400D3DD7D /* Bugly.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bugly.framework; sourceTree = "<group>"; };
 		D13F76BB1D53302B00D3DD7D /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		D141AD351DACC26600E5172E /* libXG-SDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libXG-SDK.a"; path = "SDK1.7.3/libXG-SDK.a"; sourceTree = "<group>"; };
+		D141AD361DACC26600E5172E /* XGPush.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XGPush.h; path = SDK1.7.3/XGPush.h; sourceTree = "<group>"; };
+		D141AD371DACC26600E5172E /* XGSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XGSetting.h; path = SDK1.7.3/XGSetting.h; sourceTree = "<group>"; };
+		D148F4A71D9B9231009D03B4 /* DealerDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DealerDetailViewController.h; sourceTree = "<group>"; };
+		D148F4A81D9B9231009D03B4 /* DealerDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DealerDetailViewController.m; sourceTree = "<group>"; };
 		D14909311D8291C900888069 /* LbtWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LbtWebViewController.h; sourceTree = "<group>"; };
 		D14909321D8291C900888069 /* LbtWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LbtWebViewController.m; sourceTree = "<group>"; };
 		D14970731D1E3F1200817AE8 /* SelectTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectTableViewCell.h; sourceTree = "<group>"; };
@@ -515,7 +527,15 @@
 		D15406011D6AD2CE00BDE4AD /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		D15406021D6AD2CE00BDE4AD /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
 		D15406031D6AD2CE00BDE4AD /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
+		D1549D071DAB32950040A8CF /* ApplyConfirmViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplyConfirmViewController.h; sourceTree = "<group>"; };
+		D1549D081DAB32950040A8CF /* ApplyConfirmViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApplyConfirmViewController.m; sourceTree = "<group>"; };
 		D1576DA41D8FDD59002DD268 /* open.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = open.png; sourceTree = "<group>"; };
+		D162125D1D9A0A1F007A194F /* CommissonTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommissonTableViewCell.h; sourceTree = "<group>"; };
+		D162125E1D9A0A1F007A194F /* CommissonTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommissonTableViewCell.m; sourceTree = "<group>"; };
+		D16212601D9A23E0007A194F /* DrawalModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawalModel.h; sourceTree = "<group>"; };
+		D16212611D9A23E0007A194F /* DrawalModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawalModel.m; sourceTree = "<group>"; };
+		D16212631D9A4D7E007A194F /* DealerSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DealerSettingViewController.h; sourceTree = "<group>"; };
+		D16212641D9A4D7E007A194F /* DealerSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DealerSettingViewController.m; sourceTree = "<group>"; };
 		D19112A41CA273F700FE73EA /* SearchModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchModel.h; sourceTree = "<group>"; };
 		D19112A51CA273F700FE73EA /* SearchModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchModel.m; sourceTree = "<group>"; };
 		D19112A71CA2742E00FE73EA /* waitSearchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = waitSearchCell.h; sourceTree = "<group>"; };
@@ -631,6 +651,8 @@
 		D1FD29B51CBC8B4B00B616EC /* BookIngViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookIngViewController.h; sourceTree = "<group>"; };
 		D1FD29B61CBC8B4B00B616EC /* BookIngViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookIngViewController.m; sourceTree = "<group>"; };
 		D1FD29BD1CBCF82100B616EC /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		D1FFCCF71DADDC8B002A58A2 /* DealerDetailTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DealerDetailTableViewCell.h; sourceTree = "<group>"; };
+		D1FFCCF81DADDC8B002A58A2 /* DealerDetailTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DealerDetailTableViewCell.m; sourceTree = "<group>"; };
 		E30AD7671C719F6F00B5188C /* UPJStore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UPJStore.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E30AD76B1C719F6F00B5188C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		E30AD76D1C719F6F00B5188C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -672,6 +694,7 @@
 				D14F8F741CDAFBB400342832 /* libcrypto.a in Frameworks */,
 				D19E234D1CA96137008047B5 /* CoreLocation.framework in Frameworks */,
 				D19E234B1CA9611E008047B5 /* MapKit.framework in Frameworks */,
+				D141AD381DACC26600E5172E /* libXG-SDK.a in Frameworks */,
 				F232ABE2DA5BCC86420AB09F /* libPods-UPJStore.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -819,6 +842,10 @@
 				D103B76C1CDB268500DC850A /* CouponTableViewCell.m */,
 				D13A49DC1CFC16F900E05290 /* MemberTableViewCell.h */,
 				D13A49DD1CFC16F900E05290 /* MemberTableViewCell.m */,
+				D162125D1D9A0A1F007A194F /* CommissonTableViewCell.h */,
+				D162125E1D9A0A1F007A194F /* CommissonTableViewCell.m */,
+				D1FFCCF71DADDC8B002A58A2 /* DealerDetailTableViewCell.h */,
+				D1FFCCF81DADDC8B002A58A2 /* DealerDetailTableViewCell.m */,
 			);
 			name = Cell;
 			sourceTree = "<group>";
@@ -846,6 +873,16 @@
 			name = View;
 			sourceTree = "<group>";
 		};
+		D141AD341DACC24000E5172E /* Push SDK */ = {
+			isa = PBXGroup;
+			children = (
+				D141AD351DACC26600E5172E /* libXG-SDK.a */,
+				D141AD361DACC26600E5172E /* XGPush.h */,
+				D141AD371DACC26600E5172E /* XGSetting.h */,
+			);
+			name = "Push SDK";
+			sourceTree = "<group>";
+		};
 		D14A681E1D94F92A00529928 /* Dealers */ = {
 			isa = PBXGroup;
 			children = (
@@ -853,6 +890,12 @@
 				D14A68201D94F9B800529928 /* DealerViewController.m */,
 				D1376A051D99016D00813ACB /* DealerApplyViewController.h */,
 				D1376A061D99016D00813ACB /* DealerApplyViewController.m */,
+				D1549D071DAB32950040A8CF /* ApplyConfirmViewController.h */,
+				D1549D081DAB32950040A8CF /* ApplyConfirmViewController.m */,
+				D16212631D9A4D7E007A194F /* DealerSettingViewController.h */,
+				D16212641D9A4D7E007A194F /* DealerSettingViewController.m */,
+				D148F4A71D9B9231009D03B4 /* DealerDetailViewController.h */,
+				D148F4A81D9B9231009D03B4 /* DealerDetailViewController.m */,
 			);
 			name = Dealers;
 			sourceTree = "<group>";
@@ -1272,6 +1315,7 @@
 		E3E43CB61C72C18100E875F5 /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				D141AD341DACC24000E5172E /* Push SDK */,
 				D15405FF1D6AD2CE00BDE4AD /* SDK1.7.3 */,
 				2507FF3F1CB5F3F900B51ABA /* area.plist */,
 				D1F9E7921CB90433000F215E /* UIViewController+CG.h */,
@@ -1529,6 +1573,8 @@
 				D1F7C9C11CBF7E8700F2EC14 /* OrderModel.m */,
 				D100EB161CF5873E00C4531F /* CKModel.h */,
 				D100EB171CF5873E00C4531F /* CKModel.m */,
+				D16212601D9A23E0007A194F /* DrawalModel.h */,
+				D16212611D9A23E0007A194F /* DrawalModel.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1765,12 +1811,14 @@
 				D131B8781CABF36D00E58396 /* descriptionView.m in Sources */,
 				D1D4A0FB1CB5045500BC6913 /* SDCollectionViewCell.m in Sources */,
 				D1034D601D17A290000D893F /* CKListViewController.m in Sources */,
+				D16212621D9A23E0007A194F /* DrawalModel.m in Sources */,
 				D1376A071D99016D00813ACB /* DealerApplyViewController.m in Sources */,
 				D1D4A0FD1CB5045500BC6913 /* UIView+SDExtension.m in Sources */,
 				D1D4A1031CB504D800BC6913 /* MBProgressHUD.m in Sources */,
 				D13C1ED11CFC01D200EDE19E /* PerInfView.m in Sources */,
 				D1D4A0F71CB5045500BC6913 /* TAAbstractDotView.m in Sources */,
 				D1F7C9C51CBF7E8700F2EC14 /* CouponModel.m in Sources */,
+				D1549D091DAB32950040A8CF /* ApplyConfirmViewController.m in Sources */,
 				D10391461D11593E00CDD34D /* myUILabel.m in Sources */,
 				D12568361D1A6A4400B6ED77 /* recommandCell.m in Sources */,
 				D19E232E1CA95DBB008047B5 /* ProductsCollectionViewCell.m in Sources */,
@@ -1792,6 +1840,7 @@
 				D1ADB2EC1C940E6D000B134E /* ShoppingCartViewController.m in Sources */,
 				D1034D631D17A290000D893F /* ForgetViewController.m in Sources */,
 				D105D6A11D349D4B00245915 /* AgentViewController.m in Sources */,
+				D162125F1D9A0A1F007A194F /* CommissonTableViewCell.m in Sources */,
 				D131B82D1CABA09900E58396 /* appraiseModel.m in Sources */,
 				D107E5681D499AB9007AFFD9 /* ImageModel.m in Sources */,
 				D14F8FA21CDB164600342832 /* RSADataVerifier.m in Sources */,
@@ -1831,6 +1880,7 @@
 				D14909331D8291C900888069 /* LbtWebViewController.m in Sources */,
 				D13C1ECD1CFC01D200EDE19E /* CommodView.m in Sources */,
 				D14E05501D81408500CC6531 /* SearchGoodsCollectionViewCell.m in Sources */,
+				D1FFCCF91DADDC8B002A58A2 /* DealerDetailTableViewCell.m in Sources */,
 				D14A68211D94F9B800529928 /* DealerViewController.m in Sources */,
 				D103913A1D113F9F00CDD34D /* AdvertiseViewController.m in Sources */,
 				D1034D721D17A290000D893F /* OrderDetailsViewController.m in Sources */,
@@ -1864,6 +1914,7 @@
 				D1F4FA451CBDE65A00C56508 /* ComfirmOrderTableViewCell.m in Sources */,
 				D1AAD97F1CA65EC30013FFBB /* ShoppingCarTableViewCell.m in Sources */,
 				D1034D6E1D17A290000D893F /* MyCookieViewController.m in Sources */,
+				D148F4A91D9B9231009D03B4 /* DealerDetailViewController.m in Sources */,
 				D15405E31D6AA95600BDE4AD /* OrderBtn.m in Sources */,
 				D1FB119D1CB6081700F57A44 /* brandViewController.m in Sources */,
 				D1034D5E1D17A290000D893F /* AgreementViewController.m in Sources */,
@@ -1904,6 +1955,7 @@
 				D107E5511D499A5E007AFFD9 /* HomePageTableViewCell.m in Sources */,
 				D13C1ECE1CFC01D200EDE19E /* ExchangeView.m in Sources */,
 				D1D4A1091CB5057800BC6913 /* ActivityViewController.m in Sources */,
+				D16212651D9A4D7E007A194F /* DealerSettingViewController.m in Sources */,
 				D14F8F9F1CDB164600342832 /* NSDataEx.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -10,6 +10,7 @@
 
 #import "ExchangeView.h"
 #import "UIViewController+CG.h"
+#import "UIColor+HexRGB.h"
 
 #define widthSize 414.0/320
 
@@ -37,8 +38,8 @@
         
         UIView *lineView = [[UIView alloc]
                             initWithFrame:CGRectMake1(150, 0, 0.5,46)];
-        UIColor *fontcolor = [UIColor colorWithRed:153.0/255 green:153.0/255 blue:153.0/255 alpha:1];
-        lineView.backgroundColor =fontcolor;
+        
+        lineView.backgroundColor =[UIColor colorFromHexRGB:@"babcbb"];
         [self addSubview:lineView];
         
         UILabel *label1 = [[UILabel alloc]initWithFrame:CGRectMake1(164,10,120, 12)];
@@ -50,7 +51,7 @@
         
         UILabel *label2 = [[UILabel alloc]initWithFrame:CGRectMake1(164,30, 91, 9)];
         label2.text = string2;
-        label2.textColor = fontcolor;
+        label2.textColor = [UIColor colorFromHexRGB:@"babcbb"];
         label2.font = [UIFont systemFontOfSize:CGFloatMakeY(9)];
         [self addSubview:label2];
     }

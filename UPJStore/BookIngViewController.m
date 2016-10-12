@@ -50,7 +50,7 @@
     
     self.isShowTab = YES;
     [self hideTabBarWithTabState:self.isShowTab];
-    self.view.backgroundColor = [UIColor colorFromHexRGB:@"f0f0f0"];
+    self.view.backgroundColor = [UIColor colorFromHexRGB:@"f6f6f6"];
     self.navigationItem.title = @"确认订单";
 
     [self initGoodInfo];

@@ -9,8 +9,9 @@
 #import "CommissonWithdrawalViewController.h"
 #import "UIViewController+CG.h"
 #import "UIColor+HexRGB.h"
+#import "CommissonTableViewCell.h"
 
-@interface CommissonWithdrawalViewController ()
+@interface CommissonWithdrawalViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UIView *headerView;
 @property(nonatomic,strong)UIView *drawalView;
 @property(nonatomic,strong)UIView *redlineView;
@@ -31,7 +32,7 @@
     }
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"backArrow"] style:UIBarButtonItemStyleDone target:self action:@selector(pop)];
     self.navigationItem.leftBarButtonItem.tintColor = [UIColor blackColor];
-    self.view.backgroundColor = [UIColor colorFromHexRGB:@"f0f0f0"];
+    self.view.backgroundColor = [UIColor colorFromHexRGB:@"f6f6f6"];
     
     [self initWithHeaderView];
     
@@ -66,7 +67,7 @@
     [_headerView addSubview:titleLabel];
     
     UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake1(0, 146, 414, 1)];
-    lineView.backgroundColor = [UIColor colorFromHexRGB:@"dddddd"];
+    lineView.backgroundColor = [UIColor colorFromHexRGB:@"babcbb"];
     [_headerView addSubview:lineView];
     
     [self initWithBtnView];
@@ -79,7 +80,7 @@
     [self.view addSubview:_drawalView];
     
     UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake1(0, 0, 414, 1)];
-    lineView.backgroundColor = [UIColor colorFromHexRGB:@"dddddd"];
+    lineView.backgroundColor = [UIColor colorFromHexRGB:@"babcbb"];
     [_headerView addSubview:lineView];
     
     UIImageView *Img = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"CK2"]];
@@ -113,7 +114,7 @@
     [_drawalView addSubview:drawalBtn];
     
     UIView *lineView2 = [[UIView alloc]initWithFrame:CGRectMake1(10, 39, 394, 1)];
-    lineView2.backgroundColor = [UIColor colorFromHexRGB:@"f0f0f0"];
+    lineView2.backgroundColor = [UIColor colorFromHexRGB:@"f6f6f6"];
     [_drawalView addSubview:lineView2];
     
     NSArray *arr =@[@"未付款",@"已付款",@"已发货",@"已完成"];
@@ -141,7 +142,7 @@
     [_drawalView addSubview:_redlineView];
     
     UIView *lineView3 = [[UIView alloc]initWithFrame:CGRectMake1(0, 99, 414, 1)];
-    lineView3.backgroundColor = [UIColor colorFromHexRGB:@"dddddd"];
+    lineView3.backgroundColor = [UIColor colorFromHexRGB:@"babcbb"];
     
     [self initWithTableView];
 }
@@ -149,7 +150,37 @@
 -(void)initWithTableView
 {
     _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, _drawalView.frame.origin.y+_drawalView.frame.size.height+CGFloatMakeY(10),kWidth,kHeight-(_drawalView.frame.origin.y+_drawalView.frame.size.height+CGFloatMakeY(10))-64) style:UITableViewStylePlain];
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
+    [_tableView registerClass:[CommissonTableViewCell class] forCellReuseIdentifier:@"cell"];
+    _tableView.backgroundColor = [UIColor whiteColor];
+    _tableView.showsVerticalScrollIndicator = NO;
+    _tableView.showsHorizontalScrollIndicator = NO;
     [self.view addSubview:_tableView];
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 10;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return CGFloatMakeY(60);
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    CommissonTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    return cell;
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    UIView * view = [[UIView alloc]initWithFrame:CGRectMake1(0, 0, k6PWidth, 10)];
+    view.backgroundColor = [UIColor colorFromHexRGB:@"f6f6f6"];
+    return view;
 }
 
 

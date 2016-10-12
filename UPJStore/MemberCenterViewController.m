@@ -33,6 +33,7 @@
 #import "CommissonWithdrawalViewController.h"
 #import "DealerViewController.h"
 #import "DealerApplyViewController.h"
+#import "DealerSettingViewController.h"
 
 #define widthSize 414.0/320
 #define hightSize 736.0/568
@@ -58,24 +59,31 @@
     
     self.mid = [self returnMid];
     self.islogin = [self returnIsLogin];
-    self.view.backgroundColor = [UIColor colorFromHexRGB:@"f0f0f0"];
+    self.view.backgroundColor = [UIColor colorFromHexRGB:@"f6f6f6"];
     
     if (self.islogin) {
         //判断是否为代理商
+        _arr3 = @[@"关于友品集",@"意见反馈",@"联系我们"];
         if ([self returnIsAgent]) {
             _arr1 = @[@"我的收藏",@"我关注的品牌",@"收货地址",@"我的优惠券",@"代理商入口"];
+            //判断是否为经销商
+            if ([self returnIsDealer]) {
+                _arr2 = @[@"店铺二维码",@"我的分店",@"利润提现",@"店铺设置"];
+            }else
+            {
+                _arr2 = @[@"创客二维码",@"我的会员",@"佣金提现"];
+            }
         }else
         {
             _arr1 = @[@"我的收藏",@"我关注的品牌",@"收货地址",@"我的优惠券"];
-        }
-        //判断是否为经销商
-        if ([self returnIsDealer]) {
-            _arr2 = @[@"店铺二维码",@"我的分店",@"利润提现",@"店铺设置"];
-            _arr3 = @[@" ",@"关于友品集",@"意见反馈",@"联系我们"];
-        }else
-        {
-            _arr2 = @[@"创客二维码",@"我的会员",@"佣金提现"];
-            _arr3 = @[@"开店申请",@"关于友品集",@"意见反馈",@"联系我们"];
+            //判断是否为经销商
+            if ([self returnIsDealer]) {
+                _arr2 = @[@"店铺二维码",@"我的分店",@"利润提现",@"店铺设置"];
+            }else
+            {
+                _arr2 = @[@"创客二维码",@"我的会员",@"佣金提现"];
+                _arr3 = @[@"开店申请",@"关于友品集",@"意见反馈",@"联系我们"];
+            }
         }
     }else
     {
@@ -107,11 +115,12 @@
     _memberView = [[UITableView alloc]initWithFrame:CGRectMake1(0, 160,414, 88*(_arr1.count+_arr2.count+_arr3.count)) style:UITableViewStylePlain];
     _memberView.delegate =self;
     _memberView.dataSource = self;
-    _memberView.backgroundColor = [UIColor colorFromHexRGB:@"f0f0f0"];
+    _memberView.backgroundColor = [UIColor colorFromHexRGB:@"f6f6f6"];
     [_memberView registerClass:[MemberTableViewCell class] forCellReuseIdentifier:@"memberCell"];
     _memberView.scrollEnabled = NO;
     
     [self.scrollView addSubview:_memberView];
+    [_memberView reloadData];
     //  [self.scrollView addSubview:perinfView];
     
     _scrollView.contentSize = CGSizeMake(self.view.bounds.size.width,_headerView.frame.size.height+_memberView.frame.size.height-56*hightSize+30);
@@ -160,13 +169,16 @@
         arr = [NSArray arrayWithArray:_arr3];
         str = @"protocol";
     }
-    
-    if ([arr[indexPath.row] isEqualToString:@" "]) {
-        cell.hidden = YES;
-    }
     cell.titleLabel.text = arr[indexPath.row];
     
-    cell.iconView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@%ld",str,(long)indexPath.row]];
+    if (indexPath.section == 3) {
+        if ([self returnIsAgent]) {
+        cell.iconView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@%ld",str,(long)indexPath.row+1]];
+        }
+    }else
+    {
+        cell.iconView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@%ld",str,(long)indexPath.row]];
+    }
     
     //ImageView 自适应。
     cell.iconView.contentMode = UIViewContentModeScaleAspectFit;
@@ -344,7 +356,8 @@
                 break;
                 case 3:
             {
-                
+                DealerSettingViewController *DSVC = [DealerSettingViewController new];
+                [self.navigationController pushViewController:DSVC animated:YES];
             }
             default:
                 break;
@@ -354,8 +367,13 @@
         switch (indexPath.row) {
             case 0:
             {
+                if(_islogin){
                 DealerApplyViewController* DAVC = [DealerApplyViewController new];
                 [self.navigationController pushViewController:DAVC animated:YES];
+                }else
+                {
+                    [self loginAction:nil];
+                }
             }
                 break;
             case 1:
@@ -466,20 +484,27 @@
         [self setIsAgentwithIsAgent:YES];
     }
     //判断是否为代理商
+    _arr3 = @[@"关于友品集",@"意见反馈",@"联系我们"];
     if ([self returnIsAgent]) {
         _arr1 = @[@"我的收藏",@"我关注的品牌",@"收货地址",@"我的优惠券",@"代理商入口"];
+        //判断是否为经销商
+        if ([self returnIsDealer]) {
+            _arr2 = @[@"店铺二维码",@"我的分店",@"利润提现",@"店铺设置"];
+        }else
+        {
+            _arr2 = @[@"创客二维码",@"我的会员",@"佣金提现"];
+        }
     }else
     {
         _arr1 = @[@"我的收藏",@"我关注的品牌",@"收货地址",@"我的优惠券"];
-    }
-    //判断是否为经销商
-    if ([self returnIsDealer]) {
-        _arr2 = @[@"店铺二维码",@"我的分店",@"利润提现",@"店铺设置"];
-        _arr3 = @[@" ",@"关于友品集",@"意见反馈",@"联系我们"];
-    }else
-    {
-        _arr2 = @[@"创客二维码",@"我的会员",@"佣金提现"];
-        _arr3 = @[@"开店申请",@"关于友品集",@"意见反馈",@"联系我们"];
+        //判断是否为经销商
+        if ([self returnIsDealer]) {
+            _arr2 = @[@"店铺二维码",@"我的分店",@"利润提现",@"店铺设置"];
+        }else
+        {
+            _arr2 = @[@"创客二维码",@"我的会员",@"佣金提现"];
+            _arr3 = @[@"开店申请",@"关于友品集",@"意见反馈",@"联系我们"];
+        }
     }
     [_memberView reloadData];
     [self setIsLoginwithIsLogin:YES];
@@ -674,20 +699,27 @@
     self.islogin = [self returnIsLogin];
     if (self.islogin) {
         //判断是否为代理商
+        _arr3 = @[@"关于友品集",@"意见反馈",@"联系我们"];
         if ([self returnIsAgent]) {
             _arr1 = @[@"我的收藏",@"我关注的品牌",@"收货地址",@"我的优惠券",@"代理商入口"];
+            //判断是否为经销商
+            if ([self returnIsDealer]) {
+                _arr2 = @[@"店铺二维码",@"我的分店",@"利润提现",@"店铺设置"];
+            }else
+            {
+                _arr2 = @[@"创客二维码",@"我的会员",@"佣金提现"];
+            }
         }else
         {
             _arr1 = @[@"我的收藏",@"我关注的品牌",@"收货地址",@"我的优惠券"];
-        }
-        //判断是否为经销商
-        if ([self returnIsDealer]) {
-            _arr2 = @[@"店铺二维码",@"我的分店",@"利润提现",@"店铺设置"];
-            _arr3 = @[@" ",@"关于友品集",@"意见反馈",@"联系我们"];
-        }else
-        {
-            _arr2 = @[@"创客二维码",@"我的会员",@"佣金提现"];
-            _arr3 = @[@"开店申请",@"关于友品集",@"意见反馈",@"联系我们"];
+            //判断是否为经销商
+            if ([self returnIsDealer]) {
+                _arr2 = @[@"店铺二维码",@"我的分店",@"利润提现",@"店铺设置"];
+            }else
+            {
+                _arr2 = @[@"创客二维码",@"我的会员",@"佣金提现"];
+                _arr3 = @[@"开店申请",@"关于友品集",@"意见反馈",@"联系我们"];
+            }
         }
     }else
     {
@@ -713,7 +745,6 @@
 
 -(void)midlogout
 {
-    
     [_headerView logoutfinish];
 }
 

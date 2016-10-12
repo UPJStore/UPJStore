@@ -133,15 +133,16 @@
               success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
          {
              NSArray * arr = responseObject;
-             
-             for (NSDictionary *dic  in arr)
-             {
-                 
-                 LBTModel *model = [[LBTModel alloc]init];
-                 [model setValuesForKeysWithDictionary:dic];
-                 [_LBTArr addObject:model];
+             if(![arr isKindOfClass:[NSNull class]]){
+                 for (NSDictionary *dic  in arr)
+                 {
+                     
+                     LBTModel *model = [[LBTModel alloc]init];
+                     [model setValuesForKeysWithDictionary:dic];
+                     [_LBTArr addObject:model];
+                 }
+                 [self getHomepageImageData];
              }
-             [self getHomepageImageData];
          }
               failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
          {
@@ -181,13 +182,14 @@
           success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
      {
          DLog(@"%@",responseObject);
-         for (NSDictionary *dic in responseObject) {
-             ImageModel *model = [ImageModel new];
-             [model setValuesForKeysWithDictionary:dic];
-             [_homepageImageArr addObject:model];
-         }
-         // [_HomePageTableView reloadData];
-         [self getHeaderDataAndModelData];
+         if(![responseObject isKindOfClass:[NSNull class]]){
+             for (NSDictionary *dic in responseObject) {
+                 ImageModel *model = [ImageModel new];
+                 [model setValuesForKeysWithDictionary:dic];
+                 [_homepageImageArr addObject:model];
+             }
+             // [_HomePageTableView reloadData]];
+             [self getHeaderDataAndModelData];}
      }
           failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
      {
@@ -221,21 +223,21 @@
              DLog(@"%@",responseObject);
              NSArray *arr = responseObject[@"list"];
              if (arr.count != 0) {
-             HeaderModel *Hmodel = [[HeaderModel alloc]init];
-             [Hmodel setValuesForKeysWithDictionary:responseObject];
-             [_headerArr addObject:Hmodel];
-             [_pidArr addObject:Hmodel.pid];
-             NSMutableArray * mArr = [NSMutableArray array];
-             for (NSDictionary *dic in arr)
-             {
-                 ProductModel *model = [[ProductModel alloc]init];
-                 [model setValuesForKeysWithDictionary:dic];
-                 [mArr addObject:model];
-             }
-             [_productArr addObject:mArr];
-             _z++;
-             _num++;
-             [self getHeaderDataAndModelData];
+                 HeaderModel *Hmodel = [[HeaderModel alloc]init];
+                 [Hmodel setValuesForKeysWithDictionary:responseObject];
+                 [_headerArr addObject:Hmodel];
+                 [_pidArr addObject:Hmodel.pid];
+                 NSMutableArray * mArr = [NSMutableArray array];
+                 for (NSDictionary *dic in arr)
+                 {
+                     ProductModel *model = [[ProductModel alloc]init];
+                     [model setValuesForKeysWithDictionary:dic];
+                     [mArr addObject:model];
+                 }
+                 [_productArr addObject:mArr];
+                 _z++;
+                 _num++;
+                 [self getHeaderDataAndModelData];
              }
              else
              {
@@ -284,27 +286,27 @@
                  DLog(@"%@",responseObject);
                  NSArray *arr = responseObject[@"list"];
                  if (arr.count != 0) {
-                 HeaderModel *Hmodel = [[HeaderModel alloc]init];
-                 [Hmodel setValuesForKeysWithDictionary:responseObject];
-                 [_headerArr addObject:Hmodel];
-                 [_pidArr addObject:Hmodel.pid];
-                 NSMutableArray * mArr = [NSMutableArray array];
-                 for (NSDictionary *dic in arr)
+                     HeaderModel *Hmodel = [[HeaderModel alloc]init];
+                     [Hmodel setValuesForKeysWithDictionary:responseObject];
+                     [_headerArr addObject:Hmodel];
+                     [_pidArr addObject:Hmodel.pid];
+                     NSMutableArray * mArr = [NSMutableArray array];
+                     for (NSDictionary *dic in arr)
+                     {
+                         ProductModel *model = [[ProductModel alloc]init];
+                         [model setValuesForKeysWithDictionary:dic];
+                         [mArr addObject:model];
+                     }
+                     [_productArr addObject:mArr];
+                     _z++;
+                     _num++;
+                     [self.HomePageTableView reloadData];
+                     [self.HomePageTableView.mj_footer endRefreshing];
+                 }else
                  {
-                     ProductModel *model = [[ProductModel alloc]init];
-                     [model setValuesForKeysWithDictionary:dic];
-                     [mArr addObject:model];
+                     _num++;
+                     [self addData];
                  }
-                 [_productArr addObject:mArr];
-                 _z++;
-                 _num++;
-                 [self.HomePageTableView reloadData];
-                 [self.HomePageTableView.mj_footer endRefreshing];
-             }else
-             {
-                 _num++;
-                 [self addData];
-             }
              }
                   failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
              {
@@ -333,24 +335,24 @@
                   success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
              {
                  DLog(@"%@",responseObject);
-                  NSArray *arr = responseObject[@"list"];
+                 NSArray *arr = responseObject[@"list"];
                  if (arr.count != 0) {
-                 HeaderModel *Hmodel = [[HeaderModel alloc]init];
-                 [Hmodel setValuesForKeysWithDictionary:responseObject];
-                 [_headerArr addObject:Hmodel];
-                 [_pidArr addObject:Hmodel.pid];
-                 NSMutableArray * mArr = [NSMutableArray array];
-                 for (NSDictionary *dic in arr)
-                 {
-                     ProductModel *model = [[ProductModel alloc]init];
-                     [model setValuesForKeysWithDictionary:dic];
-                     [mArr addObject:model];
-                 }
-                 [_productArr addObject:mArr];
-                 _z++;
-                 _num++;
-                 [self.HomePageTableView reloadData];
-                 [self.HomePageTableView.mj_footer endRefreshing];
+                     HeaderModel *Hmodel = [[HeaderModel alloc]init];
+                     [Hmodel setValuesForKeysWithDictionary:responseObject];
+                     [_headerArr addObject:Hmodel];
+                     [_pidArr addObject:Hmodel.pid];
+                     NSMutableArray * mArr = [NSMutableArray array];
+                     for (NSDictionary *dic in arr)
+                     {
+                         ProductModel *model = [[ProductModel alloc]init];
+                         [model setValuesForKeysWithDictionary:dic];
+                         [mArr addObject:model];
+                     }
+                     [_productArr addObject:mArr];
+                     _z++;
+                     _num++;
+                     [self.HomePageTableView reloadData];
+                     [self.HomePageTableView.mj_footer endRefreshing];
                  }else
                  {
                      _num++;
@@ -381,19 +383,22 @@
               success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
          {
              DLog(@"%@",responseObject);
-             NSDictionary *dic = [NSDictionary dictionaryWithDictionary:responseObject[@"children"][@"2"]];
-             NSArray *arr = [NSArray arrayWithArray:[dic allKeys]];
-             for (int i = 0; i<15; i++) {
-                 CategoryModel *model = [CategoryModel new];
-                 NSString *str = arr[i];
-                 NSDictionary *dict = dic[str];
-                 [model setValuesForKeysWithDictionary:dict];
-                 [_categoryArr addObject:model];
+             if (![responseObject isKindOfClass:[NSNull class]]) {
+                 
+                 NSDictionary *dic = [NSDictionary dictionaryWithDictionary:responseObject[@"children"][@"2"]];
+                 NSArray *arr = [NSArray arrayWithArray:[dic allKeys]];
+                 for (int i = 0; i<15; i++) {
+                     CategoryModel *model = [CategoryModel new];
+                     NSString *str = arr[i];
+                     NSDictionary *dict = dic[str];
+                     [model setValuesForKeysWithDictionary:dict];
+                     [_categoryArr addObject:model];
+                 }
+                 _z++;
+                 [self.HomePageTableView reloadData];
+                 [self.HomePageTableView.mj_footer endRefreshing];
+                 [self.HomePageTableView.mj_footer setHidden:YES];
              }
-             _z++;
-             [self.HomePageTableView reloadData];
-             [self.HomePageTableView.mj_footer endRefreshing];
-             [self.HomePageTableView.mj_footer setHidden:YES];
          }
               failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
          {
@@ -808,7 +813,7 @@
 //轮播点击事件
 -(void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index{
     LBTModel * model = _LBTArr[index];
-   
+    
     if (model.keyword.length != 0 || model.pcate.length != 0) {
         AfterSearchViewController * afSearchVC = [[AfterSearchViewController alloc]init];
         afSearchVC.pcate = model.pcate;

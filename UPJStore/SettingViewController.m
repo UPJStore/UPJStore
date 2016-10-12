@@ -63,14 +63,10 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"setting"];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"setting" forIndexPath:indexPath];
     cell.textLabel.text = arr[indexPath.row];
     cell.textLabel.font = [UIFont systemFontOfSize:CGFloatMakeY(14)];
     cell.selectionStyle = UITableViewCellSelectionStyleGray;
-    
- //   UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake1(0, 59.5, 414, 0.5)];
- //   lineView.backgroundColor = [UIColor grayColor];
- //   [cell addSubview:lineView];
     return cell;
 }
 

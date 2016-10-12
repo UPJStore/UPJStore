@@ -14,6 +14,7 @@
 #import "UIImageView+WebCache.h"
 #import "CKModel.h"
 #import "CKTableViewCell.h"
+#import "DealerDetailViewController.h"
 
 @interface CKListViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong) UITableView * tableview;
@@ -53,16 +54,14 @@
         btn.frame = CGRectMake(i*kWidth/2, 0, kWidth/2, CGFloatMakeY(40));
         
         btn.tag = i+1;
-        NSString * sectionStr ;
         if (i==0) {
-            sectionStr = @"一级";
+             [btn setTitle:@"一级会员（0）" forState:UIControlStateNormal];
             [btn setBackgroundColor:[UIColor colorFromHexRGB:@"cc2245"]];
             btn.selected = YES;
         }else
         {
-            sectionStr = @"二级";
+             [btn setTitle:@"二级会员（0）" forState:UIControlStateNormal];
         }
-        [btn setTitle:[NSString stringWithFormat:@"%@会员（0）",sectionStr] forState:UIControlStateNormal];
         [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
         [btn addTarget:self action:@selector(reloadData:) forControlEvents:UIControlEventTouchUpInside];
         [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -94,8 +93,9 @@
         self.tableArr = _Level2Arr;
     
     [_tableview reloadData];
-
 }
+
+
 
 -(void)postTokenWithPage:(NSInteger)page
 {
@@ -186,10 +186,6 @@
         [self.tableview.mj_footer endRefreshing];
         _isLoading = NO;
     }];
-    
-
-    
-    
 }
 
 #pragma mark UITableView + 下拉刷新 默认
@@ -206,9 +202,6 @@
         // 马上进入刷新状态
         [self.tableview.mj_header beginRefreshing];
     }
-    
-    
-
 }
 
 - (void)MJFooter
@@ -256,9 +249,10 @@
         _tableview.dataSource = self;
         _tableview.delegate = self;
         _tableview.separatorStyle = NO;
-        _tableview.allowsSelection = NO;
+      //  _tableview.allowsSelection = NO;
         _tableview.showsVerticalScrollIndicator = NO;
         _tableview.showsHorizontalScrollIndicator = NO;
+        [_tableview registerClass:[CKTableViewCell class] forCellReuseIdentifier:@"cell"];
     }
     return _tableview;
 }
@@ -273,17 +267,19 @@
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    NSString *Identifier = @"cell";
     CKModel * model = self.tableArr[indexPath.row];
-    CKTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:Identifier];
-    
-    if (!cell) {
-        cell = [[CKTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:Identifier];
-    }
-    
+    CKTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     [cell.avatarVIew sd_setImageWithURL:[NSURL URLWithString:model.avatar]placeholderImage:[UIImage imageNamed:@"lbtP"]];
     [cell initWithModel:model];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
+    
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    DealerDetailViewController *DDVC = [DealerDetailViewController new];
+    [self.navigationController pushViewController:DDVC animated:YES];
 }
 
 

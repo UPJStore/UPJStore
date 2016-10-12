@@ -97,7 +97,7 @@
     }
     
     UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake1(0, 39.5, 414, 0.5)];
-    lineView.backgroundColor = [UIColor colorFromHexRGB:@"dddddd"];
+    lineView.backgroundColor = [UIColor colorFromHexRGB:@"babcbb"];
     [self.view addSubview:lineView];
 
     _goodsTableView  = [[UITableView alloc]initWithFrame:CGRectMake1(0, 40,k6PWidth , k6PHeight-104)];
@@ -267,7 +267,7 @@
         }else
         {
             SearchModel *model = _goodsArr[indexPath.row-1];
-            SearchTableViewCell *cell = [[SearchTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+            SearchTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
             cell.model1 = model;
             cell.delegate = self;
             cell.iscollect = [self iscollectioned:model.goodsid];
@@ -278,7 +278,7 @@
     }else
     {
         SearchModel *model = _goodsArr[indexPath.row];
-        SearchTableViewCell *cell = [[SearchTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+        SearchTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
         cell.model1 = model;
         cell.delegate = self;
         cell.iscollect = [self iscollectioned:model.goodsid];

@@ -130,7 +130,7 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    AddressTableViewCell *cell = [[AddressTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"address"];
+    AddressTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"address" forIndexPath:indexPath];
     AddressModel *model1 = dataArr[indexPath.row];
     cell.delegate = self;
     cell.nameLabel.text =model1.realname;
