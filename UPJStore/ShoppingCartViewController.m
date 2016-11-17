@@ -154,7 +154,7 @@
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     
-    //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
     
     
     [manager POST:kSNet parameters:Ndic progress:^(NSProgress * _Nonnull downloadProgress) {

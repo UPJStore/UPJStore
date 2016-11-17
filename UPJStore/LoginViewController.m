@@ -311,6 +311,18 @@
         {
             [self setIsAgentwithIsAgent:YES];
         }
+        if ([model.domain_level isEqualToString:@"0"]) {
+            [self setIsDealerwithIsDealer:NO];
+        }else
+        {
+            [self setIsDealerwithIsDealer:YES];
+        }
+        if ([model.flag isEqualToString:@"0"]) {
+            [self setIsFlagwithIsFlag:NO];
+        }else
+        {
+            [self setIsFlagwithIsFlag:YES];
+        }
         
         [self setIsLoginwithIsLogin:YES];
         [self postaddress];

@@ -291,7 +291,7 @@
     
     [manager POST:kCollectionGoods parameters:nDic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
-        DLog(@"%@",responseObject);
+      //  DLog(@"%@",responseObject);
         NSDictionary * errDic = responseObject;
         UIButton * btn = [_endView viewWithTag:666];
         NSString * str = errDic[@"errmsg"];
@@ -343,7 +343,7 @@
     [manager POST:kCollectList parameters:Ndic progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        DLog(@"%@",responseObject);
+     //   DLog(@"%@",responseObject);
         NSNumber *number = [responseObject valueForKey:@"errcode"];
         NSString *errcode = [NSString stringWithFormat:@"%@",number];
         if ([errcode isEqualToString:@"0"]) {
@@ -418,7 +418,7 @@
 }
 -(void)initdescriptionView
 {
-    self.descView = [[descriptionView alloc]initWithFrame:CGRectMake(0, CGFloatMakeY(300), kWidth, 0) withModel:_model];
+    self.descView = [[descriptionView alloc]initWithFrame:CGRectMake(0, CGFloatMakeY(300), kWidth, 0) withModel:_model withfromDealer:[self returnIsDealer]];
     _descView.backgroundColor = [UIColor whiteColor];
     
     if (self.ishaveActivity == YES) {
@@ -610,7 +610,7 @@
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         [self.loadingHud hideAnimated:YES];
         self.loadingHud = nil;
-        DLog(@"%@",responseObject);
+     //   DLog(@"%@",responseObject);
         _model = [DetailModel mj_objectWithKeyValues:responseObject];
         
         for (NSDictionary * dic  in _model.appraise) {
@@ -799,7 +799,7 @@
     AFHTTPSessionManager *manager = [self sharedManager];;
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
     
     [manager POST:kDetailRecommand parameters:Ndic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
@@ -994,7 +994,7 @@
     //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
     
     [manager POST:KActivity parameters:Ndic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        DLog(@"%@",responseObject);
+     //   DLog(@"%@",responseObject);
         NSNumber *number = responseObject[@"errcode"];
         NSString *str = [NSString stringWithFormat:@"%@",number];
         if ([str isEqualToString:@"10230"]) {
@@ -1038,7 +1038,7 @@
     [manager POST:kAddGoods parameters:Ndic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         [self.loadingHud hideAnimated:YES];
         self.loadingHud = nil;
-        DLog(@"%@",responseObject);
+     //   DLog(@"%@",responseObject);
         addToShopCartAlert = [UIAlertController alertControllerWithTitle:@"加入购物车成功" message:nil preferredStyle:UIAlertControllerStyleAlert];
         [self presentViewController:addToShopCartAlert animated:YES completion:nil];
         [NSTimer scheduledTimerWithTimeInterval:0.75 target:self selector:@selector(dismissAVC:) userInfo:nil repeats:NO];

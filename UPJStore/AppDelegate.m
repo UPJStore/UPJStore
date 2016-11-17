@@ -47,9 +47,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    //腾讯bugly
     [Bugly startWithAppId:@"900044501"];
     // Override point for customization after application launch.
-    //推送
+    //腾讯信鸽推送功能
     [XGPush startApp:2200238610 appKey:@"IX435S1GN2UT"];
     [XGPush handleLaunching:launchOptions];
     
@@ -307,7 +308,7 @@
                 DLog(@"unionid = %@", [dic objectForKey:@"unionid"]);
                 DLog(@"privilege = %@", [dic objectForKey:@"privilege"]);
                 
-#pragma mark -- 传openid给后台验证
+#pragma mark - 传openid给后台验证
                 NSDictionary *dic0 = @{@"app_wechat_openid":self.openid,@"appkey":APPkey,@"unionid":self.unionid};
                 DLog(@"%@",dic0);
                 AFHTTPSessionManager *manager = [AppDelegate sharedManager];
@@ -319,7 +320,7 @@
                 
                 [manager POST:kOther parameters:Ndic progress:^(NSProgress * _Nonnull uploadProgress) {
                 } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-                    DLog(@"%@",responseObject);
+                   // DLog(@"%@",responseObject);
                     [self.window.rootViewController.loadingHud hideAnimated:YES];
                     self.window.rootViewController.loadingHud =nil;
                     NSNumber *number = [responseObject valueForKey:@"errcode"];
@@ -411,7 +412,7 @@
         }
     }
     
-    DLog(@"str = %@",str);
+   // DLog(@"str = %@",str);
     
     NSString *tokenStr = [self md5:str];
     
@@ -420,7 +421,7 @@
     return Ndic;
 }
 
-#pragma mark -- 账号密码文本框
+#pragma mark - 账号密码文本框
 
 -(BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url{
     return [WXApi handleOpenURL:url delegate:self];
@@ -657,7 +658,7 @@
     
     self.window.rootViewController = tabController;
     
-#pragma 提示网络状态的。
+#pragma mark - 提示网络状态的。
     [GLobalRealReachability startNotifier];
     isFirst = YES;
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -728,7 +729,7 @@
     return numArr;
 }
 
-#pragma mark -- 推送功能
+#pragma mark - 推送功能
 //推送功能
 - (void)registerPushForIOS8{
     //Types
@@ -863,6 +864,7 @@
 
 #endif
 
+#pragma mark - 系统方法
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -885,7 +887,5 @@
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
-
-
 
 @end

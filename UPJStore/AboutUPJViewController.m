@@ -107,8 +107,6 @@
     {
         if ([responseObject isKindOfClass:[NSDictionary class]])
         {
-            DLog(@"%@",responseObject);
-            
             _urlSTR = responseObject[@"data"];
         }
         

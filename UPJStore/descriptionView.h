@@ -11,7 +11,7 @@
 
 @interface descriptionView : UIView
 
--(instancetype)initWithFrame:(CGRect)frame withModel:(DetailModel*) model;
+-(instancetype)initWithFrame:(CGRect)frame withModel:(DetailModel *)model withfromDealer:(BOOL)isfromDealer;
 
 
 @end

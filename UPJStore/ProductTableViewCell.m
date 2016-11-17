@@ -30,7 +30,7 @@
 -(void)setModel:(ProductModel *)model
 {
     [imageView sd_setImageWithURL:[NSURL URLWithString:model.thumb] placeholderImage:[UIImage imageNamed:@"lbtP"]];
-    [countryView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.upinkji.com/resource/attachment/%@",model.img]] placeholderImage:[UIImage imageNamed:@"lbtP"]];
+    [countryView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.upinkji.com/resource/attachment/%@",model.country]] placeholderImage:[UIImage imageNamed:@"lbtP"]];
     titleLabel.text = model.title;
     marketpriceLabel.text = model.marketprice;
     productpriceLabel.text = model.productprice;
@@ -68,12 +68,12 @@
         titleLabel.font = [UIFont systemFontOfSize:CGFloatMakeY(16)];
         [self addSubview:titleLabel];
         
-        UILabel *label1 = [[UILabel alloc]initWithFrame:CGRectMake1(110, 65, 50, 20)];
+        UILabel *label1 = [[UILabel alloc]initWithFrame:CGRectMake1(115, 65, 50, 20)];
         label1.text = @"优惠价:";
         label1.font = [UIFont systemFontOfSize:CGFloatMakeY(14)];
         [self addSubview:label1];
         
-        UILabel *label2 = [[UILabel alloc]initWithFrame:CGRectMake1(110, 90, 40, 20)];
+        UILabel *label2 = [[UILabel alloc]initWithFrame:CGRectMake1(115, 90, 40, 20)];
         label2.text = @"市价:";
         label2.font = [UIFont systemFontOfSize:CGFloatMakeY(14)];
         [self addSubview:label2];

@@ -93,7 +93,7 @@
     [manager POST:kSBrandGoodUrl parameters:Ndic progress:^(NSProgress * _Nonnull downloadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        DLog(@"%@",responseObject);
+       // DLog(@"%@",responseObject);
         NSArray* arrr = responseObject;
         for (NSDictionary * dic in arrr) {
             ProductsModel *model = [[ProductsModel alloc]init];
@@ -136,7 +136,7 @@
     [manager POST:kSAttenTionBrandUrl parameters:Ndic progress:^(NSProgress * _Nonnull downloadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        DLog(@"%@",responseObject);
+       // DLog(@"%@",responseObject);
 #pragma 更改状态；
         if (_isFocus == NO) {
             _isFocus =YES;
@@ -238,7 +238,7 @@
         
         [manager POST:kCollectionGoods parameters:nDic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             
-            DLog(@"%@",responseObject);
+          //  DLog(@"%@",responseObject);
             NSDictionary * errDic = responseObject;
             NSString * str = errDic[@"errmsg"];
             if ([btn.titleLabel.text isEqualToString:@"收藏"]) {
@@ -274,7 +274,7 @@
     [manager POST:kCollectList parameters:Ndic progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        DLog(@"%@",responseObject);
+      //  DLog(@"%@",responseObject);
         NSNumber *number = [responseObject valueForKey:@"errcode"];
         NSString *errcode = [NSString stringWithFormat:@"%@",number];
         if ([errcode isEqualToString:@"0"]) {
@@ -315,7 +315,7 @@
         [manager POST:kGoodDetailURL parameters:Ndic progress:^(NSProgress * _Nonnull uploadProgress) {
             
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            DLog(@"%@",responseObject);
+          //  DLog(@"%@",responseObject);
             _detailmodel = [DetailModel mj_objectWithKeyValues:responseObject];
             BookIngViewController * bVC = [[BookIngViewController alloc]init];
             [self.navigationController pushViewController:bVC animated:YES];

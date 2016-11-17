@@ -147,7 +147,7 @@
     [manager POST:kForget parameters:Ndic progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        DLog(@"%@",responseObject);
+      //  DLog(@"%@",responseObject);
         [self.loadingHud hideAnimated:YES];
         self.loadingHud = nil;
         NSNumber *number = [responseObject valueForKey:@"errcode"];

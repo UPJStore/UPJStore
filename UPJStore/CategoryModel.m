@@ -1,8 +1,8 @@
 //
-//  CateroyModel.m
+//  CategoryModel.m
 //  UPJStore
 //
-//  Created by upj on 16/7/27.
+//  Created by upj on 16/10/31.
 //  Copyright © 2016年 UPJApp. All rights reserved.
 //
 
@@ -10,7 +10,8 @@
 
 @implementation CategoryModel
 
--(void)setValue:(id)value forUndefinedKey:(NSString *)key{
+-(void)setValue:(id)value forUndefinedKey:(NSString *)key
+{
     if ([key isEqualToString:@"id"]) {
         self.cateid = value;
     }

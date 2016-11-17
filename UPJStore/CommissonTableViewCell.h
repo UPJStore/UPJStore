@@ -7,10 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DrawalModel.h"
+#import "CommissionModel.h"
 
-@interface CommissonTableViewCell : UITableViewCell
+@interface CommissonTableViewCell : UITableViewCell<UITableViewDelegate,UITableViewDataSource>
 
-@property(nonatomic,strong)DrawalModel *model;
+@property(nonatomic,strong)CommissionModel *model;
+@property(nonatomic,strong)UITableView *goodstableView;
+@property(nonatomic,strong)NSArray *arr;
+@property(nonatomic)BOOL isFlag;
+
+-(void)changewith:(BOOL)selected;
 
 @end

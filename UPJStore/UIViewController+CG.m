@@ -176,6 +176,30 @@
     [userDefaults setBool:isDealer forKey:@"isdealer"];
 }
 
+-(BOOL)returnIsFlag
+{
+    NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+    return [userDefaults boolForKey:@"isflag"];
+}
+
+-(void)setIsFlagwithIsFlag:(BOOL)isFlag
+{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setBool:isFlag forKey:@"isflag"];
+}
+
+-(NSString*)returnOpenId
+{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    return [userDefaults objectForKey:@"openid"];
+}
+
+-(void)setOpenIdwithOpenId:(NSString*)Openid
+{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setValue:Openid forKey:@"openid"];
+}
+
 -(NSString *)md5:(NSString *)str {
     
     const char* cStr = [str UTF8String];
@@ -273,10 +297,10 @@ static const void *isShowTabKey = &isShowTabKey;
     [UIView animateWithDuration:0.35
                      animations:^{
                          CGRect tabFrame = self.tabBarController.tabBar.frame;
-                         NSLog(@"MinY %.f",CGRectGetMinY(tabFrame));
+                     /*    NSLog(@"MinY %.f",CGRectGetMinY(tabFrame));
                          NSLog(@"GetHeight %.f",CGRectGetHeight(tabFrame));
                          NSLog(@"origin.y %.f",tabFrame.origin.y);
-
+                      */
                          if (tabFrame.origin.y < kHeight) {
                              tabFrame.origin.y = tabFrame.size.height + CGRectGetMinY(tabFrame);
                          }
@@ -294,10 +318,10 @@ static const void *isShowTabKey = &isShowTabKey;
      
                      animations:^{
                          CGRect tabFrame = self.tabBarController.tabBar.frame;
-                         NSLog(@"MinY %.f",CGRectGetMinY(tabFrame));
+                      /*   NSLog(@"MinY %.f",CGRectGetMinY(tabFrame));
                          NSLog(@"GetHeight %.f",CGRectGetHeight(tabFrame));
                          NSLog(@"origin.y %.f",tabFrame.origin.y);
-                         
+                       */
                          if (tabFrame.origin.y >= kHeight)
                          {
                              tabFrame.origin.y = CGRectGetHeight(tabFrame) - CGRectGetMinY(tabFrame);
@@ -353,6 +377,5 @@ static const void * loadingHudKey = &loadingHudKey;
 //    self.loadingHud.animationType = MBProgressHUDAnimationFade;
 //    self.loadingHud.backgroundColor = [UIColor whiteColor];
 }
-
 
 @end

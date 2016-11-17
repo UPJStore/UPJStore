@@ -13,6 +13,7 @@
 @interface LbtWebViewController ()<UIWebViewDelegate>
 {
     UIWebView *webView;
+    BOOL isfirst;
 }
 
 @end
@@ -31,12 +32,13 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"backArrow"] style:UIBarButtonItemStyleDone target:self action:@selector(pop)];
     self.navigationItem.leftBarButtonItem.tintColor = [UIColor blackColor];
     // Do any additional setup after loading the view.
+    isfirst = YES;
     webView = [[UIWebView alloc] initWithFrame:CGRectMake1(0, 0,414, 721)];
     NSURLRequest *request =[NSURLRequest requestWithURL:[NSURL URLWithString:_urlstr]];
     webView.delegate = self;
     webView.scrollView.showsVerticalScrollIndicator = NO;
     webView.scrollView.showsHorizontalScrollIndicator = NO;
-
+    webView.scrollView.bounces = NO;
     [self.view addSubview: webView];
     [webView loadRequest:request];
 }
@@ -44,7 +46,29 @@
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
     NSString *url1 = [NSString stringWithFormat:@"%@",request.URL];
-    if (url1.length > 43) {
+    if ([url1 isEqualToString:@"http://m.upinkji.com/"]) {
+        [self pop];
+        return NO;
+    }else if ([url1 isEqualToString:@"http://m.upinkji.com/wap/product/cate.html"])
+    {
+        self.tabBarController.selectedIndex = 1;
+        [self pop];
+        return NO;
+    }else if([url1 isEqualToString:@"tel:020-38989219"])
+    {
+        [self pop];
+        return NO;
+    }else if ([url1 isEqualToString:@"http://m.upinkji.com/wap/cart/index.html"])
+    {
+        self.tabBarController.selectedIndex = 2;
+        [self pop];
+        return NO;
+    }else if ([url1 isEqualToString:@"http://m.upinkji.com/wap/member/index.html"])
+    {
+        self.tabBarController.selectedIndex = 3;
+        [self pop];
+        return NO;
+    }else if (url1.length > 43) {
         NSString *url2 = [url1 substringWithRange:NSMakeRange(0, 44)];
         if ([url2 isEqualToString:@"http://m.upinkji.com/wap/product/detail.html"]) {
             NSString *url3 = [url1 substringWithRange:NSMakeRange(48, url1.length-48)];

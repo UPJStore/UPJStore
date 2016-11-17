@@ -1,8 +1,8 @@
 //
-//  CateroyModel.h
+//  CategoryModel.h
 //  UPJStore
 //
-//  Created by upj on 16/7/27.
+//  Created by upj on 16/10/31.
 //  Copyright © 2016年 UPJApp. All rights reserved.
 //
 
@@ -10,9 +10,9 @@
 
 @interface CategoryModel : NSObject
 
-@property(nonatomic,strong)NSString* cateid;
-@property(nonatomic,strong)NSString* name;
-@property(nonatomic,strong)NSString* parentid;
-@property(nonatomic,strong)NSString* thumb;
+@property(nonatomic,strong)NSString *cateid;
+@property(nonatomic,strong)NSString *name;
+@property(nonatomic,strong)NSString *parentid;
+@property(nonatomic,strong)NSString *thumb;
 
 @end

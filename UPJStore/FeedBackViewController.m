@@ -153,7 +153,7 @@
     [manager POST:kEvaluate parameters:Ndic progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        DLog(@"%@",responseObject);
+      //  DLog(@"%@",responseObject);
         [self.loadingHud hideAnimated:YES];
         self.loadingHud = nil;
         UIAlertController *alertCon2 = [UIAlertController alertControllerWithTitle:nil message:@"反馈成功" preferredStyle:UIAlertControllerStyleAlert];

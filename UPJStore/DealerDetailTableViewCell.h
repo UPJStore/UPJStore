@@ -10,5 +10,9 @@
 
 @interface DealerDetailTableViewCell : UITableViewCell<UITableViewDataSource,UITableViewDelegate>
 @property(nonatomic,strong)NSArray *arr;
+@property(nonatomic,strong)NSString *ordersn;
+@property(nonatomic,strong)NSString *allincome;
+
+-(void)cellreloate;
 
 @end

@@ -119,6 +119,8 @@
         [self setMidwithMid:@"0"];
         [self setIsLoginwithIsLogin:NO];
         [self setIsAgentwithIsAgent:NO];
+        [self setIsFlagwithIsFlag:NO];
+        [self setIsDealerwithIsDealer:NO];
         [self.delegate midlogout];
         [self pop];
     }];

@@ -10,4 +10,8 @@
 
 @interface CKListViewController : UIViewController
 
+@property(nonatomic)BOOL isCk;
+
+@property(nonatomic)NSString *domain_level;
+
 @end

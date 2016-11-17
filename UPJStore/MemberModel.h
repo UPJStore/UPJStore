@@ -64,4 +64,6 @@
 
 @property(nonatomic,strong)NSString *unionid;
 
+@property(nonatomic,strong)NSString *domain_level;
+
 @end

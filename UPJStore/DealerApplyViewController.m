@@ -10,6 +10,7 @@
 #import "UIViewController+CG.h"
 #import "UIColor+HexRGB.h"
 #import "ApplyConfirmViewController.h"
+#import "ShopApplyModel.h"
 
 @interface DealerApplyViewController ()
 @property(nonatomic,strong)UIView *selectView;
@@ -21,6 +22,9 @@
 @property(nonatomic,strong)UITextField *numberField;
 @property(nonatomic,strong)UILabel *recommendLabel2;
 @property(nonatomic,strong)NSTimer * timer;
+@property(nonatomic,strong)NSString *typenumber;
+@property(nonatomic,strong)ShopApplyModel *model;
+@property(nonatomic,strong)NSString *shareid;
 @end
 
 @implementation DealerApplyViewController
@@ -34,8 +38,9 @@
     self.navigationItem.leftBarButtonItem.tintColor = [UIColor blackColor];
     
     _type = @"蚂蚁经纪人";
-    
-    [self initWithSelectView];
+    _typenumber = @"2";
+    _shareid = @"88888888";
+    [self postDataWithmid];
 }
 
 -(void)initWithSelectView
@@ -82,7 +87,7 @@
     [_selectView addSubview:button2];
     
     UILabel *label2 = [[UILabel alloc]initWithFrame:CGRectMake1(20, 0, 80, 50)];
-    label2.text = @"经销商";
+    label2.text = @"蚂蚁经销商";
     label2.font = [UIFont systemFontOfSize:CGFloatMakeY(14)];
     [button2 addSubview:label2];
     
@@ -209,11 +214,37 @@
 {
     if (_nameField.text.length != 0) {
         if ([self validatePhone:_numberField.text]) {
-            ApplyConfirmViewController *ACVC = [ApplyConfirmViewController new];
-            NSDictionary *dic = @{@"type":_type,@"name":_nameField.text,@"phone":_numberField.text,@"recommend":_recommendLabel2.text};
-            ACVC.dic = dic;
-            [self.navigationController pushViewController:ACVC animated:YES];
+            AFHTTPSessionManager *manager = [self sharedManager];;
+            manager.responseSerializer = [AFJSONResponseSerializer serializer];
+            manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+            //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
             
+            NSDictionary *dic1 = @{@"appkey":APPkey,@"mobile":_numberField.text,@"memberId":[self returnMid],@"member_name":_nameField.text,@"tag":_typenumber,@"shareId":_shareid,@"tuiId":@"0"};
+            
+            NSDictionary * Ndic = [self md5DicWith:dic1];
+            
+            [manager POST:KAddShopApply parameters:Ndic progress:^(NSProgress * _Nonnull uploadProgress) {
+                
+            } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+                NSString *errcode = [NSString stringWithFormat:@"%@",responseObject[@"errcode"]];
+                if ([errcode isEqualToString:@"1"]) {
+                    [self postDataWithmid];
+                }else
+                {
+                    _timer = [NSTimer scheduledTimerWithTimeInterval:0.3 target:self selector:@selector(hide) userInfo:nil repeats:NO];
+                    UIAlertController *alertCon = [UIAlertController alertControllerWithTitle:nil message:@"申请失败" preferredStyle:UIAlertControllerStyleAlert];
+                    NSMutableAttributedString *hogan = [[NSMutableAttributedString alloc] initWithString:@"申请失败"];
+                    [hogan addAttribute:NSFontAttributeName
+                                  value:[UIFont systemFontOfSize:CGFloatMakeY(14)]
+                                  range:NSMakeRange(0, 4)];
+                    [alertCon setValue:hogan forKey:@"attributedMessage"];
+                    [self presentViewController:alertCon animated:YES completion:nil];
+                }
+                
+            } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                DLog(@"failure%@",error);
+               
+            }];
         }else
         {
             _timer = [NSTimer scheduledTimerWithTimeInterval:0.3 target:self selector:@selector(hide) userInfo:nil repeats:NO];
@@ -237,6 +268,40 @@
         [self presentViewController:alertCon animated:YES completion:nil];
     }
 }
+
+-(void)postDataWithmid
+{
+    AFHTTPSessionManager *manager = [self sharedManager];;
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    
+    NSDictionary *dic = @{@"appkey":APPkey,@"memberId":[self returnMid]};
+    
+    NSDictionary * Ndic = [self md5DicWith:dic];
+    
+    [manager POST:KGetShopapplyDetail parameters:Ndic progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSString *errcode = [NSString stringWithFormat:@"%@",responseObject[@"errcode"]];
+        if([errcode isEqualToString:@"12345"])
+        {
+            NSDictionary *dic1 = [NSDictionary dictionaryWithDictionary:responseObject[@"errmsg"]];
+            _model = [ShopApplyModel new];
+            [self.model setValuesForKeysWithDictionary:dic1];
+            ApplyConfirmViewController *ACVC = [ApplyConfirmViewController new];
+            ACVC.model = _model;
+            [self.navigationController pushViewController:ACVC animated:YES];
+        }else
+        {
+            [self initWithSelectView];
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        DLog(@"failure%@",error);
+    }];
+    
+}
+
 
 -(void)hide
 {
@@ -263,14 +328,18 @@
             _imageView2.image = [UIImage imageNamed:@"check_none"];
             _recommendLabel2.text = @"友品集·全球购商城";
             _type = @"蚂蚁经纪人";
+            _typenumber = @"2";
+            _shareid = @"88888888";
         }
             break;
         case 2:
         {
             _imageView2.image = [UIImage imageNamed:@"checked"];
             _imageView1.image = [UIImage imageNamed:@"check_none"];
-            _recommendLabel2.text = @" ";
-            _type = @"经销商";
+            _recommendLabel2.text = @"无";
+            _type = @"蚂蚁经销商";
+            _typenumber = @"1";
+            _shareid = @"0";
         }
             break;
         default:
@@ -280,6 +349,7 @@
 
 -(void)pop
 {
+    
     [self.navigationController popViewControllerAnimated:YES];
     
 }

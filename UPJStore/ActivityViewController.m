@@ -131,7 +131,7 @@
 
     [manager POST:kSBrandGoodUrl parameters:Ndic progress:^(NSProgress * _Nonnull downloadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        DLog(@"%@",responseObject);
+       // DLog(@"%@",responseObject);
         NSArray *arr = responseObject;
         for (NSDictionary *dic in arr ) {
             OthersModel *model = [[OthersModel alloc]init];
@@ -162,7 +162,7 @@
 
     [manager POST:kSBrandGoodUrl parameters:Ndic progress:^(NSProgress * _Nonnull downloadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        DLog(@"%@",responseObject);
+       // DLog(@"%@",responseObject);
         NSArray *arr = responseObject;
         if (_goodsArr) {
             self.goodsArr = [NSMutableArray new];

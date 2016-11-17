@@ -127,7 +127,7 @@
     [manager POST:kSSearchUrl parameters:Ndic progress:^(NSProgress * _Nonnull downloadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        DLog(@"%@",responseObject);
+       // DLog(@"%@",responseObject);
         NSArray* arr = responseObject[@"product"];
         for (NSDictionary *dic in arr) {
             SearchModel * model = [[SearchModel alloc]init];
@@ -177,7 +177,7 @@
     [manager POST:kSSearchUrl parameters:Ndic progress:^(NSProgress * _Nonnull downloadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        DLog(@"%@",responseObject);
+      //  DLog(@"%@",responseObject);
         NSArray* arr = responseObject[@"product"];
         if (arr.count == 20) {
             _num++;
@@ -348,7 +348,7 @@
         
         [manager POST:kCollectionGoods parameters:nDic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             
-            DLog(@"%@",responseObject);
+         //   DLog(@"%@",responseObject);
             NSDictionary * errDic = responseObject;
             NSString * str = errDic[@"errmsg"];
             if ([btn.titleLabel.text isEqualToString:@"收藏"]) {
@@ -384,7 +384,7 @@
     [manager POST:kCollectList parameters:Ndic progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        DLog(@"%@",responseObject);
+      //  DLog(@"%@",responseObject);
         NSNumber *number = [responseObject valueForKey:@"errcode"];
         NSString *errcode = [NSString stringWithFormat:@"%@",number];
         if ([errcode isEqualToString:@"0"]) {
@@ -425,7 +425,7 @@
         [manager POST:kGoodDetailURL parameters:Ndic progress:^(NSProgress * _Nonnull uploadProgress) {
             
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            DLog(@"%@",responseObject);
+           // DLog(@"%@",responseObject);
             _detailmodel = [DetailModel mj_objectWithKeyValues:responseObject];
             BookIngViewController * bVC = [[BookIngViewController alloc]init];
             [self.navigationController pushViewController:bVC animated:YES];

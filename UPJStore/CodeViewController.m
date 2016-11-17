@@ -15,7 +15,7 @@
 
 
 
-@interface CodeViewController ()<AVCaptureMetadataOutputObjectsDelegate>
+@interface CodeViewController ()<AVCaptureMetadataOutputObjectsDelegate,WXApiDelegate>
 {
     UIButton *backBtn;
     UILabel *title;
@@ -80,7 +80,7 @@
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"backArrow"] style:UIBarButtonItemStyleDone target:self action:@selector(backAction:)];
     self.navigationItem.leftBarButtonItem.tintColor = [UIColor blackColor];
-
+    
     
     title = [[UILabel alloc]initWithFrame:CGRectMake(0,0,kWidth,44)];
     title.text = @"二维码/条形码";
@@ -154,7 +154,7 @@
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-     self.navigationController.navigationBar.translucent = NO;
+    self.navigationController.navigationBar.translucent = NO;
     [_session startRunning];
     self.isShowTab = YES;
     [self hideTabBarWithTabState:self.isShowTab];
@@ -171,6 +171,7 @@
         //输出扫描字符串
         DLog(@"%@",metadataObject.stringValue);
         code = metadataObject.stringValue;
+        DLog(@"%@",code);
         [_session stopRunning];
     }
     if ([self isPureInt:code]) {
@@ -182,12 +183,12 @@
         manager.responseSerializer = [AFJSONResponseSerializer serializer];
         manager.requestSerializer = [AFHTTPRequestSerializer serializer];
         //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-
+        
         
         [manager POST:kGoodDetailURL parameters:Ndic progress:^(NSProgress * _Nonnull uploadProgress) {
             
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            DLog(@"%@",responseObject);
+            //   DLog(@"%@",responseObject);
             
             NSNumber *number = [responseObject valueForKey:@"errcode"];
             NSString *errcode = [NSString stringWithFormat:@"%@",number];
@@ -233,12 +234,12 @@
         manager.responseSerializer = [AFJSONResponseSerializer serializer];
         manager.requestSerializer = [AFHTTPRequestSerializer serializer];
         //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-
+        
         
         [manager POST:kGoodDetailURL parameters:Ndic progress:^(NSProgress * _Nonnull uploadProgress) {
             
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            DLog(@"%@",responseObject);
+            //    DLog(@"%@",responseObject);
             
             NSNumber *number = [responseObject valueForKey:@"errcode"];
             NSString *errcode = [NSString stringWithFormat:@"%@",number];
@@ -257,13 +258,24 @@
                 
                 [self addGoodsToShoppingCartWithDic:dic2];
                 
-
+                
             }
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             DLog(@"failure%@",error);
         }];
         
-    }else{
+    }else if([code rangeOfString:@"m.upinkji.com/wap/myshop/shop_apply"].location !=NSNotFound)
+    {
+        NSString *str1 = @"请用微信扫一扫扫描二维码";
+        alertCon = [UIAlertController alertControllerWithTitle:nil message:str1 preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [ _session startRunning ];
+            [[UIApplication sharedApplication]openURL:[NSURL URLWithString:[NSString stringWithFormat:@"wechat://m.upinkji.com/wap/myshop/shop_apply.html"]]];
+        }];
+        [alertCon addAction:okAction];
+        [self.navigationController presentViewController:alertCon animated:YES completion:nil];
+    }
+    else{
         NSString *str1 = @"请扫描正确的商品二维码或条形码!";
         alertCon = [UIAlertController alertControllerWithTitle:nil message:str1 preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -283,7 +295,7 @@
         
         GoodSDetailViewController * goodDetailVC = [[GoodSDetailViewController alloc]init];
         goodDetailVC.goodsDic = @{@"appkey":APPkey,@"id":productId};
-;
+        ;
         [self.navigationController pushViewController:goodDetailVC animated:YES];
     }];
 }
@@ -298,15 +310,15 @@
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-
+    
     [manager POST:kAddGoods parameters:Ndic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
-        DLog(@"%@",responseObject);
+        //  DLog(@"%@",responseObject);
         addToShopCartAlert = [UIAlertController alertControllerWithTitle:@"加入购物车成功" message:nil preferredStyle:UIAlertControllerStyleAlert];
         
         [self presentViewController:addToShopCartAlert animated:YES completion:nil];
         
-
+        
         [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(dismissAVC:) userInfo:nil repeats:NO];
         
         

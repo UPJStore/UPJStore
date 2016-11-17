@@ -11,7 +11,7 @@
 
 @interface DealerSettingViewController ()
 @property(nonatomic,strong)UITextField * nameField;
-@property(nonatomic,strong)UITextField * numberField;
+@property(nonatomic,strong)NSTimer *timer;
 @end
 
 @implementation DealerSettingViewController
@@ -20,7 +20,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor =[UIColor colorFromHexRGB:@"f6f6f6"];
-    self.navigationItem.title = @"开店申请";
+    self.navigationItem.title = @"店铺设置";
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"backArrow"] style:UIBarButtonItemStyleDone target:self action:@selector(pop)];
     self.navigationItem.leftBarButtonItem.tintColor = [UIColor blackColor];
     
@@ -30,7 +30,7 @@
 
 -(void)initWithTextfield
 {
-    UIView * fieldView = [[UIView alloc]initWithFrame:CGRectMake1(0, 10, 414, 100)];
+    UIView * fieldView = [[UIView alloc]initWithFrame:CGRectMake1(0, 20, 414, 50)];
     fieldView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:fieldView];
     
@@ -38,45 +38,30 @@
     lineView.backgroundColor = [UIColor colorFromHexRGB:@"babcbb"];
     [fieldView addSubview:lineView];
     
-    UIView *lineView2 = [[UIView alloc]initWithFrame:CGRectMake1(10, 50, 394, 1)];
-    lineView2.backgroundColor = [UIColor colorFromHexRGB:@"babcbb"];
-    [fieldView addSubview:lineView2];
-    
-    UIView *lineView3 = [[UIView alloc]initWithFrame:CGRectMake1(0, 99, 414, 1)];
+    UIView *lineView3 = [[UIView alloc]initWithFrame:CGRectMake1(0, 50, 414, 1)];
     lineView3.backgroundColor = [UIColor colorFromHexRGB:@"babcbb"];
     [fieldView addSubview:lineView3];
     
     UILabel *namelabel = [[UILabel alloc]initWithFrame:CGRectMake1(0, 0, 100, 50)];
-    namelabel.text = @"姓名";
+    namelabel.text = @"店铺名字";
     namelabel.font = [UIFont systemFontOfSize:CGFloatMakeY(14)];
     namelabel.textAlignment = 1;
     [fieldView addSubview:namelabel];
     
     _nameField = [[UITextField alloc]initWithFrame:CGRectMake1(100, 0, 314, 50)];
-    _nameField.placeholder = @"店主姓名";
+    _nameField.placeholder = @"请输入你想要的店铺名字";
     _nameField.font = [UIFont systemFontOfSize:CGFloatMakeY(14)];
     [fieldView addSubview:_nameField];
     
-    UILabel *numberlabel = [[UILabel alloc]initWithFrame:CGRectMake1(0, 50, 100, 50)];
-    numberlabel.textAlignment = 1;
-    numberlabel.text = @"手机号码";
-    numberlabel.font = [UIFont systemFontOfSize:CGFloatMakeY(14)];
-    [fieldView addSubview:numberlabel];
-    
-    _numberField = [[UITextField alloc]initWithFrame:CGRectMake1(100, 50, 314, 50)];
-    _numberField.placeholder = @"店主手机号码";
-    _numberField.font = [UIFont systemFontOfSize:CGFloatMakeY(14)];
-    [fieldView addSubview:_numberField];
- 
     [self initWithBtn];
 }
 
 -(void)initWithBtn
 {
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    button.frame = CGRectMake1(30, 140, 354, 50);
+    button.frame = CGRectMake1(30, 90, 354, 50);
     button.backgroundColor = [UIColor colorFromHexRGB:@"32a632"];
-    [button setTitle:@"提交申请" forState:UIControlStateNormal];
+    [button setTitle:@"确认修改" forState:UIControlStateNormal];
     [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     button.layer.cornerRadius = CGFloatMakeY(8);
     button.titleLabel.font = [UIFont systemFontOfSize:CGFloatMakeY(16)];
@@ -86,8 +71,56 @@
 
 -(void)btnAction
 {
+    AFHTTPSessionManager * manager = [self sharedManager];;
     
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    
+    //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    
+    NSDictionary * dic =@{@"appkey":APPkey,@"member_id":[self returnMid],@"name":_nameField.text};
+    
+#pragma dic MD5
+    NSDictionary * Ndic = [self md5DicWith:dic];
+    
+    [manager POST:KChangeShopName parameters:Ndic progress:^(NSProgress * _Nonnull downloadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        DLog(@"%@",responseObject);
+        NSString *str = [NSString stringWithFormat:@"%@",responseObject[@"errcode"]];
+        if ([str isEqualToString:@"1"]) {
+            UIAlertController *alert1 = [UIAlertController alertControllerWithTitle:nil message:@"修改成功" preferredStyle:UIAlertControllerStyleAlert];
+            _timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(hide) userInfo:nil repeats:NO];
+            [self presentViewController:alert1 animated:YES completion:nil];
+        }else
+        {
+            UIAlertController *alert1 = [UIAlertController alertControllerWithTitle:nil message:@"修改失败,请重试" preferredStyle:UIAlertControllerStyleAlert];
+            _timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(hide2) userInfo:nil repeats:NO];
+            [self presentViewController:alert1 animated:YES completion:nil];
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+        DLog(@"errer %@",error);
+    }];
+
 }
+
+-(void)hide
+{
+    [self.presentedViewController dismissViewControllerAnimated:YES completion:^{
+        [self.navigationController popViewControllerAnimated:YES];
+    }];
+    [_timer invalidate];
+    _timer = nil;
+}
+
+-(void)hide2
+{
+    [self.presentedViewController dismissViewControllerAnimated:YES completion:nil];
+    [_timer invalidate];
+    _timer = nil;
+}
+
 
 -(void)pop
 {

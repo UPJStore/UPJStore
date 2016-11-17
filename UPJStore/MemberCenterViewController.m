@@ -31,9 +31,11 @@
 #import "AgentViewController.h"
 #import "UIButton+WebCache.h"
 #import "CommissonWithdrawalViewController.h"
-#import "DealerViewController.h"
 #import "DealerApplyViewController.h"
 #import "DealerSettingViewController.h"
+#import "MyShopViewController.h"
+#import "ShopExpandViewController.h"
+#import "MyCodeViewController.h"
 
 #define widthSize 414.0/320
 #define hightSize 736.0/568
@@ -46,6 +48,7 @@
 @property (nonatomic,strong) UIScrollView *scrollView;
 @property (nonatomic,strong) HeaderView * headerView;
 @property (nonatomic,strong) NSString *imageStr;
+@property (nonatomic,strong) NSString *domain_level;
 
 @end
 
@@ -61,38 +64,31 @@
     self.islogin = [self returnIsLogin];
     self.view.backgroundColor = [UIColor colorFromHexRGB:@"f6f6f6"];
     
+    _arr1 = @[@"我的收藏",@"我关注的品牌",@"收货地址",@"我的优惠券"];
     if (self.islogin) {
-        //判断是否为代理商
-        _arr3 = @[@"关于友品集",@"意见反馈",@"联系我们"];
-        if ([self returnIsAgent]) {
-            _arr1 = @[@"我的收藏",@"我关注的品牌",@"收货地址",@"我的优惠券",@"代理商入口"];
-            //判断是否为经销商
-            if ([self returnIsDealer]) {
-                _arr2 = @[@"店铺二维码",@"我的分店",@"利润提现",@"店铺设置"];
-            }else
-            {
-                _arr2 = @[@"创客二维码",@"我的会员",@"佣金提现"];
-            }
+        //先判断是创客还是经销商
+        if([self returnIsDealer])
+        {
+            _arr2 = @[@"店铺二维码",@"我的分店",@"利润提现",@"我的店铺",@"蚁店推广",@"店铺设置",@"授权二维码"];
+            _arr3 = @[@"关于友品集",@"意见反馈",@"联系我们"];
+        }else if ([self returnIsFlag])
+        {
+            _arr2 = @[@"我的二维码",@"我的会员",@"佣金提现"];
+            _arr3 = @[@"开店申请",@"关于友品集",@"意见反馈",@"联系我们"];
         }else
         {
-            _arr1 = @[@"我的收藏",@"我关注的品牌",@"收货地址",@"我的优惠券"];
-            //判断是否为经销商
-            if ([self returnIsDealer]) {
-                _arr2 = @[@"店铺二维码",@"我的分店",@"利润提现",@"店铺设置"];
-            }else
-            {
-                _arr2 = @[@"创客二维码",@"我的会员",@"佣金提现"];
-                _arr3 = @[@"开店申请",@"关于友品集",@"意见反馈",@"联系我们"];
-            }
+            _arr2 = @[];
+            _arr3 = @[@"开店申请",@"关于友品集",@"意见反馈",@"联系我们"];
+        }
+        if ([self returnIsAgent]) {
+            _arr1 = @[@"我的收藏",@"我关注的品牌",@"收货地址",@"我的优惠券",@"代理商入口"];
+            _arr3 = @[@"关于友品集",@"意见反馈",@"联系我们"];
         }
     }else
     {
-        _arr1 = @[@"我的收藏",@"我关注的品牌",@"收货地址",@"我的优惠券"];
         _arr2 = @[];
         _arr3 = @[@"开店申请",@"关于友品集",@"意见反馈",@"联系我们"];
     }
-    
-    
     _headerView = [[HeaderView alloc]initWithFrame:CGRectMake1(0, 0, 414, 147) withIsLogin:self.islogin withname:[self returnNickName]];
     UIImageView *bgimgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"beijing1.jpg"]];
     bgimgView.frame = CGRectMake1(0, 0, 414, 147);
@@ -112,7 +108,7 @@
     [self.scrollView addSubview:_headerView];
     
     
-    _memberView = [[UITableView alloc]initWithFrame:CGRectMake1(0, 160,414, 88*(_arr1.count+_arr2.count+_arr3.count)) style:UITableViewStylePlain];
+    _memberView = [[UITableView alloc]initWithFrame:CGRectMake1(0, 160,414, 55*(_arr1.count+_arr2.count+_arr3.count)+150) style:UITableViewStylePlain];
     _memberView.delegate =self;
     _memberView.dataSource = self;
     _memberView.backgroundColor = [UIColor colorFromHexRGB:@"f6f6f6"];
@@ -123,7 +119,7 @@
     [_memberView reloadData];
     //  [self.scrollView addSubview:perinfView];
     
-    _scrollView.contentSize = CGSizeMake(self.view.bounds.size.width,_headerView.frame.size.height+_memberView.frame.size.height-56*hightSize+30);
+    _scrollView.contentSize = CGSizeMake(kWidth,_memberView.frame.origin.y+_memberView.frame.size.height+CGFloatMakeY(86));
     _scrollView.showsVerticalScrollIndicator = NO;
     // Do any additional setup after loading the view.
 }
@@ -172,8 +168,11 @@
     cell.titleLabel.text = arr[indexPath.row];
     
     if (indexPath.section == 3) {
-        if ([self returnIsAgent]) {
-        cell.iconView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@%ld",str,(long)indexPath.row+1]];
+        if ([self returnIsAgent]||[self returnIsDealer]) {
+            cell.iconView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@%ld",str,(long)indexPath.row+1]];
+        }else
+        {
+            cell.iconView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@%ld",str,(long)indexPath.row]];
         }
     }else
     {
@@ -272,13 +271,29 @@
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return CGFloatMakeY(10);
+    if (section == 1) {
+        if (!_islogin) {
+            return 0;
+        }else if (![self returnIsFlag]) {
+            if (![self returnIsDealer]) {
+                return 0;
+            }else
+            {
+                return CGFloatMakeY(10);
+            }
+        }else
+        {
+            return CGFloatMakeY(10);
+        }
+    }else{
+        return CGFloatMakeY(10);
+    }
 }
 
 -(UIView*)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
     UIView * view = [[UIView alloc]initWithFrame:CGRectMake1(0, 0, k6PWidth, 10)];
-    UIColor *backcolor = [UIColor colorWithRed:240.0/255 green:240.0/255 blue:240.0/255 alpha:1];
+    UIColor *backcolor = [UIColor colorFromHexRGB:@"f6f6f6"];
     view.backgroundColor = backcolor;
     return view;
 }
@@ -333,16 +348,26 @@
         switch (indexPath.row) {
             case 0:
             {
-                
+                MyCodeViewController *MCVC = [MyCodeViewController new];
+                MCVC.isShare = NO;
+                [self.navigationController pushViewController:MCVC animated:YES];
             }
                 break;
             case 1:
             {
                 CKListViewController *CKVC = [CKListViewController new];
+                CKVC.domain_level = _domain_level;
+                if([self returnIsDealer])
+                {
+                    CKVC.isCk = NO;
+                }else
+                {
+                    CKVC.isCk = YES;
+                }
                 [self.navigationController pushViewController:CKVC animated:YES];
             }
                 break;
-                case 2:
+            case 2:
             {
                 CommissonWithdrawalViewController *CWVC = [[CommissonWithdrawalViewController alloc]init];
                 if ([self returnIsDealer]) {
@@ -354,22 +379,45 @@
                 [self.navigationController pushViewController:CWVC  animated:YES];
             }
                 break;
-                case 3:
+            case 3:
+            {
+                MyShopViewController *MSVC = [[MyShopViewController alloc]init];
+                [self.navigationController pushViewController:MSVC animated:YES];
+            }
+                break;
+             case 4:
+            {
+                ShopExpandViewController *SEVC = [[ShopExpandViewController alloc]init];
+                [self.navigationController pushViewController:SEVC animated:YES];
+            }
+                break;
+            case 5:
             {
                 DealerSettingViewController *DSVC = [DealerSettingViewController new];
                 [self.navigationController pushViewController:DSVC animated:YES];
+            }
+                break;
+            case 6:
+            {
+                MyCodeViewController *MCVC = [MyCodeViewController new];
+                MCVC.isShare = YES;
+                [self.navigationController pushViewController:MCVC animated:YES];
             }
             default:
                 break;
         }
     }
     if (indexPath.section == 3) {
-        switch (indexPath.row) {
+        NSInteger i = indexPath.row;
+        if ([self returnIsDealer]||[self returnIsAgent]) {
+            i = indexPath.row +1;
+        }
+        switch (i) {
             case 0:
             {
                 if(_islogin){
-                DealerApplyViewController* DAVC = [DealerApplyViewController new];
-                [self.navigationController pushViewController:DAVC animated:YES];
+                    DealerApplyViewController* DAVC = [DealerApplyViewController new];
+                    [self.navigationController pushViewController:DAVC animated:YES];
                 }else
                 {
                     [self loginAction:nil];
@@ -483,31 +531,48 @@
     {
         [self setIsAgentwithIsAgent:YES];
     }
-    //判断是否为代理商
-    _arr3 = @[@"关于友品集",@"意见反馈",@"联系我们"];
-    if ([self returnIsAgent]) {
-        _arr1 = @[@"我的收藏",@"我关注的品牌",@"收货地址",@"我的优惠券",@"代理商入口"];
-        //判断是否为经销商
-        if ([self returnIsDealer]) {
-            _arr2 = @[@"店铺二维码",@"我的分店",@"利润提现",@"店铺设置"];
+    if ([model.domain_level isEqualToString:@"0"]) {
+        [self setIsDealerwithIsDealer:NO];
+    }else
+    {
+        [self setIsDealerwithIsDealer:YES];
+    }
+    if ([model.flag isEqualToString:@"0"]) {
+        [self setIsFlagwithIsFlag:NO];
+    }else
+    {
+        [self setIsFlagwithIsFlag:YES];
+    }
+    _arr1 = @[@"我的收藏",@"我关注的品牌",@"收货地址",@"我的优惠券"];
+    if (self.islogin) {
+        //先判断是创客还是经销商
+        if([self returnIsDealer])
+        {
+            _arr2 = @[@"店铺二维码",@"我的分店",@"利润提现",@"我的店铺",@"蚁店推广",@"店铺设置",@"授权二维码"];
+            _arr3 = @[@"关于友品集",@"意见反馈",@"联系我们"];
+        }else if ([self returnIsFlag])
+        {
+            _arr2 = @[@"我的二维码",@"我的会员",@"佣金提现"];
+            _arr3 = @[@"开店申请",@"关于友品集",@"意见反馈",@"联系我们"];
         }else
         {
-            _arr2 = @[@"创客二维码",@"我的会员",@"佣金提现"];
+            _arr2 = @[];
+            _arr3 = @[@"开店申请",@"关于友品集",@"意见反馈",@"联系我们"];
+        }
+        if ([self returnIsAgent]) {
+            _arr1 = @[@"我的收藏",@"我关注的品牌",@"收货地址",@"我的优惠券",@"代理商入口"];
+            _arr3 = @[@"关于友品集",@"意见反馈",@"联系我们"];
         }
     }else
     {
-        _arr1 = @[@"我的收藏",@"我关注的品牌",@"收货地址",@"我的优惠券"];
-        //判断是否为经销商
-        if ([self returnIsDealer]) {
-            _arr2 = @[@"店铺二维码",@"我的分店",@"利润提现",@"店铺设置"];
-        }else
-        {
-            _arr2 = @[@"创客二维码",@"我的会员",@"佣金提现"];
-            _arr3 = @[@"开店申请",@"关于友品集",@"意见反馈",@"联系我们"];
-        }
+        _arr2 = @[];
+        _arr3 = @[@"开店申请",@"关于友品集",@"意见反馈",@"联系我们"];
     }
+    _memberView.frame = CGRectMake1(0, 160,414, 55*(_arr1.count+_arr2.count+_arr3.count)+150);
+    _scrollView.contentSize = CGSizeMake(kWidth,_memberView.frame.origin.y+_memberView.frame.size.height+CGFloatMakeY(86));
     [_memberView reloadData];
     [self setIsLoginwithIsLogin:YES];
+    [self postmid];
     [self postaddress];
     [self postcollect];
     [self postattention];
@@ -530,7 +595,10 @@
     [manager POST:kInfo parameters:Ndic progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        DLog(@"%@",responseObject);
         _imageStr = responseObject[@"data"][@"avatar"];
+        _domain_level = responseObject[@"data"][@"domain_level"];
+        [self setOpenIdwithOpenId:responseObject[@"data"][@"wechat_openid"]];
         [self setNamewithNickName:responseObject[@"data"][@"nickname"]];
         if (_imageStr==nil || [_imageStr isKindOfClass:[NSNull class]]) {
             [_headerView.imageBtn setImage:[UIImage imageNamed:@"geren"] forState:UIControlStateNormal];
@@ -549,6 +617,7 @@
                 {
                     NSURL *url = [[NSURL alloc]initWithString:_imageStr];
                     [_headerView.imageBtn sd_setImageWithURL:url forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"geren"]];
+                    [self setImagewithImage:_imageStr];
                     NSData *data1 = [[NSData alloc]initWithContentsOfURL:url];
                     [self setImagedatawithImagedata:data1];
                     
@@ -559,9 +628,97 @@
                 }
             }
         }
+        
+        MemberModel *model = [MemberModel new];
+        [model setValuesForKeysWithDictionary:responseObject[@"data"]];
+        
+        [self setMidwithMid:model.mid];
+        if (model.nickname.length != 0) {
+            [self setNamewithNickName:model.nickname];
+        }else
+        {
+            [self setNamewithNickName:@"0"];
+        }
+        if (model.realname.length != 0) {
+            [self setNamewithRealName:model.realname];
+        }else
+        {
+            [self setNamewithRealName:@"0"];
+        }
+        if (model.idcard.length != 0) {
+            [self setIdCardwithIdCard:model.idcard];
+        }else
+        {
+            [self setIdCardwithIdCard:@"0"];
+        }
+        if (model.mobile.length != 0) {
+            [self setPhoneNumberwithPhoneNumber:model.mobile];
+        }else
+        {
+            [self setPhoneNumberwithPhoneNumber:@"0"];
+        }
+        if(model.avatar.length != 0)
+        {
+            [self setImagewithImage:model.avatar];
+            NSURL *url = [NSURL URLWithString:model.avatar];
+            NSData *data = [[NSData alloc]initWithContentsOfURL:url];
+            [self setImagedatawithImagedata:data];
+        }else
+        {
+            [self setImagewithImage:@"0"];
+        }
+        if([model.member_agent_id isEqualToString:@"0"])
+        {
+            [self setIsAgentwithIsAgent:NO];
+        }else
+        {
+            [self setIsAgentwithIsAgent:YES];
+        }
+        if ([model.domain_level isEqualToString:@"0"]) {
+            [self setIsDealerwithIsDealer:NO];
+        }else
+        {
+            [self setIsDealerwithIsDealer:YES];
+        }
+        if ([model.flag isEqualToString:@"0"]) {
+            [self setIsFlagwithIsFlag:NO];
+        }else
+        {
+            [self setIsFlagwithIsFlag:YES];
+        }
+        _arr1 = @[@"我的收藏",@"我关注的品牌",@"收货地址",@"我的优惠券"];
+        if (self.islogin) {
+            //先判断是创客还是经销商
+            if([self returnIsDealer])
+            {
+                _arr2 = @[@"店铺二维码",@"我的分店",@"利润提现",@"我的店铺",@"蚁店推广",@"店铺设置",@"授权二维码"];
+                _arr3 = @[@"关于友品集",@"意见反馈",@"联系我们"];
+            }else if ([self returnIsFlag])
+            {
+                _arr2 = @[@"我的二维码",@"我的会员",@"佣金提现"];
+                _arr3 = @[@"开店申请",@"关于友品集",@"意见反馈",@"联系我们"];
+            }else
+            {
+                _arr2 = @[];
+                _arr3 = @[@"开店申请",@"关于友品集",@"意见反馈",@"联系我们"];
+            }
+            if ([self returnIsAgent]) {
+                _arr1 = @[@"我的收藏",@"我关注的品牌",@"收货地址",@"我的优惠券",@"代理商入口"];
+                _arr3 = @[@"关于友品集",@"意见反馈",@"联系我们"];
+            }
+        }else
+        {
+            _arr2 = @[];
+            _arr3 = @[@"开店申请",@"关于友品集",@"意见反馈",@"联系我们"];
+        }
+        _memberView.frame = CGRectMake1(0, 160,414, 55*(_arr1.count+_arr2.count+_arr3.count)+150);
+        _scrollView.contentSize = CGSizeMake(kWidth,_memberView.frame.origin.y+_memberView.frame.size.height+CGFloatMakeY(86));
+        [_memberView reloadData];
+
+        
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         DLog(@"failure%@",error);
-        [self postmid];
+      //[self postmid];
     }];
 }
 
@@ -697,36 +854,33 @@
     self.navigationController.navigationBar.translucent = NO;
     self.mid = [self returnMid];
     self.islogin = [self returnIsLogin];
+    _arr1 = @[@"我的收藏",@"我关注的品牌",@"收货地址",@"我的优惠券"];
     if (self.islogin) {
-        //判断是否为代理商
-        _arr3 = @[@"关于友品集",@"意见反馈",@"联系我们"];
-        if ([self returnIsAgent]) {
-            _arr1 = @[@"我的收藏",@"我关注的品牌",@"收货地址",@"我的优惠券",@"代理商入口"];
-            //判断是否为经销商
-            if ([self returnIsDealer]) {
-                _arr2 = @[@"店铺二维码",@"我的分店",@"利润提现",@"店铺设置"];
-            }else
-            {
-                _arr2 = @[@"创客二维码",@"我的会员",@"佣金提现"];
-            }
+        //先判断是创客还是经销商
+        if([self returnIsDealer])
+        {
+            _arr2 = @[@"店铺二维码",@"我的分店",@"利润提现",@"我的店铺",@"蚁店推广",@"店铺设置",@"授权二维码"];
+            _arr3 = @[@"关于友品集",@"意见反馈",@"联系我们"];
+        }else if ([self returnIsFlag])
+        {
+            _arr2 = @[@"我的二维码",@"我的会员",@"佣金提现"];
+            _arr3 = @[@"开店申请",@"关于友品集",@"意见反馈",@"联系我们"];
         }else
         {
-            _arr1 = @[@"我的收藏",@"我关注的品牌",@"收货地址",@"我的优惠券"];
-            //判断是否为经销商
-            if ([self returnIsDealer]) {
-                _arr2 = @[@"店铺二维码",@"我的分店",@"利润提现",@"店铺设置"];
-            }else
-            {
-                _arr2 = @[@"创客二维码",@"我的会员",@"佣金提现"];
-                _arr3 = @[@"开店申请",@"关于友品集",@"意见反馈",@"联系我们"];
-            }
+            _arr2 = @[];
+            _arr3 = @[@"开店申请",@"关于友品集",@"意见反馈",@"联系我们"];
+        }
+        if ([self returnIsAgent]) {
+            _arr1 = @[@"我的收藏",@"我关注的品牌",@"收货地址",@"我的优惠券",@"代理商入口"];
+            _arr3 = @[@"关于友品集",@"意见反馈",@"联系我们"];
         }
     }else
     {
-        _arr1 = @[@"我的收藏",@"我关注的品牌",@"收货地址",@"我的优惠券"];
         _arr2 = @[];
         _arr3 = @[@"开店申请",@"关于友品集",@"意见反馈",@"联系我们"];
     }
+    _memberView.frame = CGRectMake1(0, 160,414, 55*(_arr1.count+_arr2.count+_arr3.count)+150);
+    _scrollView.contentSize = CGSizeMake(kWidth,_memberView.frame.origin.y+_memberView.frame.size.height+CGFloatMakeY(86));
     [_memberView reloadData];
     [_headerView islogin:[self returnIsLogin]];
     [_headerView update:[self returnNickName]];

@@ -140,6 +140,14 @@ CGRectMakeCode(CGFloat x, CGFloat y, CGFloat width, CGFloat height){
 -(BOOL)returnIsDealer;
 
 -(void)setIsDealerwithIsDealer:(BOOL)isDealer;
+//是否为创客
+-(BOOL)returnIsFlag;
+
+-(void)setIsFlagwithIsFlag:(BOOL)isFlag;
+
+-(NSString*)returnOpenId;
+
+-(void)setOpenIdwithOpenId:(NSString*)Openid;
 
 -(NSString *)md5:(NSString *)str;
 
@@ -162,6 +170,5 @@ CGRectMakeCode(CGFloat x, CGFloat y, CGFloat width, CGFloat height){
 
 #pragma mark -- 加载动画
 -(void)setMBHUD;
-
 
 @end

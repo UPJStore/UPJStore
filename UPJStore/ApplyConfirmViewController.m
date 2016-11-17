@@ -11,7 +11,6 @@
 #import "UIViewController+CG.h"
 
 @interface ApplyConfirmViewController ()
-
 @end
 
 @implementation ApplyConfirmViewController
@@ -20,9 +19,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor =[UIColor colorFromHexRGB:@"f6f6f6"];
-    self.navigationItem.title = @"确认订单";
+    self.navigationItem.title = @"申请确认";
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"backArrow"] style:UIBarButtonItemStyleDone target:self action:@selector(pop)];
     self.navigationItem.leftBarButtonItem.tintColor = [UIColor blackColor];
+    
     
     [self initWithLabel];
 }
@@ -42,17 +42,11 @@
     [typeView addSubview:lineView0];
     
     UILabel *label1 = [[UILabel alloc]initWithFrame:CGRectMake1(20, 0, 80, 50)];
-    label1.text = _dic[@"type"];
+
     label1.font = [UIFont systemFontOfSize:CGFloatMakeY(14)];
     [typeView addSubview:label1];
     
     UILabel *label11 = [[UILabel alloc]initWithFrame:CGRectMake1(100, 0, 250, 50)];
-    if ([_dic[@"type"]isEqualToString:@"蚂蚁经纪人"]) {
-        label11.text = @"365元";
-    }else if ([_dic[@"type"]isEqualToString:@"经销商"])
-    {
-        label11.text = @"2000元";
-    }
     label11.textAlignment = 2;
     label11.textColor = [UIColor colorFromHexRGB:@"aaaaaa"];
     [typeView addSubview:label11];
@@ -84,7 +78,7 @@
     [labelView addSubview:namelabel];
     
     UILabel* nameField = [[UILabel alloc]initWithFrame:CGRectMake1(100, 0, 314, 50)];
-    nameField.text = _dic[@"name"];
+
     nameField.font = [UIFont systemFontOfSize:CGFloatMakeY(14)];
     [labelView addSubview:nameField];
     
@@ -95,7 +89,7 @@
     [labelView addSubview:numberlabel];
     
     UILabel * numberField = [[UILabel alloc]initWithFrame:CGRectMake1(100, 50, 314, 50)];
-    numberField.text = _dic[@"phone"];
+
     numberField.font = [UIFont systemFontOfSize:CGFloatMakeY(14)];
     [labelView addSubview:numberField];
     
@@ -106,9 +100,22 @@
     [labelView addSubview:recommendLabel];
     
     UILabel* recommendLabel2 = [[UILabel alloc]initWithFrame:CGRectMake1(100, 100, 314, 50)];
-    recommendLabel2.text = _dic[@"recommend"];
     recommendLabel2.font = [UIFont systemFontOfSize:CGFloatMakeY(14)];
     [labelView addSubview:recommendLabel2];
+
+        label11.text = [NSString stringWithFormat:@"%.0f元",_model.price.floatValue];
+        if ([_model.price isEqualToString:@"2000.00"]) {
+            label1.text = @"蚂蚁经销商";
+            recommendLabel2.text = @"无";
+        }else
+        {
+            label1.text = @"蚂蚁经纪人";
+            recommendLabel2.text = @"友品集·全球购商城";
+        }
+        nameField.text = _model.applyname;
+        numberField.text = _model.mobile;
+        
+    
     
     [self initWithButton];
 }
@@ -126,11 +133,76 @@
     [self.view addSubview:btn];
 }
 
+-(void)btnAction
+{
+    if([WXApi isWXAppInstalled]){
+        [self setMBHUD];
+        AFHTTPSessionManager *manager = [self sharedManager];;
+        manager.responseSerializer = [AFJSONResponseSerializer serializer];
+        manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+        //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+        
+        NSDictionary *dic1 = @{@"appkey":APPkey,@"mid":[self returnMid],@"id":_model.order_sn,@"openid":[self returnOpenId],@"shop_apply":@"1",@"shop_upgrade":@"0"};
+        
+        NSDictionary * Ndic = [self md5DicWith:dic1];
+        
+        [manager POST:KPay parameters:Ndic progress:^(NSProgress * _Nonnull uploadProgress) {
+            
+        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            
+            NSDictionary *dic = responseObject[@"data"];
+            
+            NSMutableString *stamp  = [dic objectForKey:@"timestamp"];
+            //调起支付
+            PayReq *req = [[PayReq alloc]init];
+            req.partnerId = dic[@"partnerid"];//@"10000100";//商家id
+            req.prepayId = dic[@"prepayid"];//@"wx20160222181228eabc76df380849802454";//预支付订单
+            req.package = dic[@"package"];  //@"Sign=WXPay";//扩展字段  暂填写固定值Sign=WXPay
+            req.nonceStr = dic[@"noncestr"];//@"758d476b9ebdc37e698ccfbdbcd21906";//随机串，防重发
+            req.timeStamp = stamp.intValue; //@"1456135948";//时间戳
+            req.sign = dic[@"sign"];//@"61EC78AB39E256B2624D54C7E1390D70";//商家根据微信开放平台文档对数据做的签名
+            [WXApi sendReq:req];
+            
+            
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            DLog(@"failure%@",error);
+            
+        }];
+    }else{
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"温馨提示" message:@"请先安装微信客户端" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *actionConfirm = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil];
+        [alert addAction:actionConfirm];
+        [self presentViewController:alert animated:YES completion:nil];
+    }
+    
 
+}
+
+- (void)handlePayResult:(NSNotification *)noti{
+    [self.loadingHud hideAnimated:YES];
+    self.loadingHud = nil;
+    DLog(@"Notifiction Object : %@",noti.object);
+    UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"支付结果" message:[NSString stringWithFormat:@"%@",noti.object] preferredStyle:UIAlertControllerStyleActionSheet];
+    if ([noti.object isEqualToString:@"成功"]) {
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
+    else
+    {
+        //添加按钮
+        [alert addAction:[UIAlertAction actionWithTitle:@"重新支付" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self btnAction];
+        }]];
+        [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
+        [self presentViewController:alert animated:YES completion:nil];
+        
+    }
+    //上边添加了监听，这里记得移除
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"weixin_pay_result" object:nil];
+}
 
 -(void)pop
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -141,9 +213,9 @@
     self.navigationController.navigationBar.translucent = NO;
     self.isShowTab =YES;
     [self hideTabBarWithTabState:self.isShowTab];
-    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
-        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
-    }
+//    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+//        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
+//    }
 }
 
 - (void)didReceiveMemoryWarning {

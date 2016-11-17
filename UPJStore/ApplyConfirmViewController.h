@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ShopApplyModel.h"
 
 @interface ApplyConfirmViewController : UIViewController
 
-@property(nonatomic,strong)NSDictionary *dic;
+@property(nonatomic,strong)ShopApplyModel *model;
+
 @end

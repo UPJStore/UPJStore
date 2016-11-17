@@ -1,14 +1,14 @@
 //
-//  DrawalModel.m
+//  BranchDetailModel.m
 //  UPJStore
 //
-//  Created by upj on 16/9/27.
+//  Created by upj on 16/11/3.
 //  Copyright © 2016年 UPJApp. All rights reserved.
 //
 
-#import "DrawalModel.h"
+#import "BranchDetailModel.h"
 
-@implementation DrawalModel
+@implementation BranchDetailModel
 
 -(void)setValue:(id)value forUndefinedKey:(NSString *)key
 {

@@ -13,12 +13,9 @@
 #import "myUILabel.h"
 #import "LineLabel.h"
 
-
-
-
 @implementation descriptionView
 
--(instancetype)initWithFrame:(CGRect)frame withModel:(DetailModel *)model
+-(instancetype)initWithFrame:(CGRect)frame withModel:(DetailModel *)model withfromDealer:(BOOL)isfromDealer
 {
     if (self = [super initWithFrame:frame]) {
         
@@ -49,6 +46,7 @@
         titleLabel.font = [UIFont systemFontOfSize:CGFloatMakeY(18)];
         [self addSubview:titleLabel];
         
+        if (!isfromDealer) {
         
         UILabel * marketPrice = [[UILabel alloc]initWithFrame:CGRectMake(CGFloatMakeX(13),CGFloatMakeY(5)+titleLabel.frame.origin.y+titleLabel.frame.size.height, CGFloatMakeX(400), CGFloatMakeY(40))];
         marketPrice.font = [UIFont systemFontOfSize:CGFloatMakeY(24)];
@@ -77,6 +75,57 @@
         [self addSubview:marketPrice];
         
         self.frame = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, marketPrice.frame.origin.y+marketPrice.frame.size.height-CGFloatMakeY(5));
+        }else
+        {
+            UIView *priceView = [[UIView alloc]initWithFrame:CGRectMake(0,CGFloatMakeY(5)+titleLabel.frame.origin.y+titleLabel.frame.size.height, kWidth, CGFloatMakeY(50))];
+            [self addSubview:priceView];
+            
+            UILabel * marketPrice = [[UILabel alloc]initWithFrame:CGRectMake1(20,0,87,30)];
+            marketPrice.text = @"零售价 ：";
+            marketPrice.font = [UIFont systemFontOfSize:CGFloatMakeY(20)];
+            [priceView addSubview:marketPrice];
+            
+            UILabel *marketLabel = [[UILabel alloc]initWithFrame:CGRectMake1(107, 0, 70, 30)];
+            marketLabel.text = [NSString stringWithFormat:@"¥%@",model.marketprice];
+            marketLabel.textColor = [UIColor redColor];
+            marketLabel.font = [UIFont systemFontOfSize:CGFloatMakeY(16)];
+            [priceView addSubview:marketLabel];
+            
+            UILabel* productPrice = [[UILabel alloc]initWithFrame:CGRectMake1(200, 0, 60, 30)];
+            productPrice.text = @"市场价 ：";
+            productPrice.font = [UIFont systemFontOfSize:CGFloatMakeY(14)];
+            [priceView addSubview:productPrice];
+            
+           LineLabel* productLabel = [[LineLabel alloc]initWithFrame:CGRectMake1(260, 0, 70, 30)];
+            productLabel.text = [NSString stringWithFormat:@"¥%@",model.productprice];
+            productLabel.font = [UIFont systemFontOfSize:CGFloatMakeY(14)];
+            productLabel.lineType = 2;
+            [priceView addSubview:productLabel];
+            
+            UILabel *ant1price = [[UILabel alloc]initWithFrame:CGRectMake1(20, 30, 85, 20)];
+            ant1price.text = @"蚂蚁利润 ：";
+            ant1price.font = [UIFont systemFontOfSize:CGFloatMakeY(16)];
+            [priceView addSubview:ant1price];
+            
+            UILabel *ant1Label = [[UILabel alloc]initWithFrame:CGRectMake1(105, 30, 70, 20)];
+            ant1Label.text = [NSString stringWithFormat:@"¥%@",model.start];
+            ant1Label.font = [UIFont systemFontOfSize:CGFloatMakeY(16)];
+            ant1Label.textColor = [UIColor redColor];
+            [priceView addSubview:ant1Label];
+            
+            UILabel *ant2price = [[UILabel alloc]initWithFrame:CGRectMake1(200, 30, 105, 20)];
+            ant2price.text = @"下级推广可获 ：";
+            ant2price.font = [UIFont systemFontOfSize:CGFloatMakeY(14)];
+            [priceView addSubview:ant2price];
+            
+            UILabel *ant2Label = [[UILabel alloc]initWithFrame:CGRectMake1(305, 30, 70, 20)];
+            ant2Label.text = [NSString stringWithFormat:@"¥%@",model.start1];
+            ant2Label.font = [UIFont systemFontOfSize:CGFloatMakeY(14)];
+            ant2Label.textColor = [UIColor redColor];
+            [priceView addSubview:ant2Label];
+            
+            self.frame = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, priceView.frame.origin.y+priceView.frame.size.height);
+        }
         
     }
     return self;

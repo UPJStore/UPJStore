@@ -95,7 +95,7 @@
     //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
 
     [manager POST:kOrder parameters:Ndic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        DLog(@"%@",responseObject);
+     //   DLog(@"%@",responseObject);
         _modelDic = responseObject;
         NSArray *arr = responseObject[@"goods_list"];
         for (NSDictionary *dic in arr) {
@@ -174,7 +174,7 @@
         [manager POST:kSubmit parameters:Ndic progress:^(NSProgress * _Nonnull downloadProgress) {
             
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            DLog(@"%@",responseObject);
+         //   DLog(@"%@",responseObject);
             NSDictionary * dic = responseObject;
             orderID = dic[@"order_id"];
             SelectPayMethohViewController *selectVC = [[SelectPayMethohViewController alloc]init];

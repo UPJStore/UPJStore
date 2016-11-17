@@ -181,7 +181,7 @@
      }
           success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
      {
-         DLog(@"%@",responseObject);
+       //  DLog(@"%@",responseObject);
          if(![responseObject isKindOfClass:[NSNull class]]){
              for (NSDictionary *dic in responseObject) {
                  ImageModel *model = [ImageModel new];
@@ -220,7 +220,7 @@
          }
               success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
          {
-             DLog(@"%@",responseObject);
+           //  DLog(@"%@",responseObject);
              NSArray *arr = responseObject[@"list"];
              if (arr.count != 0) {
                  HeaderModel *Hmodel = [[HeaderModel alloc]init];
@@ -283,7 +283,7 @@
              }
                   success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
              {
-                 DLog(@"%@",responseObject);
+              //   DLog(@"%@",responseObject);
                  NSArray *arr = responseObject[@"list"];
                  if (arr.count != 0) {
                      HeaderModel *Hmodel = [[HeaderModel alloc]init];
@@ -334,7 +334,7 @@
              }
                   success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
              {
-                 DLog(@"%@",responseObject);
+             //    DLog(@"%@",responseObject);
                  NSArray *arr = responseObject[@"list"];
                  if (arr.count != 0) {
                      HeaderModel *Hmodel = [[HeaderModel alloc]init];
@@ -376,13 +376,13 @@
         manager.responseSerializer = [AFJSONResponseSerializer serializer];
         manager.requestSerializer = [AFHTTPRequestSerializer serializer];
         
-        [manager POST:KCategory     parameters:Ndic progress:^(NSProgress * _Nonnull downloadProgress)
+        [manager POST:KCategory parameters:Ndic progress:^(NSProgress * _Nonnull downloadProgress)
          {
              
          }
               success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
          {
-             DLog(@"%@",responseObject);
+         //    DLog(@"%@",responseObject);
              if (![responseObject isKindOfClass:[NSNull class]]) {
                  
                  NSDictionary *dic = [NSDictionary dictionaryWithDictionary:responseObject[@"children"][@"2"]];
@@ -741,7 +741,7 @@
         
         [manager POST:kCollectionGoods parameters:nDic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             
-            DLog(@"%@",responseObject);
+        //    DLog(@"%@",responseObject);
             NSDictionary * errDic = responseObject;
             NSString * str = errDic[@"errmsg"];
             if ([btn.titleLabel.text isEqualToString:@"收藏"]) {
@@ -777,7 +777,7 @@
     [manager POST:kCollectList parameters:Ndic progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        DLog(@"%@",responseObject);
+     //   DLog(@"%@",responseObject);
         NSNumber *number = [responseObject valueForKey:@"errcode"];
         NSString *errcode = [NSString stringWithFormat:@"%@",number];
         if ([errcode isEqualToString:@"0"]) {
@@ -879,7 +879,7 @@
         [manager POST:kGoodDetailURL parameters:Ndic progress:^(NSProgress * _Nonnull uploadProgress) {
             
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            DLog(@"%@",responseObject);
+          //  DLog(@"%@",responseObject);
             _detailmodel = [DetailModel mj_objectWithKeyValues:responseObject];
             BookIngViewController * bVC = [[BookIngViewController alloc]init];
             [self.navigationController pushViewController:bVC animated:YES];

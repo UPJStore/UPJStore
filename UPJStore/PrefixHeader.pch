@@ -152,6 +152,48 @@
 
 #define KActivity @"http://m.upinkji.com/api/dcp/getdcp"
 
+#define KShopCommission_list @"http://m.upinkji.com/api/shop_commission/get_commission_by_status"
+
+#define KShopCommission_sum @"http://m.upinkji.com/api/shop_commission/sum_commission"
+
+#define KShopCommission_goods @"http://m.upinkji.com/api/shop_commission/get_goods_by_orderid"
+
+#define KCommission_list @"http://m.upinkji.com/api/commission/get_commission_by_status"
+
+#define KCommission_sum @"http://m.upinkji.com/api/commission/sum_commission"
+
+#define KCommission_goods @"http://m.upinkji.com/api/commission/get_goods_by_orderid"
+
+#define KMybranch @"http://m.upinkji.com/api/ShopApply/Mybranch"
+
+#define KHasShop @"http://m.upinkji.com/api/product/has_shop"
+
+#define KBranchOrderDetail @"http://m.upinkji.com/api/product/mybrance_order_detail"
+
+#define KGetShopName @"http://m.upinkji.com/api/shopapply/get_mtshop_name"
+
+#define KChangeShopName @"http://m.upinkji.com/api/shopapply/change_myshop_name"
+
+#define KMyShopGetShopgoods @"http://m.upinkji.com/api/product/shopgoods"
+
+#define KShopComapply @"http://m.upinkji.com/api/Shop_commission/shop_comapply"
+
+#define KGetCarryHistory @"http://m.upinkji.com/api/Shop_commission/get_carry_history"
+
+#define KGetInterfaceCenter @"http://m.upinkji.com/api/ShopApply/interface_center"
+
+#define KSumInterface @"http://m.upinkji.com/api/ShopApply/sum_interface_center"
+
+#define KUpdateTakeMoney @"http://m.upinkji.com/api/ShopApply/update_interface_status"
+
+#define KGetCanGetList @"http://m.upinkji.com/api/Shop_commission/get_can_get_list"
+
+#define KGetPromote @"http://m.upinkji.com/api/member/promote"
+
+#define KAddShopApply @"http://m.upinkji.com/api/ShopApply/add"
+
+#define KGetShopapplyDetail @"http://m.upinkji.com/api/ShopApply/detail"
+
 #define kWidth [UIScreen mainScreen].bounds.size.width
 
 #define kHeight [UIScreen mainScreen].bounds.size.height

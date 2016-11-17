@@ -92,7 +92,7 @@
             
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             
-            DLog(@"%@",responseObject);
+          //  DLog(@"%@",responseObject);
             NSDictionary * ddic = responseObject;
             
             if (ddic.count != 2) {
@@ -154,7 +154,7 @@
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
-        DLog(@"%@",responseObject);
+       // DLog(@"%@",responseObject);
         NSDictionary * dic =@{@"couponid":[_couponList[indexPath.row] couponID],@"reduce":responseObject[@"reduce"],@"title":[_couponList[indexPath.row] title],@"coupon_code":@"0"};
         NSNotification *notification =[NSNotification notificationWithName:@"reduce" object:nil userInfo:dic];
         [[NSNotificationCenter defaultCenter]postNotification:notification];
@@ -215,7 +215,7 @@
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
-        DLog(@"%@",responseObject);
+       // DLog(@"%@",responseObject);
         NSDictionary * dic = responseObject;
                NSString * stateStr = dic[@"message"];
     
@@ -242,7 +242,7 @@
                 [manager POST:kDoCoupon parameters:Ndic progress:^(NSProgress * _Nonnull uploadProgress) {
                     
                 } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-                    DLog(@"%@",responseObject);
+                   // DLog(@"%@",responseObject);
                     NSDictionary * CodeDic =@{@"coupon_code":dic[@"coupon_code"],@"reduce":responseObject[@"reduce"],@"title":dic[@"title"],@"couponid":@"0"};
                     NSNotification *notification =[NSNotification notificationWithName:@"reduce" object:nil userInfo:CodeDic];
                     [[NSNotificationCenter defaultCenter]postNotification:notification];

@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BranchModel.h"
 
 @interface DealerDetailViewController : UIViewController
+
+@property(nonatomic,strong)BranchModel* model;
+
+@property(nonatomic,strong)NSString *level;
+
+@property(nonatomic,strong)NSString *domain_level;
 
 @end

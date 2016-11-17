@@ -379,7 +379,7 @@
         [manager POST:kSubmit parameters:Ndic progress:^(NSProgress * _Nonnull downloadProgress) {
             
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            DLog(@"%@",responseObject);
+          //  DLog(@"%@",responseObject);
             
             
             NSDictionary * dic = responseObject;

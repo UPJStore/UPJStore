@@ -149,6 +149,7 @@
     photoView.hidden = YES;
     _imageBtn.hidden = YES;
     label.hidden = YES;
+    
 }
 
 

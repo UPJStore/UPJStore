@@ -149,7 +149,7 @@
     
     [_brandScrollView addSubview:_brandCollectionView];
     
-    //collectionView的分区头和分区尾市需要注册的.
+    //collectionView的分区头和分区尾是需要注册的.
     [_brandCollectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"brandHeader"];
     
     
