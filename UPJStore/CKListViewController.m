@@ -80,6 +80,7 @@
                 [btn setTitle:@"银蚁分店(0)" forState:UIControlStateNormal];
             }
         }
+        btn.titleLabel.font = [UIFont systemFontOfSize:CGFloatMakeY(14)];
         [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
         [btn addTarget:self action:@selector(reloadData:) forControlEvents:UIControlEventTouchUpInside];
         [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];

@@ -85,8 +85,6 @@
     }else
     {
         for (CollectModel * model in [self returnCollect]) {
-            NSLog(@"%@",[_goodsDic valueForKey:@"id"]);
-            NSLog(@"%@",[model valueForKey:@"id"]);
             if ([[_goodsDic valueForKey:@"id"]isEqualToString:[model valueForKey:@"id"]]) {
                 _isCollection =YES;
             }
@@ -567,7 +565,6 @@
 
 - (void)pageControl:(UIPageControl *)pageControl
 {
-    NSLog(@"%ld", pageControl.currentPage);
     // 通过设置scrollView的偏移量来实现图片的切换
     _goodsScrollView.contentOffset = CGPointMake(kWidth * pageControl.currentPage, 0);
 }

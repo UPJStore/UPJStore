@@ -7,7 +7,7 @@
 //
 
 #import "MemberTableViewCell.h"
-#import "UIView+cg.h"
+#import "UIViewController+CG.h"
 @implementation MemberTableViewCell
 
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier

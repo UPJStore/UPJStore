@@ -7,7 +7,7 @@
 //
 
 #import "recommandCell.h"
-#import "UIView+cg.h"
+#import "UIViewController+CG.h"
 #import "UIColor+HexRGB.h"
 #define  kSwidth self.bounds.size.width
 #define kSheight self.bounds.size.height

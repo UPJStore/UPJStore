@@ -7,7 +7,7 @@
 //
 
 #import "CollectTableViewCell.h"
-#import "UIView+cg.h"
+#import "UIViewController+CG.h"
 
 @implementation CollectTableViewCell
 

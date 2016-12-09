@@ -20,13 +20,15 @@
 #import "AdvertiseView.h"
 #import <AlipaySDK/AlipaySDK.h>
 #import <Bugly/Bugly.h>
-#import <XGPush.h>
-#import <XGSetting.h>
+#import "JPUSHService.h"
+#ifdef NSFoundationVersionNumber_iOS_9_x_Max
+#import <UserNotifications/UserNotifications.h>
+#endif
 
 #define kWXAPP_ID @"wx50a2b6dce88256c3"
 #define kWXAPP_SECRET @"b8e8be66e271b4083f4ee29c7a59f20b"
 
-@interface AppDelegate ()<WXApiDelegate>
+@interface AppDelegate ()<WXApiDelegate,JPUSHRegisterDelegate>
 {
     NSDictionary *jsonDic;
     UIAlertController *alertCon;
@@ -50,51 +52,48 @@
     //腾讯bugly
     [Bugly startWithAppId:@"900044501"];
     // Override point for customization after application launch.
-    //腾讯信鸽推送功能
-    [XGPush startApp:2200238610 appKey:@"IX435S1GN2UT"];
-    [XGPush handleLaunching:launchOptions];
     
-    float sysVer = [[[UIDevice currentDevice] systemVersion] floatValue];
-    if(sysVer < 8){
-        [self registerPush];
+    // Required
+    // notice: 3.0.0及以后版本注册可以这样写,也可以继续 旧的注册 式
+    JPUSHRegisterEntity * entity = [[JPUSHRegisterEntity alloc] init];
+    entity.types = JPAuthorizationOptionAlert|JPAuthorizationOptionBadge|JPAuthorizationOptionSound;
+    if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
+        // 可以添加 定义categories
+        // NSSet<UNNotificationCategory *> *categories for iOS10 or later
+        // NSSet<UIUserNotificationCategory *> *categories for iOS8 and iOS9
     }
-    else{
-        [self registerPushForIOS8];
-    }
-    //    [XGPush handleLaunching:launchOptions successCallback:successBlock errorCallback:errorBlock];
+    [JPUSHService registerForRemoteNotificationConfig:entity delegate:self];
     
-    //本地推送示例
-    /*
-     NSDate *fireDate = [[NSDate new] dateByAddingTimeInterval:10];
-     
-     NSMutableDictionary *dicUserInfo = [[NSMutableDictionary alloc] init];
-     [dicUserInfo setValue:@"myid" forKey:@"clockID"];
-     NSDictionary *userInfo = dicUserInfo;
-     
-     [XGPush localNotification:fireDate alertBody:@"测试本地推送" badge:2 alertAction:@"确定" userInfo:userInfo];
-     */
+    // Optional
+    // 获取IDFA
+    // 如需使 IDFA功能请添加此代码并在初始化 法的advertisingIdentifier参数中填写对应值 NSString *advertisingId = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
+    // Required
+    // init Push
+    // notice: 2.1.5版本的SDK新增的注册 法,改成可上报IDFA,如果没有使 IDFA直接传nil
+    // 如需继续使 pushConfig.plist 件声明appKey等配置内容,请依旧使 [JPUSHService setupWithOption:launchOptions] 式初始化。
+    [JPUSHService setupWithOption:launchOptions appKey:@"5798de4b638c4e2d3694fe7e" channel:@"App Store" apsForProduction:YES advertisingIdentifier:nil];
     
-    // Override point for customization after application launch.
+    
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
-       self.autoSizeScaleX = kWidth/414;
+    self.autoSizeScaleX = kWidth/414;
     self.autoSizeScaleY = kHeight/736;
     //    DLog(@"--X=%f",self.autoSizeScaleX);
     //    DLog(@"--Y=%f",self.autoSizeScaleY);
     
     
     [self showView];
-
+    
     if ([[NSUserDefaults standardUserDefaults] valueForKey:@"inAppCount"] ==nil) {
         inAppCount = 0;
     }else
     {   inAppCount = [[[NSUserDefaults standardUserDefaults] valueForKey:@"inAppCount"] integerValue];
     }
-  
+    
     
     return YES;
 }
@@ -118,7 +117,7 @@
     // 2.无论沙盒中是否存在广告图片，都需要重新调用广告接口，判断广告是否更新
     [self getAdvertisingImage];
     
-
+    
 }
 
 /**
@@ -141,11 +140,11 @@
     
     NSArray *imageArray = @[@"http://m.upinkji.com/static/app/images/app_function_ad.jpg"];
     NSString *imageUrl = imageArray.lastObject;
-
+    
     // 获取图片名:43-130P5122Z60-50.jpg
     NSArray *stringArr = [imageUrl componentsSeparatedByString:@"/"];
     NSString *imageName = stringArr.lastObject;
-
+    
     // 拼接沙盒路径
     NSString *filePath = [self getFilePathWithImageName:imageName];
     BOOL isExist = [self isFileExistWithFilePath:filePath];
@@ -228,7 +227,7 @@
         if([resp isKindOfClass:[PayResp class]]){
             //支付返回结果，实际支付结果需要去微信服务器端查询
             DLog(@"+++++++++支付结果++++++++");
-
+            
             DLog(@"resp.errCode = %d  errStr = %@",aresp.errCode,aresp.errStr);
             switch (aresp.errCode) {
                 case WXSuccess:
@@ -314,13 +313,13 @@
                 AFHTTPSessionManager *manager = [AppDelegate sharedManager];
                 manager.responseSerializer = [AFJSONResponseSerializer serializer];
                 //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-
+                
                 //传入的参数
                 NSDictionary * Ndic = [self md5DicWith:dic0];
                 
                 [manager POST:kOther parameters:Ndic progress:^(NSProgress * _Nonnull uploadProgress) {
                 } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-                   // DLog(@"%@",responseObject);
+                    // DLog(@"%@",responseObject);
                     [self.window.rootViewController.loadingHud hideAnimated:YES];
                     self.window.rootViewController.loadingHud =nil;
                     NSNumber *number = [responseObject valueForKey:@"errcode"];
@@ -346,17 +345,17 @@
                     else
                     {
                         NSString *str1 = [responseObject valueForKey:@"errmsg"];
-
+                        
                         alertCon = [UIAlertController alertControllerWithTitle:nil message:str1 preferredStyle:UIAlertControllerStyleAlert];
-
+                        
                         UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:nil];
                         [alertCon addAction:okAction];
                         [self.window.rootViewController presentViewController:alertCon animated:YES completion:nil];
                     }
                 } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
-                {
-                    DLog(@"failure%@",error);
-                }];
+                 {
+                     DLog(@"failure%@",error);
+                 }];
                 
                 
             }
@@ -392,7 +391,7 @@
     NSString *str = @"";
     NSArray * arr =[dic allKeys];
     NSArray *newArray = [arr sortedArrayUsingSelector:@selector(compare:)];
-//    DLog(@"new array = %@",newArray);
+    //    DLog(@"new array = %@",newArray);
     
     for (int i = 0 ; i< newArray.count+1 ;i++) {
         
@@ -412,7 +411,7 @@
         }
     }
     
-   // DLog(@"str = %@",str);
+    // DLog(@"str = %@",str);
     
     NSString *tokenStr = [self md5:str];
     
@@ -445,7 +444,7 @@
             DLog(@"result = %@",resultDic);
         }];
     }
-
+    
     return [WXApi handleOpenURL:url delegate:self];
     
 }
@@ -476,35 +475,35 @@
     }
     else
     {
-    [GLobalRealReachability reachabilityWithBlock:^(ReachabilityStatus status) {
-        switch (status)
-        {
-            case RealStatusNotReachable:
+        [GLobalRealReachability reachabilityWithBlock:^(ReachabilityStatus status) {
+            switch (status)
             {
-                break;
-            }
-                
-            case RealStatusViaWiFi:
-            {
-                
-                alertCon = [UIAlertController alertControllerWithTitle:nil message:@"WiFi链接状态。" preferredStyle:UIAlertControllerStyleAlert];
-                [self.window.rootViewController presentViewController:alertCon animated:YES completion:nil];
-
-
-//                [[[UIAlertView alloc] initWithTitle:@"网络状态" message:@"WiFi链接状态。" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil , nil] show];
-                break;
-            }
-                
-            case RealStatusViaWWAN:
-            {    alertCon = [UIAlertController alertControllerWithTitle:nil message:@"您现在在使用移动网络数据，注意您的流量耗损"preferredStyle:UIAlertControllerStyleAlert];
-                [self.window.rootViewController presentViewController:alertCon animated:YES completion:nil];
-
-//                [[[UIAlertView alloc] initWithTitle:@"网络状态" message:@"您现在在使用移动网络数据，注意您的流量耗损" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil , nil] show];
-                
-            }}}];
-    
+                case RealStatusNotReachable:
+                {
+                    break;
+                }
+                    
+                case RealStatusViaWiFi:
+                {
+                    
+                    alertCon = [UIAlertController alertControllerWithTitle:nil message:@"WiFi链接状态。" preferredStyle:UIAlertControllerStyleAlert];
+                    [self.window.rootViewController presentViewController:alertCon animated:YES completion:nil];
+                    
+                    
+                    //                [[[UIAlertView alloc] initWithTitle:@"网络状态" message:@"WiFi链接状态。" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil , nil] show];
+                    break;
+                }
+                    
+                case RealStatusViaWWAN:
+                {    alertCon = [UIAlertController alertControllerWithTitle:nil message:@"您现在在使用移动网络数据，注意您的流量耗损"preferredStyle:UIAlertControllerStyleAlert];
+                    [self.window.rootViewController presentViewController:alertCon animated:YES completion:nil];
+                    
+                    //                [[[UIAlertView alloc] initWithTitle:@"网络状态" message:@"您现在在使用移动网络数据，注意您的流量耗损" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil , nil] show];
+                    
+                }}}];
+        
         [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(dismissAVC:) userInfo:nil repeats:NO];
-}
+    }
 }
 
 
@@ -513,57 +512,57 @@
     
     AFHTTPSessionManager *manager = [AppDelegate sharedManager];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-//    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", nil];
-
+    //    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", nil];
+    
     [manager GET:@"https://itunes.apple.com/lookup?id=1104253189" parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject)
-    {
-     #pragma 获取数据json化。
-        NSDictionary * dic;
-        if ([responseObject isKindOfClass:[NSData class]]) {
-          dic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
-
-        }else    dic = responseObject;
-
-        NSArray * verarr = dic[@"results"];
-        //做出判断，看有没有下架。假如紧急下架了，就不会运行这个位置，以防崩溃。
-        if (verarr.count != 0) {
+     {
+#pragma 获取数据json化。
+         NSDictionary * dic;
+         if ([responseObject isKindOfClass:[NSData class]]) {
+             dic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
+             
+         }else    dic = responseObject;
+         
+         NSArray * verarr = dic[@"results"];
+         //做出判断，看有没有下架。假如紧急下架了，就不会运行这个位置，以防崩溃。
+         if (verarr.count != 0) {
              NSDictionary * dic2 =verarr[0];
              NSString *verStr = dic2[@"version"];
-        
-        NSDictionary * Versiondic = @{@"appkey":APPkey};
-        NSDictionary * Ndic = [self md5DicWith:Versiondic];
-        [manager POST:kAllVersion parameters:Ndic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-           
-            NSString * nowVersion = [[[NSBundle mainBundle] infoDictionary]objectForKey:@"CFBundleVersion"];
-            
-            NSInteger i = 0;
-            NSArray * arr;
-            if ([responseObject isKindOfClass:[NSData class]]) {
-                arr = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
-                
-            }else    arr = responseObject;
-
-            for (NSDictionary * dic  in arr)
-            {
-                if ([dic[@"version"] isEqualToString:nowVersion]) {
-                    
-                    force_upgrade = dic[@"force_upgrade"];
-                    DLog(@"%@",force_upgrade);
-                }
-                else
-                    i++;
-            }
-            
+             
+             NSDictionary * Versiondic = @{@"appkey":APPkey};
+             NSDictionary * Ndic = [self md5DicWith:Versiondic];
+             [manager POST:kAllVersion parameters:Ndic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+                 
+                 NSString * nowVersion = [[[NSBundle mainBundle] infoDictionary]objectForKey:@"CFBundleVersion"];
+                 
+                 NSInteger i = 0;
+                 NSArray * arr;
+                 if ([responseObject isKindOfClass:[NSData class]]) {
+                     arr = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
+                     
+                 }else    arr = responseObject;
+                 
+                 for (NSDictionary * dic  in arr)
+                 {
+                     if ([dic[@"version"] isEqualToString:nowVersion]) {
+                         
+                         force_upgrade = dic[@"force_upgrade"];
+                         DLog(@"%@",force_upgrade);
+                     }
+                     else
+                         i++;
+                 }
+                 
                  [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(checkAppUpdate:) userInfo:verStr repeats:NO];
-
-        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            
-        }];
-        
-        }
-    } failure:^(NSURLSessionTask *operation, NSError *error) {
-        NSLog(@"Error: %@", error);
-    }];    
+                 
+             } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                 
+             }];
+             
+         }
+     } failure:^(NSURLSessionTask *operation, NSError *error) {
+         NSLog(@"Error: %@", error);
+     }];
     
 }
 
@@ -581,7 +580,7 @@
         int SVersion = [NewArr[2] intValue];
         newVersionF = (newVersionF + SVersion);
     }
-
+    
     if (NowArr.count == 3)
     {
         int SVersion = [NowArr[2] intValue];
@@ -594,26 +593,26 @@
         DLog(@"新版本 ： %@ ，当前版本 %@ ",[timer userInfo],nowVersion);
         
         UIAlertController * alVC = [UIAlertController alertControllerWithTitle:@"" message:@"有可更新版本" preferredStyle:UIAlertControllerStyleAlert];
-      
+        
         UIAlertAction * okaction = [UIAlertAction actionWithTitle:@"更新" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
             NSString * strr = @"https://itunes.apple.com/us/app/you-pin-ji-quan-qiu-gou/id1104253189?l=zh&ls=1&mt=8";
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:strr]];
         }];
         UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action)
-        {
-            if ([force_upgrade boolValue] == 1)
-            {
-                [self exitApplication];
-            }
-            
-        }];
+                                        {
+                                            if ([force_upgrade boolValue] == 1)
+                                            {
+                                                [self exitApplication];
+                                            }
+                                            
+                                        }];
         
         [alVC addAction:okaction];
         [alVC addAction:cancelAction];
         [self.window.rootViewController presentViewController:alVC animated:YES completion:^{
             
         }];
-    } 
+    }
     inAppCount++;
     
     if (inAppCount >2) {
@@ -621,7 +620,7 @@
     }
     
     [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInteger:inAppCount] forKey:@"inAppCount"];
-
+    
 }
 
 -(void)showView
@@ -665,18 +664,9 @@
                                              selector:@selector(networkChanged:)
                                                  name:kRealReachabilityChangedNotification
                                                object:nil];
-    
-    
-    
-    
-    
-    
-    
-    [[UINavigationBar appearance]setTitleTextAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"Thonburi" size:CGFloatMakeY(20)]}];
+    //设置导航条样式
+    [[UINavigationBar appearance]setTitleTextAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"Arial-BoldMT" size:CGFloatMakeY(18)]}];
     [WXApi registerApp:@"wx50a2b6dce88256c3" withDescription:@"wechat"];
-    
-    
-    
     
     NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
     if (![user valueForKey:@"first"])
@@ -688,12 +678,12 @@
     }
     
     [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(VersionBUtton) userInfo:nil repeats:NO];
-   
+    
 }
 
 - (void)exitApplication {
     
-   
+    
     UIWindow *window =  [UIApplication sharedApplication].delegate.window;
     
     [UIView animateWithDuration:1.0f animations:^{
@@ -730,139 +720,45 @@
 }
 
 #pragma mark - 推送功能
-//推送功能
-- (void)registerPushForIOS8{
-    //Types
-    UIUserNotificationType types = UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
-    
-    //Actions
-    UIMutableUserNotificationAction *acceptAction = [[UIMutableUserNotificationAction alloc] init];
-    
-    acceptAction.identifier = @"ACCEPT_IDENTIFIER";
-    acceptAction.title = @"Accept";
-    
-    acceptAction.activationMode = UIUserNotificationActivationModeForeground;
-    acceptAction.destructive = NO;
-    acceptAction.authenticationRequired = NO;
-    
-    //Categories
-    UIMutableUserNotificationCategory *inviteCategory = [[UIMutableUserNotificationCategory alloc] init];
-    
-    inviteCategory.identifier = @"INVITE_CATEGORY";
-    
-    [inviteCategory setActions:@[acceptAction] forContext:UIUserNotificationActionContextDefault];
-    
-    [inviteCategory setActions:@[acceptAction] forContext:UIUserNotificationActionContextMinimal];
-
-    NSSet *categories = [NSSet setWithObjects:inviteCategory, nil];
-    
-    UIUserNotificationSettings *mySettings = [UIUserNotificationSettings settingsForTypes:types categories:categories];
-    
-    [[UIApplication sharedApplication] registerUserNotificationSettings:mySettings];
-    
-    
-    [[UIApplication sharedApplication] registerForRemoteNotifications];
-}
-
-- (void)registerPush{
-    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound)];
-}
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-    
-    //NSString * deviceTokenStr = [XGPush registerDevice:deviceToken];
-    
-    void (^successBlock)(void) = ^(void){
-        //成功之后的处理
-        NSLog(@"[XGPush Demo]register successBlock");
-    };
-    
-    void (^errorBlock)(void) = ^(void){
-        //失败之后的处理
-        NSLog(@"[XGPush Demo]register errorBlock");
-    };
-    
-    // 设置账号
-    //	[XGPush setAccount:@"test"];
-    
-    //注册设备
-    NSString * deviceTokenStr = [XGPush registerDevice:deviceToken successCallback:successBlock errorCallback:errorBlock];
-    
-    //如果不需要回调
-    //[XGPush registerDevice:deviceToken];
-    
-    //打印获取的deviceToken的字符串
-    NSLog(@"[XGPush Demo] deviceTokenStr is %@",deviceTokenStr);
+    /// Required - 注册 DeviceToken
+    [JPUSHService registerDeviceToken:deviceToken];
 }
 
-//如果deviceToken获取不到会进入此事件
-- (void)application:(UIApplication *)app didFailToRegisterForRemoteNotificationsWithError:(NSError *)err {
-    
-    NSString *str = [NSString stringWithFormat: @"Error: %@",err];
-    
-    NSLog(@"[XGPush Demo]%@",str);
-    
-}
 
-- (void)application:(UIApplication*)application didReceiveRemoteNotification:(NSDictionary*)userInfo
-{
-    //推送反馈(app运行时)
-    [XGPush handleReceiveNotification:userInfo];
-    
-    
-    //回调版本示例
-    /*
-     void (^successBlock)(void) = ^(void){
-     //成功之后的处理
-     NSLog(@"[XGPush]handleReceiveNotification successBlock");
-     };
-     
-     void (^errorBlock)(void) = ^(void){
-     //失败之后的处理
-     NSLog(@"[XGPush]handleReceiveNotification errorBlock");
-     };
-     
-     void (^completion)(void) = ^(void){
-     //完成之后的处理
-     NSLog(@"[xg push completion]userInfo is %@",userInfo);
-     };
-     
-     [XGPush handleReceiveNotification:userInfo successCallback:successBlock errorCallback:errorBlock completion:completion];
-     */
-}
-
--(void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification{
-    //notification是发送推送时传入的字典信息
-    [XGPush localNotificationAtFrontEnd:notification userInfoKey:@"clockID" userInfoValue:@"myid"];
-    
-    //删除推送列表中的这一条
-    [XGPush delLocalNotification:notification];
-    //[XGPush delLocalNotification:@"clockID" userInfoValue:@"myid"];
-    
-    //清空推送列表
-    //[XGPush clearLocalNotifications];
-}
-
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= _IPHONE80_
-
-//注册UserNotification成功的回调
-- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
-{
-    //用户已经允许接收以下类型的推送
-    //UIUserNotificationType allowedTypes = [notificationSettings types];
-    
-}
-
-//按钮点击事件回调
-- (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void (^)())completionHandler{
-    if([identifier isEqualToString:@"ACCEPT_IDENTIFIER"]){
-        NSLog(@"ACCEPT_IDENTIFIER is clicked");
+// iOS 10 Support
+- (void)jpushNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(NSInteger))completionHandler {
+    // Required
+    NSDictionary * userInfo = notification.request.content.userInfo;
+    if([notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]
+        ]) {
+        [JPUSHService handleRemoteNotification:userInfo];
     }
-    
-    completionHandler();
+    completionHandler(UNNotificationPresentationOptionAlert); // 需要执 这个 法,选择 是否提醒 户,有Badge、Sound、Alert三种类型可以选择设置
 }
 
-#endif
+// iOS 10 Support
+- (void)jpushNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler {
+    // Required
+    NSDictionary * userInfo = response.notification.request.content.userInfo;
+    if([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
+        [JPUSHService handleRemoteNotification:userInfo];
+    }
+    completionHandler(); // 系统要求执 这个 法
+}
+
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    // Required, iOS 7 Support
+    [JPUSHService handleRemoteNotification:userInfo];
+    completionHandler(UIBackgroundFetchResultNewData);
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    // Required,For systems with less than or equal to iOS6
+    [JPUSHService handleRemoteNotification:userInfo];
+}
 
 #pragma mark - 系统方法
 

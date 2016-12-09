@@ -12,11 +12,17 @@
 
 @property(nonatomic,strong)NSString *deposit_status;
 @property(nonatomic,strong)NSString *domain_level;
+@property(nonatomic,strong)NSString *income;
+@property(nonatomic,strong)NSString *level;
+@property(nonatomic,strong)NSString *member_id;
+@property(nonatomic,strong)NSString *myself;
 @property(nonatomic,strong)NSString *nickname;
 @property(nonatomic,strong)NSString *order_sn;
 @property(nonatomic,strong)NSString *pass_time;
 @property(nonatomic,strong)NSString *share_id;
 @property(nonatomic,strong)NSString *status;
+@property(nonatomic,strong)NSString *tui_id;
 @property(nonatomic,strong)NSString *upgrade;
+@property(nonatomic,strong)NSString *use_interface;
 
 @end

@@ -7,7 +7,7 @@
 //
 
 #import "TextView.h"
-#import "UIView+cg.h"
+#import "UIViewController+CG.h"
 #import "AppDelegate.h"
 
 @implementation TextView

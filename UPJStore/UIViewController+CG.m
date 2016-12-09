@@ -219,7 +219,7 @@
     NSString *str = @"";
     NSArray * arr =[dic allKeys];
     NSArray *newArray = [arr sortedArrayUsingSelector:@selector(compare:)];
-//    DLog(@"new array = %@",newArray);
+//    DLog(@"new array = %@",newAxrray);
     
     for (int i = 0 ; i< newArray.count+1 ;i++) {
         

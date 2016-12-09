@@ -268,7 +268,6 @@
     
     UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake1(167, 20, 80, 80)];
     imageView.image = [UIImage imageWithData:[self returnImageData]];
-    NSLog(@"%@",[self returnImageData]);
     imageView.layer.cornerRadius = CGFloatMakeY(40);
     imageView.clipsToBounds = YES;
     [_headerView addSubview:imageView];

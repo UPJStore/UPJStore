@@ -30,10 +30,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.view.backgroundColor =[UIColor colorFromHexRGB:@"f6f6f6"];
+ //   self.view.backgroundColor =[UIColor colorFromHexRGB:@"f6f6f6"];
     self.navigationItem.title = @"蚁店推广";
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"backArrow"] style:UIBarButtonItemStyleDone target:self action:@selector(pop)];
     self.navigationItem.leftBarButtonItem.tintColor = [UIColor blackColor];
+    self.view.backgroundColor = [UIColor colorFromHexRGB:@"f6f6f6"];
     [self postdataWithData];
 }
 
@@ -75,6 +76,7 @@
 -(void)initWithDetailView
 {
     _detailView = [[UIView alloc]initWithFrame:CGRectMake1(0, 157,414, 515)];
+    _detailView.backgroundColor = [UIColor colorFromHexRGB:@"f6f6f6"];
     [self.view addSubview:_detailView];
     
     UIView *numberView = [[UIView alloc]initWithFrame:CGRectMake1(0, 0, 414, 30)];
@@ -95,7 +97,6 @@
     _numberlabel2.text = [NSString stringWithFormat:@"免费端口剩余数: %@个",_use_interface];
     _numberlabel2.textAlignment = 2;
     [_detailView addSubview:_numberlabel2];
-    
     _tableView = [[UITableView alloc]initWithFrame:CGRectMake1(0, 40, 414, 475) style:UITableViewStylePlain];
     [_tableView registerClass:[ShopExpandTableViewCell class] forCellReuseIdentifier:@"cell"];
     [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"none"];
@@ -142,6 +143,7 @@
     return CGFloatMakeY(90);
 }
 
+//
 -(void)postdataWithData
 {
     AFHTTPSessionManager *manager = [self sharedManager];;
@@ -190,10 +192,10 @@
         _interface_money = dic[@"interface_money"];
         _use_interface = dic[@"use_interface"];
         _used_interface = dic[@"used_interface"];
-        [self postdataWithData3];
+        [self initWithHeaderView];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         DLog(@"failure%@",error);
-        [self postdataWithData2];
+        
     }];
 }
 
@@ -203,7 +205,7 @@
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-    NSDictionary *dic = @{@"appkey":APPkey,@"ids":[self returnMid]};
+    NSDictionary *dic = @{@"appkey":APPkey,@"ids":_ids};
     
     NSDictionary * Ndic = [self md5DicWith:dic];
     
@@ -214,7 +216,6 @@
         [self initWithHeaderView];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         DLog(@"failure%@",error);
-        [self postdataWithData3];
     }];
 }
 
@@ -235,7 +236,6 @@
         [self initWithHeaderView];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         DLog(@"failure%@",error);
-        //[self postdataWithData4];
     }];
 }
 

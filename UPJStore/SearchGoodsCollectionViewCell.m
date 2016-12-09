@@ -7,7 +7,7 @@
 //
 
 #import "SearchGoodsCollectionViewCell.h"
-#import "UIView+cg.h"
+#import "UIViewController+CG.h"
 #define  kSwidth self.bounds.size.width
 #define kSheight self.bounds.size.height
 

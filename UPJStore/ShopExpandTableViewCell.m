@@ -37,9 +37,10 @@
         namelabel.textColor = [UIColor colorFromHexRGB:@"999999"];
         [self addSubview:namelabel];
         
-        timelabel = [[UILabel alloc]initWithFrame:CGRectMake1(180, 30, 150, 30)];
+        timelabel = [[UILabel alloc]initWithFrame:CGRectMake1(244, 30, 150, 30)];
         timelabel.font = [UIFont systemFontOfSize:CGFloatMakeY(11)];
         timelabel.textColor = [UIColor colorFromHexRGB:@"999999"];
+        timelabel.textAlignment = 2;
         [self addSubview:timelabel];
         
         statuslabel = [[UILabel alloc]initWithFrame:CGRectMake1(294, 0, 100, 30)];

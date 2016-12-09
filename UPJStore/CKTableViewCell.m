@@ -7,7 +7,7 @@
 //
 
 #import "CKTableViewCell.h"
-#import "UIView+cg.h"
+#import "UIViewController+CG.h"
 #import "UIColor+HexRGB.h"
 
 @interface CKTableViewCell ()

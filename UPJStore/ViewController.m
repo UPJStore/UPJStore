@@ -838,7 +838,6 @@
 //每个cell的图片点击方法
 -(void)headerBtnAction:(UIButton *)sender
 {
-    NSLog(@"%ld pid = %@ description : %@.💙",(long)sender.tag,_pidArr[sender.tag],[_headerArr[sender.tag] descriptionStr]);
     
     GoodsViewController *goodsView = [[GoodsViewController alloc]init];
     HeaderModel *model = _headerArr[sender.tag];

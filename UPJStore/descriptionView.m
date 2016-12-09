@@ -7,7 +7,7 @@
 //
 
 #import "descriptionView.h"
-#import "UIView+cg.h"
+#import "UIViewController+CG.h"
 #import "UIImageView+WebCache.h"
 #import "UIColor+HexRGB.h"
 #import "myUILabel.h"

@@ -9,7 +9,7 @@
 
 #import "SortView.h"
 #import "SortModel.h"
-#import "UIView+cg.h"
+#import "UIViewController+CG.h"
 #define kSViewWidth self.frame.size.width
 #define kSViewHeight self.frame.size.height
 
