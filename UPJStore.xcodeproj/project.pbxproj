@@ -1753,7 +1753,7 @@
 					E30AD7661C719F6F00B5188C = {
 						CreatedOnToolsVersion = 7.2.1;
 						DevelopmentTeam = F2EC8M8VR5;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Push = {
 								enabled = 1;
@@ -2198,8 +2198,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = UPJStore/UPJStore.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Shenzhen Weisida Computer Hardware And Software Development Co., Ltd. (F2EC8M8VR5)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shenzhen Weisida Computer Hardware And Software Development Co., Ltd. (F2EC8M8VR5)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Shaolun Lin (LYFRC335VT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = F2EC8M8VR5;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2247,8 +2247,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.upj.UPinkJiAPPStore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "754b063a-bcb1-4b9b-a93a-c5ac7e003d97";
-				PROVISIONING_PROFILE_SPECIFIER = UPinkJiAPPStoreAPP;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv7s arm64";
 			};
@@ -2261,8 +2261,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = UPJStore/UPJStore.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Shenzhen Weisida Computer Hardware And Software Development Co., Ltd. (F2EC8M8VR5)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shenzhen Weisida Computer Hardware And Software Development Co., Ltd. (F2EC8M8VR5)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Shaolun Lin (LYFRC335VT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = F2EC8M8VR5;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2310,8 +2310,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.upj.UPinkJiAPPStore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "754b063a-bcb1-4b9b-a93a-c5ac7e003d97";
-				PROVISIONING_PROFILE_SPECIFIER = UPinkJiAPPStoreAPP;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv7s arm64";
 			};

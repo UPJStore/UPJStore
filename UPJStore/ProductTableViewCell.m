@@ -59,10 +59,10 @@
         imageView.contentMode = UIViewContentModeScaleAspectFit;
         [self addSubview:imageView];
         
-        countryView = [[UIImageView alloc]initWithFrame:CGRectMake1(110, 10, 20, 20)];
+        countryView = [[UIImageView alloc]initWithFrame:CGRectMake1(113, 10, 22, 20)];
         [self addSubview:countryView];
         
-        titleLabel = [[myUILabel alloc]initWithFrame:CGRectMake1(133, 10, 274, 50)];
+        titleLabel = [[myUILabel alloc]initWithFrame:CGRectMake1(135, 10, 270, 50)];
         [titleLabel setVerticalAlignment:VerticalAlignmentTop];
         titleLabel.numberOfLines = 0;
         titleLabel.font = [UIFont systemFontOfSize:CGFloatMakeY(16)];

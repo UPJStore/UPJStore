@@ -110,9 +110,10 @@
         self.tableArr = _Level1Arr;
         _level = @"1";
     }else
+    {
         self.tableArr = _Level2Arr;
-    _level = @"2";
-    
+        _level = @"2";
+    }
     [_tableview reloadData];
 }
 

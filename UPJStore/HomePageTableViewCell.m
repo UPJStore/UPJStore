@@ -34,7 +34,7 @@
         lineView.backgroundColor = [UIColor colorFromHexRGB:@"dddddd"];
         [self addSubview:lineView];
         
-        tableView = [[UITableView alloc]initWithFrame:CGRectMake1(0, 267.5, 414, 1200)];
+        tableView = [[UITableView alloc]initWithFrame:CGRectMake1(0, 267.5, 414, 120*_modelArr.count)];
         tableView.delegate = self;
         tableView.dataSource = self;
         tableView.backgroundColor = [UIColor whiteColor];
@@ -45,7 +45,7 @@
         [self addSubview:tableView];
         
         _button = [UIButton buttonWithType:UIButtonTypeCustom];
-        _button.frame = CGRectMake1(0, 1467.5, 414, 40);
+        _button.frame = CGRectMake1(0,267.5+120*_modelArr.count, 414, 40);
         [_button setTitle:@"更多好货点这里 more" forState:UIControlStateNormal];
         [_button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         _button.titleLabel.font = [UIFont systemFontOfSize:CGFloatMakeY(14)];
@@ -61,7 +61,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    return _modelArr.count;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -83,6 +83,8 @@
 
 -(void)tableViewreflash
 {
+    tableView.frame = CGRectMake1(0, 267.5, 414, 120*_modelArr.count);
+    _button.frame = CGRectMake1(0,267.5+120*_modelArr.count, 414, 40);
     [tableView reloadData];
 }
 

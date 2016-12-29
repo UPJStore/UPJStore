@@ -620,7 +620,6 @@
                     [self setImagewithImage:_imageStr];
                     NSData *data1 = [[NSData alloc]initWithContentsOfURL:url];
                     [self setImagedatawithImagedata:data1];
-                    
                 }
                 else
                 {

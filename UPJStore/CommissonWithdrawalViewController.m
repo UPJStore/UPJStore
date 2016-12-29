@@ -336,7 +336,7 @@
     lineView2.backgroundColor = [UIColor colorFromHexRGB:@"f6f6f6"];
     [_drawalView addSubview:lineView2];
     
-    NSArray *arr =@[@"未付款",@"已付款",@"已发货",@"已完成"];
+    NSArray *arr =@[@"未付款",@"待发货",@"待收货",@"已完成"];
     
     for (int i = 0; i<4; i++) {
         UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake1(414/4*i, 50, 414/4, 20)];

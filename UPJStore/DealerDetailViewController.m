@@ -38,6 +38,7 @@
     [self postWithData];
 }
 
+//请求数据
 -(void)postWithData
 {
     AFHTTPSessionManager * manager = [self sharedManager];;

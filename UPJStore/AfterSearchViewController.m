@@ -260,7 +260,7 @@
         if (indexPath.row == 0) {
             UITableViewCell *cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"header"];
             UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake1(0, 0, 414, 320)];
-            [imageView sd_setImageWithURL:[NSURL URLWithString:_thumb]];
+            [imageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.upinkji.com/resource/attachment/%@",_thumb]]];
             [cell addSubview:imageView];
             
             return cell;

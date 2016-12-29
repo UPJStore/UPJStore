@@ -260,11 +260,13 @@
     if (_z == 1)
     {
         self.HomePageTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(addData)];
+        NSLog(@"gg");
     }
 }
 
 //刷新获得特惠商品和热门专区数据
 -(void)addData{
+    NSLog(@"start");
     if (_z < 5)
     {
         if (_z == 1) {
@@ -437,9 +439,53 @@
         case 1:
             return CGFloatMakeY(270);
             break;
+        case 2:
+        {
+            if (_productArr.count != 0) {
+                NSArray *arr = _productArr[0];
+                return CGFloatMakeY(307.5)+CGFloatMakeY(120)*arr.count;
+            }else
+            {
+                return CGFloatMakeY(307.5);
+            }
+            break;
+        }
+        case 3:
+        {
+            if (_productArr.count != 0) {
+                NSArray *arr = _productArr[1];
+                return CGFloatMakeY(307.5)+CGFloatMakeY(120)*arr.count;
+            }else
+            {
+                return CGFloatMakeY(307.5);
+            }
+            break;
+        }
         case 4:
             return CGFloatMakeY(250);
             break;
+        case 5:
+        {
+            if (_productArr.count != 0) {
+                NSArray *arr = _productArr[2];
+                return CGFloatMakeY(307.5)+CGFloatMakeY(120)*arr.count;
+            }else
+            {
+                return CGFloatMakeY(307.5);
+            }
+            break;
+        }
+        case 6:
+        {
+            if (_productArr.count != 0) {
+                NSArray *arr = _productArr[3];
+                return CGFloatMakeY(307.5)+CGFloatMakeY(120)*arr.count;
+            }else
+            {
+                return CGFloatMakeY(307.5);
+            }
+            break;
+        }
         case 7:
             return CGFloatMakeY(320);
             break;
@@ -812,11 +858,12 @@
 
 //轮播点击事件
 -(void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index{
+    if (_LBTArr.count != 0) {
     LBTModel * model = _LBTArr[index];
     
     if (model.keyword.length != 0 || model.pcate.length != 0) {
         AfterSearchViewController * afSearchVC = [[AfterSearchViewController alloc]init];
-        afSearchVC.pcate = model.pcate;
+        afSearchVC.KeyWord = model.keyword;
         afSearchVC.thumb = model.thumb;
         afSearchVC.pcate = model.pcate;
         afSearchVC.advname = model.advname;
@@ -831,7 +878,7 @@
         lbtvc.urlstr = model.link;
         [self.navigationController pushViewController:lbtvc animated:YES];
     }
-    
+    }
 }
 
 
