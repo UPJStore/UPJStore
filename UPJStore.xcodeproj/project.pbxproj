@@ -82,6 +82,9 @@
 		D12568361D1A6A4400B6ED77 /* recommandCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D12568351D1A6A4400B6ED77 /* recommandCell.m */; };
 		D12568391D1A6B1900B6ED77 /* RecommandModelNSObject.m in Sources */ = {isa = PBXBuildFile; fileRef = D12568381D1A6B1900B6ED77 /* RecommandModelNSObject.m */; };
 		D12742A41D2E5517007E3844 /* UIView+Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = D12742A31D2E5517007E3844 /* UIView+Frame.m */; };
+		D12CE3A81E28859F00AC19DC /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D12CE3A71E28859F00AC19DC /* libWeChatSDK.a */; };
+		D12CE3A91E28859F00AC19DC /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D12CE3A71E28859F00AC19DC /* libWeChatSDK.a */; };
+		D12CE3AA1E28859F00AC19DC /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D12CE3A71E28859F00AC19DC /* libWeChatSDK.a */; };
 		D12F410F1DDAA92F00309A09 /* ShopApplyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D12F410E1DDAA92F00309A09 /* ShopApplyModel.m */; };
 		D131B82A1CAB7F7100E58396 /* DetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D131B8291CAB7F7100E58396 /* DetailModel.m */; };
 		D131B82D1CABA09900E58396 /* appraiseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D131B82C1CABA09900E58396 /* appraiseModel.m */; };
@@ -148,7 +151,6 @@
 		D15032551DF66E8900DCA880 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D15032541DF66E8900DCA880 /* libresolv.tbd */; };
 		D15405E31D6AA95600BDE4AD /* OrderBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = D15405E21D6AA95600BDE4AD /* OrderBtn.m */; };
 		D15405E51D6AAF8500BDE4AD /* order.png in Resources */ = {isa = PBXBuildFile; fileRef = D15405E41D6AAF8500BDE4AD /* order.png */; };
-		D15406041D6AD2CE00BDE4AD /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D15406001D6AD2CE00BDE4AD /* libWeChatSDK.a */; };
 		D15406051D6AD2CE00BDE4AD /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = D15406011D6AD2CE00BDE4AD /* README.txt */; };
 		D1549D091DAB32950040A8CF /* ApplyConfirmViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1549D081DAB32950040A8CF /* ApplyConfirmViewController.m */; };
 		D1576DA51D8FDD59002DD268 /* open.png in Resources */ = {isa = PBXBuildFile; fileRef = D1576DA41D8FDD59002DD268 /* open.png */; };
@@ -157,7 +159,6 @@
 		D19112A61CA273F700FE73EA /* SearchModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D19112A51CA273F700FE73EA /* SearchModel.m */; };
 		D19112A91CA2742E00FE73EA /* waitSearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D19112A81CA2742E00FE73EA /* waitSearchCell.m */; };
 		D1943E951CAA5EF70088D621 /* GoodSDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1943E941CAA5EF70088D621 /* GoodSDetailViewController.m */; };
-		D194AD471D90E02600C449DF /* libWeChatSDK.a in Sources */ = {isa = PBXBuildFile; fileRef = D15406001D6AD2CE00BDE4AD /* libWeChatSDK.a */; };
 		D194AD481D90E02600C449DF /* WXApi.h in Sources */ = {isa = PBXBuildFile; fileRef = D15406021D6AD2CE00BDE4AD /* WXApi.h */; };
 		D194AD491D90E02600C449DF /* WXApiObject.h in Sources */ = {isa = PBXBuildFile; fileRef = D15406031D6AD2CE00BDE4AD /* WXApiObject.h */; };
 		D194AD4C1D91154F00C449DF /* CommissonWithdrawalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D194AD4B1D91154F00C449DF /* CommissonWithdrawalViewController.m */; };
@@ -388,6 +389,7 @@
 		D12568381D1A6B1900B6ED77 /* RecommandModelNSObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommandModelNSObject.m; sourceTree = "<group>"; };
 		D12742A21D2E5517007E3844 /* UIView+Frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Frame.h"; sourceTree = "<group>"; };
 		D12742A31D2E5517007E3844 /* UIView+Frame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Frame.m"; sourceTree = "<group>"; };
+		D12CE3A71E28859F00AC19DC /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
 		D12F410D1DDAA92F00309A09 /* ShopApplyModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopApplyModel.h; sourceTree = "<group>"; };
 		D12F410E1DDAA92F00309A09 /* ShopApplyModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopApplyModel.m; sourceTree = "<group>"; };
 		D131B8281CAB7F7100E58396 /* DetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailModel.h; sourceTree = "<group>"; };
@@ -575,7 +577,6 @@
 		D15405E11D6AA95600BDE4AD /* OrderBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderBtn.h; sourceTree = "<group>"; };
 		D15405E21D6AA95600BDE4AD /* OrderBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderBtn.m; sourceTree = "<group>"; };
 		D15405E41D6AAF8500BDE4AD /* order.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = order.png; sourceTree = "<group>"; };
-		D15406001D6AD2CE00BDE4AD /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
 		D15406011D6AD2CE00BDE4AD /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		D15406021D6AD2CE00BDE4AD /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
 		D15406031D6AD2CE00BDE4AD /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
@@ -730,7 +731,6 @@
 				D1FD29A41CBC83BD00B616EC /* libz.tbd in Frameworks */,
 				D14F8F821CDAFD0E00342832 /* CFNetwork.framework in Frameworks */,
 				D14F8F841CDAFD1500342832 /* CoreMotion.framework in Frameworks */,
-				D15406041D6AD2CE00BDE4AD /* libWeChatSDK.a in Frameworks */,
 				D14F8F861CDB15D900342832 /* AlipaySDK.framework in Frameworks */,
 				D114F46F1DFA4E670027F350 /* jcore-ios-1.0.0.a in Frameworks */,
 				D14F8F801CDAFD0500342832 /* Foundation.framework in Frameworks */,
@@ -741,6 +741,7 @@
 				D14F8F781CDAFC9D00342832 /* QuartzCore.framework in Frameworks */,
 				D1FD29AC1CBC843F00B616EC /* libsqlite3.tbd in Frameworks */,
 				D14F8F751CDAFBB400342832 /* libssl.a in Frameworks */,
+				D12CE3A81E28859F00AC19DC /* libWeChatSDK.a in Frameworks */,
 				D1FD29A61CBC83CB00B616EC /* libc++.tbd in Frameworks */,
 				D14F8F741CDAFBB400342832 /* libcrypto.a in Frameworks */,
 				D19E234D1CA96137008047B5 /* CoreLocation.framework in Frameworks */,
@@ -754,6 +755,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D12CE3A91E28859F00AC19DC /* libWeChatSDK.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -761,6 +763,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D12CE3AA1E28859F00AC19DC /* libWeChatSDK.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1070,7 +1073,7 @@
 		D15405FF1D6AD2CE00BDE4AD /* SDK1.7.3 */ = {
 			isa = PBXGroup;
 			children = (
-				D15406001D6AD2CE00BDE4AD /* libWeChatSDK.a */,
+				D12CE3A71E28859F00AC19DC /* libWeChatSDK.a */,
 				D15406011D6AD2CE00BDE4AD /* README.txt */,
 				D15406021D6AD2CE00BDE4AD /* WXApi.h */,
 				D15406031D6AD2CE00BDE4AD /* WXApiObject.h */,
@@ -1689,6 +1692,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E30AD7941C719F7000B5188C /* Build configuration list for PBXNativeTarget "UPJStore" */;
 			buildPhases = (
+				9064D9AFE43DD10EA748265B /* 📦 Check Pods Manifest.lock */,
 				E30AD7631C719F6F00B5188C /* Sources */,
 				E30AD7641C719F6F00B5188C /* Frameworks */,
 				E30AD7651C719F6F00B5188C /* Resources */,
@@ -1849,6 +1853,21 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-UPJStore/Pods-UPJStore-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		9064D9AFE43DD10EA748265B /* 📦 Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 		B2634531A7062D9B6EB8444C /* 📦 Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1889,7 +1908,6 @@
 				D139C73C1DC9CE1400AE1131 /* libXG-SDK.a in Sources */,
 				D139C73D1DC9CE1400AE1131 /* XGPush.h in Sources */,
 				D139C73E1DC9CE1400AE1131 /* XGSetting.h in Sources */,
-				D194AD471D90E02600C449DF /* libWeChatSDK.a in Sources */,
 				D194AD481D90E02600C449DF /* WXApi.h in Sources */,
 				D194AD491D90E02600C449DF /* WXApiObject.h in Sources */,
 				D107E5691D499AB9007AFFD9 /* LBTModel.m in Sources */,
@@ -2206,7 +2224,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/UPJStore",
 				);
-				GCC_PREFIX_HEADER = /Users/upj/Desktop/UPJStoreGithub/UPJStore/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/UPJStore/PrefixHeader.pch";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_ROOT}/Headers/Public\"",
@@ -2269,7 +2287,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/UPJStore",
 				);
-				GCC_PREFIX_HEADER = /Users/upj/Desktop/UPJStoreGithub/UPJStore/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/UPJStore/PrefixHeader.pch";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_ROOT}/Headers/Public\"",
@@ -2323,6 +2341,10 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = UPJStoreTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/UPJStore/SDK1.7.3",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.Jo.UPJStoreTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/UPJStore.app/UPJStore";
@@ -2335,6 +2357,10 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = UPJStoreTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/UPJStore/SDK1.7.3",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.Jo.UPJStoreTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/UPJStore.app/UPJStore";
@@ -2346,6 +2372,10 @@
 			buildSettings = {
 				INFOPLIST_FILE = UPJStoreUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/UPJStore/SDK1.7.3",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.Jo.UPJStoreUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_TARGET_NAME = UPJStore;
@@ -2358,6 +2388,10 @@
 			buildSettings = {
 				INFOPLIST_FILE = UPJStoreUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/UPJStore/SDK1.7.3",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.Jo.UPJStoreUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_TARGET_NAME = UPJStore;

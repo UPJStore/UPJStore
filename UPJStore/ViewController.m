@@ -67,6 +67,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    NSLog(@"hello world");
     // Do any additional setup after loading the view, typically from a nib.
     //   self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor colorFromHexRGB:@"cc2245"]};
 #pragma mark - 左按钮
