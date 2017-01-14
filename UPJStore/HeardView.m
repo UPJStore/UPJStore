@@ -7,6 +7,7 @@
 //
 
 #import "HeardView.h"
+#import "UIViewController+CG.h"
 @interface HeardView()
 
 @property (nonatomic,assign) NSInteger section;
@@ -34,16 +35,16 @@
     UIImage *btimg = [UIImage imageNamed:@"UnSelected"];
     UIImage *selectImg= [UIImage imageNamed:@"Selected"];
     
-    UIButton *bt = [[UIButton alloc]initWithFrame:CGRectMake(2, 5, btimg.size.width+12, btimg.size.height+10)];
+    UIButton *bt = [[UIButton alloc]initWithFrame:CGRectMake(CGFloatMakeX(2),CGFloatMakeY(5), btimg.size.width+CGFloatMakeX(12), btimg.size.height+CGFloatMakeY(10))];
     bt.tag = 100 +_section;
     [bt addTarget:self action:@selector(clickAll:) forControlEvents:UIControlEventTouchUpInside];
     [bt setImage:btimg forState:UIControlStateNormal];
     [bt setImage:selectImg forState:UIControlStateSelected];
     [self addSubview:bt];
     
-    UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(bt.frame)+15, 0, 90, 40)];
+    UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(bt.frame)+CGFloatMakeX(15), 0, CGFloatMakeX(90), CGFloatMakeY(50))];
     label.textColor = [UIColor colorFromHexRGB:@"666666"];
-    label.font =[UIFont systemFontOfSize:16];
+    label.font =[UIFont systemFontOfSize:CGFloatMakeY(16)];
     
     NSArray * list = [self.carDataArrList objectAtIndex:_section];
     
@@ -61,17 +62,14 @@
     [self addSubview:label];
     
     if (_section == 0) {
-        self.frame = CGRectMake(0, 0, kWidth, 50);
-        UIView * view =[[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, 10)];
-        view.backgroundColor =[UIColor colorFromHexRGB:@"e2e2e2"];
-        [self addSubview:view];
+        self.frame = CGRectMake1(0, 0, k6PWidth,50);
         bt.frame = CGRectMake(bt.frame.origin.x
-                              , bt.frame.origin.y+10, bt.frame.size.width, bt.frame.size.height);
-        label.frame = CGRectMake(label.frame.origin.x, label.frame.origin.y+10, label.frame.size.width+10, label.frame.size.height);
+                              , bt.frame.origin.y, bt.frame.size.width, bt.frame.size.height);
+        label.frame = CGRectMake(label.frame.origin.x, label.frame.origin.y, label.frame.size.width+CGFloatMakeX(10), label.frame.size.height);
     }
     
-    UILabel *lab1 = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(label.frame), label.frame.origin.y,kWidth-CGRectGetMaxX(label.frame)-70, label.frame.size.height)];
-    lab1.font=[UIFont systemFontOfSize:15];
+    UILabel *lab1 = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(label.frame), label.frame.origin.y,kWidth-CGRectGetMaxX(label.frame)-CGFloatMakeX(70), label.frame.size.height)];
+    lab1.font=[UIFont systemFontOfSize:CGFloatMakeY(15)];
     lab1.textColor=[UIColor colorFromHexRGB:@"f5a623"];
     [self addSubview:lab1];
     
@@ -80,7 +78,7 @@
         
         
     }
-    UIImageView *line = [[UIImageView alloc]initWithFrame:CGRectMake(0, self.frame.size.height-0.5, kWidth, 0.5)];
+    UIImageView *line = [[UIImageView alloc]initWithFrame:CGRectMake(0, self.frame.size.height-CGFloatMakeY(0.5), kWidth,CGFloatMakeY(0.5))];
     line.backgroundColor=[UIColor colorFromHexRGB:@"e2e2e2"];
     [self addSubview:line];
 

@@ -59,7 +59,7 @@ static CGFloat CELL_HEIGHT =100;
     UIImage *btimg = [UIImage imageNamed:@"ic_cb_normal"];
     UIImage *selectImg = [UIImage imageNamed:@"ic_cb_checked"];
     
-    _selectBt = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, btimg.size.width+20, CELL_HEIGHT)];
+    _selectBt = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, btimg.size.width+CGFloatMakeX(20), CGFloatMakeY(CELL_HEIGHT))];
     [_selectBt addTarget:self action:@selector(clickSelect:) forControlEvents:UIControlEventTouchUpInside];
     [_selectBt setImage:btimg forState:UIControlStateNormal];
     [_selectBt setImage:selectImg forState:UIControlStateSelected];
@@ -67,39 +67,39 @@ static CGFloat CELL_HEIGHT =100;
     
     
     
-    _shoppingImgView = [[UIImageView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(_selectBt.frame)+7, 12, 70, 70)];
+    _shoppingImgView = [[UIImageView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(_selectBt.frame)+CGFloatMakeX(7),CGFloatMakeY(12),CGFloatMakeX(70),CGFloatMakeY(70))];
     [self.contentView addSubview:_shoppingImgView];
     
-    _spuImgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
+    _spuImgView = [[UIImageView alloc] initWithFrame:CGRectMake1(0, 0, 10, 10)];
     [_shoppingImgView addSubview:_spuImgView];
     
     
-    _title = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(_shoppingImgView.frame)+10, 10, kWidth-CGRectGetMaxX(_shoppingImgView.frame)-15, 21)];
-    _title.font=[UIFont systemFontOfSize:15];
+    _title = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(_shoppingImgView.frame)+CGFloatMakeX(10),CGFloatMakeY(10), kWidth-CGRectGetMaxX(_shoppingImgView.frame)-CGFloatMakeX(15),CGFloatMakeY(21))];
+    _title.font=[UIFont systemFontOfSize:CGFloatMakeY(15)];
     _title.textColor=[UIColor colorFromHexRGB:@"666666"];
     
     [self.contentView addSubview:_title];
     
     
-    _sizeLab = [[UILabel alloc] initWithFrame:CGRectMake(_title.frame.origin.x, CGRectGetMaxY(_title.frame), 200, 17)];
-    _sizeLab.font=[UIFont systemFontOfSize:12];
+    _sizeLab = [[UILabel alloc] initWithFrame:CGRectMake(_title.frame.origin.x, CGRectGetMaxY(_title.frame),CGFloatMakeX(200),CGFloatMakeY(17))];
+    _sizeLab.font=[UIFont systemFontOfSize:CGFloatMakeY(12)];
     _sizeLab.textColor=[UIColor colorFromHexRGB:@"666666"];
     [self.contentView addSubview:_sizeLab];
     
     
     
-    _soldoutLab = [[UILabel alloc]initWithFrame:CGRectMake(_title.frame.origin.x, CGRectGetMaxY(_sizeLab.frame)+15, 100, 17)];
+    _soldoutLab = [[UILabel alloc]initWithFrame:CGRectMake(_title.frame.origin.x, CGRectGetMaxY(_sizeLab.frame)+CGFloatMakeY(15),CGFloatMakeX(100), CGFloatMakeY(17))];
     _soldoutLab.hidden =YES;
     _soldoutLab.text=@"无货";
-    _soldoutLab.font =  [UIFont systemFontOfSize:14];
+    _soldoutLab.font =  [UIFont systemFontOfSize:CGFloatMakeY(14)];
     _soldoutLab.textColor=[UIColor colorFromHexRGB:@"666666"];
     [self.contentView addSubview:_soldoutLab];
     
     
-    _priceLab = [[UILabel alloc]initWithFrame:CGRectMake(kWidth-18-100, CGRectGetMaxY(_sizeLab.frame)+5+5, 100, 17)];
+    _priceLab = [[UILabel alloc]initWithFrame:CGRectMake(kWidth-CGFloatMakeX(118),  CGRectGetMaxY(_sizeLab.frame)+CGFloatMakeY(10),CGFloatMakeX(100), CGFloatMakeY(17))];
     _priceLab.textAlignment=NSTextAlignmentRight;
     _priceLab.textColor=[UIColor colorFromHexRGB:@"666666"];
-    _priceLab.font=[UIFont systemFontOfSize:14];
+    _priceLab.font=[UIFont systemFontOfSize:CGFloatMakeY(14)];
     [self.contentView addSubview:_priceLab];
     
 }
@@ -184,7 +184,7 @@ static CGFloat CELL_HEIGHT =100;
     else{
         _selectBt.enabled=YES;
         
-        _changeView = [[ChangeCountView alloc] initWithFrame:CGRectMake(_title.frame.origin.x, CGRectGetMaxY(_sizeLab.frame)+5, 160, 35) chooseCount:self.choosedCount totalCount: [self totalCountWith:model]];
+        _changeView = [[ChangeCountView alloc] initWithFrame:CGRectMake(_title.frame.origin.x, CGRectGetMaxY(_sizeLab.frame)+CGFloatMakeY(5), CGFloatMakeX(100), CGFloatMakeY(30))  chooseCount:self.choosedCount totalCount: [self totalCountWith:model]];
         
         [_changeView.subButton addTarget:self action:@selector(subButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         
