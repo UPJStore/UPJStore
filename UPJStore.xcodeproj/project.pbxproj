@@ -183,6 +183,11 @@
 		D1ADB2F11C940E8B000B134E /* KindModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D1ADB2EE1C940E8B000B134E /* KindModel.m */; };
 		D1ADB2F21C940E8B000B134E /* goodsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D1ADB2F01C940E8B000B134E /* goodsModel.m */; };
 		D1ADB30C1C941094000B134E /* CodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1ADB3091C941094000B134E /* CodeViewController.m */; };
+		D1D12D821E28DFD00012A0FF /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D12D811E28DFD00012A0FF /* JavaScriptCore.framework */; };
+		D1D12D841E28E1340012A0FF /* libz.1.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D12D831E28E1340012A0FF /* libz.1.tbd */; };
+		D1D12F491E29B71A0012A0FF /* NSString+KenStringTool.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D12F481E29B71A0012A0FF /* NSString+KenStringTool.m */; };
+		D1D12F4A1E29B71A0012A0FF /* NSString+KenStringTool.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D12F481E29B71A0012A0FF /* NSString+KenStringTool.m */; };
+		D1D12F4B1E29B71A0012A0FF /* NSString+KenStringTool.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D12F481E29B71A0012A0FF /* NSString+KenStringTool.m */; };
 		D1D14E311D1A909F00069176 /* SelectPayMethohViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D14E301D1A909F00069176 /* SelectPayMethohViewController.m */; };
 		D1D4A0F71CB5045500BC6913 /* TAAbstractDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D4A0EA1CB5045500BC6913 /* TAAbstractDotView.m */; };
 		D1D4A0F81CB5045500BC6913 /* TAAnimatedDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D4A0EC1CB5045500BC6913 /* TAAnimatedDotView.m */; };
@@ -636,6 +641,10 @@
 		D1ADB2F01C940E8B000B134E /* goodsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = goodsModel.m; sourceTree = "<group>"; };
 		D1ADB3081C941094000B134E /* CodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CodeViewController.h; sourceTree = "<group>"; };
 		D1ADB3091C941094000B134E /* CodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CodeViewController.m; sourceTree = "<group>"; };
+		D1D12D811E28DFD00012A0FF /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		D1D12D831E28E1340012A0FF /* libz.1.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.tbd; path = usr/lib/libz.1.tbd; sourceTree = SDKROOT; };
+		D1D12F471E29B71A0012A0FF /* NSString+KenStringTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+KenStringTool.h"; sourceTree = "<group>"; };
+		D1D12F481E29B71A0012A0FF /* NSString+KenStringTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+KenStringTool.m"; sourceTree = "<group>"; };
 		D1D14E301D1A909F00069176 /* SelectPayMethohViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectPayMethohViewController.m; sourceTree = "<group>"; };
 		D1D4A0E91CB5045500BC6913 /* TAAbstractDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAAbstractDotView.h; sourceTree = "<group>"; };
 		D1D4A0EA1CB5045500BC6913 /* TAAbstractDotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAAbstractDotView.m; sourceTree = "<group>"; };
@@ -722,6 +731,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D1D12D841E28E1340012A0FF /* libz.1.tbd in Frameworks */,
+				D1D12D821E28DFD00012A0FF /* JavaScriptCore.framework in Frameworks */,
 				D15032551DF66E8900DCA880 /* libresolv.tbd in Frameworks */,
 				D15032531DF66E4500DCA880 /* CoreFoundation.framework in Frameworks */,
 				D13F76BC1D53302B00D3DD7D /* Security.framework in Frameworks */,
@@ -1258,6 +1269,22 @@
 			name = Other;
 			sourceTree = "<group>";
 		};
+		D1D12B581E28DF6E0012A0FF /* Third Party */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Third Party";
+			sourceTree = "<group>";
+		};
+		D1D12F461E29B6C90012A0FF /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				D1D12F471E29B71A0012A0FF /* NSString+KenStringTool.h */,
+				D1D12F481E29B71A0012A0FF /* NSString+KenStringTool.m */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
 		D1D4A0E71CB5045500BC6913 /* SDCycleScrollView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1320,6 +1347,7 @@
 		E30AD7691C719F6F00B5188C /* UPJStore */ = {
 			isa = PBXGroup;
 			children = (
+				D1D12B581E28DF6E0012A0FF /* Third Party */,
 				D15D6CDA1DF6B17E0098FB71 /* UPJStore.entitlements */,
 				D1943E8E1CAA5E9F0088D621 /* GoodsDetail */,
 				D1ADB2DF1C940E25000B134E /* ShoppingCart */,
@@ -1329,6 +1357,7 @@
 				E3E43CB61C72C18100E875F5 /* Other */,
 				E3E43CB51C72C17D00E875F5 /* Resource */,
 				E3E43CBB1C72C22000E875F5 /* Expand */,
+				D1D12F461E29B6C90012A0FF /* Tools */,
 				E3E43CBC1C72C26A00E875F5 /* Vender */,
 				E30AD76D1C719F6F00B5188C /* AppDelegate.h */,
 				E30AD76E1C719F6F00B5188C /* AppDelegate.m */,
@@ -1663,6 +1692,8 @@
 		E71C293044F61E83AABDF9F2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D1D12D831E28E1340012A0FF /* libz.1.tbd */,
+				D1D12D811E28DFD00012A0FF /* JavaScriptCore.framework */,
 				D15032541DF66E8900DCA880 /* libresolv.tbd */,
 				D15032521DF66E4500DCA880 /* CoreFoundation.framework */,
 				D13F76BB1D53302B00D3DD7D /* Security.framework */,
@@ -2004,6 +2035,7 @@
 				D1034D6A1D17A290000D893F /* ModifyViewController.m in Sources */,
 				D103B76D1CDB268500DC850A /* AddressTableViewCell.m in Sources */,
 				D1F7C9C31CBF7E8700F2EC14 /* AttentionModel.m in Sources */,
+				D1D12F491E29B71A0012A0FF /* NSString+KenStringTool.m in Sources */,
 				D19E23311CA95DD1008047B5 /* CustomCollectionViewCell.m in Sources */,
 				D1FD29B71CBC8B4B00B616EC /* BookIngViewController.m in Sources */,
 				D107E5471D499A22007AFFD9 /* ViewController.m in Sources */,
@@ -2084,6 +2116,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D1D12F4A1E29B71A0012A0FF /* NSString+KenStringTool.m in Sources */,
 				E30AD7851C719F6F00B5188C /* UPJStoreTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2092,6 +2125,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D1D12F4B1E29B71A0012A0FF /* NSString+KenStringTool.m in Sources */,
 				E30AD7901C719F6F00B5188C /* UPJStoreUITests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

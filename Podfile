@@ -5,5 +5,7 @@ pod 'SDWebImage', '~>3.7'
 pod 'MJExtension', '~> 3.0.10'
 pod 'RealReachability'
 pod 'MJRefresh', '~> 3.0.0'
+pod 'MJRefresh', '~> 3.0.0'
+
 
 end
