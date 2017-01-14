@@ -28,6 +28,8 @@
     if (self)
     {
         HomepageLabel *label = [[HomepageLabel alloc]initWithFrame:CGRectMake1(0, 217.5, 414, 50)];
+        
+        
         [self addSubview:label];
         
         UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake1(0, 267, 414, 0.5)];
