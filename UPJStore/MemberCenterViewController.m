@@ -37,6 +37,7 @@
 #import "ShopExpandViewController.h"
 #import "MyCodeViewController.h"
 
+
 #define widthSize 414.0/320
 #define hightSize 736.0/568
 @interface MemberCenterViewController ()<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,LoginAciton,login,logout,sendModel,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
@@ -596,10 +597,14 @@
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         DLog(@"%@",responseObject);
-        _imageStr = responseObject[@"data"][@"avatar"];
-        _domain_level = responseObject[@"data"][@"domain_level"];
-        [self setOpenIdwithOpenId:responseObject[@"data"][@"wechat_openid"]];
-        [self setNamewithNickName:responseObject[@"data"][@"nickname"]];
+        _imageStr = [NSString handleTheStringIfIsNull:responseObject[@"data"][@"avatar"]];
+        _domain_level = [NSString handleTheStringIfIsNull:responseObject[@"data"][@"domain_level"]];
+        [self setOpenIdwithOpenId:[NSString handleTheStringIfIsNull:responseObject[@"data"][@"wechat_openid"]]];
+        
+        
+        
+        
+        [self setNamewithNickName:[NSString handleTheStringIfIsNull:responseObject[@"data"][@"nickname"]]];
         if (_imageStr==nil || [_imageStr isKindOfClass:[NSNull class]]) {
             [_headerView.imageBtn setImage:[UIImage imageNamed:@"geren"] forState:UIControlStateNormal];
         }else

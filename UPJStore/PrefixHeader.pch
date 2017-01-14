@@ -11,6 +11,8 @@
 #import "WXApi.h"
 #import "WXApiObject.h"
 
+#import "NSString+KenStringTool.h"
+
 #define APP_ID  @"wx50a2b6dce88256c3"
 #define APP_SECRET      @"b8e8be66e271b4083f4ee29c7a59f20b" //微信appsecret
 #define NOTIFY_URL      @"这里填写后台给你的微信支付的后台接口网址"

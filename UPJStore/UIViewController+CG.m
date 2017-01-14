@@ -9,7 +9,7 @@
 #import "UIViewController+CG.h"
 #import <CommonCrypto/CommonDigest.h>
 #import <objc/runtime.h>
-
+#import "NSString+KenStringTool.h"
 @implementation UIViewController (CG)
 
 
