@@ -57,13 +57,13 @@
     _nickname = [[UILabel alloc]initWithFrame:CGRectMake1(10, 174, k6PWidth-20, 50)];
     _nickname.textAlignment = NSTextAlignmentLeft;
     _nickname.text = [NSString stringWithFormat:@"亲爱的微信用户：%@",_nicknameStr];
-    _nickname.font = [UIFont systemFontOfSize:15];
+    _nickname.font = [UIFont systemFontOfSize:CGFloatMakeY(15)];
     [self.view addSubview:_nickname];
     
     // 初始化Label
     _serverLabel = [[UILabel alloc]initWithFrame:CGRectMake1(10, 200, k6PWidth-20, 50)];
     _serverLabel.text = @"为了给您更好的服务，请关联一个友品集账号";
-    _serverLabel.font = [UIFont systemFontOfSize:15];
+    _serverLabel.font = [UIFont systemFontOfSize:CGFloatMakeY(15)];
     _serverLabel.numberOfLines = 0;
     _serverLabel.textAlignment = NSTextAlignmentLeft;
     [self.view addSubview:_serverLabel];
@@ -86,6 +86,7 @@
     _registerBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _registerBtn.frame = CGRectMake1(10,300, k6PWidth-20, 50);
     [_registerBtn setTitle:@"快速注册" forState:UIControlStateNormal];
+    _registerBtn.titleLabel.font = [UIFont systemFontOfSize:CGFloatMakeY(16)];
     _registerBtn.backgroundColor = [UIColor colorWithRed:204.0/255 green:34.0/255 blue:69.0/255 alpha:1];
     _registerBtn.layer.cornerRadius = 5;
     [_registerBtn addTarget:self action:@selector(registerAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -95,6 +96,7 @@
     _bindBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _bindBtn.frame = CGRectMake1(10, 400, k6PWidth-20, 50);
     [_bindBtn setTitle:@"立即关联" forState:UIControlStateNormal];
+    _bindBtn.titleLabel.font = [UIFont systemFontOfSize:CGFloatMakeY(16)];
     [_bindBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
     _bindBtn.backgroundColor = [UIColor whiteColor];
     _bindBtn.layer.borderColor = [[UIColor lightGrayColor]CGColor];
