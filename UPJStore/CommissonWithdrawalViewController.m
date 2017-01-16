@@ -160,6 +160,9 @@
         self.loadingHud =nil;
         
         DLog(@"%@",responseObject);
+        
+        //ken test 崩溃修复
+        if (![responseObject isKindOfClass:[NSArray class]]) return ;
         NSArray *arr = [NSArray arrayWithArray:responseObject];
         if (arr.count != 0) {
             for (NSDictionary *dic in arr) {

@@ -122,6 +122,7 @@
 {
     if (_LBTArr.count == 0)
     {
+        
         NSDictionary * dic =@{@"appkey":APPkey};
 #pragma dic MD5
         NSDictionary * Ndic = [self md5DicWith:dic];
@@ -135,7 +136,7 @@
               success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
          {
              NSArray * arr = responseObject;
-             if(![arr isKindOfClass:[NSNull class]]){
+             if(![arr isKindOfClass:[NSNull class]]&&[arr isKindOfClass:[NSArray class]]){
                  for (NSDictionary *dic  in arr)
                  {
                      
@@ -184,7 +185,7 @@
           success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
      {
        //  DLog(@"%@",responseObject);
-         if(![responseObject isKindOfClass:[NSNull class]]){
+         if(![responseObject isKindOfClass:[NSNull class]]&&[responseObject isKindOfClass:[NSArray class]]){
              for (NSDictionary *dic in responseObject) {
                  ImageModel *model = [ImageModel new];
                  [model setValuesForKeysWithDictionary:dic];
