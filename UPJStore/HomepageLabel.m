@@ -33,8 +33,19 @@
    
     //连接上面定义的坐标点，也就是开始绘图
     CGContextStrokePath(context);
-    [self addtext];
+    //[self addtext];
 }
+
+- (id)initWithFrame:(CGRect)frame{
+    self = [super initWithFrame:frame];
+    if (self) {
+        
+        [self addtext];
+
+    }
+    return self;
+}
+
 
 -(void)addtext
 {
@@ -45,6 +56,6 @@
     [attributeString1 setAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:CGFloatMakeY(14)]} range:NSMakeRange(0, 6)];
     [attributeString1 setAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:CGFloatMakeY(8)]} range:NSMakeRange(6,12)];
     self.attributedText = attributeString1;
+    
 }
-
 @end

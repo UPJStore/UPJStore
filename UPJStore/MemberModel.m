@@ -9,7 +9,13 @@
 #import "MemberModel.h"
 
 @implementation MemberModel
-
+- (id)init {
+    if (self=[super init]) {
+        
+        _member_agent_id = @"0";
+    }
+    return self;
+}
 -(void)setValue:(id)value forUndefinedKey:(nonnull NSString *)key
 {
     if ([key isEqualToString:@"id"]) {
