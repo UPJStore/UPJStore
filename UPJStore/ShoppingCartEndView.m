@@ -8,6 +8,7 @@
 
 #import "ShoppingCartEndView.h"
 #import "ShoppingCartViewController.h"
+#import "UIViewController+CG.h"
 
 @interface ShoppingCartEndView ()
 
@@ -15,8 +16,6 @@
 @property (nonatomic,strong) UIButton * pushBtn;
 
 @end
-
-static CGFloat VIEW_HEIGHT = 44 ;
 
 @implementation ShoppingCartEndView
 
@@ -62,33 +61,33 @@ static CGFloat VIEW_HEIGHT = 44 ;
     UIImage *btimg = [UIImage imageNamed:@"UnSelected"];
     UIImage *selectImg = [UIImage imageNamed:@"Selected"];
     
-    UIButton *bt = [[UIButton alloc]initWithFrame:CGRectMake(5, self.frame.size.height/2-btimg.size.height/2, btimg.size.width+60, btimg.size.height)];
+    UIButton *bt = [[UIButton alloc]initWithFrame:CGRectMake(CGFloatMakeX(5), self.frame.size.height/2-btimg.size.height/2, btimg.size.width+CGFloatMakeX(60), btimg.size.height)];
     bt.selected=YES;
     [bt addTarget:self action:@selector(clickAllEnd:) forControlEvents:UIControlEventTouchUpInside];
     [bt setImage:btimg forState:UIControlStateNormal];
     [bt setImage:selectImg forState:UIControlStateSelected];
-    
+    bt.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [bt setTitle:@"全选" forState:UIControlStateNormal];
-    bt.titleLabel.font =[UIFont systemFontOfSize:13];
+    bt.titleLabel.font =[UIFont systemFontOfSize:CGFloatMakeY(13)];
     [bt setTitle:@"取消全选" forState:UIControlStateSelected];
     [bt setTitleColor:[UIColor colorFromHexRGB:@"666666"] forState:UIControlStateNormal];
     
     [self addSubview:bt];
     
-    _Lab =[[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(bt.frame)+10, 0, 150, self.frame.size.height)];
+    _Lab =[[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(bt.frame)+CGFloatMakeX(10), 0, CGFloatMakeX(150), self.frame.size.height)];
     
     _Lab.textColor=[UIColor colorFromHexRGB:@"666666"];
     _Lab.text=[NSString stringWithFormat:@"合计: ￥ 0"];
-    _Lab.font=[UIFont systemFontOfSize:15];
+    _Lab.font=[UIFont systemFontOfSize:CGFloatMakeY(15)];
     
     [self addSubview:_Lab];
     
     
-    _pushBtn = [[UIButton alloc]initWithFrame:CGRectMake(kWidth-15-80, 5, 80, 30)];
+    _pushBtn = [[UIButton alloc]initWithFrame:CGRectMake1(k6PWidth-95, 5, 80, 30)];
     _pushBtn.hidden=NO;
     _pushBtn.tag=18;
     [_pushBtn setTitle:@"结算" forState:UIControlStateNormal];
-    _pushBtn.titleLabel.font=[UIFont systemFontOfSize:14];
+    _pushBtn.titleLabel.font=[UIFont systemFontOfSize:CGFloatMakeY(14)];
     _pushBtn.backgroundColor=[UIColor colorFromHexRGB:@"fb5d5d"];
     [[_pushBtn layer]setCornerRadius:3.0];
     [_pushBtn addTarget:self action:@selector(clickRightBT:) forControlEvents:UIControlEventTouchUpInside];
@@ -103,7 +102,7 @@ static CGFloat VIEW_HEIGHT = 44 ;
     [_deleteBtn setTitleColor:[UIColor colorFromHexRGB:@"fb5d5d"] forState:UIControlStateNormal];
     _deleteBtn.tag=19;
     [_deleteBtn setTitle:@"删除" forState:UIControlStateNormal];
-    _deleteBtn.titleLabel.font=[UIFont systemFontOfSize:14];
+    _deleteBtn.titleLabel.font=[UIFont systemFontOfSize:CGFloatMakeY(14)];
     _deleteBtn.backgroundColor=[UIColor whiteColor];
     [[_deleteBtn layer]setCornerRadius:3.0];
     [_deleteBtn.layer setBorderWidth:0.5];
@@ -137,7 +136,7 @@ static CGFloat VIEW_HEIGHT = 44 ;
 
 + (CGFloat)getViewHeight
 {
-    return VIEW_HEIGHT;
+    return CGFloatMakeY(44);
 }
 /*
 // Only override drawRect: if you perform custom drawing.

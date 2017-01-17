@@ -59,6 +59,9 @@
 @property (nonatomic,assign)NSInteger detail_random;
 @property (nonatomic,strong)UIButton *headerBtn;
 @property (nonatomic,strong)NSMutableArray *homepageImageArr;
+@property (nonatomic)BOOL isheaderRefresh;
+@property (nonatomic)BOOL isfooterRefresh;
+
 
 @end
 
@@ -88,6 +91,8 @@
     _productArr = [NSMutableArray new];
     _homepageImageArr = [NSMutableArray new];
     _categoryArr =[NSMutableArray new];
+    _isheaderRefresh = YES;
+    _isfooterRefresh = YES;
     if ([self returnIsLogin]) {
         [self postcollect];
     }
@@ -120,50 +125,55 @@
 //轮播图数据获取
 -(void)getData
 {
-    if (_LBTArr.count == 0)
-    {
-        NSDictionary * dic =@{@"appkey":APPkey};
+    if (_isheaderRefresh) {
+        _isheaderRefresh = NO;
+        if (_LBTArr.count == 0)
+        {
+            NSDictionary * dic =@{@"appkey":APPkey};
 #pragma dic MD5
-        NSDictionary * Ndic = [self md5DicWith:dic];
-        
-        AFHTTPSessionManager * manager = [self sharedManager];
-        //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-        manager.responseSerializer = [AFJSONResponseSerializer serializer];
-        manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-        
-        [manager POST:kADV parameters:Ndic progress:^(NSProgress * _Nonnull downloadProgress){}
-              success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
-         {
-             NSArray * arr = responseObject;
-             if(![arr isKindOfClass:[NSNull class]]){
-                 for (NSDictionary *dic  in arr)
-                 {
-                     
-                     LBTModel *model = [[LBTModel alloc]init];
-                     [model setValuesForKeysWithDictionary:dic];
-                     [_LBTArr addObject:model];
+            NSDictionary * Ndic = [self md5DicWith:dic];
+            
+            AFHTTPSessionManager * manager = [self sharedManager];
+            //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+            manager.responseSerializer = [AFJSONResponseSerializer serializer];
+            manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+            
+            [manager POST:kADV parameters:Ndic progress:^(NSProgress * _Nonnull downloadProgress){}
+                  success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
+             {
+                 NSArray * arr = responseObject;
+                 if(![arr isKindOfClass:[NSNull class]]){
+                     for (NSDictionary *dic  in arr)
+                     {
+                         
+                         LBTModel *model = [[LBTModel alloc]init];
+                         [model setValuesForKeysWithDictionary:dic];
+                         [_LBTArr addObject:model];
+                     }
+                     [self getHomepageImageData];
                  }
-                 [self getHomepageImageData];
              }
-         }
-              failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
-         {
-             NSLog(@"%@",error);
-             [self.HomePageTableView.mj_header endRefreshing];
-             UIAlertController *noAlert = [UIAlertController alertControllerWithTitle:@"提示" message:@"请检查你的网络状态🌚" preferredStyle:UIAlertControllerStyleAlert];
-             [self.navigationController presentViewController:noAlert animated:YES completion:^{
-                 sleep(1);
-                 [self.navigationController dismissViewControllerAnimated:YES completion:^{
-                     //  [self.HomePageTableView.mj_header beginRefreshing];
+                  failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
+             {
+                 NSLog(@"%@",error);
+                 [self.HomePageTableView.mj_header endRefreshing];
+                 _isheaderRefresh = YES;
+                 UIAlertController *noAlert = [UIAlertController alertControllerWithTitle:@"提示" message:@"请检查你的网络状态🌚" preferredStyle:UIAlertControllerStyleAlert];
+                 [self.navigationController presentViewController:noAlert animated:YES completion:^{
+                     sleep(1);
+                     [self.navigationController dismissViewControllerAnimated:YES completion:^{
+                     }];
                  }];
              }];
-         }];
+        }
+        else
+        {
+            [self getHomepageImageData];
+            [self.HomePageTableView.mj_header endRefreshing];
+            _isheaderRefresh= YES;
+        }
     }
-    else
-    {
-        [self getHomepageImageData];
-        [self.HomePageTableView.mj_header endRefreshing];
-    }
+    
 }
 
 -(void)getHomepageImageData
@@ -183,7 +193,7 @@
      }
           success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
      {
-       //  DLog(@"%@",responseObject);
+         //  DLog(@"%@",responseObject);
          if(![responseObject isKindOfClass:[NSNull class]]){
              for (NSDictionary *dic in responseObject) {
                  ImageModel *model = [ImageModel new];
@@ -197,6 +207,7 @@
      {
          NSLog(@"%@",error);
          [self.HomePageTableView.mj_header endRefreshing];
+         _isheaderRefresh = YES;
      }];
     
 }
@@ -222,7 +233,7 @@
          }
               success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
          {
-           //  DLog(@"%@",responseObject);
+             //  DLog(@"%@",responseObject);
              NSArray *arr = responseObject[@"list"];
              if (arr.count != 0) {
                  HeaderModel *Hmodel = [[HeaderModel alloc]init];
@@ -251,79 +262,139 @@
          {
              NSLog(@"%@",error);
              [self.HomePageTableView.mj_header endRefreshing];
+             _isheaderRefresh = YES;
          }];
     }
     else
     {
         [self.HomePageTableView reloadData];
         [self.HomePageTableView.mj_header endRefreshing];
+        _isheaderRefresh = YES;
         
     }
     if (_z == 1)
     {
         self.HomePageTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(addData)];
-        NSLog(@"gg");
+        
     }
 }
 
 //刷新获得特惠商品和热门专区数据
 -(void)addData{
-    NSLog(@"start");
-    if (_z < 5)
-    {
-        if (_z == 1) {
-            NSDictionary * dic =@{@"appkey":APPkey,@"num":[NSString stringWithFormat:@"%ld",(long)_num]};
-#pragma dic MD5
-            NSDictionary * Ndic = [self md5DicWith:dic];
-            
-            AFHTTPSessionManager * manager = [self sharedManager];;
-            //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-            manager.responseSerializer = [AFJSONResponseSerializer serializer];
-            manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-            
-            [manager POST:kHomePage parameters:Ndic progress:^(NSProgress * _Nonnull downloadProgress)
-             {
-                 
-             }
-                  success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
-             {
-              //   DLog(@"%@",responseObject);
-                 NSArray *arr = responseObject[@"list"];
-                 if (arr.count != 0) {
-                     HeaderModel *Hmodel = [[HeaderModel alloc]init];
-                     [Hmodel setValuesForKeysWithDictionary:responseObject];
-                     [_headerArr addObject:Hmodel];
-                     [_pidArr addObject:Hmodel.pid];
-                     NSMutableArray * mArr = [NSMutableArray array];
-                     for (NSDictionary *dic in arr)
-                     {
-                         ProductModel *model = [[ProductModel alloc]init];
-                         [model setValuesForKeysWithDictionary:dic];
-                         [mArr addObject:model];
-                     }
-                     [_productArr addObject:mArr];
-                     _z++;
-                     _num++;
-                     [self.HomePageTableView reloadData];
-                     [self.HomePageTableView.mj_footer endRefreshing];
-                 }else
-                 {
-                     _num++;
-                     [self addData];
-                 }
-             }
-                  failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
-             {
-                 NSLog(@"%@",error);
-                 [self.HomePageTableView.mj_footer endRefreshing];
-             }];
-        }else if(_z == 2)
+    if (_isfooterRefresh) {
+        _isfooterRefresh = NO;
+        if (_z < 5)
         {
-            _z++;
-            [self addData];
-        }else if( _z == 3||_z ==4){
-            
-            NSDictionary * dic =@{@"appkey":APPkey,@"num":[NSString stringWithFormat:@"%ld",(long)_num]};
+            if (_z == 1) {
+                NSDictionary * dic =@{@"appkey":APPkey,@"num":[NSString stringWithFormat:@"%ld",(long)_num]};
+#pragma dic MD5
+                NSDictionary * Ndic = [self md5DicWith:dic];
+                
+                AFHTTPSessionManager * manager = [self sharedManager];;
+                //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+                manager.responseSerializer = [AFJSONResponseSerializer serializer];
+                manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+                
+                [manager POST:kHomePage parameters:Ndic progress:^(NSProgress * _Nonnull downloadProgress)
+                 {
+                     
+                 }
+                      success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
+                 {
+                     //   DLog(@"%@",responseObject);
+                     NSArray *arr = responseObject[@"list"];
+                     if (arr.count != 0) {
+                         
+                         HeaderModel *Hmodel = [[HeaderModel alloc]init];
+                         [Hmodel setValuesForKeysWithDictionary:responseObject];
+                         [_headerArr addObject:Hmodel];
+                         [_pidArr addObject:Hmodel.pid];
+                         NSMutableArray * mArr = [NSMutableArray array];
+                         for (NSDictionary *dic in arr)
+                         {
+                             ProductModel *model = [[ProductModel alloc]init];
+                             [model setValuesForKeysWithDictionary:dic];
+                             [mArr addObject:model];
+                         }
+                         [_productArr addObject:mArr];
+                         _z++;
+                         _num++;
+                         [self.HomePageTableView reloadData];
+                         [self.HomePageTableView.mj_footer endRefreshing];
+                         _isfooterRefresh = YES;
+                     }else
+                     {
+                         _num++;
+                         [self addData];
+                         _isfooterRefresh = YES;
+                     }
+                 }
+                      failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
+                 {
+                     NSLog(@"%@",error);
+                     [self.HomePageTableView.mj_footer endRefreshing];
+                     _isfooterRefresh = YES;
+                 }];
+            }else if(_z == 2)
+            {
+                _z++;
+                _isfooterRefresh = YES;
+                [self addData];
+            }else if( _z == 3||_z ==4){
+                
+                NSDictionary * dic =@{@"appkey":APPkey,@"num":[NSString stringWithFormat:@"%ld",(long)_num]};
+#pragma dic MD5
+                NSDictionary * Ndic = [self md5DicWith:dic];
+                
+                AFHTTPSessionManager * manager = [self sharedManager];;
+                //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+                manager.responseSerializer = [AFJSONResponseSerializer serializer];
+                manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+                
+                [manager POST:kHomePage parameters:Ndic progress:^(NSProgress * _Nonnull downloadProgress)
+                 {
+                     
+                 }
+                      success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
+                 {
+                     //    DLog(@"%@",responseObject);
+                     NSArray *arr = responseObject[@"list"];
+                     if (arr.count != 0) {
+                         HeaderModel *Hmodel = [[HeaderModel alloc]init];
+                         [Hmodel setValuesForKeysWithDictionary:responseObject];
+                         [_headerArr addObject:Hmodel];
+                         [_pidArr addObject:Hmodel.pid];
+                         NSMutableArray * mArr = [NSMutableArray array];
+                         for (NSDictionary *dic in arr)
+                         {
+                             ProductModel *model = [[ProductModel alloc]init];
+                             [model setValuesForKeysWithDictionary:dic];
+                             [mArr addObject:model];
+                         }
+                         [_productArr addObject:mArr];
+                         _z++;
+                         _num++;
+                         [self.HomePageTableView reloadData];
+                         [self.HomePageTableView.mj_footer endRefreshing];
+                         _isfooterRefresh = YES;
+                     }else
+                     {
+                         _num++;
+                         _isfooterRefresh = YES;
+                         [self addData];
+                         
+                     }
+                 }
+                      failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
+                 {
+                     NSLog(@"%@",error);
+                     [self.HomePageTableView.mj_footer endRefreshing];
+                     _isfooterRefresh = YES;
+                 }];
+            }
+        }else if (_z==5)
+        {
+            NSDictionary * dic =@{@"appkey":APPkey};
 #pragma dic MD5
             NSDictionary * Ndic = [self md5DicWith:dic];
             
@@ -332,83 +403,37 @@
             manager.responseSerializer = [AFJSONResponseSerializer serializer];
             manager.requestSerializer = [AFHTTPRequestSerializer serializer];
             
-            [manager POST:kHomePage parameters:Ndic progress:^(NSProgress * _Nonnull downloadProgress)
+            [manager POST:KCategory parameters:Ndic progress:^(NSProgress * _Nonnull downloadProgress)
              {
                  
              }
                   success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
              {
-             //    DLog(@"%@",responseObject);
-                 NSArray *arr = responseObject[@"list"];
-                 if (arr.count != 0) {
-                     HeaderModel *Hmodel = [[HeaderModel alloc]init];
-                     [Hmodel setValuesForKeysWithDictionary:responseObject];
-                     [_headerArr addObject:Hmodel];
-                     [_pidArr addObject:Hmodel.pid];
-                     NSMutableArray * mArr = [NSMutableArray array];
-                     for (NSDictionary *dic in arr)
-                     {
-                         ProductModel *model = [[ProductModel alloc]init];
-                         [model setValuesForKeysWithDictionary:dic];
-                         [mArr addObject:model];
+                 //    DLog(@"%@",responseObject);
+                 if (![responseObject isKindOfClass:[NSNull class]]) {
+                     
+                     NSDictionary *dic = [NSDictionary dictionaryWithDictionary:responseObject[@"children"][@"2"]];
+                     NSArray *arr = [NSArray arrayWithArray:[dic allKeys]];
+                     for (int i = 0; i<15; i++) {
+                         CategoryModel *model = [CategoryModel new];
+                         NSString *str = arr[i];
+                         NSDictionary *dict = dic[str];
+                         [model setValuesForKeysWithDictionary:dict];
+                         [_categoryArr addObject:model];
                      }
-                     [_productArr addObject:mArr];
                      _z++;
-                     _num++;
                      [self.HomePageTableView reloadData];
                      [self.HomePageTableView.mj_footer endRefreshing];
-                 }else
-                 {
-                     _num++;
-                     [self addData];
+                     [self.HomePageTableView.mj_footer setHidden:YES];
                  }
              }
                   failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
              {
                  NSLog(@"%@",error);
                  [self.HomePageTableView.mj_footer endRefreshing];
+                 _isfooterRefresh = YES;
              }];
         }
-    }else if (_z==5)
-    {
-        NSDictionary * dic =@{@"appkey":APPkey};
-#pragma dic MD5
-        NSDictionary * Ndic = [self md5DicWith:dic];
-        
-        AFHTTPSessionManager * manager = [self sharedManager];;
-        //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-        manager.responseSerializer = [AFJSONResponseSerializer serializer];
-        manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-        
-        [manager POST:KCategory parameters:Ndic progress:^(NSProgress * _Nonnull downloadProgress)
-         {
-             
-         }
-              success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
-         {
-         //    DLog(@"%@",responseObject);
-             if (![responseObject isKindOfClass:[NSNull class]]) {
-                 
-                 NSDictionary *dic = [NSDictionary dictionaryWithDictionary:responseObject[@"children"][@"2"]];
-                 NSArray *arr = [NSArray arrayWithArray:[dic allKeys]];
-                 for (int i = 0; i<15; i++) {
-                     CategoryModel *model = [CategoryModel new];
-                     NSString *str = arr[i];
-                     NSDictionary *dict = dic[str];
-                     [model setValuesForKeysWithDictionary:dict];
-                     [_categoryArr addObject:model];
-                 }
-                 _z++;
-                 [self.HomePageTableView reloadData];
-                 [self.HomePageTableView.mj_footer endRefreshing];
-                 [self.HomePageTableView.mj_footer setHidden:YES];
-             }
-         }
-              failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
-         {
-             NSLog(@"%@",error);
-             [self.HomePageTableView.mj_footer endRefreshing];
-         }];
     }
 }
 
@@ -789,7 +814,7 @@
         
         [manager POST:kCollectionGoods parameters:nDic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             
-        //    DLog(@"%@",responseObject);
+            //    DLog(@"%@",responseObject);
             NSDictionary * errDic = responseObject;
             NSString * str = errDic[@"errmsg"];
             if ([btn.titleLabel.text isEqualToString:@"收藏"]) {
@@ -825,7 +850,7 @@
     [manager POST:kCollectList parameters:Ndic progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-     //   DLog(@"%@",responseObject);
+        //   DLog(@"%@",responseObject);
         NSNumber *number = [responseObject valueForKey:@"errcode"];
         NSString *errcode = [NSString stringWithFormat:@"%@",number];
         if ([errcode isEqualToString:@"0"]) {
@@ -838,6 +863,7 @@
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         DLog(@"failure%@",error);
+        [self postcollect];
     }];
 }
 
@@ -861,25 +887,25 @@
 //轮播点击事件
 -(void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index{
     if (_LBTArr.count != 0) {
-    LBTModel * model = _LBTArr[index];
-    
-    if (model.keyword.length != 0 || model.pcate.length != 0) {
-        AfterSearchViewController * afSearchVC = [[AfterSearchViewController alloc]init];
-        afSearchVC.KeyWord = model.keyword;
-        afSearchVC.thumb = model.thumb;
-        afSearchVC.pcate = model.pcate;
-        afSearchVC.advname = model.advname;
-        afSearchVC.descriptionText = model.descriptionStr;
-        afSearchVC.isFromLBT = YES;
-        afSearchVC.backgroundColor = self.view.backgroundColor;
-        [self.navigationController pushViewController:afSearchVC animated:YES];
-    }else
-    {
-        LbtWebViewController *lbtvc = [[LbtWebViewController alloc]init];
-        lbtvc.titlestr = model.advname;
-        lbtvc.urlstr = model.link;
-        [self.navigationController pushViewController:lbtvc animated:YES];
-    }
+        LBTModel * model = _LBTArr[index];
+        
+        if (model.keyword.length != 0 || model.pcate.length != 0) {
+            AfterSearchViewController * afSearchVC = [[AfterSearchViewController alloc]init];
+            afSearchVC.KeyWord = model.keyword;
+            afSearchVC.thumb = model.thumb;
+            afSearchVC.pcate = model.pcate;
+            afSearchVC.advname = model.advname;
+            afSearchVC.descriptionText = model.descriptionStr;
+            afSearchVC.isFromLBT = YES;
+            afSearchVC.backgroundColor = self.view.backgroundColor;
+            [self.navigationController pushViewController:afSearchVC animated:YES];
+        }else
+        {
+            LbtWebViewController *lbtvc = [[LbtWebViewController alloc]init];
+            lbtvc.titlestr = model.advname;
+            lbtvc.urlstr = model.link;
+            [self.navigationController pushViewController:lbtvc animated:YES];
+        }
     }
 }
 
@@ -927,7 +953,7 @@
         [manager POST:kGoodDetailURL parameters:Ndic progress:^(NSProgress * _Nonnull uploadProgress) {
             
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-          //  DLog(@"%@",responseObject);
+            //  DLog(@"%@",responseObject);
             _detailmodel = [DetailModel mj_objectWithKeyValues:responseObject];
             BookIngViewController * bVC = [[BookIngViewController alloc]init];
             [self.navigationController pushViewController:bVC animated:YES];

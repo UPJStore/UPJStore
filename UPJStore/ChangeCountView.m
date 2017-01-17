@@ -8,6 +8,7 @@
 
 #import "ChangeCountView.h"
 #import "UIColor+HexRGB.h"
+#import "UIViewController+CG.h"
 @implementation ChangeCountView
 
 - (instancetype)initWithFrame:(CGRect)frame chooseCount:(NSInteger)chooseCount totalCount:(NSInteger)totalCount
@@ -38,7 +39,7 @@
     }else{
         _subButton.enabled = YES;
     }
-    _numberFD = [[UITextField alloc]initWithFrame:CGRectMake(CGRectGetMaxX(_subButton.frame), 0, 40, _subButton.frame.size.height)];
+    _numberFD = [[UITextField alloc]initWithFrame:CGRectMake(CGRectGetMaxX(_subButton.frame), 0,CGFloatMakeX(40), _subButton.frame.size.height)];
     
     
     _subButton.backgroundColor=[UIColor clearColor];
