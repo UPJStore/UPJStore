@@ -125,11 +125,11 @@
 //轮播图数据获取
 -(void)getData
 {
-<<<<<<< HEAD
     if (_isheaderRefresh) {
         _isheaderRefresh = NO;
         if (_LBTArr.count == 0)
         {
+            
             NSDictionary * dic =@{@"appkey":APPkey};
 #pragma dic MD5
             NSDictionary * Ndic = [self md5DicWith:dic];
@@ -143,40 +143,15 @@
                   success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
              {
                  NSArray * arr = responseObject;
-                 if(![arr isKindOfClass:[NSNull class]]){
+                 if(![arr isKindOfClass:[NSNull class]]&&[arr isKindOfClass:[NSArray class]]){
                      for (NSDictionary *dic  in arr)
                      {
                          
                          LBTModel *model = [[LBTModel alloc]init];
                          [model setValuesForKeysWithDictionary:dic];
                          [_LBTArr addObject:model];
+                         
                      }
-                     [self getHomepageImageData];
-=======
-    if (_LBTArr.count == 0)
-    {
-        
-        NSDictionary * dic =@{@"appkey":APPkey};
-#pragma dic MD5
-        NSDictionary * Ndic = [self md5DicWith:dic];
-        
-        AFHTTPSessionManager * manager = [self sharedManager];
-        //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-        manager.responseSerializer = [AFJSONResponseSerializer serializer];
-        manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-        
-        [manager POST:kADV parameters:Ndic progress:^(NSProgress * _Nonnull downloadProgress){}
-              success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
-         {
-             NSArray * arr = responseObject;
-             if(![arr isKindOfClass:[NSNull class]]&&[arr isKindOfClass:[NSArray class]]){
-                 for (NSDictionary *dic  in arr)
-                 {
-                     
-                     LBTModel *model = [[LBTModel alloc]init];
-                     [model setValuesForKeysWithDictionary:dic];
-                     [_LBTArr addObject:model];
->>>>>>> 1b930d3a039ce9e537fd345802d457e878735563
                  }
              }
                   failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
@@ -199,8 +174,8 @@
             _isheaderRefresh= YES;
         }
     }
-    
 }
+
 
 -(void)getHomepageImageData
 {
@@ -219,13 +194,9 @@
      }
           success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
      {
-<<<<<<< HEAD
          //  DLog(@"%@",responseObject);
-         if(![responseObject isKindOfClass:[NSNull class]]){
-=======
-       //  DLog(@"%@",responseObject);
          if(![responseObject isKindOfClass:[NSNull class]]&&[responseObject isKindOfClass:[NSArray class]]){
->>>>>>> 1b930d3a039ce9e537fd345802d457e878735563
+             
              for (NSDictionary *dic in responseObject) {
                  ImageModel *model = [ImageModel new];
                  [model setValuesForKeysWithDictionary:dic];
