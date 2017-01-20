@@ -171,4 +171,6 @@ CGRectMakeCode(CGFloat x, CGFloat y, CGFloat width, CGFloat height){
 #pragma mark -- 加载动画
 -(void)setMBHUD;
 
+-(void)setMBHUD2Withtext:(NSString*)str;
+
 @end

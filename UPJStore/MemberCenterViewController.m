@@ -528,11 +528,17 @@
     if([model.member_agent_id isEqualToString:@"0"])
     {
         [self setIsAgentwithIsAgent:NO];
+    }else if([model.member_agent_id isEqualToString:@" "])
+    {
+        [self setIsAgentwithIsAgent:NO];
     }else
     {
         [self setIsAgentwithIsAgent:YES];
     }
     if ([model.domain_level isEqualToString:@"0"]) {
+        [self setIsDealerwithIsDealer:NO];
+    }else if([model.domain_level isEqualToString:@" "])
+    {
         [self setIsDealerwithIsDealer:NO];
     }else
     {
@@ -540,10 +546,15 @@
     }
     if ([model.flag isEqualToString:@"0"]) {
         [self setIsFlagwithIsFlag:NO];
+    }else if([model.flag isEqualToString:@" "])
+    {
+        [self setIsFlagwithIsFlag:NO];
     }else
     {
         [self setIsFlagwithIsFlag:YES];
     }
+    
+    [self setIsLoginwithIsLogin:YES];
     _arr1 = @[@"我的收藏",@"我关注的品牌",@"收货地址",@"我的优惠券"];
     if (self.islogin) {
         //先判断是创客还是经销商
@@ -572,7 +583,6 @@
     _memberView.frame = CGRectMake1(0, 160,414, 55*(_arr1.count+_arr2.count+_arr3.count)+150);
     _scrollView.contentSize = CGSizeMake(kWidth,_memberView.frame.origin.y+_memberView.frame.size.height+CGFloatMakeY(86));
     [_memberView reloadData];
-    [self setIsLoginwithIsLogin:YES];
     [self postmid];
     [self postaddress];
     [self postcollect];
@@ -674,17 +684,26 @@
         if([model.member_agent_id isEqualToString:@"0"])
         {
             [self setIsAgentwithIsAgent:NO];
+        }else if([model.member_agent_id isEqualToString:@" "])
+        {
+            [self setIsAgentwithIsAgent:NO];
         }else
         {
             [self setIsAgentwithIsAgent:YES];
         }
         if ([model.domain_level isEqualToString:@"0"]) {
             [self setIsDealerwithIsDealer:NO];
+        }else if([model.domain_level isEqualToString:@" "])
+        {
+            [self setIsDealerwithIsDealer:NO];
         }else
         {
             [self setIsDealerwithIsDealer:YES];
         }
         if ([model.flag isEqualToString:@"0"]) {
+            [self setIsFlagwithIsFlag:NO];
+        }else if([model.flag isEqualToString:@" "])
+        {
             [self setIsFlagwithIsFlag:NO];
         }else
         {

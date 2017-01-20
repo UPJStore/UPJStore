@@ -45,7 +45,7 @@
 
 -(void)initWithSelectView
 {
-    _selectView = [[UIView alloc]initWithFrame:CGRectMake1(0, 10, 414, 100)];
+    _selectView = [[UIView alloc]initWithFrame:CGRectMake1(0, 5, 414, 100)];
     _selectView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:_selectView];
     
@@ -68,6 +68,7 @@
     UILabel *label11 = [[UILabel alloc]initWithFrame:CGRectMake1(100, 0, 250, 50)];
     label11.text = @"365元";
     label11.textAlignment = 2;
+    label11.font = [UIFont systemFontOfSize:CGFloatMakeY(14)];
     label11.textColor = [UIColor colorFromHexRGB:@"aaaaaa"];
     [button1 addSubview:label11];
     
@@ -94,6 +95,7 @@
     UILabel *label22 = [[UILabel alloc]initWithFrame:CGRectMake1(100, 0, 250, 50)];
     label22.text = @"2000元";
     label22.textAlignment = 2;
+    label22.font = [UIFont systemFontOfSize:CGFloatMakeY(14)];
     label22.textColor = [UIColor colorFromHexRGB:@"aaaaaa"];
     [button2 addSubview:label22];
     
@@ -200,7 +202,7 @@
     [labelView addSubview:textLabel4];
     
     UIButton *ApplyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    ApplyBtn.frame = CGRectMake1(20, 335, 374, 50);
+    ApplyBtn.frame = CGRectMake1(20, 330, 374, 50);
     ApplyBtn.backgroundColor = [UIColor colorFromHexRGB:@"32a632@"];
     [ApplyBtn setTitle:@"提交申请" forState:UIControlStateNormal];
     [ApplyBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];

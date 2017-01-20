@@ -307,17 +307,26 @@
         if([model.member_agent_id isEqualToString:@"0"])
         {
             [self setIsAgentwithIsAgent:NO];
+        }else if([model.member_agent_id isEqualToString:@" "])
+        {
+            [self setIsAgentwithIsAgent:NO];
         }else
         {
             [self setIsAgentwithIsAgent:YES];
         }
         if ([model.domain_level isEqualToString:@"0"]) {
             [self setIsDealerwithIsDealer:NO];
+        }else if([model.domain_level isEqualToString:@" "])
+        {
+            [self setIsDealerwithIsDealer:NO];
         }else
         {
             [self setIsDealerwithIsDealer:YES];
         }
         if ([model.flag isEqualToString:@"0"]) {
+            [self setIsFlagwithIsFlag:NO];
+        }else if([model.flag isEqualToString:@" "])
+        {
             [self setIsFlagwithIsFlag:NO];
         }else
         {

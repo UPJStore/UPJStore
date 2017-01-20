@@ -378,4 +378,15 @@ static const void * loadingHudKey = &loadingHudKey;
 //    self.loadingHud.backgroundColor = [UIColor whiteColor];
 }
 
+-(void)setMBHUD2Withtext:(NSString*)str
+{
+    MBProgressHUD *hub = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hub.label.text = str;
+    hub.bezelView.backgroundColor = [UIColor clearColor];
+//hub.label.font = [UIFont systemFontOfSize:CGFloatMakeY(15)];
+    hub.mode = MBProgressHUDModeText;
+    hub.removeFromSuperViewOnHide = YES;
+    [hub hideAnimated:YES afterDelay:3];
+}
+
 @end

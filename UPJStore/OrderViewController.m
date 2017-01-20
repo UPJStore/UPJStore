@@ -57,7 +57,7 @@
     
     NSArray *arr = @[@"全部",@"待付款",@"待发货",@"待收货",@"待评价"];
     
-    UIView *headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 414, 45)];
+    UIView *headView = [[UIView alloc]initWithFrame:CGRectMake1(0, 0, 414, 45)];
     headView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:headView];
     lineView = [[UIView alloc]initWithFrame:CGRectMake1(0, 0, 414, 0.5)];

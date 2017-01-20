@@ -489,8 +489,13 @@
                     alertCon = [UIAlertController alertControllerWithTitle:nil message:@"WiFi链接状态。" preferredStyle:UIAlertControllerStyleAlert];
                     [self.window.rootViewController presentViewController:alertCon animated:YES completion:nil];
                     
+                    MBProgressHUD *hub = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].windows animated:YES];
                     
-                    //                [[[UIAlertView alloc] initWithTitle:@"网络状态" message:@"WiFi链接状态。" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil , nil] show];
+                    hub.label.text = @"wifi链接状态";
+                    hub.mode = MBProgressHUDModeText;
+                    hub.removeFromSuperViewOnHide = YES;
+                    [hub hideAnimated:YES afterDelay:0.7];
+                
                     break;
                 }
                     

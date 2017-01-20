@@ -120,7 +120,6 @@
     
 }
 
-
 #pragma mark - 数据获取
 //轮播图数据获取
 -(void)getData
@@ -142,7 +141,7 @@
             [manager POST:kADV parameters:Ndic progress:^(NSProgress * _Nonnull downloadProgress){}
                   success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
              {
-                 NSArray * arr = responseObject;
+                 NSArray * arr = [NSArray arrayWithArray:responseObject];
                  if(![arr isKindOfClass:[NSNull class]]&&[arr isKindOfClass:[NSArray class]]){
                      for (NSDictionary *dic  in arr)
                      {
@@ -152,6 +151,7 @@
                          [_LBTArr addObject:model];
                          
                      }
+                     [self getHomepageImageData];
                  }
              }
                   failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
@@ -202,8 +202,13 @@
                  [model setValuesForKeysWithDictionary:dic];
                  [_homepageImageArr addObject:model];
              }
+                
              // [_HomePageTableView reloadData]];
-             [self getHeaderDataAndModelData];}
+             [self getHeaderDataAndModelData];
+         }else
+         {
+             [self getHomepageImageData];
+         }
      }
           failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
      {
